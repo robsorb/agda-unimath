@@ -7,6 +7,13 @@ module synthetic-homotopy-theory.wedges-of-pointed-types where
 <details><summary>Imports</summary>
 
 ```agda
+open import foundation-core.dependent-identifications
+open import foundation.unit-type
+open import foundation.function-extensionality
+open import synthetic-homotopy-theory.dependent-cocones-under-spans
+open import synthetic-homotopy-theory.pushouts
+open import foundation.action-on-identifications-functions
+open import foundation.injective-maps
 open import foundation.dependent-pair-types
 open import foundation.homotopies
 open import foundation.identity-types
@@ -172,6 +179,40 @@ module _
       ( inclusion-point-Pointed-Type B)
       ( cocone-product-wedge-Pointed-Type)
 ```
+
+
+```agda
+module _
+  {l1 l2 l3 : Level} (A : Pointed-Type l1) (B : Pointed-Type l2)
+  (P : type-Pointed-Type (A ∨∗ B) → UU l3)
+  (f : (a : type-Pointed-Type A) → P (map-inl-wedge-Pointed-Type A B a))
+  (g : (b : type-Pointed-Type B) → P (map-inr-wedge-Pointed-Type A B b))
+  (p : dependent-identification P (glue-wedge-Pointed-Type A B) (f (point-Pointed-Type A)) (g (point-Pointed-Type B)))
+  where
+
+  dependent-cocone-wedge-Pointed-Type :
+    dependent-cocone
+      (point (point-Pointed-Type A)) (point (point-Pointed-Type B))
+      (cocone-pushout (point (point-Pointed-Type A)) (point (point-Pointed-Type B)))
+      P
+  pr1 dependent-cocone-wedge-Pointed-Type = f
+  pr1 (pr2 dependent-cocone-wedge-Pointed-Type) = g
+  pr2 (pr2 dependent-cocone-wedge-Pointed-Type) star = p
+
+  dependent-cogap-wedge-Pointed-Type : (x : type-Pointed-Type (A ∨∗ B)) → P x
+  dependent-cogap-wedge-Pointed-Type =
+    dependent-cogap
+      (point (point-Pointed-Type A))
+      (point (point-Pointed-Type B))
+      (dependent-cocone-wedge-Pointed-Type)
+
+
+```
+
+
+
+
+
 
 ## See also
 
