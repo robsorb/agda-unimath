@@ -180,6 +180,7 @@ module _
       ( cocone-product-wedge-Pointed-Type)
 ```
 
+### Dependent cogap map for wedges
 
 ```agda
 module _
@@ -206,9 +207,7 @@ module _
       (point (point-Pointed-Type B))
       (dependent-cocone-wedge-Pointed-Type)
 
-
 ```
-
 
 
 
