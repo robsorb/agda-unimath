@@ -7,13 +7,11 @@ module synthetic-homotopy-theory.wedges-of-pointed-types where
 <details><summary>Imports</summary>
 
 ```agda
+open import foundation-core.function-types
 open import foundation-core.dependent-identifications
+open import foundation-core.propositions
 open import foundation.unit-type
-open import foundation.function-extensionality
-open import synthetic-homotopy-theory.dependent-cocones-under-spans
 open import synthetic-homotopy-theory.pushouts
-open import foundation.action-on-identifications-functions
-open import foundation.injective-maps
 open import foundation.dependent-pair-types
 open import foundation.homotopies
 open import foundation.identity-types
@@ -25,6 +23,7 @@ open import structured-types.pointed-types
 open import structured-types.pointed-unit-type
 
 open import synthetic-homotopy-theory.cocones-under-pointed-span-diagrams
+open import synthetic-homotopy-theory.dependent-cocones-under-spans
 open import synthetic-homotopy-theory.cofibers-of-maps
 open import synthetic-homotopy-theory.pushouts
 open import synthetic-homotopy-theory.pushouts-of-pointed-types
@@ -184,17 +183,23 @@ module _
 
 ```agda
 module _
-  {l1 l2 l3 : Level} (A : Pointed-Type l1) (B : Pointed-Type l2)
+  {l1 l2 l3 : Level} {A : Pointed-Type l1} {B : Pointed-Type l2}
   (P : type-Pointed-Type (A ∨∗ B) → UU l3)
   (f : (a : type-Pointed-Type A) → P (map-inl-wedge-Pointed-Type A B a))
   (g : (b : type-Pointed-Type B) → P (map-inr-wedge-Pointed-Type A B b))
-  (p : dependent-identification P (glue-wedge-Pointed-Type A B) (f (point-Pointed-Type A)) (g (point-Pointed-Type B)))
+  (p :
+      dependent-identification P
+        (glue-wedge-Pointed-Type A B)
+        (f (point-Pointed-Type A))
+        (g (point-Pointed-Type B)))
   where
 
   dependent-cocone-wedge-Pointed-Type :
     dependent-cocone
       (point (point-Pointed-Type A)) (point (point-Pointed-Type B))
-      (cocone-pushout (point (point-Pointed-Type A)) (point (point-Pointed-Type B)))
+      (cocone-pushout
+        (point (point-Pointed-Type A))
+        (point (point-Pointed-Type B)))
       P
   pr1 dependent-cocone-wedge-Pointed-Type = f
   pr1 (pr2 dependent-cocone-wedge-Pointed-Type) = g
@@ -209,6 +214,26 @@ module _
 
 ```
 
+### Mapping wedges into props
+
+```agda
+
+module _
+  {l1 l2 l3 : Level} (A : Pointed-Type l1) (B : Pointed-Type l2)
+  (P : type-Pointed-Type (A ∨∗ B) → Prop l3)
+  (f : (a : type-Pointed-Type A) → type-Prop (P (map-inl-wedge-Pointed-Type A B a)))
+  (g : (b : type-Pointed-Type B) → type-Prop (P (map-inr-wedge-Pointed-Type A B b)))
+  where
+
+  wedge-into-Prop-Pointed-Type : (z : type-Pointed-Type (A ∨∗ B)) → type-Prop (P z)
+  wedge-into-Prop-Pointed-Type =
+    dependent-cogap-wedge-Pointed-Type
+      (type-Prop ∘ P) f g
+      (eq-is-prop
+        (is-prop-type-Prop
+          (P (map-inr-wedge-Pointed-Type A B (point-Pointed-Type B)))))
+
+```
 
 
 
