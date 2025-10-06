@@ -10,6 +10,7 @@ module synthetic-homotopy-theory.wedges-of-pointed-types where
 open import foundation-core.function-types
 open import foundation-core.dependent-identifications
 open import foundation-core.propositions
+open import foundation-core.sets
 open import foundation.unit-type
 open import synthetic-homotopy-theory.pushouts
 open import foundation.dependent-pair-types
@@ -219,7 +220,7 @@ module _
 ```agda
 
 module _
-  {l1 l2 l3 : Level} (A : Pointed-Type l1) (B : Pointed-Type l2)
+  {l1 l2 l3 : Level} {A : Pointed-Type l1} {B : Pointed-Type l2}
   (P : type-Pointed-Type (A ∨∗ B) → Prop l3)
   (f : (a : type-Pointed-Type A) → type-Prop (P (map-inl-wedge-Pointed-Type A B a)))
   (g : (b : type-Pointed-Type B) → type-Prop (P (map-inr-wedge-Pointed-Type A B b)))
@@ -235,6 +236,15 @@ module _
 
 ```
 
+```agda
+
+module _
+  {l1 l2 l3 : Level} {A : Pointed-Type l1} {B : Pointed-Type l2}
+  (is-set-A : is-set (type-Pointed-Type A)) (is-set-B : is-set (type-Pointed-Type B))
+  where
+
+
+```
 
 
 
