@@ -7,12 +7,20 @@ module synthetic-homotopy-theory.wedges-of-pointed-types where
 <details><summary>Imports</summary>
 
 ```agda
+open import foundation.raising-universe-levels
+open import foundation.propositional-extensionality
+open import foundation.function-extensionality
+open import foundation-core.injective-maps
 open import foundation-core.function-types
+open import foundation.sections
+open import foundation.retractions
+open import foundation.action-on-identifications-functions
 open import foundation-core.dependent-identifications
 open import foundation-core.propositions
 open import foundation-core.sets
 open import foundation.unit-type
 open import synthetic-homotopy-theory.pushouts
+open import synthetic-homotopy-theory.cocones-under-spans
 open import foundation.dependent-pair-types
 open import foundation.homotopies
 open import foundation.identity-types
@@ -180,6 +188,59 @@ module _
       ( cocone-product-wedge-Pointed-Type)
 ```
 
+### Cogap map for wedges
+
+```agda
+module _
+  {l1 l2 l3 : Level} {A : Pointed-Type l1} {B : Pointed-Type l2}
+  {C : UU l3}
+  (f : (a : type-Pointed-Type A) → C)
+  (g : (b : type-Pointed-Type B) → C)
+  (p : (f (point-Pointed-Type A) ＝ g (point-Pointed-Type B)))
+  where
+
+  cocone-wedge-Pointed-Type : cocone (point (point-Pointed-Type A)) (point (point-Pointed-Type B)) C
+  pr1 cocone-wedge-Pointed-Type = f
+  pr1 (pr2 cocone-wedge-Pointed-Type) = g
+  pr2 (pr2 cocone-wedge-Pointed-Type) star = p
+
+  cogap-wedge-Pointed-Type : type-Pointed-Type (A ∨∗ B) → C
+  cogap-wedge-Pointed-Type =
+    cogap
+      (point (point-Pointed-Type A))
+      (point (point-Pointed-Type B))
+      cocone-wedge-Pointed-Type
+
+module _
+  {l1 l2 l3 : Level} {A : Pointed-Type l1} {B : Pointed-Type l2}
+  {C : UU l3}
+  {f : (a : type-Pointed-Type A) → C}
+  {g : (b : type-Pointed-Type B) → C}
+  {p : (f (point-Pointed-Type A) ＝ g (point-Pointed-Type B))}
+  where
+
+  compute-inl-cogap-wedge-Pointed-Type :
+    (a : type-Pointed-Type A) → cogap-wedge-Pointed-Type f g p (map-inl-wedge-Pointed-Type A B a) ＝ f a
+  compute-inl-cogap-wedge-Pointed-Type =
+    compute-inl-cogap
+      (point (point-Pointed-Type A))
+      (point (point-Pointed-Type B))
+      (cocone-wedge-Pointed-Type f g p)
+
+  compute-inr-cogap-wedge-Pointed-Type :
+    (b : type-Pointed-Type B) → cogap-wedge-Pointed-Type f g p (map-inr-wedge-Pointed-Type A B b) ＝ g b
+  compute-inr-cogap-wedge-Pointed-Type =
+    compute-inr-cogap
+      (point (point-Pointed-Type A))
+      (point (point-Pointed-Type B))
+      (cocone-wedge-Pointed-Type f g p)
+
+```
+
+
+
+
+
 ### Dependent cogap map for wedges
 
 ```agda
@@ -215,6 +276,64 @@ module _
 
 ```
 
+### Double cogap map for wedges
+
+```agda
+module _
+  {l1 l2 l3 : Level} {A : Pointed-Type l1} {B : Pointed-Type l2}
+  {C : UU l3}
+  (ll : type-Pointed-Type A → type-Pointed-Type A → C)
+  (lr : type-Pointed-Type A → type-Pointed-Type B → C)
+  (rl : type-Pointed-Type B → type-Pointed-Type A → C)
+  (rr : type-Pointed-Type B → type-Pointed-Type B → C)
+  (leq : (a : type-Pointed-Type A) → ll a (point-Pointed-Type A) ＝ lr a (point-Pointed-Type B))
+  (req : (b : type-Pointed-Type B) → rl b (point-Pointed-Type A) ＝ rr b (point-Pointed-Type B))
+  (eql : (a : type-Pointed-Type A) → ll (point-Pointed-Type A) a ＝ rl (point-Pointed-Type B) a)
+  (eqr : (b : type-Pointed-Type B) → lr (point-Pointed-Type A) b ＝ rr (point-Pointed-Type B) b)
+  where
+
+  double-cogap-wedge-Pointed-Type : type-Pointed-Type (A ∨∗ B) → type-Pointed-Type (A ∨∗ B) → C
+  double-cogap-wedge-Pointed-Type =
+    cogap-wedge-Pointed-Type
+      l r
+      (eq-htpy
+        (dependent-cogap-wedge-Pointed-Type
+          (λ x → l (point-Pointed-Type A) x ＝ r (point-Pointed-Type B) x)
+          (λ a →
+            equational-reasoning
+              l (point-Pointed-Type A) (map-inl-wedge-Pointed-Type A B a)
+                ＝ ll (point-Pointed-Type A) a
+                  by
+                  compute-inl-cogap-wedge-Pointed-Type a
+                ＝ rl (point-Pointed-Type B) a
+                  by
+                  eql a
+                ＝ r (point-Pointed-Type B) (map-inl-wedge-Pointed-Type A B a)
+                  by
+                  inv (compute-inl-cogap-wedge-Pointed-Type a))
+          (λ b →
+            equational-reasoning
+              l (point-Pointed-Type A) (map-inr-wedge-Pointed-Type A B b)
+                ＝ lr (point-Pointed-Type A) b
+                  by
+                  compute-inr-cogap-wedge-Pointed-Type b
+                ＝ rr (point-Pointed-Type B) b
+                  by
+                  eqr b
+                ＝ r (point-Pointed-Type B) (map-inr-wedge-Pointed-Type A B b)
+                  by
+                  inv (compute-inr-cogap-wedge-Pointed-Type b))
+          {!   !}))
+      where
+        l : type-Pointed-Type A → type-Pointed-Type (A ∨∗ B) → C
+        l a = cogap-wedge-Pointed-Type (ll a) (lr a) (leq a)
+
+        r : type-Pointed-Type B → type-Pointed-Type (A ∨∗ B) → C
+        r b = cogap-wedge-Pointed-Type (rl b) (rr b) (req b)
+```
+
+
+
 ### Mapping wedges into props
 
 ```agda
@@ -234,16 +353,215 @@ module _
         (is-prop-type-Prop
           (P (map-inr-wedge-Pointed-Type A B (point-Pointed-Type B)))))
 
+module _
+  {l1 l2 l3 : Level} {A : Pointed-Type l1} {B : Pointed-Type l2}
+  (P : type-Pointed-Type (A ∨∗ B) → type-Pointed-Type (A ∨∗ B) → Prop l3)
+  (ll :
+      (a : type-Pointed-Type A) → (a' : type-Pointed-Type A)
+      → type-Prop (P (map-inl-wedge-Pointed-Type A B a) (map-inl-wedge-Pointed-Type A B a')))
+
+  (lr :
+      (a : type-Pointed-Type A) → (b : type-Pointed-Type B)
+      → type-Prop (P (map-inl-wedge-Pointed-Type A B a) (map-inr-wedge-Pointed-Type A B b)))
+
+  (rl :
+      (b : type-Pointed-Type B) → (a : type-Pointed-Type A)
+      → type-Prop (P (map-inr-wedge-Pointed-Type A B b) (map-inl-wedge-Pointed-Type A B a)))
+
+  (rr :
+      (b : type-Pointed-Type B) → (b' : type-Pointed-Type B)
+      → type-Prop (P (map-inr-wedge-Pointed-Type A B b) (map-inr-wedge-Pointed-Type A B b')))
+  where
+
+  double-wedge-into-Prop-Pointed-Type : (z : type-Pointed-Type (A ∨∗ B)) → (z' : type-Pointed-Type (A ∨∗ B)) → type-Prop (P z z')
+  double-wedge-into-Prop-Pointed-Type =
+    wedge-into-Prop-Pointed-Type
+      (λ z → Π-Prop (type-Pointed-Type (A ∨∗ B)) (P z))
+      (λ a →
+        wedge-into-Prop-Pointed-Type
+          (P (map-inl-wedge-Pointed-Type A B a))
+          (ll a)
+          (lr a))
+      (λ b →
+        wedge-into-Prop-Pointed-Type
+          (P (map-inr-wedge-Pointed-Type A B b))
+          (rl b)
+          (rr b))
+```
+
+
+```agda
+module _
+  {l1 l2 : Level} {A : Pointed-Type l1} {B : Pointed-Type l2}
+  where
+
+  prl-wedge-Pointed-Type : type-Pointed-Type (A ∨∗ B) → type-Pointed-Type A
+  prl-wedge-Pointed-Type = pr1 ∘ map-product-wedge-Pointed-Type A B
+
+  prr-wedge-Pointed-Type : type-Pointed-Type (A ∨∗ B) → type-Pointed-Type B
+  prr-wedge-Pointed-Type = pr2 ∘ map-product-wedge-Pointed-Type A B
+
+  is-retract-inl-wedge-Pointed-Type : is-retraction (map-inl-wedge-Pointed-Type A B) (prl-wedge-Pointed-Type)
+  is-retract-inl-wedge-Pointed-Type = ap pr1 ∘ compute-inl-product-wedge-Pointed-Type A B
+
+  is-injective-inl : is-injective (map-inl-wedge-Pointed-Type A B)
+  is-injective-inl =
+    is-injective-retraction
+      (map-inl-wedge-Pointed-Type A B)
+      (prl-wedge-Pointed-Type , is-retract-inl-wedge-Pointed-Type)
+
+  is-retract-inr-wedge-Pointed-Type : is-retraction (map-inr-wedge-Pointed-Type A B) (prr-wedge-Pointed-Type)
+  is-retract-inr-wedge-Pointed-Type = ap pr2 ∘ compute-inr-product-wedge-Pointed-Type A B
+
+  is-injective-inr : is-injective (map-inr-wedge-Pointed-Type A B)
+  is-injective-inr =
+    is-injective-retraction
+      (map-inr-wedge-Pointed-Type A B)
+      (prr-wedge-Pointed-Type , is-retract-inr-wedge-Pointed-Type)
+
 ```
 
 ```agda
 
+
+
 module _
-  {l1 l2 l3 : Level} {A : Pointed-Type l1} {B : Pointed-Type l2}
+  {l1 l2 : Level} {A : Pointed-Type l1} {B : Pointed-Type l2}
   (is-set-A : is-set (type-Pointed-Type A)) (is-set-B : is-set (type-Pointed-Type B))
+  (a : type-Pointed-Type A)
   where
 
+  set-A : Set l1
+  set-A = (type-Pointed-Type A , is-set-A)
 
+  set-B : Set l2
+  set-B = (type-Pointed-Type B , is-set-B)
+
+  code : type-Pointed-Type (A ∨∗ B) → type-Pointed-Type (A ∨∗ B) → Prop (l1 ⊔ l2)
+  code =
+    cogap-wedge-Pointed-Type
+      (λ a → cogap-wedge-Pointed-Type (code-ll a) (code-lr a) (code-l-Id a))
+      (λ b → cogap-wedge-Pointed-Type (code-rl b) (code-rr b) (code-r-Id b))
+      ({!   !})
+    where
+      code-ll : type-Pointed-Type A → type-Pointed-Type A → Prop (l1 ⊔ l2)
+      code-ll a a' = Id-Prop (raise-Set l2 set-A) (map-raise a) (map-raise a')
+
+      code-lr : type-Pointed-Type A → type-Pointed-Type B → Prop (l1 ⊔ l2)
+      code-lr a b =
+        product-Prop
+          (Id-Prop (raise-Set l2 set-A) (map-raise a) (map-raise (point-Pointed-Type A)))
+          (Id-Prop (raise-Set l1 set-B) (map-raise b) (map-raise (point-Pointed-Type B)))
+
+
+      code-l-Id : (a : type-Pointed-Type A) → code-ll a (point-Pointed-Type A) ＝ code-lr a (point-Pointed-Type B)
+      code-l-Id a =
+        eq-iff
+          (λ p → p , refl)
+          (λ (p , q) → p)
+
+      code-rl : type-Pointed-Type B → type-Pointed-Type A → Prop (l1 ⊔ l2)
+      code-rl b a = code-lr a b
+
+      code-rr : type-Pointed-Type B → type-Pointed-Type B → Prop (l1 ⊔ l2)
+      code-rr b b' = Id-Prop (raise-Set l1 set-B) (map-raise b) (map-raise b')
+
+      code-r-Id : (b : type-Pointed-Type B) → code-rl b (point-Pointed-Type A) ＝ code-rr b (point-Pointed-Type B)
+      code-r-Id b =
+        eq-iff
+          (λ (p , q) → q)
+          (λ p → refl , p)
+
+
+  is-set-wedge-Pointed-Set : is-set (type-Pointed-Type (A ∨∗ B))
+  is-set-wedge-Pointed-Set = {!   !}
+    where
+      ll :
+        (a : type-Pointed-Type A) → (a' : type-Pointed-Type A)
+        → is-prop (
+          map-inl-wedge-Pointed-Type A B a
+            ＝ map-inl-wedge-Pointed-Type A B a')
+      ll = {!   !}
+
+
+module _
+  {l1 l2 : Level} {A : Pointed-Type l1} {B : Pointed-Type l2}
+  (is-set-A : is-set (type-Pointed-Type A)) (is-set-B : is-set (type-Pointed-Type B))
+  (a : type-Pointed-Type A)
+  where
+
+  ll' :
+    (a' : type-Pointed-Type A) →
+    (a , point-Pointed-Type B) ＝ (a' , point-Pointed-Type B)
+    → map-inl-wedge-Pointed-Type A B a ＝ map-inl-wedge-Pointed-Type A B a'
+  ll' a' x = ap (map-inl-wedge-Pointed-Type A B) (ap pr1 x)
+
+  ll :
+    (a' : type-Pointed-Type A) →
+    (map-product-wedge-Pointed-Type A B (map-inl-wedge-Pointed-Type A B a)
+      ＝ map-product-wedge-Pointed-Type A B (map-inl-wedge-Pointed-Type A B a')
+    ) → map-inl-wedge-Pointed-Type A B a ＝ map-inl-wedge-Pointed-Type A B a'
+  ll a' p =
+    ll' a'
+      (equational-reasoning
+        (a , point-Pointed-Type B)
+        ＝ map-product-wedge-Pointed-Type A B (map-inl-wedge-Pointed-Type A B a)
+          by
+          inv (compute-inl-product-wedge-Pointed-Type A B a)
+        ＝ map-product-wedge-Pointed-Type A B (map-inl-wedge-Pointed-Type A B a')
+          by
+          p
+        ＝ (a' , point-Pointed-Type B)
+          by
+          compute-inl-product-wedge-Pointed-Type A B a'
+      )
+
+  lr' :
+    (b : type-Pointed-Type B) →
+    (a , point-Pointed-Type B) ＝ (point-Pointed-Type A , b)
+    → map-inl-wedge-Pointed-Type A B a ＝ map-inr-wedge-Pointed-Type A B b
+  lr' b p =
+    equational-reasoning
+      map-inl-wedge-Pointed-Type A B a
+        ＝ map-inl-wedge-Pointed-Type A B (point-Pointed-Type A)
+          by ap (map-inl-wedge-Pointed-Type A B) (ap pr1 p)
+        ＝ map-inr-wedge-Pointed-Type A B (point-Pointed-Type B)
+          by glue-wedge-Pointed-Type A B
+        ＝ map-inr-wedge-Pointed-Type A B b
+          by (ap (map-inr-wedge-Pointed-Type A B) (ap pr2 p))
+
+  lr :
+    (b : type-Pointed-Type B) →
+    (map-product-wedge-Pointed-Type A B (map-inl-wedge-Pointed-Type A B a)
+      ＝ map-product-wedge-Pointed-Type A B (map-inr-wedge-Pointed-Type A B b)
+    ) → map-inl-wedge-Pointed-Type A B a ＝ map-inr-wedge-Pointed-Type A B b
+  lr b p =
+    lr' b
+      (equational-reasoning
+        (a , point-Pointed-Type B)
+        ＝ map-product-wedge-Pointed-Type A B (map-inl-wedge-Pointed-Type A B a)
+          by
+          inv (compute-inl-product-wedge-Pointed-Type A B a)
+        ＝ map-product-wedge-Pointed-Type A B (map-inr-wedge-Pointed-Type A B b)
+          by
+          p
+        ＝ (point-Pointed-Type A , b)
+          by
+          compute-inr-product-wedge-Pointed-Type A B b
+      )
+
+  qqq : (z : type-Pointed-Type (A ∨∗ B)) → Prop (l1 ⊔ l2)
+  qqq z =
+    Π-Prop
+      ((map-product-wedge-Pointed-Type A B (map-inl-wedge-Pointed-Type A B a)
+        ＝ map-product-wedge-Pointed-Type A B z))
+      λ _ → Id-Prop {!   !} {!   !} {!   !}
+
+  l : (z : type-Pointed-Type (A ∨∗ B)) →
+    (map-product-wedge-Pointed-Type A B (map-inl-wedge-Pointed-Type A B a)
+      ＝ map-product-wedge-Pointed-Type A B z)
+    → map-inl-wedge-Pointed-Type A B a ＝ z
+  l = wedge-into-Prop-Pointed-Type {!   !} {!   !} {!   !}
 ```
 
 
