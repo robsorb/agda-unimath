@@ -24,6 +24,8 @@ open import order-theory.distributive-lattices
 open import order-theory.top-elements-posets
 open import order-theory.bottom-elements-posets
 open import foundation.equivalences
+open import synthetic-homotopy-theory.joins-of-types
+open import foundation.action-on-identifications-functions
 ```
 
 ```agda
@@ -99,6 +101,15 @@ module _
   hom : (x y : C) → UU l
   hom x y = Σ (Δ¹ → C) (λ f → (dom f ＝ x) × (cod f ＝ y))
 
+  ev-hom : {x y : C} → hom x y → Δ¹ → C
+  ev-hom = pr1
+
+  hom-dom-eq : {x y : C} → (f : hom x y) → (ev-hom f 0-Δ¹ ＝ x)
+  hom-dom-eq f = pr1 (pr2 f)
+
+  hom-cod-eq : {x y : C} → (f : hom x y) → (ev-hom f 1-Δ¹ ＝ y)
+  hom-cod-eq f = pr2 (pr2 f)
+
   id-morphism : (x : C) → hom x x
   id-morphism x = (λ _ → x) , refl , refl
 
@@ -116,7 +127,24 @@ module _
   is-segal = type-Prop is-segal-Prop
 
   composable-pair-to-horn : (x y z : C) → (f : hom x y) → (g : hom y z) → Λ²₁ → C
-  composable-pair-to-horn x y z f g ((i , j) , p) = {!   !}
+  composable-pair-to-horn x y z f g ((i , j) , p) =
+    cogap-join
+      (C)
+      ((λ _ → ev-hom f i) ,
+        (λ _ → ev-hom g j) ,
+        λ (p , q) →
+          equational-reasoning
+            ev-hom f i
+              ＝ ev-hom f 1-Δ¹
+                by ap (ev-hom f) p
+              ＝ y
+                by hom-cod-eq f
+              ＝ ev-hom g 0-Δ¹
+                by inv (hom-dom-eq g)
+              ＝ ev-hom g j
+                by inv (ap (ev-hom g) q))
+      (map-join-disjunction-Prop
+        (Id-Prop Δ¹-Set i 1-Δ¹) (Id-Prop Δ¹-Set j 0-Δ¹) p)
 
 module _
   {l : Level} {C : UU l} {is-segal-C : is-segal C}
