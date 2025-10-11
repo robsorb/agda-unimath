@@ -32,6 +32,10 @@ open import foundation.homotopies
 open import foundation.subtypes
 ```
 
+## Postulates
+
+We postulate an interval type, which is a bounded (_we may want to drop this assumption to allow for a model in cubical spaces_) distributive.
+
 ```agda
 
 postulate
@@ -43,13 +47,32 @@ postulate
 Δ¹-Poset : Poset lzero lzero
 Δ¹-Poset = poset-Distributive-Lattice Δ¹-Distributive-Lattice
 
+
+postulate
+  0-Δ¹ : Δ¹
+  1-Δ¹ : Δ¹
+
+  0-is-bottom-element-Δ¹ : is-bottom-element-Poset Δ¹-Poset 0-Δ¹
+  1-is-top-element-Δ¹ : is-top-element-Poset Δ¹-Poset 1-Δ¹
+
+```
+
+The interval is a [Set](foundation.sets.md).
+
+```agda
 postulate
   is-set-Δ¹ : is-set Δ¹
 
 Δ¹-Set : Set lzero
 pr1 Δ¹-Set = Δ¹
 pr2 Δ¹-Set = is-set-Δ¹
+```
 
+== Definitions
+
+The relation on the interval.
+
+```agda
 leq-Δ¹-Prop : Δ¹ → Δ¹ → Prop lzero
 leq-Δ¹-Prop = leq-Distributive-Lattice-Prop Δ¹-Distributive-Lattice
 
@@ -62,43 +85,11 @@ _≤Δ¹_ = type-Relation-Prop leq-Δ¹-Prop
 _≥Δ¹_ : Δ¹ → Δ¹ → UU lzero
 _≥Δ¹_ = type-Relation-Prop geq-Δ¹-Prop
 
-subtype-Δ² : subtype lzero (Δ¹ × Δ¹)
-subtype-Δ² (i , j ) = geq-Δ¹-Prop i j
+```
 
-Δ² : UU lzero
-Δ² = type-subtype subtype-Δ²
+## Definitions
 
-composite-edge-Δ² : Δ¹ → Δ²
-composite-edge-Δ² i = (i , i) , refl-leq-Poset Δ¹-Poset i
-
-postulate
-  0-Δ¹ : Δ¹
-  1-Δ¹ : Δ¹
-
-  0-is-bottom-element-Δ¹ : is-bottom-element-Poset Δ¹-Poset 0-Δ¹
-  1-is-top-element-Δ¹ : is-top-element-Poset Δ¹-Poset 1-Δ¹
-
-
-Λ²₁-Relation-Prop : Relation-Prop lzero Δ¹
-Λ²₁-Relation-Prop x y = Id-Prop Δ¹-Set x 1-Δ¹ ∨ Id-Prop Δ¹-Set y 0-Δ¹
-
-Λ²₁-Relation : Relation lzero Δ¹
-Λ²₁-Relation = type-Relation-Prop Λ²₁-Relation-Prop
-
-Λ²₁ : UU lzero
-Λ²₁ = total-space-Relation-Prop Λ²₁-Relation-Prop
-
-
-Λ²₁-Relation-implies-Δ²-Relation : ((x , y) : Δ¹ × Δ¹)  →  Λ²₁-Relation x y → x ≥Δ¹ y
-Λ²₁-Relation-implies-Δ²-Relation (x , y) =
-  elim-disjunction
-    (geq-Δ¹-Prop x y)
-    (λ where refl → 1-is-top-element-Δ¹ y)
-    (λ where refl → 0-is-bottom-element-Δ¹ x)
-
-Λ²₁-to-Δ² : Λ²₁ → Δ²
-Λ²₁-to-Δ² = tot Λ²₁-Relation-implies-Δ²-Relation
-
+```agda
 module _
   {l : Level} {C : UU l}
   where
@@ -123,8 +114,42 @@ module _
 
   id-hom : (x : C) → hom x x
   id-hom x = (λ _ → x) , refl , refl
+```
 
+### 2-Simplex
 
+```agda
+subtype-Δ² : subtype lzero (Δ¹ × Δ¹)
+subtype-Δ² (i , j ) = geq-Δ¹-Prop i j
+
+Δ² : UU lzero
+Δ² = type-subtype subtype-Δ²
+
+composite-edge-Δ² : Δ¹ → Δ²
+composite-edge-Δ² i = (i , i) , refl-leq-Poset Δ¹-Poset i
+```
+
+### The 2-1-horn
+
+```agda
+Λ²₁-Relation-Prop : Relation-Prop lzero Δ¹
+Λ²₁-Relation-Prop x y = Id-Prop Δ¹-Set x 1-Δ¹ ∨ Id-Prop Δ¹-Set y 0-Δ¹
+
+Λ²₁-Relation : Relation lzero Δ¹
+Λ²₁-Relation = type-Relation-Prop Λ²₁-Relation-Prop
+
+Λ²₁ : UU lzero
+Λ²₁ = total-space-Relation-Prop Λ²₁-Relation-Prop
+
+Λ²₁-Relation-implies-Δ²-Relation : ((x , y) : Δ¹ × Δ¹)  →  Λ²₁-Relation x y → x ≥Δ¹ y
+Λ²₁-Relation-implies-Δ²-Relation (x , y) =
+  elim-disjunction
+    (geq-Δ¹-Prop x y)
+    (λ where refl → 1-is-top-element-Δ¹ y)
+    (λ where refl → 0-is-bottom-element-Δ¹ x)
+
+Λ²₁-to-Δ² : Λ²₁ → Δ²
+Λ²₁-to-Δ² = tot Λ²₁-Relation-implies-Δ²-Relation
 
 left-morphism-Λ²₁ : Δ¹ → Λ²₁
 left-morphism-Λ²₁ i = (i , 0-Δ¹) , inr-disjunction refl
@@ -137,9 +162,11 @@ fist-vertex-Λ²₁ = dom left-morphism-Λ²₁
 
 last-vertex-Λ²₁ : Λ²₁
 last-vertex-Λ²₁ = cod right-morphism-Λ²₁
+```
 
+### Segal types
 
-
+```agda
 module _
   {l : Level} (C : UU l)
   where
@@ -153,6 +180,14 @@ module _
   is-segal : UU l
   is-segal = type-Prop is-segal-Prop
 
+Segal : (l : Level) → UU (lsuc l)
+Segal l = Σ (UU l) is-segal
+
+```
+
+### The composition operation for Segal types
+
+```agda
 
 module _
   {l : Level} {C : UU l}
@@ -189,10 +224,6 @@ module _
     compute-composable-pair-horn-right i =
       {! compute-inr-cogap-join  !}
 
-
-
-Segal : (l : Level) → UU (lsuc l)
-Segal l = Σ (UU l) is-segal
 
 module _
   {l : Level}
