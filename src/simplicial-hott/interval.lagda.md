@@ -21,6 +21,7 @@ open import foundation.dependent-pair-types
 open import foundation.action-on-identifications-functions
 open import foundation.function-extensionality
 open import foundation.homotopies
+open import foundation.whiskering-homotopies-composition
 open import foundation.subtypes
 open import foundation.unions-subtypes
 open import foundation.intersections-subtypes
@@ -223,11 +224,16 @@ module _
   simplex-horn-filler : horn-filler → Δ² → C
   simplex-horn-filler = pr1
 
-  horn-filler-restricts-bottom : (α : horn-filler) → bottom-edge (simplex-horn-filler α) ~ h ∘ bottom-Λ²₁
-  horn-filler-restricts-bottom = {!   !}
+  horn-filler-restricts : (α : horn-filler) → restriction-to-Λ²₁ C (simplex-horn-filler α) ~ h
+  horn-filler-restricts α = htpy-eq (pr2 α)
 
-  horn-filler-restricts-right : (α : horn-filler) → right-edge (simplex-horn-filler α) ~ h ∘ right-Λ²₁
-  horn-filler-restricts-right = {!   !}
+  horn-filler-restricts-bottom :
+    (α : horn-filler) → bottom-edge (simplex-horn-filler α) ~ h ∘ bottom-Λ²₁
+  horn-filler-restricts-bottom α = horn-filler-restricts α ·r bottom-Λ²₁
+
+  horn-filler-restricts-right :
+    (α : horn-filler) → right-edge (simplex-horn-filler α) ~ h ∘ right-Λ²₁
+  horn-filler-restricts-right α = horn-filler-restricts α ·r right-Λ²₁
 ```
 
 ### Mapping composable pairs of morphisms to horns
@@ -274,52 +280,24 @@ module _
 
 ### Commuting triangles of morphisms
 
-```agda
+foundation.whiskering-homotopies-composition
 
-module _
-  {l : Level} {C : UU l}
-  {x y z : C} (f : hom x y) (g : hom y z) (h : hom x z)
-  where
+is-triangle : UU l is-triangle = Σ (Δ² → C) (λ α → (bottom-edge α ~ ev-hom f) ×
+(right-edge α ~ ev-hom g) × (diagonal-edge α ~ ev-hom h))
 
-  is-triangle : UU l
-  is-triangle =
-    Σ (Δ² → C)
-      (λ α →
-        (bottom-edge α ~ ev-hom f) ×
-        (right-edge α ~ ev-hom g) ×
-        (diagonal-edge α ~ ev-hom h))
+module \_ {l : Level} {C : UU l} {x y z : C} (f : hom x y) (g : hom y z) where
 
-module _
-  {l : Level} {C : UU l}
-  {x y z : C} (f : hom x y) (g : hom y z)
-  where
+triangles : UU l triangles = Σ (hom x z) (is-triangle f g)
 
-  triangles : UU l
-  triangles = Σ (hom x z) (is-triangle f g)
-
-module _
-  {l : Level} {C : UU l}
-  where
-  horn-filler-to-triangle :
-    {x y z : C} (f : hom x y) (g : hom y z) → horn-filler (composable-pair-to-horn f g) → triangles f g
-  horn-filler-to-triangle {x = x} {z = z} f g α =
-    ( (diagonal-edge (pr1 α) , -- Diagonal hom
-      (equational-reasoning    -- Domain
-        dom (diagonal-edge (pr1 α))
-          ＝ dom (bottom-edge (pr1 α))
-            by dom-diagonal (pr1 α)
-          ＝ dom (ev-hom f)
-            by α-bottom 0-Δ¹
-          ＝ x
-            by hom-dom-eq f) ,
-      (equational-reasoning   -- Codomain
-        cod (diagonal-edge (pr1 α))
-          ＝ cod (right-edge (pr1 α))
-            by cod-diagonal (pr1 α)
-          ＝ cod (ev-hom g)
-            by α-right 1-Δ¹
-          ＝ z
-            by hom-cod-eq g)) ,
+module \_ {l : Level} {C : UU l} where horn-filler-to-triangle : {x y z : C} (f
+: hom x y) (g : hom y z) → horn-filler (composable-pair-to-horn f g) → triangles
+f g horn-filler-to-triangle {x = x} {z = z} f g α = ( (diagonal-edge (pr1 α) ,
+-- Diagonal hom (equational-reasoning -- Domain dom (diagonal-edge (pr1 α)) ＝
+dom (bottom-edge (pr1 α)) by dom-diagonal (pr1 α) ＝ dom (ev-hom
+f)foundation.whiskering-homotopies-composition by α-bottom 0-Δ¹ ＝ x by
+hom-dom-eq f) , (equational-reasoning -- Codomain cod (diagonal-edge (pr1 α)) ＝
+cod (right-edge (pr1 α)) by cod-diagonal (pr1 α) ＝ cod (ev-hom g) by α-right
+1-Δ¹ ＝ z by hom-cod-eq g)) ,
 
       (pr1 α ,                -- Triangle
         α-bottom ,
@@ -336,7 +314,9 @@ module _
         horn-filler-restricts-right (composable-pair-to-horn f g) α ∙h
           compute-composable-pair-horn-right f g
 
+-- triangle-to-horn-filler : triangle → horn-filler (composable-pair-to-horn f
+g) -- triangle-to-horn-filler = {! !}
 
-  -- triangle-to-horn-filler : triangle → horn-filler (composable-pair-to-horn f g)
-  -- triangle-to-horn-filler = {!   !}
+```
+
 ```
