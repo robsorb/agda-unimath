@@ -183,6 +183,25 @@ right-Δ² = Λ²₁-to-Δ² ∘ right-Λ²₁
 diagonal-Δ² : Δ¹ → Δ²
 diagonal-Δ² i = (i , i) , refl-leq-Poset Δ¹-Poset i
 
+module _
+  {l : Level} {C : UU l}
+  where
+
+  bottom-edge : (Δ² → C) → Δ¹ → C
+  bottom-edge α = α ∘ bottom-Δ²
+
+  right-edge : (Δ² → C) → Δ¹ → C
+  right-edge α = α ∘ right-Δ²
+
+  diagonal-edge : (Δ² → C) → Δ¹ → C
+  diagonal-edge α = α ∘ diagonal-Δ²
+
+  dom-diagonal : (α : Δ² → C) → dom (diagonal-edge α) ＝ dom (bottom-edge α)
+  dom-diagonal α = ap α (eq-type-subtype subtype-Δ² refl)
+
+  cod-diagonal : (α : Δ² → C) → cod (diagonal-edge α) ＝ cod (right-edge α)
+  cod-diagonal α = ap α (eq-type-subtype subtype-Δ² refl)
+
 ```
 
 ### Horn fillers
@@ -196,9 +215,19 @@ module _
 
 module _
   {l : Level} {C : UU l}
+  (h : Λ²₁ → C)
   where
-  horn-filler : (h : Λ²₁ → C) → UU l
-  horn-filler h = fiber (restriction-to-Λ²₁ C) h
+  horn-filler : UU l
+  horn-filler = fiber (restriction-to-Λ²₁ C) h
+
+  simplex-horn-filler : horn-filler → Δ² → C
+  simplex-horn-filler = pr1
+
+  horn-filler-restricts-bottom : (α : horn-filler) → bottom-edge (simplex-horn-filler α) ~ h ∘ bottom-Λ²₁
+  horn-filler-restricts-bottom = {!   !}
+
+  horn-filler-restricts-right : (α : horn-filler) → right-edge (simplex-horn-filler α) ~ h ∘ right-Λ²₁
+  horn-filler-restricts-right = {!   !}
 ```
 
 ### Mapping composable pairs of morphisms to horns
@@ -223,9 +252,9 @@ module _
       right-edge-square-subtype bottom-edge-square-subtype
       cocone-composable-pair-to-horn
 
-  compute-composable-pair-horn-left :
+  compute-composable-pair-horn-bottom :
     composable-pair-to-horn ∘ bottom-Λ²₁ ~ ev-hom f
-  compute-composable-pair-horn-left x =
+  compute-composable-pair-horn-bottom x =
     compute-inr-cogap-union
       right-edge-square-subtype
       bottom-edge-square-subtype
@@ -246,34 +275,67 @@ module _
 ### Commuting triangles of morphisms
 
 ```agda
-module _
-  {l : Level} {C : UU l}
-  where
-
-  bottom-edge : (Δ² → C) → Δ¹ → C
-  bottom-edge α = α ∘ bottom-Δ²
-
-  right-edge : (Δ² → C) → Δ¹ → C
-  right-edge α = α ∘ right-Δ²
-
-  diagonal-edge : (Δ² → C) → Δ¹ → C
-  diagonal-edge α = α ∘ diagonal-Δ²
 
 module _
   {l : Level} {C : UU l}
   {x y z : C} (f : hom x y) (g : hom y z) (h : hom x z)
   where
 
-  triangle : UU l
-  triangle =
+  is-triangle : UU l
+  is-triangle =
     Σ (Δ² → C)
       (λ α →
         (bottom-edge α ~ ev-hom f) ×
         (right-edge α ~ ev-hom g) ×
         (diagonal-edge α ~ ev-hom h))
 
-  -- horn-filler-to-triangle : horn-filler (composable-pair-to-horn f g) → triangle
-  -- horn-filler-to-triangle = {!   !}
+module _
+  {l : Level} {C : UU l}
+  {x y z : C} (f : hom x y) (g : hom y z)
+  where
+
+  triangles : UU l
+  triangles = Σ (hom x z) (is-triangle f g)
+
+module _
+  {l : Level} {C : UU l}
+  where
+  horn-filler-to-triangle :
+    {x y z : C} (f : hom x y) (g : hom y z) → horn-filler (composable-pair-to-horn f g) → triangles f g
+  horn-filler-to-triangle {x = x} {z = z} f g α =
+    ( (diagonal-edge (pr1 α) , -- Diagonal hom
+      (equational-reasoning    -- Domain
+        dom (diagonal-edge (pr1 α))
+          ＝ dom (bottom-edge (pr1 α))
+            by dom-diagonal (pr1 α)
+          ＝ dom (ev-hom f)
+            by α-bottom 0-Δ¹
+          ＝ x
+            by hom-dom-eq f) ,
+      (equational-reasoning   -- Codomain
+        cod (diagonal-edge (pr1 α))
+          ＝ cod (right-edge (pr1 α))
+            by cod-diagonal (pr1 α)
+          ＝ cod (ev-hom g)
+            by α-right 1-Δ¹
+          ＝ z
+            by hom-cod-eq g)) ,
+
+      (pr1 α ,                -- Triangle
+        α-bottom ,
+        α-right ,
+        refl-htpy))
+    where
+      α-bottom : bottom-edge (pr1 α) ~ ev-hom f
+      α-bottom =
+        horn-filler-restricts-bottom (composable-pair-to-horn f g) α ∙h
+          compute-composable-pair-horn-bottom f g
+
+      α-right : right-edge (pr1 α) ~ ev-hom g
+      α-right =
+        horn-filler-restricts-right (composable-pair-to-horn f g) α ∙h
+          compute-composable-pair-horn-right f g
+
 
   -- triangle-to-horn-filler : triangle → horn-filler (composable-pair-to-horn f g)
   -- triangle-to-horn-filler = {!   !}

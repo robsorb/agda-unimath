@@ -80,7 +80,7 @@ module _
         ＝ composable-pair-to-horn f g (fist-vertex-Λ²₁)
           by compute-fill-horn fist-vertex-Λ²₁
         ＝ ev-hom f 0-Δ¹
-          by compute-composable-pair-horn-left f g 0-Δ¹
+          by compute-composable-pair-horn-bottom f g 0-Δ¹
         ＝ x
           by hom-dom-eq f
   pr2 (pr2 (compose-Segal {z = z} g f)) =
