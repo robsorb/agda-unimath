@@ -1,6 +1,6 @@
 ```agda
 
-module simplicial where
+module simplicial-hott.interval where
 
 ```
 
@@ -25,6 +25,7 @@ open import foundation.subtypes
 open import foundation.unions-subtypes
 open import foundation.intersections-subtypes
 open import foundation.equivalences
+open import foundation.fibers-of-maps
 
 open import order-theory.posets
 open import order-theory.distributive-lattices
@@ -36,7 +37,8 @@ open import synthetic-homotopy-theory.joins-of-types
 
 ## Postulates
 
-We postulate an interval type, which is a bounded (_we may want to drop this assumption to allow for a model in cubical spaces_) distributive.
+We postulate an interval type, which is a bounded (_we may want to drop this
+assumption to allow for a model in cubical spaces_) distributive.
 
 ```agda
 
@@ -59,22 +61,17 @@ postulate
 
 ```
 
-The interval is a [Set](foundation.sets.md).
-
-```agda
-postulate
-  is-set-Δ¹ : is-set Δ¹
-
-Δ¹-Set : Set lzero
-pr1 Δ¹-Set = Δ¹
-pr2 Δ¹-Set = is-set-Δ¹
-```
-
-== Definitions
+## Definitions
 
 The relation on the interval.
 
 ```agda
+Δ¹-Set : Set lzero
+Δ¹-Set = set-Poset Δ¹-Poset
+
+is-set-Δ¹ : is-set Δ¹
+is-set-Δ¹ = is-set-type-Set Δ¹-Set
+
 leq-Δ¹-Prop : Δ¹ → Δ¹ → Prop lzero
 leq-Δ¹-Prop = leq-Distributive-Lattice-Prop Δ¹-Distributive-Lattice
 
@@ -87,9 +84,13 @@ _≤Δ¹_ = type-Relation-Prop leq-Δ¹-Prop
 _≥Δ¹_ : Δ¹ → Δ¹ → UU lzero
 _≥Δ¹_ = type-Relation-Prop geq-Δ¹-Prop
 
-```
+_∧Δ¹_ : Δ¹ → Δ¹ → Δ¹
+_∧Δ¹_ = meet-Distributive-Lattice Δ¹-Distributive-Lattice
 
-## Definitions
+_∨Δ¹_ : Δ¹ → Δ¹ → Δ¹
+_∨Δ¹_ = join-Distributive-Lattice Δ¹-Distributive-Lattice
+
+```
 
 ```agda
 module _
@@ -118,19 +119,6 @@ module _
   id-hom x = (λ _ → x) , refl , refl
 ```
 
-### 2-Simplex
-
-```agda
-subtype-Δ² : subtype lzero (Δ¹ × Δ¹)
-subtype-Δ² (i , j ) = geq-Δ¹-Prop i j
-
-Δ² : UU lzero
-Δ² = type-subtype subtype-Δ²
-
-composite-edge-Δ² : Δ¹ → Δ²
-composite-edge-Δ² i = (i , i) , refl-leq-Poset Δ¹-Poset i
-```
-
 ### The 2-1-horn
 
 ```agda
@@ -153,52 +141,67 @@ right-edge-square-subtype (x , _) = Id-Prop Δ¹-Set x 1-Δ¹
     (λ where refl → 1-is-top-element-Δ¹ y)
     (λ where refl → 0-is-bottom-element-Δ¹ x)
 
-Λ²₁-to-Δ² : Λ²₁ → Δ²
-Λ²₁-to-Δ² = tot Λ²₁-Relation-implies-Δ²-Relation
-
-left-morphism-Λ²₁ : Δ¹ → Λ²₁
-left-morphism-Λ²₁ i =
+bottom-Λ²₁ : Δ¹ → Λ²₁
+bottom-Λ²₁ i =
   map-inr-union-subtype
     right-edge-square-subtype
     bottom-edge-square-subtype
     ((i , 0-Δ¹) , refl)
 
-right-morphism-Λ²₁ : Δ¹ → Λ²₁
-right-morphism-Λ²₁ i =
+right-Λ²₁ : Δ¹ → Λ²₁
+right-Λ²₁ i =
   map-inl-union-subtype
     right-edge-square-subtype
     bottom-edge-square-subtype
     ((1-Δ¹ , i) , refl)
 
 fist-vertex-Λ²₁ : Λ²₁
-fist-vertex-Λ²₁ = dom left-morphism-Λ²₁
+fist-vertex-Λ²₁ = dom bottom-Λ²₁
 
 last-vertex-Λ²₁ : Λ²₁
-last-vertex-Λ²₁ = cod right-morphism-Λ²₁
+last-vertex-Λ²₁ = cod right-Λ²₁
 ```
 
-### Segal types
+### 2-Simplex
+
+```agda
+subtype-Δ² : subtype lzero (Δ¹ × Δ¹)
+subtype-Δ² (i , j ) = geq-Δ¹-Prop i j
+
+Δ² : UU lzero
+Δ² = type-subtype subtype-Δ²
+
+Λ²₁-to-Δ² : Λ²₁ → Δ²
+Λ²₁-to-Δ² = tot Λ²₁-Relation-implies-Δ²-Relation
+
+bottom-Δ² : Δ¹ → Δ²
+bottom-Δ² = Λ²₁-to-Δ² ∘ bottom-Λ²₁
+
+right-Δ² : Δ¹ → Δ²
+right-Δ² = Λ²₁-to-Δ² ∘ right-Λ²₁
+
+diagonal-Δ² : Δ¹ → Δ²
+diagonal-Δ² i = (i , i) , refl-leq-Poset Δ¹-Poset i
+
+```
+
+### Horn fillers
 
 ```agda
 module _
   {l : Level} (C : UU l)
   where
-
   restriction-to-Λ²₁ : (Δ² → C) → (Λ²₁ → C)
   restriction-to-Λ²₁ α = α ∘ Λ²₁-to-Δ²
 
-  is-segal-Prop : Prop l
-  is-segal-Prop = is-equiv-Prop restriction-to-Λ²₁
-
-  is-segal : UU l
-  is-segal = type-Prop is-segal-Prop
-
-Segal : (l : Level) → UU (lsuc l)
-Segal l = Σ (UU l) is-segal
-
+module _
+  {l : Level} {C : UU l}
+  where
+  horn-filler : (h : Λ²₁ → C) → UU l
+  horn-filler h = fiber (restriction-to-Λ²₁ C) h
 ```
 
-### The composition operation for Segal types
+### Mapping composable pairs of morphisms to horns
 
 ```agda
 
@@ -221,7 +224,7 @@ module _
       cocone-composable-pair-to-horn
 
   compute-composable-pair-horn-left :
-    composable-pair-to-horn ∘ left-morphism-Λ²₁ ~ ev-hom f
+    composable-pair-to-horn ∘ bottom-Λ²₁ ~ ev-hom f
   compute-composable-pair-horn-left x =
     compute-inr-cogap-union
       right-edge-square-subtype
@@ -230,7 +233,7 @@ module _
       ((x , 0-Δ¹) , refl)
 
   compute-composable-pair-horn-right :
-    composable-pair-to-horn ∘ right-morphism-Λ²₁ ~ ev-hom g
+    composable-pair-to-horn ∘ right-Λ²₁ ~ ev-hom g
   compute-composable-pair-horn-right x =
     compute-inl-cogap-union
       right-edge-square-subtype
@@ -238,63 +241,40 @@ module _
       cocone-composable-pair-to-horn
       ((1-Δ¹ , x) , refl)
 
+```
 
+### Commuting triangles of morphisms
+
+```agda
 module _
-  {l : Level}
+  {l : Level} {C : UU l}
   where
 
-  type-Segal : Segal l → UU l
-  type-Segal C = pr1 C
+  bottom-edge : (Δ² → C) → Δ¹ → C
+  bottom-edge α = α ∘ bottom-Δ²
 
-  is-segal-Segal : (C : Segal l) → is-segal (type-Segal C)
-  is-segal-Segal C = pr2 C
+  right-edge : (Δ² → C) → Δ¹ → C
+  right-edge α = α ∘ right-Δ²
+
+  diagonal-edge : (Δ² → C) → Δ¹ → C
+  diagonal-edge α = α ∘ diagonal-Δ²
 
 module _
-  {l : Level} {C : Segal l}
+  {l : Level} {C : UU l}
+  {x y z : C} (f : hom x y) (g : hom y z) (h : hom x z)
   where
 
-  horn-triangle-equiv-Segal : (Δ² → type-Segal C) ≃ (Λ²₁ → type-Segal C)
-  pr1 horn-triangle-equiv-Segal = restriction-to-Λ²₁ (type-Segal C)
-  pr2 horn-triangle-equiv-Segal = is-segal-Segal C
+  triangle : UU l
+  triangle =
+    Σ (Δ² → C)
+      (λ α →
+        (bottom-edge α ~ ev-hom f) ×
+        (right-edge α ~ ev-hom g) ×
+        (diagonal-edge α ~ ev-hom h))
 
-  fill-horn-Segal : (Λ²₁ → type-Segal C) → Δ² → type-Segal C
-  fill-horn-Segal = map-inv-equiv horn-triangle-equiv-Segal
+  -- horn-filler-to-triangle : horn-filler (composable-pair-to-horn f g) → triangle
+  -- horn-filler-to-triangle = {!   !}
 
-  compute-fill-horn :
-    {h : Λ²₁ → type-Segal C} → (i : Λ²₁) → fill-horn-Segal h (Λ²₁-to-Δ² i) ＝ h i
-  compute-fill-horn {h = h} =
-    htpy-eq (is-section-map-inv-equiv horn-triangle-equiv-Segal h)
-
-  compose-Segal : (x y z : type-Segal C) → (g : hom y z) → (f : hom x y) → hom x z
-  pr1 (compose-Segal x y z g f) i =
-    fill-horn-Segal (composable-pair-to-horn f g) (composite-edge-Δ² i)
-  pr1 (pr2 (compose-Segal x y z g f)) =
-    equational-reasoning
-      fill-horn-Segal (composable-pair-to-horn f g) (composite-edge-Δ² 0-Δ¹)
-        ＝ fill-horn-Segal (composable-pair-to-horn f g) (Λ²₁-to-Δ² fist-vertex-Λ²₁)
-          by
-            ap
-              (fill-horn-Segal (composable-pair-to-horn f g))
-              (eq-type-subtype subtype-Δ² refl)
-        ＝ composable-pair-to-horn f g (fist-vertex-Λ²₁)
-          by compute-fill-horn fist-vertex-Λ²₁
-        ＝ ev-hom f 0-Δ¹
-          by compute-composable-pair-horn-left f g 0-Δ¹
-        ＝ x
-          by hom-dom-eq f
-  pr2 (pr2 (compose-Segal x y z g f)) =
-    equational-reasoning
-      (fill-horn-Segal (composable-pair-to-horn f g) (composite-edge-Δ² 1-Δ¹))
-        ＝ (fill-horn-Segal (composable-pair-to-horn f g) (Λ²₁-to-Δ² last-vertex-Λ²₁))
-          by
-            ap
-              (fill-horn-Segal (composable-pair-to-horn f g))
-              (eq-type-subtype subtype-Δ² refl)
-        ＝ composable-pair-to-horn f g (cod right-morphism-Λ²₁)
-          by compute-fill-horn last-vertex-Λ²₁
-        ＝ cod (ev-hom g)
-          by compute-composable-pair-horn-right f g 1-Δ¹
-        ＝ z
-          by hom-cod-eq g
-
+  -- triangle-to-horn-filler : triangle → horn-filler (composable-pair-to-horn f g)
+  -- triangle-to-horn-filler = {!   !}
 ```
