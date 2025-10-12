@@ -194,63 +194,63 @@ Segal l = Σ (UU l) is-segal
 module _
   {l : Level} {C : UU l}
   where
-  abstract
-    composable-pair-to-horn : {x y z : C} → (f : hom x y) → (g : hom y z) → Λ²₁ → C
-    composable-pair-to-horn {y = y} f g ((i , j) , p) =
-      cogap-disjunction {P = Id-Prop Δ¹-Set i 1-Δ¹} {Q = Id-Prop Δ¹-Set j 0-Δ¹}
-        (λ _ → ev-hom g j)
-        (λ _ → ev-hom f i)
-        (λ p q →
-          equational-reasoning
-            ev-hom g j
-              ＝ ev-hom g 0-Δ¹
-                by ap (ev-hom g) q
-              ＝ y
-                by hom-dom-eq g
-              ＝ ev-hom f 1-Δ¹
-                by inv (hom-cod-eq f)
-              ＝ ev-hom f i
-              by ap (ev-hom f) (inv p))
-        p
 
-    compute-composable-pair-horn-left :
-      {x y z : C} → (f : hom x y) → (g : hom y z) →
-      composable-pair-to-horn f g ∘ left-morphism-Λ²₁ ~ ev-hom f
-    compute-composable-pair-horn-left {y = y} f g i =
-      compute-inr-cogap-disjunction
-        (λ _ → ev-hom g 0-Δ¹)
-        (λ _ → ev-hom f i)
-        ((λ p q →
-          equational-reasoning
-            ev-hom g 0-Δ¹
-              ＝ ev-hom g 0-Δ¹
-                by ap (ev-hom g) q
-              ＝ y
-                by hom-dom-eq g
-              ＝ ev-hom f 1-Δ¹
-                by inv (hom-cod-eq f)
-              ＝ ev-hom f i
-              by ap (ev-hom f) (inv p))) refl
+  composable-pair-to-horn : {x y z : C} → (f : hom x y) → (g : hom y z) → Λ²₁ → C
+  composable-pair-to-horn {y = y} f g ((i , j) , p) =
+    cogap-disjunction {P = Id-Prop Δ¹-Set i 1-Δ¹} {Q = Id-Prop Δ¹-Set j 0-Δ¹}
+      (λ _ → ev-hom g j)
+      (λ _ → ev-hom f i)
+      (λ p q →
+        equational-reasoning
+          ev-hom g j
+            ＝ ev-hom g 0-Δ¹
+              by ap (ev-hom g) q
+            ＝ y
+              by hom-dom-eq g
+            ＝ ev-hom f 1-Δ¹
+              by inv (hom-cod-eq f)
+            ＝ ev-hom f i
+            by ap (ev-hom f) (inv p))
+      p
 
-    compute-composable-pair-horn-right :
-      {x y z : C} → (f : hom x y) → (g : hom y z) →
-      composable-pair-to-horn f g ∘ right-morphism-Λ²₁ ~ ev-hom g
-    compute-composable-pair-horn-right {y = y} f g j =
-      compute-inl-cogap-disjunction
-        (λ _ → ev-hom g j)
-        (λ _ → ev-hom f 1-Δ¹)
-        (λ p q →
-          equational-reasoning
-            ev-hom g j
-              ＝ ev-hom g 0-Δ¹
-                by ap (ev-hom g) q
-              ＝ y
-                by hom-dom-eq g
-              ＝ ev-hom f 1-Δ¹
-                by inv (hom-cod-eq f)
-              ＝ ev-hom f 1-Δ¹
-              by ap (ev-hom f) (inv p))
-        refl
+  compute-composable-pair-horn-left :
+    {x y z : C} → (f : hom x y) → (g : hom y z) →
+    composable-pair-to-horn f g ∘ left-morphism-Λ²₁ ~ ev-hom f
+  compute-composable-pair-horn-left {y = y} f g i =
+    compute-inr-cogap-disjunction
+      (λ _ → ev-hom g 0-Δ¹)
+      (λ _ → ev-hom f i)
+      ((λ p q →
+        equational-reasoning
+          ev-hom g 0-Δ¹
+            ＝ ev-hom g 0-Δ¹
+              by ap (ev-hom g) q
+            ＝ y
+              by hom-dom-eq g
+            ＝ ev-hom f 1-Δ¹
+              by inv (hom-cod-eq f)
+            ＝ ev-hom f i
+            by ap (ev-hom f) (inv p))) refl
+
+  compute-composable-pair-horn-right :
+    {x y z : C} → (f : hom x y) → (g : hom y z) →
+    composable-pair-to-horn f g ∘ right-morphism-Λ²₁ ~ ev-hom g
+  compute-composable-pair-horn-right {y = y} f g j =
+    compute-inl-cogap-disjunction
+      (λ _ → ev-hom g j)
+      (λ _ → ev-hom f 1-Δ¹)
+      (λ p q →
+        equational-reasoning
+          ev-hom g j
+            ＝ ev-hom g 0-Δ¹
+              by ap (ev-hom g) q
+            ＝ y
+              by hom-dom-eq g
+            ＝ ev-hom f 1-Δ¹
+              by inv (hom-cod-eq f)
+            ＝ ev-hom f 1-Δ¹
+            by ap (ev-hom f) (inv p))
+      refl
 
 module _
   {l : Level}
