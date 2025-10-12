@@ -26,6 +26,9 @@ open import foundation.type-arithmetic-unit-type
 open import foundation.unit-type
 open import foundation.universe-levels
 open import foundation.whiskering-homotopies-composition
+open import foundation.subtypes
+open import foundation.unions-subtypes
+open import foundation.intersections-subtypes
 
 open import synthetic-homotopy-theory.cocones-under-spans
 open import synthetic-homotopy-theory.dependent-cocones-under-spans
@@ -434,14 +437,13 @@ module _
       ( up-join)
 ```
 
-*TODO: Clean this up*
+*TODO: Maybe move this stuff*
 
 ```agda
 module _
   {l1 l2 l3 : Level}
-  {P : Prop l1} {Q : Prop l2} {X : UU l3}
-  (f : type-Prop P → X) (g : type-Prop Q → X)
-  (e : (p : type-Prop P) → (q : type-Prop Q) → f p ＝ g q)
+  (P : Prop l1) (Q : Prop l2) {X : UU l3}
+  (c : cocone pr1 pr2 X)
   where
 
   abstract
@@ -449,26 +451,94 @@ module _
     cogap-disjunction d =
       cogap-join
         X
-        (f , g , λ (p , q) → e p q)
+        c
         (map-join-disjunction-Prop P Q d)
 
-    compute-inl-cogap-disjunction : cogap-disjunction ∘ inl-disjunction ~ f
+    compute-inl-cogap-disjunction : cogap-disjunction ∘ inl-disjunction ~ horizontal-map-cocone pr1 pr2 c
     compute-inl-cogap-disjunction p =
       equational-reasoning
         cogap-disjunction (inl-disjunction p)
-          ＝ cogap-join X (f , g , λ (p , q) → e p q) (inl-join p)
-            by ap (cogap-join X (f , g , λ (p , q) → e p q)) (eq-is-prop (is-prop-join-is-prop (pr2 P) (pr2 Q)))
-          ＝ f p
-            by compute-inl-cogap-join ((f , g , λ (p , q) → e p q)) p
+          ＝ cogap-join X c (inl-join p)
+            by ap (cogap-join X c) (eq-is-prop (is-prop-join-is-prop (pr2 P) (pr2 Q)))
+          ＝ horizontal-map-cocone pr1 pr2 c p
+            by compute-inl-cogap-join c p
 
-    compute-inr-cogap-disjunction : cogap-disjunction ∘ inr-disjunction ~ g
+    compute-inr-cogap-disjunction : cogap-disjunction ∘ inr-disjunction ~ vertical-map-cocone pr1 pr2 c
     compute-inr-cogap-disjunction q =
       equational-reasoning
         cogap-disjunction (inr-disjunction q)
-          ＝ cogap-join X (f , g , λ (p , q) → e p q) (inr-join q)
-            by ap (cogap-join X (f , g , λ (p , q) → e p q)) (eq-is-prop (is-prop-join-is-prop (pr2 P) (pr2 Q)))
-          ＝ g q
-            by compute-inr-cogap-join (f , g , λ (p , q) → e p q) q
+          ＝ cogap-join X c (inr-join q)
+            by ap (cogap-join X c) (eq-is-prop (is-prop-join-is-prop (pr2 P) (pr2 Q)))
+          ＝ vertical-map-cocone pr1 pr2 c q
+            by compute-inr-cogap-join c q
+```
+
+```agda
+
+module _
+  {l1 l2 l3 l4 : Level}
+  {X : UU l1}
+  (A : subtype l2 X) (B : subtype l3 X) (C : UU l4)
+  where
+  union-cocone : UU (l1 ⊔ l2 ⊔ l3 ⊔ l4)
+  union-cocone = cocone (map-intersection-pr1 A B) (map-intersection-pr2 A B) C
+
+module _
+  {l1 l2 l3 l4 : Level}
+  {X : UU l1}
+  (A : subtype l2 X) (B : subtype l3 X) {C : UU l4}
+  where
+  horizontal-map-union-cocone : union-cocone A B C → type-subtype A → C
+  horizontal-map-union-cocone =
+    horizontal-map-cocone (map-intersection-pr1 A B) (map-intersection-pr2 A B)
+
+  vertical-map-union-cocone : union-cocone A B C → type-subtype B → C
+  vertical-map-union-cocone =
+    vertical-map-cocone (map-intersection-pr1 A B) (map-intersection-pr2 A B)
+
+module _
+  {l1 l2 l3 l4 : Level}
+  {X : UU l1}
+  (A : subtype l2 X) (B : subtype l3 X)
+  {C : UU l4}
+  (c : union-cocone A B C)
+  where
+  cocone-cogap-union :
+    (x : X) → cocone {A = type-Prop (A x)} {B = type-Prop (B x)} pr1 pr2 C
+  pr1 (cocone-cogap-union x) prfA =
+    horizontal-map-cocone
+      (map-intersection-pr1 A B)
+      (map-intersection-pr2 A B)
+      c
+      (x , prfA)
+  pr1 (pr2 (cocone-cogap-union x)) prfB =
+    vertical-map-cocone
+      (map-intersection-pr1 A B)
+      (map-intersection-pr2 A B)
+      c
+      (x , prfB)
+  pr2 (pr2 (cocone-cogap-union x)) =
+    (λ prfAB →
+      coherence-square-cocone
+        (map-intersection-pr1 A B)
+        (map-intersection-pr2 A B)
+        c
+        (x , prfAB))
+
+  cogap-union : type-subtype (union-subtype A B) → C
+  cogap-union (x , p) = cogap-disjunction (A x) (B x) (cocone-cogap-union x) p
+
+  compute-inl-cogap-union :
+    cogap-union ∘ map-inl-union-subtype A B ~ horizontal-map-union-cocone A B c
+  compute-inl-cogap-union (x , p ) =
+    compute-inl-cogap-disjunction (A x) (B x) (cocone-cogap-union x) p
+
+  compute-inr-cogap-union :
+    cogap-union ∘ map-inr-union-subtype A B ~ vertical-map-union-cocone A B c
+  compute-inr-cogap-union (x , p ) =
+    compute-inr-cogap-disjunction (A x) (B x) (cocone-cogap-union x) p
+
+
 ```
 
 

@@ -14,6 +14,7 @@ open import foundation.inhabited-subtypes
 open import foundation.large-locale-of-subtypes
 open import foundation.powersets
 open import foundation.universe-levels
+open import foundation.functoriality-dependent-pair-types
 
 open import foundation-core.decidable-propositions
 open import foundation-core.propositions
@@ -105,4 +106,21 @@ module _
 
   intersect-subtype : UU (l1 ⊔ l2 ⊔ l3)
   intersect-subtype = type-Prop intersect-prop-subtype
+```
+
+### Inclusion of intersection into components
+
+```agda
+
+module _
+  {l1 l2 l3 : Level}
+  {X : UU l1}
+  (A : subtype l2 X) (B : subtype l3 X)
+  where
+  map-intersection-pr1 : type-subtype (intersection-subtype A B) → type-subtype A
+  map-intersection-pr1 = tot (λ _ → pr1)
+
+  map-intersection-pr2 : type-subtype (intersection-subtype A B) → type-subtype B
+  map-intersection-pr2 = tot (λ _ → pr2)
+
 ```

@@ -9,6 +9,7 @@ module foundation.unions-subtypes where
 ```agda
 open import foundation.decidable-subtypes
 open import foundation.dependent-pair-types
+open import foundation.functoriality-dependent-pair-types
 open import foundation.disjunction
 open import foundation.large-locale-of-subtypes
 open import foundation.powersets
@@ -81,6 +82,20 @@ module _
       ( union-family-of-subtypes A)
   is-least-upper-bound-union-family-of-subtypes =
     is-least-upper-bound-sup-powerset-Large-Locale
+```
+### Inclusion of subtypes into their union
+
+```agda
+
+module _
+  {l1 l2 l3 : Level} {X : UU l1}
+  (A : subtype l2 X) (B : subtype l3 X)
+  where
+  map-inl-union-subtype : type-subtype A → type-subtype (union-subtype A B)
+  map-inl-union-subtype = tot (λ _ → inl-disjunction)
+
+  map-inr-union-subtype : type-subtype B → type-subtype (union-subtype A B)
+  map-inr-union-subtype = tot (λ _ → inr-disjunction)
 ```
 
 ## Properties

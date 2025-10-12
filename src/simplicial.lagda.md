@@ -30,6 +30,8 @@ open import foundation.injective-maps
 open import foundation.function-extensionality
 open import foundation.homotopies
 open import foundation.subtypes
+open import foundation.unions-subtypes
+open import foundation.intersections-subtypes
 ```
 
 ## Postulates
@@ -132,16 +134,19 @@ composite-edge-Δ² i = (i , i) , refl-leq-Poset Δ¹-Poset i
 ### The 2-1-horn
 
 ```agda
-Λ²₁-Relation-Prop : Relation-Prop lzero Δ¹
-Λ²₁-Relation-Prop x y = Id-Prop Δ¹-Set x 1-Δ¹ ∨ Id-Prop Δ¹-Set y 0-Δ¹
+bottom-edge-square-subtype : subtype lzero (Δ¹ × Δ¹)
+bottom-edge-square-subtype (_ , y) = Id-Prop Δ¹-Set y 0-Δ¹
 
-Λ²₁-Relation : Relation lzero Δ¹
-Λ²₁-Relation = type-Relation-Prop Λ²₁-Relation-Prop
+right-edge-square-subtype : subtype lzero (Δ¹ × Δ¹)
+right-edge-square-subtype (x , _) = Id-Prop Δ¹-Set x 1-Δ¹
+
+Λ²₁-subtype : subtype lzero (Δ¹ × Δ¹)
+Λ²₁-subtype = union-subtype right-edge-square-subtype bottom-edge-square-subtype
 
 Λ²₁ : UU lzero
-Λ²₁ = total-space-Relation-Prop Λ²₁-Relation-Prop
+Λ²₁ = type-subtype Λ²₁-subtype
 
-Λ²₁-Relation-implies-Δ²-Relation : ((x , y) : Δ¹ × Δ¹)  →  Λ²₁-Relation x y → x ≥Δ¹ y
+Λ²₁-Relation-implies-Δ²-Relation : (x : Δ¹ × Δ¹)  → type-Prop (Λ²₁-subtype x) → pr1 x ≥Δ¹ pr2 x
 Λ²₁-Relation-implies-Δ²-Relation (x , y) =
   elim-disjunction
     (geq-Δ¹-Prop x y)
@@ -152,10 +157,18 @@ composite-edge-Δ² i = (i , i) , refl-leq-Poset Δ¹-Poset i
 Λ²₁-to-Δ² = tot Λ²₁-Relation-implies-Δ²-Relation
 
 left-morphism-Λ²₁ : Δ¹ → Λ²₁
-left-morphism-Λ²₁ i = (i , 0-Δ¹) , inr-disjunction refl
+left-morphism-Λ²₁ i =
+  map-inr-union-subtype
+    right-edge-square-subtype
+    bottom-edge-square-subtype
+    ((i , 0-Δ¹) , refl)
 
 right-morphism-Λ²₁ : Δ¹ → Λ²₁
-right-morphism-Λ²₁ i = (1-Δ¹ , i) , inl-disjunction refl
+right-morphism-Λ²₁ i =
+  map-inl-union-subtype
+    right-edge-square-subtype
+    bottom-edge-square-subtype
+    ((1-Δ¹ , i) , refl)
 
 fist-vertex-Λ²₁ : Λ²₁
 fist-vertex-Λ²₁ = dom left-morphism-Λ²₁
@@ -187,70 +200,44 @@ Segal l = Σ (UU l) is-segal
 
 ### The composition operation for Segal types
 
-*TODO: Clean this up*
-
 ```agda
 
 module _
   {l : Level} {C : UU l}
+  {x y z : C} (f : hom x y) (g : hom y z)
   where
 
-  composable-pair-to-horn : {x y z : C} → (f : hom x y) → (g : hom y z) → Λ²₁ → C
-  composable-pair-to-horn {y = y} f g ((i , j) , p) =
-    cogap-disjunction {P = Id-Prop Δ¹-Set i 1-Δ¹} {Q = Id-Prop Δ¹-Set j 0-Δ¹}
-      (λ _ → ev-hom g j)
-      (λ _ → ev-hom f i)
-      (λ p q →
-        equational-reasoning
-          ev-hom g j
-            ＝ ev-hom g 0-Δ¹
-              by ap (ev-hom g) q
-            ＝ y
-              by hom-dom-eq g
-            ＝ ev-hom f 1-Δ¹
-              by inv (hom-cod-eq f)
-            ＝ ev-hom f i
-            by ap (ev-hom f) (inv p))
-      p
+  cocone-composable-pair-to-horn :
+    union-cocone right-edge-square-subtype bottom-edge-square-subtype C
+  pr1 cocone-composable-pair-to-horn ((_ , y) , _) = ev-hom g y
+  pr1 (pr2 cocone-composable-pair-to-horn) ((x , _), _) = ev-hom f x
+  pr2 (pr2 cocone-composable-pair-to-horn) ((x , y) , (refl , refl)) =
+    hom-dom-eq g ∙ inv (hom-cod-eq f)
+
+  composable-pair-to-horn : Λ²₁ → C
+  composable-pair-to-horn =
+    cogap-union
+      right-edge-square-subtype bottom-edge-square-subtype
+      cocone-composable-pair-to-horn
 
   compute-composable-pair-horn-left :
-    {x y z : C} → (f : hom x y) → (g : hom y z) →
-    composable-pair-to-horn f g ∘ left-morphism-Λ²₁ ~ ev-hom f
-  compute-composable-pair-horn-left {y = y} f g i =
-    compute-inr-cogap-disjunction
-      (λ _ → ev-hom g 0-Δ¹)
-      (λ _ → ev-hom f i)
-      ((λ p q →
-        equational-reasoning
-          ev-hom g 0-Δ¹
-            ＝ ev-hom g 0-Δ¹
-              by ap (ev-hom g) q
-            ＝ y
-              by hom-dom-eq g
-            ＝ ev-hom f 1-Δ¹
-              by inv (hom-cod-eq f)
-            ＝ ev-hom f i
-            by ap (ev-hom f) (inv p))) refl
+    composable-pair-to-horn ∘ left-morphism-Λ²₁ ~ ev-hom f
+  compute-composable-pair-horn-left x =
+    compute-inr-cogap-union
+      right-edge-square-subtype
+      bottom-edge-square-subtype
+      cocone-composable-pair-to-horn
+      ((x , 0-Δ¹) , refl)
 
   compute-composable-pair-horn-right :
-    {x y z : C} → (f : hom x y) → (g : hom y z) →
-    composable-pair-to-horn f g ∘ right-morphism-Λ²₁ ~ ev-hom g
-  compute-composable-pair-horn-right {y = y} f g j =
-    compute-inl-cogap-disjunction
-      (λ _ → ev-hom g j)
-      (λ _ → ev-hom f 1-Δ¹)
-      (λ p q →
-        equational-reasoning
-          ev-hom g j
-            ＝ ev-hom g 0-Δ¹
-              by ap (ev-hom g) q
-            ＝ y
-              by hom-dom-eq g
-            ＝ ev-hom f 1-Δ¹
-              by inv (hom-cod-eq f)
-            ＝ ev-hom f 1-Δ¹
-            by ap (ev-hom f) (inv p))
-      refl
+    composable-pair-to-horn ∘ right-morphism-Λ²₁ ~ ev-hom g
+  compute-composable-pair-horn-right x =
+    compute-inl-cogap-union
+      right-edge-square-subtype
+      bottom-edge-square-subtype
+      cocone-composable-pair-to-horn
+      ((1-Δ¹ , x) , refl)
+
 
 module _
   {l : Level}
