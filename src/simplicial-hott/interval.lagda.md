@@ -280,24 +280,52 @@ module _
 
 ### Commuting triangles of morphisms
 
-foundation.whiskering-homotopies-composition
+```agda
 
-is-triangle : UU l is-triangle = Σ (Δ² → C) (λ α → (bottom-edge α ~ ev-hom f) ×
-(right-edge α ~ ev-hom g) × (diagonal-edge α ~ ev-hom h))
+module _
+  {l : Level} {C : UU l}
+  {x y z : C} (f : hom x y) (g : hom y z) (h : hom x z)
+  where
 
-module \_ {l : Level} {C : UU l} {x y z : C} (f : hom x y) (g : hom y z) where
+  is-triangle : UU l
+  is-triangle =
+    Σ (Δ² → C)
+      (λ α →
+        (bottom-edge α ~ ev-hom f) ×
+        (right-edge α ~ ev-hom g) ×
+        (diagonal-edge α ~ ev-hom h))
 
-triangles : UU l triangles = Σ (hom x z) (is-triangle f g)
+module _
+  {l : Level} {C : UU l}
+  {x y z : C} (f : hom x y) (g : hom y z)
+  where
 
-module \_ {l : Level} {C : UU l} where horn-filler-to-triangle : {x y z : C} (f
-: hom x y) (g : hom y z) → horn-filler (composable-pair-to-horn f g) → triangles
-f g horn-filler-to-triangle {x = x} {z = z} f g α = ( (diagonal-edge (pr1 α) ,
--- Diagonal hom (equational-reasoning -- Domain dom (diagonal-edge (pr1 α)) ＝
-dom (bottom-edge (pr1 α)) by dom-diagonal (pr1 α) ＝ dom (ev-hom
-f)foundation.whiskering-homotopies-composition by α-bottom 0-Δ¹ ＝ x by
-hom-dom-eq f) , (equational-reasoning -- Codomain cod (diagonal-edge (pr1 α)) ＝
-cod (right-edge (pr1 α)) by cod-diagonal (pr1 α) ＝ cod (ev-hom g) by α-right
-1-Δ¹ ＝ z by hom-cod-eq g)) ,
+  triangles : UU l
+  triangles = Σ (hom x z) (is-triangle f g)
+
+module _
+  {l : Level} {C : UU l}
+  where
+  horn-filler-to-triangle :
+    {x y z : C} (f : hom x y) (g : hom y z) → horn-filler (composable-pair-to-horn f g) → triangles f g
+  horn-filler-to-triangle {x = x} {z = z} f g α =
+    ( (diagonal-edge (pr1 α) , -- Diagonal hom
+      (equational-reasoning    -- Domain
+        dom (diagonal-edge (pr1 α))
+          ＝ dom (bottom-edge (pr1 α))
+            by dom-diagonal (pr1 α)
+          ＝ dom (ev-hom f)
+            by α-bottom 0-Δ¹
+          ＝ x
+            by hom-dom-eq f) ,
+      (equational-reasoning   -- Codomain
+        cod (diagonal-edge (pr1 α))
+          ＝ cod (right-edge (pr1 α))
+            by cod-diagonal (pr1 α)
+          ＝ cod (ev-hom g)
+            by α-right 1-Δ¹
+          ＝ z
+            by hom-cod-eq g)) ,
 
       (pr1 α ,                -- Triangle
         α-bottom ,
@@ -314,9 +342,7 @@ cod (right-edge (pr1 α)) by cod-diagonal (pr1 α) ＝ cod (ev-hom g) by α-righ
         horn-filler-restricts-right (composable-pair-to-horn f g) α ∙h
           compute-composable-pair-horn-right f g
 
--- triangle-to-horn-filler : triangle → horn-filler (composable-pair-to-horn f
-g) -- triangle-to-horn-filler = {! !}
 
-```
-
+  -- triangle-to-horn-filler : triangle → horn-filler (composable-pair-to-horn f g)
+  -- triangle-to-horn-filler = {!   !}
 ```
