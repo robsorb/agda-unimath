@@ -187,43 +187,70 @@ Segal l = Σ (UU l) is-segal
 
 ### The composition operation for Segal types
 
+*TODO: Clean this up*
+
 ```agda
 
 module _
   {l : Level} {C : UU l}
-  {x y z : C} (f : hom x y) (g : hom y z)
   where
   abstract
-    composable-pair-to-horn : Λ²₁ → C
-    composable-pair-to-horn ((i , j) , p) =
-      cogap-join
-        (C)
-        ((λ _ → ev-hom f i) ,
-          (λ _ → ev-hom g j) ,
-          λ (p , q) →
-            equational-reasoning
-              ev-hom f i
-                ＝ ev-hom f 1-Δ¹
-                  by ap (ev-hom f) p
-                ＝ y
-                  by hom-cod-eq f
-                ＝ ev-hom g 0-Δ¹
-                  by inv (hom-dom-eq g)
-                ＝ ev-hom g j
-                  by inv (ap (ev-hom g) q))
-        (map-join-disjunction-Prop
-          (Id-Prop Δ¹-Set i 1-Δ¹) (Id-Prop Δ¹-Set j 0-Δ¹) p)
+    composable-pair-to-horn : {x y z : C} → (f : hom x y) → (g : hom y z) → Λ²₁ → C
+    composable-pair-to-horn {y = y} f g ((i , j) , p) =
+      cogap-disjunction {P = Id-Prop Δ¹-Set i 1-Δ¹} {Q = Id-Prop Δ¹-Set j 0-Δ¹}
+        (λ _ → ev-hom g j)
+        (λ _ → ev-hom f i)
+        (λ p q →
+          equational-reasoning
+            ev-hom g j
+              ＝ ev-hom g 0-Δ¹
+                by ap (ev-hom g) q
+              ＝ y
+                by hom-dom-eq g
+              ＝ ev-hom f 1-Δ¹
+                by inv (hom-cod-eq f)
+              ＝ ev-hom f i
+              by ap (ev-hom f) (inv p))
+        p
 
     compute-composable-pair-horn-left :
-      composable-pair-to-horn ∘ left-morphism-Λ²₁ ~ ev-hom f
-    compute-composable-pair-horn-left i =
-      {! compute-inr-cogap-join  !}
+      {x y z : C} → (f : hom x y) → (g : hom y z) →
+      composable-pair-to-horn f g ∘ left-morphism-Λ²₁ ~ ev-hom f
+    compute-composable-pair-horn-left {y = y} f g i =
+      compute-inr-cogap-disjunction
+        (λ _ → ev-hom g 0-Δ¹)
+        (λ _ → ev-hom f i)
+        ((λ p q →
+          equational-reasoning
+            ev-hom g 0-Δ¹
+              ＝ ev-hom g 0-Δ¹
+                by ap (ev-hom g) q
+              ＝ y
+                by hom-dom-eq g
+              ＝ ev-hom f 1-Δ¹
+                by inv (hom-cod-eq f)
+              ＝ ev-hom f i
+              by ap (ev-hom f) (inv p))) refl
 
     compute-composable-pair-horn-right :
-      composable-pair-to-horn ∘ right-morphism-Λ²₁ ~ ev-hom g
-    compute-composable-pair-horn-right i =
-      {! compute-inr-cogap-join  !}
-
+      {x y z : C} → (f : hom x y) → (g : hom y z) →
+      composable-pair-to-horn f g ∘ right-morphism-Λ²₁ ~ ev-hom g
+    compute-composable-pair-horn-right {y = y} f g j =
+      compute-inl-cogap-disjunction
+        (λ _ → ev-hom g j)
+        (λ _ → ev-hom f 1-Δ¹)
+        (λ p q →
+          equational-reasoning
+            ev-hom g j
+              ＝ ev-hom g 0-Δ¹
+                by ap (ev-hom g) q
+              ＝ y
+                by hom-dom-eq g
+              ＝ ev-hom f 1-Δ¹
+                by inv (hom-cod-eq f)
+              ＝ ev-hom f 1-Δ¹
+              by ap (ev-hom f) (inv p))
+        refl
 
 module _
   {l : Level}
@@ -251,10 +278,10 @@ module _
   compute-fill-horn {h = h} =
     htpy-eq (is-section-map-inv-equiv horn-triangle-equiv-Segal h)
 
-  comp-Segal : (x y z : type-Segal C) → (g : hom y z) → (f : hom x y) → hom x z
-  pr1 (comp-Segal x y z g f) i =
+  compose-Segal : (x y z : type-Segal C) → (g : hom y z) → (f : hom x y) → hom x z
+  pr1 (compose-Segal x y z g f) i =
     fill-horn-Segal (composable-pair-to-horn f g) (composite-edge-Δ² i)
-  pr1 (pr2 (comp-Segal x y z g f)) =
+  pr1 (pr2 (compose-Segal x y z g f)) =
     equational-reasoning
       fill-horn-Segal (composable-pair-to-horn f g) (composite-edge-Δ² 0-Δ¹)
         ＝ fill-horn-Segal (composable-pair-to-horn f g) (Λ²₁-to-Δ² fist-vertex-Λ²₁)
@@ -268,7 +295,7 @@ module _
           by compute-composable-pair-horn-left f g 0-Δ¹
         ＝ x
           by hom-dom-eq f
-  pr2 (pr2 (comp-Segal x y z g f)) =
+  pr2 (pr2 (compose-Segal x y z g f)) =
     equational-reasoning
       (fill-horn-Segal (composable-pair-to-horn f g) (composite-edge-Δ² 1-Δ¹))
         ＝ (fill-horn-Segal (composable-pair-to-horn f g) (Λ²₁-to-Δ² last-vertex-Λ²₁))

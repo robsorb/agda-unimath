@@ -434,6 +434,47 @@ module _
       ( up-join)
 ```
 
+*TODO: Clean this up*
+
+```agda
+module _
+  {l1 l2 l3 : Level}
+  {P : Prop l1} {Q : Prop l2} {X : UU l3}
+  (f : type-Prop P → X) (g : type-Prop Q → X)
+  (e : (p : type-Prop P) → (q : type-Prop Q) → f p ＝ g q)
+  where
+
+  abstract
+    cogap-disjunction : type-Prop (P ∨ Q) → X
+    cogap-disjunction d =
+      cogap-join
+        X
+        (f , g , λ (p , q) → e p q)
+        (map-join-disjunction-Prop P Q d)
+
+    compute-inl-cogap-disjunction : cogap-disjunction ∘ inl-disjunction ~ f
+    compute-inl-cogap-disjunction p =
+      equational-reasoning
+        cogap-disjunction (inl-disjunction p)
+          ＝ cogap-join X (f , g , λ (p , q) → e p q) (inl-join p)
+            by ap (cogap-join X (f , g , λ (p , q) → e p q)) (eq-is-prop (is-prop-join-is-prop (pr2 P) (pr2 Q)))
+          ＝ f p
+            by compute-inl-cogap-join ((f , g , λ (p , q) → e p q)) p
+
+    compute-inr-cogap-disjunction : cogap-disjunction ∘ inr-disjunction ~ g
+    compute-inr-cogap-disjunction q =
+      equational-reasoning
+        cogap-disjunction (inr-disjunction q)
+          ＝ cogap-join X (f , g , λ (p , q) → e p q) (inr-join q)
+            by ap (cogap-join X (f , g , λ (p , q) → e p q)) (eq-is-prop (is-prop-join-is-prop (pr2 P) (pr2 Q)))
+          ＝ g q
+            by compute-inr-cogap-join (f , g , λ (p , q) → e p q) q
+```
+
+
+
+
+
 ## See also
 
 - [Joins of maps](synthetic-homotopy-theory.joins-of-maps.md)
