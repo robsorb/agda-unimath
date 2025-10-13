@@ -25,7 +25,7 @@ open import foundation.type-arithmetic-empty-type
 open import foundation.type-arithmetic-unit-type
 open import foundation.unit-type
 open import foundation.universe-levels
-open import foundation.whiskering-homotopies-composition
+
 open import foundation.subtypes
 open import foundation.unions-subtypes
 open import foundation.intersections-subtypes
@@ -437,7 +437,7 @@ module _
       ( up-join)
 ```
 
-_TODO: Maybe move this stuff_
+_TODO: Move this stuff_
 
 ```agda
 module _
