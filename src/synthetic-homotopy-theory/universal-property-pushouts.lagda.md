@@ -1099,9 +1099,10 @@ module _
   fibers-total-const : total-cocone-const ∘ total-cocone-fibers-const ~ id
   fibers-total-const c = refl
 
-  is-equiv-total-cocone-fibers-const : is-equiv total-cocone-fibers-const
-  is-equiv-total-cocone-fibers-const =
-    is-equiv-is-invertible total-cocone-const total-fibers-const fibers-total-const
+  abstract
+    is-equiv-total-cocone-fibers-const : is-equiv total-cocone-fibers-const
+    is-equiv-total-cocone-fibers-const =
+      is-equiv-is-invertible total-cocone-const total-fibers-const fibers-total-const
 
 
 module _
@@ -1149,14 +1150,15 @@ module _
   is-retraction-total-cocone-map up c =
     eq-htpy (λ x → is-section-map-inv-is-equiv (up x C) (c x))
 
-  is-equiv-total-cocone-map :
-    (up : (x : X) → universal-property-pushout (f x) (g x) (c x)) →
-    is-equiv total-cocone-map
-  is-equiv-total-cocone-map up =
-    is-equiv-is-invertible
-      (inv-total-cocone-map up)
-      (is-retraction-total-cocone-map up)
-      (is-section-total-cocone-map up)
+  abstract
+    is-equiv-total-cocone-map :
+      (up : (x : X) → universal-property-pushout (f x) (g x) (c x)) →
+      is-equiv total-cocone-map
+    is-equiv-total-cocone-map up =
+      is-equiv-is-invertible
+        (inv-total-cocone-map up)
+        (is-retraction-total-cocone-map up)
+        (is-section-total-cocone-map up)
 
   total-cocone-maps-square-commutes :
     total-cocone-fibers-const f g ∘ cocone-map (tot f) (tot g) (total-cocone P f g c)
@@ -1177,15 +1179,16 @@ module _
   (c : (x : X) → cocone (f x) (g x) (P x))
   (up : (x : X) → universal-property-pushout (f x) (g x) (c x))
   where
-  total-cocone-is-pushout : universal-property-pushout (tot f) (tot g) (total-cocone P f g c)
-  total-cocone-is-pushout C =
-    is-equiv-left-is-equiv-right-square
-      (cocone-map (tot f) (tot g) (total-cocone P f g c))
-      (total-cocone-map P f g c)
-      (ev-pair)
-      (total-cocone-fibers-const f g)
-      (total-cocone-maps-square-commutes P f g c)
-      is-equiv-ev-pair
-      (is-equiv-total-cocone-fibers-const f g)
-      (is-equiv-total-cocone-map P f g c up)
+  abstract
+    total-cocone-is-pushout : universal-property-pushout (tot f) (tot g) (total-cocone P f g c)
+    total-cocone-is-pushout C =
+      is-equiv-left-is-equiv-right-square
+        (cocone-map (tot f) (tot g) (total-cocone P f g c))
+        (total-cocone-map P f g c)
+        (ev-pair)
+        (total-cocone-fibers-const f g)
+        (total-cocone-maps-square-commutes P f g c)
+        is-equiv-ev-pair
+        (is-equiv-total-cocone-fibers-const f g)
+        (is-equiv-total-cocone-map P f g c up)
 ```
