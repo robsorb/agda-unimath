@@ -437,7 +437,7 @@ module _
       ( up-join)
 ```
 
-*TODO: Maybe move this stuff*
+_TODO: Maybe move this stuff_
 
 ```agda
 module _
@@ -480,70 +480,32 @@ module _
   {X : UU l1}
   (A : subtype l2 X) (B : subtype l3 X) (C : UU l4)
   where
-  union-cocone : UU (l1 ⊔ l2 ⊔ l3 ⊔ l4)
-  union-cocone = cocone (map-intersection-pr1 A B) (map-intersection-pr2 A B) C
-
-module _
-  {l1 l2 l3 l4 : Level}
-  {X : UU l1}
-  (A : subtype l2 X) (B : subtype l3 X) {C : UU l4}
-  where
-  horizontal-map-union-cocone : union-cocone A B C → type-subtype A → C
-  horizontal-map-union-cocone =
-    horizontal-map-cocone (map-intersection-pr1 A B) (map-intersection-pr2 A B)
-
-  vertical-map-union-cocone : union-cocone A B C → type-subtype B → C
-  vertical-map-union-cocone =
-    vertical-map-cocone (map-intersection-pr1 A B) (map-intersection-pr2 A B)
-
-module _
-  {l1 l2 l3 l4 : Level}
-  {X : UU l1}
-  (A : subtype l2 X) (B : subtype l3 X)
-  {C : UU l4}
-  (c : union-cocone A B C)
-  where
-  cocone-cogap-union :
-    (x : X) → cocone {A = type-Prop (A x)} {B = type-Prop (B x)} pr1 pr2 C
-  pr1 (cocone-cogap-union x) prfA =
-    horizontal-map-cocone
+  union-cocone :
+    cocone
       (map-intersection-pr1 A B)
       (map-intersection-pr2 A B)
-      c
-      (x , prfA)
-  pr1 (pr2 (cocone-cogap-union x)) prfB =
-    vertical-map-cocone
-      (map-intersection-pr1 A B)
-      (map-intersection-pr2 A B)
-      c
-      (x , prfB)
-  pr2 (pr2 (cocone-cogap-union x)) =
-    (λ prfAB →
-      coherence-square-cocone
+      (type-subtype (union-subtype A B))
+  union-cocone =
+    total-cocone
+      (type-Prop ∘ union-subtype A B)
+      (λ _ → pr1)
+      (λ _ → pr2)
+      (λ x → cocone-disjunction (A x) (B x))
+
+  abstract
+    union-cocone-is-pushout :
+      universal-property-pushout
         (map-intersection-pr1 A B)
         (map-intersection-pr2 A B)
-        c
-        (x , prfAB))
-
-  cogap-union : type-subtype (union-subtype A B) → C
-  cogap-union (x , p) = cogap-disjunction (A x) (B x) (cocone-cogap-union x) p
-
-  compute-inl-cogap-union :
-    cogap-union ∘ map-inl-union-subtype A B ~ horizontal-map-union-cocone A B c
-  compute-inl-cogap-union (x , p ) =
-    compute-inl-cogap-disjunction (A x) (B x) (cocone-cogap-union x) p
-
-  compute-inr-cogap-union :
-    cogap-union ∘ map-inr-union-subtype A B ~ vertical-map-union-cocone A B c
-  compute-inr-cogap-union (x , p ) =
-    compute-inr-cogap-disjunction (A x) (B x) (cocone-cogap-union x) p
-
-
+        union-cocone
+    union-cocone-is-pushout =
+      total-cocone-is-pushout
+        (type-Prop ∘ union-subtype A B)
+        (λ _ → pr1)
+        (λ _ → pr2)
+        (λ x → cocone-disjunction (A x) (B x))
+        (λ x → up-join-disjunction (A x) (B x))
 ```
-
-
-
-
 
 ## See also
 

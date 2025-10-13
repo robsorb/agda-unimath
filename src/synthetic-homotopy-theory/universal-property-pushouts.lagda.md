@@ -1174,7 +1174,7 @@ module _
 module _
   {l1 l2 l3 l4 l5 : Level}
   {X : UU l1}
-  (S : X → UU l2) (A : X → UU l3) (B : X → UU l4) (P : X → UU l5)
+  {S : X → UU l2} {A : X → UU l3} {B : X → UU l4} (P : X → UU l5)
   (f : (x : X) → S x → A x) (g : (x : X) → S x → B x)
   (c : (x : X) → cocone (f x) (g x) (P x))
   (up : (x : X) → universal-property-pushout (f x) (g x) (c x))
