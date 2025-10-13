@@ -480,11 +480,19 @@ module _
   {X : UU l1}
   (A : subtype l2 X) (B : subtype l3 X) (C : UU l4)
   where
-  union-cocone :
+  union-cocones : UU (l1 ⊔ l2 ⊔ l3 ⊔ l4)
+  union-cocones =
     cocone
       (map-intersection-pr1 A B)
       (map-intersection-pr2 A B)
-      (type-subtype (union-subtype A B))
+      C
+
+module _
+  {l1 l2 l3 : Level}
+  {X : UU l1}
+  (A : subtype l2 X) (B : subtype l3 X)
+  where
+  union-cocone : union-cocones A B (type-subtype (union-subtype A B))
   union-cocone =
     total-cocone
       (type-Prop ∘ union-subtype A B)

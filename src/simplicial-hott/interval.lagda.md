@@ -34,6 +34,8 @@ open import order-theory.top-elements-posets
 open import order-theory.bottom-elements-posets
 
 open import synthetic-homotopy-theory.joins-of-types
+open import synthetic-homotopy-theory.cocones-under-spans
+open import synthetic-homotopy-theory.universal-property-pushouts
 ```
 
 ## Postulates
@@ -242,107 +244,39 @@ module _
 
 module _
   {l : Level} {C : UU l}
-  {x y z : C} (f : hom x y) (g : hom y z)
   where
 
-  cocone-composable-pair-to-horn :
-    union-cocone right-edge-square-subtype bottom-edge-square-subtype C
-  pr1 cocone-composable-pair-to-horn ((_ , y) , _) = ev-hom g y
-  pr1 (pr2 cocone-composable-pair-to-horn) ((x , _), _) = ev-hom f x
-  pr2 (pr2 cocone-composable-pair-to-horn) ((x , y) , (refl , refl)) =
-    hom-dom-eq g ∙ inv (hom-cod-eq f)
-
-  composable-pair-to-horn : Λ²₁ → C
-  composable-pair-to-horn =
-    cogap-union
-      right-edge-square-subtype bottom-edge-square-subtype
-      cocone-composable-pair-to-horn
-
-  compute-composable-pair-horn-bottom :
-    composable-pair-to-horn ∘ bottom-Λ²₁ ~ ev-hom f
-  compute-composable-pair-horn-bottom x =
-    compute-inr-cogap-union
-      right-edge-square-subtype
-      bottom-edge-square-subtype
-      cocone-composable-pair-to-horn
-      ((x , 0-Δ¹) , refl)
-
-  compute-composable-pair-horn-right :
-    composable-pair-to-horn ∘ right-Λ²₁ ~ ev-hom g
-  compute-composable-pair-horn-right x =
-    compute-inl-cogap-union
-      right-edge-square-subtype
-      bottom-edge-square-subtype
-      cocone-composable-pair-to-horn
-      ((1-Δ¹ , x) , refl)
-
-```
-
-### Commuting triangles of morphisms
-
-```agda
-
-module _
-  {l : Level} {C : UU l}
-  {x y z : C} (f : hom x y) (g : hom y z) (h : hom x z)
-  where
-
-  is-triangle : UU l
-  is-triangle =
-    Σ (Δ² → C)
-      (λ α →
-        (bottom-edge α ~ ev-hom f) ×
-        (right-edge α ~ ev-hom g) ×
-        (diagonal-edge α ~ ev-hom h))
-
-module _
-  {l : Level} {C : UU l}
-  {x y z : C} (f : hom x y) (g : hom y z)
-  where
-
-  triangles : UU l
-  triangles = Σ (hom x z) (is-triangle f g)
-
-module _
-  {l : Level} {C : UU l}
-  where
-  horn-filler-to-triangle :
-    {x y z : C} (f : hom x y) (g : hom y z) → horn-filler (composable-pair-to-horn f g) → triangles f g
-  horn-filler-to-triangle {x = x} {z = z} f g α =
-    ( (diagonal-edge (pr1 α) , -- Diagonal hom
-      (equational-reasoning    -- Domain
-        dom (diagonal-edge (pr1 α))
-          ＝ dom (bottom-edge (pr1 α))
-            by dom-diagonal (pr1 α)
-          ＝ dom (ev-hom f)
-            by α-bottom 0-Δ¹
-          ＝ x
-            by hom-dom-eq f) ,
-      (equational-reasoning   -- Codomain
-        cod (diagonal-edge (pr1 α))
-          ＝ cod (right-edge (pr1 α))
-            by cod-diagonal (pr1 α)
-          ＝ cod (ev-hom g)
-            by α-right 1-Δ¹
-          ＝ z
-            by hom-cod-eq g)) ,
-
-      (pr1 α ,                -- Triangle
-        α-bottom ,
-        α-right ,
-        refl-htpy))
-    where
-      α-bottom : bottom-edge (pr1 α) ~ ev-hom f
-      α-bottom =
-        horn-filler-restricts-bottom (composable-pair-to-horn f g) α ∙h
-          compute-composable-pair-horn-bottom f g
-
-      α-right : right-edge (pr1 α) ~ ev-hom g
-      α-right =
-        horn-filler-restricts-right (composable-pair-to-horn f g) α ∙h
-          compute-composable-pair-horn-right f g
+  composable-edges-to-cocone :
+    (g : Δ¹ → C)  (f : Δ¹ → C) (compat : dom g ＝ cod f) →
+      union-cocones
+        right-edge-square-subtype
+        bottom-edge-square-subtype
+        C
+  pr1 (composable-edges-to-cocone g f compat) ((x , y), prfR) = g y
+  pr1 (pr2 (composable-edges-to-cocone g f compat)) ((x , y), prfL) = f x
+  pr2 (pr2 (composable-edges-to-cocone g f compat)) ((x , y), refl , refl) = compat
 
 
-  -- triangle-to-horn-filler : triangle → horn-filler (composable-pair-to-horn f g)
-  -- triangle-to-horn-filler = {!   !}
+  horn-cocone-right-edge :
+    (union-cocones right-edge-square-subtype bottom-edge-square-subtype C) → Δ¹ → C
+  horn-cocone-right-edge (r , _ , _) i = r ((1-Δ¹ , i) , refl)
+
+  horn-cocone-bottom-edge :
+    (union-cocones right-edge-square-subtype bottom-edge-square-subtype C) → Δ¹ → C
+  horn-cocone-bottom-edge (_ , b , _) i = b ((i , 0-Δ¹) , refl)
+
+  compat-horn-cocone-edges :
+    (c : union-cocones right-edge-square-subtype bottom-edge-square-subtype C) →
+      dom (horn-cocone-right-edge c) ＝ cod (horn-cocone-bottom-edge c)
+  compat-horn-cocone-edges (_ , _ , c) = c ((1-Δ¹ , 0-Δ¹) , refl , refl)
+
+  composable-edges-to-horn :
+    (g : Δ¹ → C)  (f : Δ¹ → C) (compat : dom g ＝ cod f) → Λ²₁ → C
+  composable-edges-to-horn g f compat =
+    map-universal-property-pushout
+      (map-intersection-pr1 right-edge-square-subtype bottom-edge-square-subtype)
+      (map-intersection-pr2 right-edge-square-subtype bottom-edge-square-subtype)
+      (union-cocone right-edge-square-subtype bottom-edge-square-subtype)
+      (union-cocone-is-pushout right-edge-square-subtype bottom-edge-square-subtype)
+      (composable-edges-to-cocone g f compat)
 ```
