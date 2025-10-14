@@ -1,0 +1,46 @@
+# Closed subsets of located metric spaces
+
+<pre class="Agda"><a id="52" class="Keyword">module</a> <a id="59" href="metric-spaces.closed-subsets-located-metric-spaces.html" class="Module">metric-spaces.closed-subsets-located-metric-spaces</a> <a id="110" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="166" class="Keyword">open</a> <a id="171" class="Keyword">import</a> <a id="178" href="foundation.propositions.html" class="Module">foundation.propositions</a>
+<a id="202" class="Keyword">open</a> <a id="207" class="Keyword">import</a> <a id="214" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="242" class="Keyword">open</a> <a id="247" class="Keyword">import</a> <a id="254" href="metric-spaces.closed-subsets-metric-spaces.html" class="Module">metric-spaces.closed-subsets-metric-spaces</a>
+<a id="297" class="Keyword">open</a> <a id="302" class="Keyword">import</a> <a id="309" href="metric-spaces.located-metric-spaces.html" class="Module">metric-spaces.located-metric-spaces</a>
+<a id="345" class="Keyword">open</a> <a id="350" class="Keyword">import</a> <a id="357" href="metric-spaces.metric-spaces.html" class="Module">metric-spaces.metric-spaces</a>
+</pre>
+</details>
+
+## Idea
+
+A [subset](foundation.subtypes.md) `S` of a
+[located metric space](metric-spaces.located-metric-spaces.md) `X` is
+{{#concept "closed" disambiguation="subset of a located metric space" WDID=Q320357 WD="closed set" Agda=is-closed-subset-Located-Metric-Space}}
+if it is a [closed subset](metric-spaces.closed-subsets-metric-spaces.md) of the
+underlying [metric space](metric-spaces.metric-spaces.md)
+
+## Definition
+
+<pre class="Agda"><a id="832" class="Keyword">module</a> <a id="839" href="metric-spaces.closed-subsets-located-metric-spaces.html#839" class="Module">_</a>
+  <a id="843" class="Symbol">{</a><a id="844" href="metric-spaces.closed-subsets-located-metric-spaces.html#844" class="Bound">l1</a> <a id="847" href="metric-spaces.closed-subsets-located-metric-spaces.html#847" class="Bound">l2</a> <a id="850" href="metric-spaces.closed-subsets-located-metric-spaces.html#850" class="Bound">l3</a> <a id="853" class="Symbol">:</a> <a id="855" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="860" class="Symbol">}</a>
+  <a id="864" class="Symbol">(</a><a id="865" href="metric-spaces.closed-subsets-located-metric-spaces.html#865" class="Bound">X</a> <a id="867" class="Symbol">:</a> <a id="869" href="metric-spaces.located-metric-spaces.html#2868" class="Function">Located-Metric-Space</a> <a id="890" href="metric-spaces.closed-subsets-located-metric-spaces.html#844" class="Bound">l1</a> <a id="893" href="metric-spaces.closed-subsets-located-metric-spaces.html#847" class="Bound">l2</a><a id="895" class="Symbol">)</a> <a id="897" class="Symbol">(</a><a id="898" href="metric-spaces.closed-subsets-located-metric-spaces.html#898" class="Bound">S</a> <a id="900" class="Symbol">:</a> <a id="902" href="metric-spaces.located-metric-spaces.html#3596" class="Function">subset-Located-Metric-Space</a> <a id="930" href="metric-spaces.closed-subsets-located-metric-spaces.html#850" class="Bound">l3</a> <a id="933" href="metric-spaces.closed-subsets-located-metric-spaces.html#865" class="Bound">X</a><a id="934" class="Symbol">)</a>
+  <a id="938" class="Keyword">where</a>
+
+  <a id="947" href="metric-spaces.closed-subsets-located-metric-spaces.html#947" class="Function">is-closed-prop-subset-Located-Metric-Space</a> <a id="990" class="Symbol">:</a> <a id="992" href="foundation-core.propositions.html#1153" class="Function">Prop</a> <a id="997" class="Symbol">(</a><a id="998" href="metric-spaces.closed-subsets-located-metric-spaces.html#844" class="Bound">l1</a> <a id="1001" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1003" href="metric-spaces.closed-subsets-located-metric-spaces.html#847" class="Bound">l2</a> <a id="1006" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1008" href="metric-spaces.closed-subsets-located-metric-spaces.html#850" class="Bound">l3</a><a id="1010" class="Symbol">)</a>
+  <a id="1014" href="metric-spaces.closed-subsets-located-metric-spaces.html#947" class="Function">is-closed-prop-subset-Located-Metric-Space</a> <a id="1057" class="Symbol">=</a>
+    <a id="1063" href="metric-spaces.closed-subsets-metric-spaces.html#1867" class="Function">is-closed-prop-subset-Metric-Space</a>
+      <a id="1104" class="Symbol">(</a> <a id="1106" href="metric-spaces.located-metric-spaces.html#3089" class="Function">metric-space-Located-Metric-Space</a> <a id="1140" href="metric-spaces.closed-subsets-located-metric-spaces.html#865" class="Bound">X</a><a id="1141" class="Symbol">)</a>
+      <a id="1149" class="Symbol">(</a> <a id="1151" href="metric-spaces.closed-subsets-located-metric-spaces.html#898" class="Bound">S</a><a id="1152" class="Symbol">)</a>
+
+  <a id="1157" href="metric-spaces.closed-subsets-located-metric-spaces.html#1157" class="Function">is-closed-subset-Located-Metric-Space</a> <a id="1195" class="Symbol">:</a> <a id="1197" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1200" class="Symbol">(</a><a id="1201" href="metric-spaces.closed-subsets-located-metric-spaces.html#844" class="Bound">l1</a> <a id="1204" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1206" href="metric-spaces.closed-subsets-located-metric-spaces.html#847" class="Bound">l2</a> <a id="1209" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1211" href="metric-spaces.closed-subsets-located-metric-spaces.html#850" class="Bound">l3</a><a id="1213" class="Symbol">)</a>
+  <a id="1217" href="metric-spaces.closed-subsets-located-metric-spaces.html#1157" class="Function">is-closed-subset-Located-Metric-Space</a> <a id="1255" class="Symbol">=</a>
+    <a id="1261" href="foundation-core.propositions.html#1249" class="Function">type-Prop</a> <a id="1271" href="metric-spaces.closed-subsets-located-metric-spaces.html#947" class="Function">is-closed-prop-subset-Located-Metric-Space</a>
+
+<a id="closed-subset-Located-Metric-Space"></a><a id="1315" href="metric-spaces.closed-subsets-located-metric-spaces.html#1315" class="Function">closed-subset-Located-Metric-Space</a> <a id="1350" class="Symbol">:</a>
+  <a id="1354" class="Symbol">{</a><a id="1355" href="metric-spaces.closed-subsets-located-metric-spaces.html#1355" class="Bound">l1</a> <a id="1358" href="metric-spaces.closed-subsets-located-metric-spaces.html#1358" class="Bound">l2</a> <a id="1361" class="Symbol">:</a> <a id="1363" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1368" class="Symbol">}</a> <a id="1370" class="Symbol">(</a><a id="1371" href="metric-spaces.closed-subsets-located-metric-spaces.html#1371" class="Bound">l3</a> <a id="1374" class="Symbol">:</a> <a id="1376" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1381" class="Symbol">)</a>
+  <a id="1385" class="Symbol">(</a><a id="1386" href="metric-spaces.closed-subsets-located-metric-spaces.html#1386" class="Bound">X</a> <a id="1388" class="Symbol">:</a> <a id="1390" href="metric-spaces.located-metric-spaces.html#2868" class="Function">Located-Metric-Space</a> <a id="1411" href="metric-spaces.closed-subsets-located-metric-spaces.html#1355" class="Bound">l1</a> <a id="1414" href="metric-spaces.closed-subsets-located-metric-spaces.html#1358" class="Bound">l2</a><a id="1416" class="Symbol">)</a> <a id="1418" class="Symbol">→</a> <a id="1420" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1423" class="Symbol">(</a><a id="1424" href="metric-spaces.closed-subsets-located-metric-spaces.html#1355" class="Bound">l1</a> <a id="1427" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1429" href="metric-spaces.closed-subsets-located-metric-spaces.html#1358" class="Bound">l2</a> <a id="1432" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1434" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="1439" href="metric-spaces.closed-subsets-located-metric-spaces.html#1371" class="Bound">l3</a><a id="1441" class="Symbol">)</a>
+<a id="1443" href="metric-spaces.closed-subsets-located-metric-spaces.html#1315" class="Function">closed-subset-Located-Metric-Space</a> <a id="1478" href="metric-spaces.closed-subsets-located-metric-spaces.html#1478" class="Bound">l3</a> <a id="1481" href="metric-spaces.closed-subsets-located-metric-spaces.html#1481" class="Bound">X</a> <a id="1483" class="Symbol">=</a>
+  <a id="1487" href="metric-spaces.closed-subsets-metric-spaces.html#2153" class="Function">closed-subset-Metric-Space</a> <a id="1514" href="metric-spaces.closed-subsets-located-metric-spaces.html#1478" class="Bound">l3</a> <a id="1517" class="Symbol">(</a><a id="1518" href="metric-spaces.located-metric-spaces.html#3089" class="Function">metric-space-Located-Metric-Space</a> <a id="1552" href="metric-spaces.closed-subsets-located-metric-spaces.html#1481" class="Bound">X</a><a id="1553" class="Symbol">)</a>
+</pre>

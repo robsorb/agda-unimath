@@ -1,0 +1,43 @@
+# Product decompositions
+
+<pre class="Agda"><a id="35" class="Keyword">module</a> <a id="42" href="foundation.product-decompositions.html" class="Module">foundation.product-decompositions</a> <a id="76" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="132" class="Keyword">open</a> <a id="137" class="Keyword">import</a> <a id="144" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="176" class="Keyword">open</a> <a id="181" class="Keyword">import</a> <a id="188" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="216" class="Keyword">open</a> <a id="221" class="Keyword">import</a> <a id="228" href="foundation-core.cartesian-product-types.html" class="Module">foundation-core.cartesian-product-types</a>
+<a id="268" class="Keyword">open</a> <a id="273" class="Keyword">import</a> <a id="280" href="foundation-core.equivalences.html" class="Module">foundation-core.equivalences</a>
+</pre>
+</details>
+
+## Definitions
+
+### Binary product decomposition
+
+<pre class="Agda"><a id="384" class="Keyword">module</a> <a id="391" href="foundation.product-decompositions.html#391" class="Module">_</a>
+  <a id="395" class="Symbol">{</a><a id="396" href="foundation.product-decompositions.html#396" class="Bound">l1</a> <a id="399" class="Symbol">:</a> <a id="401" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="406" class="Symbol">}</a> <a id="408" class="Symbol">(</a><a id="409" href="foundation.product-decompositions.html#409" class="Bound">l2</a> <a id="412" href="foundation.product-decompositions.html#412" class="Bound">l3</a> <a id="415" class="Symbol">:</a> <a id="417" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="422" class="Symbol">)</a> <a id="424" class="Symbol">(</a><a id="425" href="foundation.product-decompositions.html#425" class="Bound">X</a> <a id="427" class="Symbol">:</a> <a id="429" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="432" href="foundation.product-decompositions.html#396" class="Bound">l1</a><a id="434" class="Symbol">)</a>
+  <a id="438" class="Keyword">where</a>
+
+  <a id="447" href="foundation.product-decompositions.html#447" class="Function">binary-product-Decomposition</a> <a id="476" class="Symbol">:</a> <a id="478" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="481" class="Symbol">(</a><a id="482" href="foundation.product-decompositions.html#396" class="Bound">l1</a> <a id="485" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="487" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="492" href="foundation.product-decompositions.html#409" class="Bound">l2</a> <a id="495" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="497" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="502" href="foundation.product-decompositions.html#412" class="Bound">l3</a><a id="504" class="Symbol">)</a>
+  <a id="508" href="foundation.product-decompositions.html#447" class="Function">binary-product-Decomposition</a> <a id="537" class="Symbol">=</a>
+    <a id="543" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="545" class="Symbol">(</a><a id="546" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="549" href="foundation.product-decompositions.html#409" class="Bound">l2</a><a id="551" class="Symbol">)</a> <a id="553" class="Symbol">(λ</a> <a id="556" href="foundation.product-decompositions.html#556" class="Bound">A</a> <a id="558" class="Symbol">→</a> <a id="560" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="562" class="Symbol">(</a><a id="563" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="566" href="foundation.product-decompositions.html#412" class="Bound">l3</a><a id="568" class="Symbol">)</a> <a id="570" class="Symbol">(λ</a> <a id="573" href="foundation.product-decompositions.html#573" class="Bound">B</a> <a id="575" class="Symbol">→</a> <a id="577" href="foundation.product-decompositions.html#425" class="Bound">X</a> <a id="579" href="foundation-core.equivalences.html#2554" class="Function Operator">≃</a> <a id="581" class="Symbol">(</a><a id="582" href="foundation.product-decompositions.html#556" class="Bound">A</a> <a id="584" href="foundation-core.cartesian-product-types.html#585" class="Function Operator">×</a> <a id="586" href="foundation.product-decompositions.html#573" class="Bound">B</a><a id="587" class="Symbol">)))</a>
+
+<a id="592" class="Keyword">module</a> <a id="599" href="foundation.product-decompositions.html#599" class="Module">_</a>
+  <a id="603" class="Symbol">{</a><a id="604" href="foundation.product-decompositions.html#604" class="Bound">l1</a> <a id="607" href="foundation.product-decompositions.html#607" class="Bound">l2</a> <a id="610" href="foundation.product-decompositions.html#610" class="Bound">l3</a> <a id="613" class="Symbol">:</a> <a id="615" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="620" class="Symbol">}</a> <a id="622" class="Symbol">{</a><a id="623" href="foundation.product-decompositions.html#623" class="Bound">X</a> <a id="625" class="Symbol">:</a> <a id="627" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="630" href="foundation.product-decompositions.html#604" class="Bound">l1</a><a id="632" class="Symbol">}</a>
+  <a id="636" class="Symbol">(</a><a id="637" href="foundation.product-decompositions.html#637" class="Bound">d</a> <a id="639" class="Symbol">:</a> <a id="641" href="foundation.product-decompositions.html#447" class="Function">binary-product-Decomposition</a> <a id="670" href="foundation.product-decompositions.html#607" class="Bound">l2</a> <a id="673" href="foundation.product-decompositions.html#610" class="Bound">l3</a> <a id="676" href="foundation.product-decompositions.html#623" class="Bound">X</a><a id="677" class="Symbol">)</a>
+  <a id="681" class="Keyword">where</a>
+
+  <a id="690" href="foundation.product-decompositions.html#690" class="Function">left-summand-binary-product-Decomposition</a> <a id="732" class="Symbol">:</a> <a id="734" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="737" href="foundation.product-decompositions.html#607" class="Bound">l2</a>
+  <a id="742" href="foundation.product-decompositions.html#690" class="Function">left-summand-binary-product-Decomposition</a> <a id="784" class="Symbol">=</a> <a id="786" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="790" href="foundation.product-decompositions.html#637" class="Bound">d</a>
+
+  <a id="795" href="foundation.product-decompositions.html#795" class="Function">right-summand-binary-product-Decomposition</a> <a id="838" class="Symbol">:</a> <a id="840" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="843" href="foundation.product-decompositions.html#610" class="Bound">l3</a>
+  <a id="848" href="foundation.product-decompositions.html#795" class="Function">right-summand-binary-product-Decomposition</a> <a id="891" class="Symbol">=</a> <a id="893" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="897" class="Symbol">(</a><a id="898" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="902" href="foundation.product-decompositions.html#637" class="Bound">d</a><a id="903" class="Symbol">)</a>
+
+  <a id="908" href="foundation.product-decompositions.html#908" class="Function">matching-correspondence-binary-product-Decomposition</a> <a id="961" class="Symbol">:</a>
+    <a id="967" href="foundation.product-decompositions.html#623" class="Bound">X</a> <a id="969" href="foundation-core.equivalences.html#2554" class="Function Operator">≃</a>
+    <a id="975" class="Symbol">(</a> <a id="977" href="foundation.product-decompositions.html#690" class="Function">left-summand-binary-product-Decomposition</a> <a id="1019" href="foundation-core.cartesian-product-types.html#585" class="Function Operator">×</a>
+      <a id="1027" href="foundation.product-decompositions.html#795" class="Function">right-summand-binary-product-Decomposition</a><a id="1069" class="Symbol">)</a>
+  <a id="1073" href="foundation.product-decompositions.html#908" class="Function">matching-correspondence-binary-product-Decomposition</a> <a id="1126" class="Symbol">=</a> <a id="1128" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1132" class="Symbol">(</a><a id="1133" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1137" href="foundation.product-decompositions.html#637" class="Bound">d</a><a id="1138" class="Symbol">)</a>
+</pre>

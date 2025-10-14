@@ -1,0 +1,72 @@
+# Center of a semigroup
+
+<pre class="Agda"><a id="34" class="Keyword">module</a> <a id="41" href="group-theory.centers-semigroups.html" class="Module">group-theory.centers-semigroups</a> <a id="73" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="129" class="Keyword">open</a> <a id="134" class="Keyword">import</a> <a id="141" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="173" class="Keyword">open</a> <a id="178" class="Keyword">import</a> <a id="185" href="foundation.identity-types.html" class="Module">foundation.identity-types</a>
+<a id="211" class="Keyword">open</a> <a id="216" class="Keyword">import</a> <a id="223" href="foundation.propositions.html" class="Module">foundation.propositions</a>
+<a id="247" class="Keyword">open</a> <a id="252" class="Keyword">import</a> <a id="259" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="287" class="Keyword">open</a> <a id="292" class="Keyword">import</a> <a id="299" href="group-theory.central-elements-semigroups.html" class="Module">group-theory.central-elements-semigroups</a>
+<a id="340" class="Keyword">open</a> <a id="345" class="Keyword">import</a> <a id="352" href="group-theory.homomorphisms-semigroups.html" class="Module">group-theory.homomorphisms-semigroups</a>
+<a id="390" class="Keyword">open</a> <a id="395" class="Keyword">import</a> <a id="402" href="group-theory.semigroups.html" class="Module">group-theory.semigroups</a>
+<a id="426" class="Keyword">open</a> <a id="431" class="Keyword">import</a> <a id="438" href="group-theory.subsemigroups.html" class="Module">group-theory.subsemigroups</a>
+</pre>
+</details>
+
+## Idea
+
+The center of a semigroup consists of those elements that are central.
+
+## Definition
+
+<pre class="Agda"><a id="586" class="Keyword">module</a> <a id="593" href="group-theory.centers-semigroups.html#593" class="Module">_</a>
+  <a id="597" class="Symbol">{</a><a id="598" href="group-theory.centers-semigroups.html#598" class="Bound">l</a> <a id="600" class="Symbol">:</a> <a id="602" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="607" class="Symbol">}</a> <a id="609" class="Symbol">(</a><a id="610" href="group-theory.centers-semigroups.html#610" class="Bound">G</a> <a id="612" class="Symbol">:</a> <a id="614" href="group-theory.semigroups.html#878" class="Function">Semigroup</a> <a id="624" href="group-theory.centers-semigroups.html#598" class="Bound">l</a><a id="625" class="Symbol">)</a>
+  <a id="629" class="Keyword">where</a>
+
+  <a id="638" href="group-theory.centers-semigroups.html#638" class="Function">subtype-center-Semigroup</a> <a id="663" class="Symbol">:</a> <a id="665" href="group-theory.semigroups.html#1068" class="Function">type-Semigroup</a> <a id="680" href="group-theory.centers-semigroups.html#610" class="Bound">G</a> <a id="682" class="Symbol">→</a> <a id="684" href="foundation-core.propositions.html#1153" class="Function">Prop</a> <a id="689" href="group-theory.centers-semigroups.html#598" class="Bound">l</a>
+  <a id="693" href="group-theory.centers-semigroups.html#638" class="Function">subtype-center-Semigroup</a> <a id="718" class="Symbol">=</a> <a id="720" href="group-theory.central-elements-semigroups.html#573" class="Function">is-central-element-prop-Semigroup</a> <a id="754" href="group-theory.centers-semigroups.html#610" class="Bound">G</a>
+
+  <a id="759" href="group-theory.centers-semigroups.html#759" class="Function">center-Semigroup</a> <a id="776" class="Symbol">:</a> <a id="778" href="group-theory.subsemigroups.html#1725" class="Function">Subsemigroup</a> <a id="791" href="group-theory.centers-semigroups.html#598" class="Bound">l</a> <a id="793" href="group-theory.centers-semigroups.html#610" class="Bound">G</a>
+  <a id="797" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="801" href="group-theory.centers-semigroups.html#759" class="Function">center-Semigroup</a> <a id="818" class="Symbol">=</a> <a id="820" href="group-theory.centers-semigroups.html#638" class="Function">subtype-center-Semigroup</a>
+  <a id="847" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="851" href="group-theory.centers-semigroups.html#759" class="Function">center-Semigroup</a> <a id="868" class="Symbol">{</a><a id="869" href="group-theory.centers-semigroups.html#869" class="Bound">x</a><a id="870" class="Symbol">}</a> <a id="872" class="Symbol">{</a><a id="873" href="group-theory.centers-semigroups.html#873" class="Bound">y</a><a id="874" class="Symbol">}</a> <a id="876" class="Symbol">=</a> <a id="878" href="group-theory.central-elements-semigroups.html#1330" class="Function">is-central-element-mul-Semigroup</a> <a id="911" href="group-theory.centers-semigroups.html#610" class="Bound">G</a> <a id="913" href="group-theory.centers-semigroups.html#869" class="Bound">x</a> <a id="915" href="group-theory.centers-semigroups.html#873" class="Bound">y</a>
+
+  <a id="920" href="group-theory.centers-semigroups.html#920" class="Function">semigroup-center-Semigroup</a> <a id="947" class="Symbol">:</a> <a id="949" href="group-theory.semigroups.html#878" class="Function">Semigroup</a> <a id="959" href="group-theory.centers-semigroups.html#598" class="Bound">l</a>
+  <a id="963" href="group-theory.centers-semigroups.html#920" class="Function">semigroup-center-Semigroup</a> <a id="990" class="Symbol">=</a> <a id="992" href="group-theory.subsemigroups.html#4645" class="Function">semigroup-Subsemigroup</a> <a id="1015" href="group-theory.centers-semigroups.html#610" class="Bound">G</a> <a id="1017" href="group-theory.centers-semigroups.html#759" class="Function">center-Semigroup</a>
+
+  <a id="1037" href="group-theory.centers-semigroups.html#1037" class="Function">type-center-Semigroup</a> <a id="1059" class="Symbol">:</a> <a id="1061" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1064" href="group-theory.centers-semigroups.html#598" class="Bound">l</a>
+  <a id="1068" href="group-theory.centers-semigroups.html#1037" class="Function">type-center-Semigroup</a> <a id="1090" class="Symbol">=</a>
+    <a id="1096" href="group-theory.subsemigroups.html#3055" class="Function">type-Subsemigroup</a> <a id="1114" href="group-theory.centers-semigroups.html#610" class="Bound">G</a> <a id="1116" href="group-theory.centers-semigroups.html#759" class="Function">center-Semigroup</a>
+
+  <a id="1136" href="group-theory.centers-semigroups.html#1136" class="Function">mul-center-Semigroup</a> <a id="1157" class="Symbol">:</a>
+    <a id="1163" class="Symbol">(</a><a id="1164" href="group-theory.centers-semigroups.html#1164" class="Bound">x</a> <a id="1166" href="group-theory.centers-semigroups.html#1166" class="Bound">y</a> <a id="1168" class="Symbol">:</a> <a id="1170" href="group-theory.centers-semigroups.html#1037" class="Function">type-center-Semigroup</a><a id="1191" class="Symbol">)</a> <a id="1193" class="Symbol">→</a> <a id="1195" href="group-theory.centers-semigroups.html#1037" class="Function">type-center-Semigroup</a>
+  <a id="1219" href="group-theory.centers-semigroups.html#1136" class="Function">mul-center-Semigroup</a> <a id="1240" class="Symbol">=</a> <a id="1242" href="group-theory.subsemigroups.html#3958" class="Function">mul-Subsemigroup</a> <a id="1259" href="group-theory.centers-semigroups.html#610" class="Bound">G</a> <a id="1261" href="group-theory.centers-semigroups.html#759" class="Function">center-Semigroup</a>
+
+  <a id="1281" href="group-theory.centers-semigroups.html#1281" class="Function">associative-mul-center-Semigroup</a> <a id="1314" class="Symbol">:</a>
+    <a id="1320" class="Symbol">(</a><a id="1321" href="group-theory.centers-semigroups.html#1321" class="Bound">x</a> <a id="1323" href="group-theory.centers-semigroups.html#1323" class="Bound">y</a> <a id="1325" href="group-theory.centers-semigroups.html#1325" class="Bound">z</a> <a id="1327" class="Symbol">:</a> <a id="1329" href="group-theory.centers-semigroups.html#1037" class="Function">type-center-Semigroup</a><a id="1350" class="Symbol">)</a> <a id="1352" class="Symbol">→</a>
+    <a id="1358" href="group-theory.centers-semigroups.html#1136" class="Function">mul-center-Semigroup</a> <a id="1379" class="Symbol">(</a><a id="1380" href="group-theory.centers-semigroups.html#1136" class="Function">mul-center-Semigroup</a> <a id="1401" href="group-theory.centers-semigroups.html#1321" class="Bound">x</a> <a id="1403" href="group-theory.centers-semigroups.html#1323" class="Bound">y</a><a id="1404" class="Symbol">)</a> <a id="1406" href="group-theory.centers-semigroups.html#1325" class="Bound">z</a> <a id="1408" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a>
+    <a id="1414" href="group-theory.centers-semigroups.html#1136" class="Function">mul-center-Semigroup</a> <a id="1435" href="group-theory.centers-semigroups.html#1321" class="Bound">x</a> <a id="1437" class="Symbol">(</a><a id="1438" href="group-theory.centers-semigroups.html#1136" class="Function">mul-center-Semigroup</a> <a id="1459" href="group-theory.centers-semigroups.html#1323" class="Bound">y</a> <a id="1461" href="group-theory.centers-semigroups.html#1325" class="Bound">z</a><a id="1462" class="Symbol">)</a>
+  <a id="1466" href="group-theory.centers-semigroups.html#1281" class="Function">associative-mul-center-Semigroup</a> <a id="1499" class="Symbol">=</a>
+    <a id="1505" href="group-theory.subsemigroups.html#4244" class="Function">associative-mul-Subsemigroup</a> <a id="1534" href="group-theory.centers-semigroups.html#610" class="Bound">G</a> <a id="1536" href="group-theory.centers-semigroups.html#759" class="Function">center-Semigroup</a>
+
+  <a id="1556" href="group-theory.centers-semigroups.html#1556" class="Function">inclusion-center-Semigroup</a> <a id="1583" class="Symbol">:</a>
+    <a id="1589" href="group-theory.centers-semigroups.html#1037" class="Function">type-center-Semigroup</a> <a id="1611" class="Symbol">→</a> <a id="1613" href="group-theory.semigroups.html#1068" class="Function">type-Semigroup</a> <a id="1628" href="group-theory.centers-semigroups.html#610" class="Bound">G</a>
+  <a id="1632" href="group-theory.centers-semigroups.html#1556" class="Function">inclusion-center-Semigroup</a> <a id="1659" class="Symbol">=</a>
+    <a id="1665" href="group-theory.subsemigroups.html#3389" class="Function">inclusion-Subsemigroup</a> <a id="1688" href="group-theory.centers-semigroups.html#610" class="Bound">G</a> <a id="1690" href="group-theory.centers-semigroups.html#759" class="Function">center-Semigroup</a>
+
+  <a id="1710" href="group-theory.centers-semigroups.html#1710" class="Function">preserves-mul-inclusion-center-Semigroup</a> <a id="1751" class="Symbol">:</a>
+    <a id="1757" class="Symbol">{</a><a id="1758" href="group-theory.centers-semigroups.html#1758" class="Bound">x</a> <a id="1760" href="group-theory.centers-semigroups.html#1760" class="Bound">y</a> <a id="1762" class="Symbol">:</a> <a id="1764" href="group-theory.centers-semigroups.html#1037" class="Function">type-center-Semigroup</a><a id="1785" class="Symbol">}</a> <a id="1787" class="Symbol">→</a>
+    <a id="1793" href="group-theory.centers-semigroups.html#1556" class="Function">inclusion-center-Semigroup</a> <a id="1820" class="Symbol">(</a><a id="1821" href="group-theory.centers-semigroups.html#1136" class="Function">mul-center-Semigroup</a> <a id="1842" href="group-theory.centers-semigroups.html#1758" class="Bound">x</a> <a id="1844" href="group-theory.centers-semigroups.html#1760" class="Bound">y</a><a id="1845" class="Symbol">)</a> <a id="1847" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a>
+    <a id="1853" href="group-theory.semigroups.html#1350" class="Function">mul-Semigroup</a> <a id="1867" href="group-theory.centers-semigroups.html#610" class="Bound">G</a>
+      <a id="1875" class="Symbol">(</a> <a id="1877" href="group-theory.centers-semigroups.html#1556" class="Function">inclusion-center-Semigroup</a> <a id="1904" href="group-theory.centers-semigroups.html#1758" class="Bound">x</a><a id="1905" class="Symbol">)</a>
+      <a id="1913" class="Symbol">(</a> <a id="1915" href="group-theory.centers-semigroups.html#1556" class="Function">inclusion-center-Semigroup</a> <a id="1942" href="group-theory.centers-semigroups.html#1760" class="Bound">y</a><a id="1943" class="Symbol">)</a>
+  <a id="1947" href="group-theory.centers-semigroups.html#1710" class="Function">preserves-mul-inclusion-center-Semigroup</a> <a id="1988" class="Symbol">{</a><a id="1989" href="group-theory.centers-semigroups.html#1989" class="Bound">x</a><a id="1990" class="Symbol">}</a> <a id="1992" class="Symbol">{</a><a id="1993" href="group-theory.centers-semigroups.html#1993" class="Bound">y</a><a id="1994" class="Symbol">}</a> <a id="1996" class="Symbol">=</a>
+    <a id="2002" href="group-theory.subsemigroups.html#4861" class="Function">preserves-mul-inclusion-Subsemigroup</a> <a id="2039" href="group-theory.centers-semigroups.html#610" class="Bound">G</a> <a id="2041" href="group-theory.centers-semigroups.html#759" class="Function">center-Semigroup</a> <a id="2058" class="Symbol">{</a><a id="2059" href="group-theory.centers-semigroups.html#1989" class="Bound">x</a><a id="2060" class="Symbol">}</a> <a id="2062" class="Symbol">{</a><a id="2063" href="group-theory.centers-semigroups.html#1993" class="Bound">y</a><a id="2064" class="Symbol">}</a>
+
+  <a id="2069" href="group-theory.centers-semigroups.html#2069" class="Function">hom-inclusion-center-Semigroup</a> <a id="2100" class="Symbol">:</a>
+    <a id="2106" href="group-theory.homomorphisms-semigroups.html#2895" class="Function">hom-Semigroup</a> <a id="2120" href="group-theory.centers-semigroups.html#920" class="Function">semigroup-center-Semigroup</a> <a id="2147" href="group-theory.centers-semigroups.html#610" class="Bound">G</a>
+  <a id="2151" href="group-theory.centers-semigroups.html#2069" class="Function">hom-inclusion-center-Semigroup</a> <a id="2182" class="Symbol">=</a>
+    <a id="2188" href="group-theory.subsemigroups.html#5025" class="Function">hom-inclusion-Subsemigroup</a> <a id="2215" href="group-theory.centers-semigroups.html#610" class="Bound">G</a> <a id="2217" href="group-theory.centers-semigroups.html#759" class="Function">center-Semigroup</a>
+</pre>

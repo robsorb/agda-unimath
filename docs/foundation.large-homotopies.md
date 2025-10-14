@@ -1,0 +1,46 @@
+# Large homotopies
+
+<pre class="Agda"><a id="29" class="Keyword">module</a> <a id="36" href="foundation.large-homotopies.html" class="Module">foundation.large-homotopies</a> <a id="64" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="120" class="Keyword">open</a> <a id="125" class="Keyword">import</a> <a id="132" href="foundation.large-identity-types.html" class="Module">foundation.large-identity-types</a>
+<a id="164" class="Keyword">open</a> <a id="169" class="Keyword">import</a> <a id="176" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+</pre>
+</details>
+
+## Idea
+
+A large homotopy of identifications is a pointwise equality between large
+dependent functions.
+
+## Definitions
+
+<pre class="Agda"><a id="349" class="Keyword">module</a> <a id="356" href="foundation.large-homotopies.html#356" class="Module">_</a>
+  <a id="360" class="Symbol">{</a><a id="361" href="foundation.large-homotopies.html#361" class="Bound">X</a> <a id="363" class="Symbol">:</a> <a id="365" href="Agda.Primitive.html#512" class="Primitive">UUω</a><a id="368" class="Symbol">}</a> <a id="370" class="Symbol">{</a><a id="371" href="foundation.large-homotopies.html#371" class="Bound">P</a> <a id="373" class="Symbol">:</a> <a id="375" href="foundation.large-homotopies.html#361" class="Bound">X</a> <a id="377" class="Symbol">→</a> <a id="379" href="Agda.Primitive.html#512" class="Primitive">UUω</a><a id="382" class="Symbol">}</a> <a id="384" class="Symbol">(</a><a id="385" href="foundation.large-homotopies.html#385" class="Bound">f</a> <a id="387" href="foundation.large-homotopies.html#387" class="Bound">g</a> <a id="389" class="Symbol">:</a> <a id="391" class="Symbol">(</a><a id="392" href="foundation.large-homotopies.html#392" class="Bound">x</a> <a id="394" class="Symbol">:</a> <a id="396" href="foundation.large-homotopies.html#361" class="Bound">X</a><a id="397" class="Symbol">)</a> <a id="399" class="Symbol">→</a> <a id="401" href="foundation.large-homotopies.html#371" class="Bound">P</a> <a id="403" href="foundation.large-homotopies.html#392" class="Bound">x</a><a id="404" class="Symbol">)</a>
+  <a id="408" class="Keyword">where</a>
+
+  <a id="417" href="foundation.large-homotopies.html#417" class="Function">eq-large-value</a> <a id="432" class="Symbol">:</a> <a id="434" href="foundation.large-homotopies.html#361" class="Bound">X</a> <a id="436" class="Symbol">→</a> <a id="438" href="Agda.Primitive.html#512" class="Primitive">UUω</a>
+  <a id="444" href="foundation.large-homotopies.html#417" class="Function">eq-large-value</a> <a id="459" href="foundation.large-homotopies.html#459" class="Bound">x</a> <a id="461" class="Symbol">=</a> <a id="463" class="Symbol">(</a><a id="464" href="foundation.large-homotopies.html#385" class="Bound">f</a> <a id="466" href="foundation.large-homotopies.html#459" class="Bound">x</a> <a id="468" href="foundation.large-identity-types.html#295" class="Function Operator">＝ω</a> <a id="471" href="foundation.large-homotopies.html#387" class="Bound">g</a> <a id="473" href="foundation.large-homotopies.html#459" class="Bound">x</a><a id="474" class="Symbol">)</a>
+</pre>
+<pre class="Agda"><a id="489" class="Keyword">module</a> <a id="496" href="foundation.large-homotopies.html#496" class="Module">_</a>
+  <a id="500" class="Symbol">{</a><a id="501" href="foundation.large-homotopies.html#501" class="Bound">A</a> <a id="503" class="Symbol">:</a> <a id="505" href="Agda.Primitive.html#512" class="Primitive">UUω</a><a id="508" class="Symbol">}</a> <a id="510" class="Symbol">{</a><a id="511" href="foundation.large-homotopies.html#511" class="Bound">B</a> <a id="513" class="Symbol">:</a> <a id="515" href="foundation.large-homotopies.html#501" class="Bound">A</a> <a id="517" class="Symbol">→</a> <a id="519" href="Agda.Primitive.html#512" class="Primitive">UUω</a><a id="522" class="Symbol">}</a>
+  <a id="526" class="Keyword">where</a>
+
+  <a id="535" href="foundation.large-homotopies.html#535" class="Function Operator">_~ω_</a> <a id="540" class="Symbol">:</a> <a id="542" class="Symbol">(</a><a id="543" href="foundation.large-homotopies.html#543" class="Bound">f</a> <a id="545" href="foundation.large-homotopies.html#545" class="Bound">g</a> <a id="547" class="Symbol">:</a> <a id="549" class="Symbol">(</a><a id="550" href="foundation.large-homotopies.html#550" class="Bound">x</a> <a id="552" class="Symbol">:</a> <a id="554" href="foundation.large-homotopies.html#501" class="Bound">A</a><a id="555" class="Symbol">)</a> <a id="557" class="Symbol">→</a> <a id="559" href="foundation.large-homotopies.html#511" class="Bound">B</a> <a id="561" href="foundation.large-homotopies.html#550" class="Bound">x</a><a id="562" class="Symbol">)</a> <a id="564" class="Symbol">→</a> <a id="566" href="Agda.Primitive.html#512" class="Primitive">UUω</a>
+  <a id="572" href="foundation.large-homotopies.html#572" class="Bound">f</a> <a id="574" href="foundation.large-homotopies.html#535" class="Function Operator">~ω</a> <a id="577" href="foundation.large-homotopies.html#577" class="Bound">g</a> <a id="579" class="Symbol">=</a> <a id="581" class="Symbol">(</a><a id="582" href="foundation.large-homotopies.html#582" class="Bound">x</a> <a id="584" class="Symbol">:</a> <a id="586" href="foundation.large-homotopies.html#501" class="Bound">A</a><a id="587" class="Symbol">)</a> <a id="589" class="Symbol">→</a> <a id="591" href="foundation.large-homotopies.html#417" class="Function">eq-large-value</a> <a id="606" href="foundation.large-homotopies.html#572" class="Bound">f</a> <a id="608" href="foundation.large-homotopies.html#577" class="Bound">g</a> <a id="610" href="foundation.large-homotopies.html#582" class="Bound">x</a>
+</pre>
+## Properties
+
+### Reflexivity
+
+<pre class="Agda"><a id="657" class="Keyword">module</a> <a id="664" href="foundation.large-homotopies.html#664" class="Module">_</a>
+  <a id="668" class="Symbol">{</a><a id="669" href="foundation.large-homotopies.html#669" class="Bound">A</a> <a id="671" class="Symbol">:</a> <a id="673" href="Agda.Primitive.html#512" class="Primitive">UUω</a><a id="676" class="Symbol">}</a> <a id="678" class="Symbol">{</a><a id="679" href="foundation.large-homotopies.html#679" class="Bound">B</a> <a id="681" class="Symbol">:</a> <a id="683" href="foundation.large-homotopies.html#669" class="Bound">A</a> <a id="685" class="Symbol">→</a> <a id="687" href="Agda.Primitive.html#512" class="Primitive">UUω</a><a id="690" class="Symbol">}</a>
+  <a id="694" class="Keyword">where</a>
+
+  <a id="703" href="foundation.large-homotopies.html#703" class="Function">refl-large-htpy</a> <a id="719" class="Symbol">:</a> <a id="721" class="Symbol">{</a><a id="722" href="foundation.large-homotopies.html#722" class="Bound">f</a> <a id="724" class="Symbol">:</a> <a id="726" class="Symbol">(</a><a id="727" href="foundation.large-homotopies.html#727" class="Bound">x</a> <a id="729" class="Symbol">:</a> <a id="731" href="foundation.large-homotopies.html#669" class="Bound">A</a><a id="732" class="Symbol">)</a> <a id="734" class="Symbol">→</a> <a id="736" href="foundation.large-homotopies.html#679" class="Bound">B</a> <a id="738" href="foundation.large-homotopies.html#727" class="Bound">x</a><a id="739" class="Symbol">}</a> <a id="741" class="Symbol">→</a> <a id="743" href="foundation.large-homotopies.html#722" class="Bound">f</a> <a id="745" href="foundation.large-homotopies.html#535" class="Function Operator">~ω</a> <a id="748" href="foundation.large-homotopies.html#722" class="Bound">f</a>
+  <a id="752" href="foundation.large-homotopies.html#703" class="Function">refl-large-htpy</a> <a id="768" href="foundation.large-homotopies.html#768" class="Bound">x</a> <a id="770" class="Symbol">=</a> <a id="772" href="foundation.large-identity-types.html#276" class="InductiveConstructor">reflω</a>
+
+  <a id="781" href="foundation.large-homotopies.html#781" class="Function">refl-large-htpy&#39;</a> <a id="798" class="Symbol">:</a> <a id="800" class="Symbol">(</a><a id="801" href="foundation.large-homotopies.html#801" class="Bound">f</a> <a id="803" class="Symbol">:</a> <a id="805" class="Symbol">(</a><a id="806" href="foundation.large-homotopies.html#806" class="Bound">x</a> <a id="808" class="Symbol">:</a> <a id="810" href="foundation.large-homotopies.html#669" class="Bound">A</a><a id="811" class="Symbol">)</a> <a id="813" class="Symbol">→</a> <a id="815" href="foundation.large-homotopies.html#679" class="Bound">B</a> <a id="817" href="foundation.large-homotopies.html#806" class="Bound">x</a><a id="818" class="Symbol">)</a> <a id="820" class="Symbol">→</a> <a id="822" href="foundation.large-homotopies.html#801" class="Bound">f</a> <a id="824" href="foundation.large-homotopies.html#535" class="Function Operator">~ω</a> <a id="827" href="foundation.large-homotopies.html#801" class="Bound">f</a>
+  <a id="831" href="foundation.large-homotopies.html#781" class="Function">refl-large-htpy&#39;</a> <a id="848" href="foundation.large-homotopies.html#848" class="Bound">f</a> <a id="850" class="Symbol">=</a> <a id="852" href="foundation.large-homotopies.html#703" class="Function">refl-large-htpy</a>
+</pre>

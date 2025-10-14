@@ -1,0 +1,76 @@
+# Complements of decidable subtypes of finite types
+
+<pre class="Agda"><a id="62" class="Keyword">module</a> <a id="69" href="univalent-combinatorics.complements-decidable-subtypes.html" class="Module">univalent-combinatorics.complements-decidable-subtypes</a> <a id="124" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="180" class="Keyword">open</a> <a id="185" class="Keyword">import</a> <a id="192" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="220" class="Keyword">open</a> <a id="225" class="Keyword">import</a> <a id="232" href="logic.complements-decidable-subtypes.html" class="Module">logic.complements-decidable-subtypes</a>
+
+<a id="270" class="Keyword">open</a> <a id="275" class="Keyword">import</a> <a id="282" href="univalent-combinatorics.coproduct-types.html" class="Module">univalent-combinatorics.coproduct-types</a>
+<a id="322" class="Keyword">open</a> <a id="327" class="Keyword">import</a> <a id="334" href="univalent-combinatorics.decidable-subtypes.html" class="Module">univalent-combinatorics.decidable-subtypes</a>
+<a id="377" class="Keyword">open</a> <a id="382" class="Keyword">import</a> <a id="389" href="univalent-combinatorics.equivalences.html" class="Module">univalent-combinatorics.equivalences</a>
+<a id="426" class="Keyword">open</a> <a id="431" class="Keyword">import</a> <a id="438" href="univalent-combinatorics.finite-types.html" class="Module">univalent-combinatorics.finite-types</a>
+</pre>
+</details>
+
+## Idea
+
+The
+{{#concept "complement" Disambiguation="of a decidable subset of a finite type" Agda=complement-subset-Finite-Type}}
+of a
+[decidable subtype of a finite type](univalent-combinatorics.decidable-subtypes.md)
+is its [complement](logic.complements-decidable-subtypes.md) as a
+[decidable subtype](foundation.decidable-subtypes.md) of a type.
+
+## Definition
+
+<pre class="Agda"><a id="complement-subset-Finite-Type"></a><a id="866" href="univalent-combinatorics.complements-decidable-subtypes.html#866" class="Function">complement-subset-Finite-Type</a> <a id="896" class="Symbol">:</a>
+  <a id="900" class="Symbol">{</a><a id="901" href="univalent-combinatorics.complements-decidable-subtypes.html#901" class="Bound">l1</a> <a id="904" href="univalent-combinatorics.complements-decidable-subtypes.html#904" class="Bound">l2</a> <a id="907" class="Symbol">:</a> <a id="909" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="914" class="Symbol">}</a> <a id="916" class="Symbol">→</a> <a id="918" class="Symbol">(</a><a id="919" href="univalent-combinatorics.complements-decidable-subtypes.html#919" class="Bound">X</a> <a id="921" class="Symbol">:</a> <a id="923" href="univalent-combinatorics.finite-types.html#2700" class="Function">Finite-Type</a> <a id="935" href="univalent-combinatorics.complements-decidable-subtypes.html#901" class="Bound">l1</a><a id="937" class="Symbol">)</a> <a id="939" class="Symbol">→</a> <a id="941" href="univalent-combinatorics.decidable-subtypes.html#1258" class="Function">subset-Finite-Type</a> <a id="960" href="univalent-combinatorics.complements-decidable-subtypes.html#904" class="Bound">l2</a> <a id="963" href="univalent-combinatorics.complements-decidable-subtypes.html#919" class="Bound">X</a> <a id="965" class="Symbol">→</a>
+  <a id="969" href="univalent-combinatorics.decidable-subtypes.html#1258" class="Function">subset-Finite-Type</a> <a id="988" href="univalent-combinatorics.complements-decidable-subtypes.html#904" class="Bound">l2</a> <a id="991" href="univalent-combinatorics.complements-decidable-subtypes.html#919" class="Bound">X</a>
+<a id="993" href="univalent-combinatorics.complements-decidable-subtypes.html#866" class="Function">complement-subset-Finite-Type</a> <a id="1023" class="Symbol">_</a> <a id="1025" class="Symbol">=</a> <a id="1027" href="logic.complements-decidable-subtypes.html#1301" class="Function">complement-decidable-subtype</a>
+
+<a id="1057" class="Keyword">module</a> <a id="1064" href="univalent-combinatorics.complements-decidable-subtypes.html#1064" class="Module">_</a>
+  <a id="1068" class="Symbol">{</a><a id="1069" href="univalent-combinatorics.complements-decidable-subtypes.html#1069" class="Bound">l1</a> <a id="1072" href="univalent-combinatorics.complements-decidable-subtypes.html#1072" class="Bound">l2</a> <a id="1075" class="Symbol">:</a> <a id="1077" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1082" class="Symbol">}</a> <a id="1084" class="Symbol">(</a><a id="1085" href="univalent-combinatorics.complements-decidable-subtypes.html#1085" class="Bound">X</a> <a id="1087" class="Symbol">:</a> <a id="1089" href="univalent-combinatorics.finite-types.html#2700" class="Function">Finite-Type</a> <a id="1101" href="univalent-combinatorics.complements-decidable-subtypes.html#1069" class="Bound">l1</a><a id="1103" class="Symbol">)</a> <a id="1105" class="Symbol">(</a><a id="1106" href="univalent-combinatorics.complements-decidable-subtypes.html#1106" class="Bound">P</a> <a id="1108" class="Symbol">:</a> <a id="1110" href="univalent-combinatorics.decidable-subtypes.html#1258" class="Function">subset-Finite-Type</a> <a id="1129" href="univalent-combinatorics.complements-decidable-subtypes.html#1072" class="Bound">l2</a> <a id="1132" href="univalent-combinatorics.complements-decidable-subtypes.html#1085" class="Bound">X</a><a id="1133" class="Symbol">)</a>
+  <a id="1137" class="Keyword">where</a>
+
+  <a id="1146" href="univalent-combinatorics.complements-decidable-subtypes.html#1146" class="Function">type-complement-subset-Finite-Type</a> <a id="1181" class="Symbol">:</a> <a id="1183" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1186" class="Symbol">(</a><a id="1187" href="univalent-combinatorics.complements-decidable-subtypes.html#1069" class="Bound">l1</a> <a id="1190" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1192" href="univalent-combinatorics.complements-decidable-subtypes.html#1072" class="Bound">l2</a><a id="1194" class="Symbol">)</a>
+  <a id="1198" href="univalent-combinatorics.complements-decidable-subtypes.html#1146" class="Function">type-complement-subset-Finite-Type</a> <a id="1233" class="Symbol">=</a>
+    <a id="1239" href="univalent-combinatorics.decidable-subtypes.html#2223" class="Function">type-subset-Finite-Type</a> <a id="1263" href="univalent-combinatorics.complements-decidable-subtypes.html#1085" class="Bound">X</a> <a id="1265" class="Symbol">(</a><a id="1266" href="univalent-combinatorics.complements-decidable-subtypes.html#866" class="Function">complement-subset-Finite-Type</a> <a id="1296" href="univalent-combinatorics.complements-decidable-subtypes.html#1085" class="Bound">X</a> <a id="1298" href="univalent-combinatorics.complements-decidable-subtypes.html#1106" class="Bound">P</a><a id="1299" class="Symbol">)</a>
+
+  <a id="1304" href="univalent-combinatorics.complements-decidable-subtypes.html#1304" class="Function">inclusion-complement-subset-Finite-Type</a> <a id="1344" class="Symbol">:</a>
+    <a id="1350" href="univalent-combinatorics.complements-decidable-subtypes.html#1146" class="Function">type-complement-subset-Finite-Type</a> <a id="1385" class="Symbol">→</a> <a id="1387" href="univalent-combinatorics.finite-types.html#2776" class="Function">type-Finite-Type</a> <a id="1404" href="univalent-combinatorics.complements-decidable-subtypes.html#1085" class="Bound">X</a>
+  <a id="1408" href="univalent-combinatorics.complements-decidable-subtypes.html#1304" class="Function">inclusion-complement-subset-Finite-Type</a> <a id="1448" class="Symbol">=</a>
+    <a id="1454" href="univalent-combinatorics.decidable-subtypes.html#2318" class="Function">inclusion-subset-Finite-Type</a> <a id="1483" href="univalent-combinatorics.complements-decidable-subtypes.html#1085" class="Bound">X</a> <a id="1485" class="Symbol">(</a><a id="1486" href="univalent-combinatorics.complements-decidable-subtypes.html#866" class="Function">complement-subset-Finite-Type</a> <a id="1516" href="univalent-combinatorics.complements-decidable-subtypes.html#1085" class="Bound">X</a> <a id="1518" href="univalent-combinatorics.complements-decidable-subtypes.html#1106" class="Bound">P</a><a id="1519" class="Symbol">)</a>
+</pre>
+## Properties
+
+### The complement of a decidable subtype of a finite type is finite
+
+<pre class="Agda"><a id="1619" class="Keyword">module</a> <a id="1626" href="univalent-combinatorics.complements-decidable-subtypes.html#1626" class="Module">_</a>
+  <a id="1630" class="Symbol">{</a><a id="1631" href="univalent-combinatorics.complements-decidable-subtypes.html#1631" class="Bound">l1</a> <a id="1634" href="univalent-combinatorics.complements-decidable-subtypes.html#1634" class="Bound">l2</a> <a id="1637" class="Symbol">:</a> <a id="1639" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1644" class="Symbol">}</a> <a id="1646" class="Symbol">(</a><a id="1647" href="univalent-combinatorics.complements-decidable-subtypes.html#1647" class="Bound">X</a> <a id="1649" class="Symbol">:</a> <a id="1651" href="univalent-combinatorics.finite-types.html#2700" class="Function">Finite-Type</a> <a id="1663" href="univalent-combinatorics.complements-decidable-subtypes.html#1631" class="Bound">l1</a><a id="1665" class="Symbol">)</a> <a id="1667" class="Symbol">(</a><a id="1668" href="univalent-combinatorics.complements-decidable-subtypes.html#1668" class="Bound">P</a> <a id="1670" class="Symbol">:</a> <a id="1672" href="univalent-combinatorics.decidable-subtypes.html#1258" class="Function">subset-Finite-Type</a> <a id="1691" href="univalent-combinatorics.complements-decidable-subtypes.html#1634" class="Bound">l2</a> <a id="1694" href="univalent-combinatorics.complements-decidable-subtypes.html#1647" class="Bound">X</a><a id="1695" class="Symbol">)</a>
+  <a id="1699" class="Keyword">where</a>
+
+  <a id="1708" href="univalent-combinatorics.complements-decidable-subtypes.html#1708" class="Function">finite-type-complement-subset-Finite-Type</a> <a id="1750" class="Symbol">:</a> <a id="1752" href="univalent-combinatorics.finite-types.html#2700" class="Function">Finite-Type</a> <a id="1764" class="Symbol">(</a><a id="1765" href="univalent-combinatorics.complements-decidable-subtypes.html#1631" class="Bound">l1</a> <a id="1768" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1770" href="univalent-combinatorics.complements-decidable-subtypes.html#1634" class="Bound">l2</a><a id="1772" class="Symbol">)</a>
+  <a id="1776" href="univalent-combinatorics.complements-decidable-subtypes.html#1708" class="Function">finite-type-complement-subset-Finite-Type</a> <a id="1818" class="Symbol">=</a>
+    <a id="1824" href="univalent-combinatorics.decidable-subtypes.html#5254" class="Function">finite-type-subset-Finite-Type</a> <a id="1855" href="univalent-combinatorics.complements-decidable-subtypes.html#1647" class="Bound">X</a> <a id="1857" class="Symbol">(</a><a id="1858" href="univalent-combinatorics.complements-decidable-subtypes.html#866" class="Function">complement-subset-Finite-Type</a> <a id="1888" href="univalent-combinatorics.complements-decidable-subtypes.html#1647" class="Bound">X</a> <a id="1890" href="univalent-combinatorics.complements-decidable-subtypes.html#1668" class="Bound">P</a><a id="1891" class="Symbol">)</a>
+</pre>
+### The coproduct decomposition associated to a decidable subset of a finite type
+
+Every decidable subtype `P ⊆ A` of a finite type `A` decomposes `A` into a
+coproduct `A ≃ (P + A∖P)`.
+
+<pre class="Agda"><a id="2092" class="Keyword">module</a> <a id="2099" href="univalent-combinatorics.complements-decidable-subtypes.html#2099" class="Module">_</a>
+  <a id="2103" class="Symbol">{</a><a id="2104" href="univalent-combinatorics.complements-decidable-subtypes.html#2104" class="Bound">l1</a> <a id="2107" href="univalent-combinatorics.complements-decidable-subtypes.html#2107" class="Bound">l2</a> <a id="2110" class="Symbol">:</a> <a id="2112" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2117" class="Symbol">}</a> <a id="2119" class="Symbol">(</a><a id="2120" href="univalent-combinatorics.complements-decidable-subtypes.html#2120" class="Bound">A</a> <a id="2122" class="Symbol">:</a> <a id="2124" href="univalent-combinatorics.finite-types.html#2700" class="Function">Finite-Type</a> <a id="2136" href="univalent-combinatorics.complements-decidable-subtypes.html#2104" class="Bound">l1</a><a id="2138" class="Symbol">)</a> <a id="2140" class="Symbol">(</a><a id="2141" href="univalent-combinatorics.complements-decidable-subtypes.html#2141" class="Bound">P</a> <a id="2143" class="Symbol">:</a> <a id="2145" href="univalent-combinatorics.decidable-subtypes.html#1258" class="Function">subset-Finite-Type</a> <a id="2164" href="univalent-combinatorics.complements-decidable-subtypes.html#2107" class="Bound">l2</a> <a id="2167" href="univalent-combinatorics.complements-decidable-subtypes.html#2120" class="Bound">A</a><a id="2168" class="Symbol">)</a>
+  <a id="2172" class="Keyword">where</a>
+
+  <a id="2181" href="univalent-combinatorics.complements-decidable-subtypes.html#2181" class="Function">equiv-coproduct-decomposition-subset-Finite-Type</a> <a id="2230" class="Symbol">:</a>
+    <a id="2236" href="univalent-combinatorics.finite-types.html#19062" class="Function">equiv-Finite-Type</a>
+      <a id="2260" class="Symbol">(</a> <a id="2262" href="univalent-combinatorics.complements-decidable-subtypes.html#2120" class="Bound">A</a><a id="2263" class="Symbol">)</a>
+      <a id="2271" class="Symbol">(</a> <a id="2273" href="univalent-combinatorics.coproduct-types.html#9191" class="Function">coproduct-Finite-Type</a>
+        <a id="2303" class="Symbol">(</a> <a id="2305" href="univalent-combinatorics.decidable-subtypes.html#5254" class="Function">finite-type-subset-Finite-Type</a> <a id="2336" href="univalent-combinatorics.complements-decidable-subtypes.html#2120" class="Bound">A</a> <a id="2338" href="univalent-combinatorics.complements-decidable-subtypes.html#2141" class="Bound">P</a><a id="2339" class="Symbol">)</a>
+        <a id="2349" class="Symbol">(</a> <a id="2351" href="univalent-combinatorics.complements-decidable-subtypes.html#1708" class="Function">finite-type-complement-subset-Finite-Type</a> <a id="2393" href="univalent-combinatorics.complements-decidable-subtypes.html#2120" class="Bound">A</a> <a id="2395" href="univalent-combinatorics.complements-decidable-subtypes.html#2141" class="Bound">P</a><a id="2396" class="Symbol">))</a>
+  <a id="2401" href="univalent-combinatorics.complements-decidable-subtypes.html#2181" class="Function">equiv-coproduct-decomposition-subset-Finite-Type</a> <a id="2450" class="Symbol">=</a>
+    <a id="2456" href="logic.complements-decidable-subtypes.html#3574" class="Function">equiv-coproduct-decomposition-decidable-subtype</a> <a id="2504" href="univalent-combinatorics.complements-decidable-subtypes.html#2141" class="Bound">P</a>
+</pre>

@@ -1,0 +1,97 @@
+# The center of a group
+
+<pre class="Agda"><a id="34" class="Keyword">module</a> <a id="41" href="group-theory.centers-groups.html" class="Module">group-theory.centers-groups</a> <a id="69" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="125" class="Keyword">open</a> <a id="130" class="Keyword">import</a> <a id="137" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="169" class="Keyword">open</a> <a id="174" class="Keyword">import</a> <a id="181" href="foundation.identity-types.html" class="Module">foundation.identity-types</a>
+<a id="207" class="Keyword">open</a> <a id="212" class="Keyword">import</a> <a id="219" href="foundation.propositions.html" class="Module">foundation.propositions</a>
+<a id="243" class="Keyword">open</a> <a id="248" class="Keyword">import</a> <a id="255" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="283" class="Keyword">open</a> <a id="288" class="Keyword">import</a> <a id="295" href="group-theory.central-elements-groups.html" class="Module">group-theory.central-elements-groups</a>
+<a id="332" class="Keyword">open</a> <a id="337" class="Keyword">import</a> <a id="344" href="group-theory.groups.html" class="Module">group-theory.groups</a>
+<a id="364" class="Keyword">open</a> <a id="369" class="Keyword">import</a> <a id="376" href="group-theory.homomorphisms-groups.html" class="Module">group-theory.homomorphisms-groups</a>
+<a id="410" class="Keyword">open</a> <a id="415" class="Keyword">import</a> <a id="422" href="group-theory.normal-subgroups.html" class="Module">group-theory.normal-subgroups</a>
+<a id="452" class="Keyword">open</a> <a id="457" class="Keyword">import</a> <a id="464" href="group-theory.subgroups.html" class="Module">group-theory.subgroups</a>
+</pre>
+</details>
+
+## Idea
+
+The **center** of a group consists of those elements that are central.
+
+## Definition
+
+<pre class="Agda"><a id="608" class="Keyword">module</a> <a id="615" href="group-theory.centers-groups.html#615" class="Module">_</a>
+  <a id="619" class="Symbol">{</a><a id="620" href="group-theory.centers-groups.html#620" class="Bound">l</a> <a id="622" class="Symbol">:</a> <a id="624" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="629" class="Symbol">}</a> <a id="631" class="Symbol">(</a><a id="632" href="group-theory.centers-groups.html#632" class="Bound">G</a> <a id="634" class="Symbol">:</a> <a id="636" href="group-theory.groups.html#2346" class="Function">Group</a> <a id="642" href="group-theory.centers-groups.html#620" class="Bound">l</a><a id="643" class="Symbol">)</a>
+  <a id="647" class="Keyword">where</a>
+
+  <a id="656" href="group-theory.centers-groups.html#656" class="Function">subtype-center-Group</a> <a id="677" class="Symbol">:</a> <a id="679" href="group-theory.groups.html#2590" class="Function">type-Group</a> <a id="690" href="group-theory.centers-groups.html#632" class="Bound">G</a> <a id="692" class="Symbol">→</a> <a id="694" href="foundation-core.propositions.html#1153" class="Function">Prop</a> <a id="699" href="group-theory.centers-groups.html#620" class="Bound">l</a>
+  <a id="703" href="group-theory.centers-groups.html#656" class="Function">subtype-center-Group</a> <a id="724" class="Symbol">=</a> <a id="726" href="group-theory.central-elements-groups.html#645" class="Function">is-central-element-prop-Group</a> <a id="756" href="group-theory.centers-groups.html#632" class="Bound">G</a>
+
+  <a id="761" href="group-theory.centers-groups.html#761" class="Function">subgroup-center-Group</a> <a id="783" class="Symbol">:</a> <a id="785" href="group-theory.subgroups.html#3914" class="Function">Subgroup</a> <a id="794" href="group-theory.centers-groups.html#620" class="Bound">l</a> <a id="796" href="group-theory.centers-groups.html#632" class="Bound">G</a>
+  <a id="800" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="804" href="group-theory.centers-groups.html#761" class="Function">subgroup-center-Group</a> <a id="826" class="Symbol">=</a>
+    <a id="832" href="group-theory.centers-groups.html#656" class="Function">subtype-center-Group</a>
+  <a id="855" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="859" class="Symbol">(</a><a id="860" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="864" href="group-theory.centers-groups.html#761" class="Function">subgroup-center-Group</a><a id="885" class="Symbol">)</a> <a id="887" class="Symbol">=</a>
+    <a id="893" href="group-theory.central-elements-groups.html#1208" class="Function">is-central-element-unit-Group</a> <a id="923" href="group-theory.centers-groups.html#632" class="Bound">G</a>
+  <a id="927" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="931" class="Symbol">(</a><a id="932" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="936" class="Symbol">(</a><a id="937" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="941" href="group-theory.centers-groups.html#761" class="Function">subgroup-center-Group</a><a id="962" class="Symbol">))</a> <a id="965" class="Symbol">=</a>
+    <a id="971" href="group-theory.central-elements-groups.html#1481" class="Function">is-central-element-mul-Group</a> <a id="1000" href="group-theory.centers-groups.html#632" class="Bound">G</a>
+  <a id="1004" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1008" class="Symbol">(</a><a id="1009" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1013" class="Symbol">(</a><a id="1014" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1018" href="group-theory.centers-groups.html#761" class="Function">subgroup-center-Group</a><a id="1039" class="Symbol">))</a> <a id="1042" class="Symbol">=</a>
+    <a id="1048" href="group-theory.central-elements-groups.html#1860" class="Function">is-central-element-inv-Group</a> <a id="1077" href="group-theory.centers-groups.html#632" class="Bound">G</a>
+
+  <a id="1082" href="group-theory.centers-groups.html#1082" class="Function">group-center-Group</a> <a id="1101" class="Symbol">:</a> <a id="1103" href="group-theory.groups.html#2346" class="Function">Group</a> <a id="1109" href="group-theory.centers-groups.html#620" class="Bound">l</a>
+  <a id="1113" href="group-theory.centers-groups.html#1082" class="Function">group-center-Group</a> <a id="1132" class="Symbol">=</a> <a id="1134" href="group-theory.subgroups.html#10896" class="Function">group-Subgroup</a> <a id="1149" href="group-theory.centers-groups.html#632" class="Bound">G</a> <a id="1151" href="group-theory.centers-groups.html#761" class="Function">subgroup-center-Group</a>
+
+  <a id="1176" href="group-theory.centers-groups.html#1176" class="Function">type-center-Group</a> <a id="1194" class="Symbol">:</a> <a id="1196" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1199" href="group-theory.centers-groups.html#620" class="Bound">l</a>
+  <a id="1203" href="group-theory.centers-groups.html#1176" class="Function">type-center-Group</a> <a id="1221" class="Symbol">=</a>
+    <a id="1227" href="group-theory.subgroups.html#4246" class="Function">type-Subgroup</a> <a id="1241" href="group-theory.centers-groups.html#632" class="Bound">G</a> <a id="1243" href="group-theory.centers-groups.html#761" class="Function">subgroup-center-Group</a>
+
+  <a id="1268" href="group-theory.centers-groups.html#1268" class="Function">mul-center-Group</a> <a id="1285" class="Symbol">:</a>
+    <a id="1291" class="Symbol">(</a><a id="1292" href="group-theory.centers-groups.html#1292" class="Bound">x</a> <a id="1294" href="group-theory.centers-groups.html#1294" class="Bound">y</a> <a id="1296" class="Symbol">:</a> <a id="1298" href="group-theory.centers-groups.html#1176" class="Function">type-center-Group</a><a id="1315" class="Symbol">)</a> <a id="1317" class="Symbol">→</a> <a id="1319" href="group-theory.centers-groups.html#1176" class="Function">type-center-Group</a>
+  <a id="1339" href="group-theory.centers-groups.html#1268" class="Function">mul-center-Group</a> <a id="1356" class="Symbol">=</a> <a id="1358" href="group-theory.subgroups.html#9038" class="Function">mul-Subgroup</a> <a id="1371" href="group-theory.centers-groups.html#632" class="Bound">G</a> <a id="1373" href="group-theory.centers-groups.html#761" class="Function">subgroup-center-Group</a>
+
+  <a id="1398" href="group-theory.centers-groups.html#1398" class="Function">associative-mul-center-Group</a> <a id="1427" class="Symbol">:</a>
+    <a id="1433" class="Symbol">(</a><a id="1434" href="group-theory.centers-groups.html#1434" class="Bound">x</a> <a id="1436" href="group-theory.centers-groups.html#1436" class="Bound">y</a> <a id="1438" href="group-theory.centers-groups.html#1438" class="Bound">z</a> <a id="1440" class="Symbol">:</a> <a id="1442" href="group-theory.centers-groups.html#1176" class="Function">type-center-Group</a><a id="1459" class="Symbol">)</a> <a id="1461" class="Symbol">→</a>
+    <a id="1467" href="group-theory.centers-groups.html#1268" class="Function">mul-center-Group</a> <a id="1484" class="Symbol">(</a><a id="1485" href="group-theory.centers-groups.html#1268" class="Function">mul-center-Group</a> <a id="1502" href="group-theory.centers-groups.html#1434" class="Bound">x</a> <a id="1504" href="group-theory.centers-groups.html#1436" class="Bound">y</a><a id="1505" class="Symbol">)</a> <a id="1507" href="group-theory.centers-groups.html#1438" class="Bound">z</a> <a id="1509" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a>
+    <a id="1515" href="group-theory.centers-groups.html#1268" class="Function">mul-center-Group</a> <a id="1532" href="group-theory.centers-groups.html#1434" class="Bound">x</a> <a id="1534" class="Symbol">(</a><a id="1535" href="group-theory.centers-groups.html#1268" class="Function">mul-center-Group</a> <a id="1552" href="group-theory.centers-groups.html#1436" class="Bound">y</a> <a id="1554" href="group-theory.centers-groups.html#1438" class="Bound">z</a><a id="1555" class="Symbol">)</a>
+  <a id="1559" href="group-theory.centers-groups.html#1398" class="Function">associative-mul-center-Group</a> <a id="1588" class="Symbol">=</a>
+    <a id="1594" href="group-theory.subgroups.html#9252" class="Function">associative-mul-Subgroup</a> <a id="1619" href="group-theory.centers-groups.html#632" class="Bound">G</a> <a id="1621" href="group-theory.centers-groups.html#761" class="Function">subgroup-center-Group</a>
+
+  <a id="1646" href="group-theory.centers-groups.html#1646" class="Function">inclusion-center-Group</a> <a id="1669" class="Symbol">:</a>
+    <a id="1675" href="group-theory.centers-groups.html#1176" class="Function">type-center-Group</a> <a id="1693" class="Symbol">→</a> <a id="1695" href="group-theory.groups.html#2590" class="Function">type-Group</a> <a id="1706" href="group-theory.centers-groups.html#632" class="Bound">G</a>
+  <a id="1710" href="group-theory.centers-groups.html#1646" class="Function">inclusion-center-Group</a> <a id="1733" class="Symbol">=</a>
+    <a id="1739" href="group-theory.subgroups.html#4325" class="Function">inclusion-Subgroup</a> <a id="1758" href="group-theory.centers-groups.html#632" class="Bound">G</a> <a id="1760" href="group-theory.centers-groups.html#761" class="Function">subgroup-center-Group</a>
+
+  <a id="1785" href="group-theory.centers-groups.html#1785" class="Function">is-central-element-inclusion-center-Group</a> <a id="1827" class="Symbol">:</a>
+    <a id="1833" class="Symbol">(</a><a id="1834" href="group-theory.centers-groups.html#1834" class="Bound">x</a> <a id="1836" class="Symbol">:</a> <a id="1838" href="group-theory.centers-groups.html#1176" class="Function">type-center-Group</a><a id="1855" class="Symbol">)</a> <a id="1857" class="Symbol">→</a>
+    <a id="1863" href="group-theory.central-elements-groups.html#788" class="Function">is-central-element-Group</a> <a id="1888" href="group-theory.centers-groups.html#632" class="Bound">G</a> <a id="1890" class="Symbol">(</a><a id="1891" href="group-theory.centers-groups.html#1646" class="Function">inclusion-center-Group</a> <a id="1914" href="group-theory.centers-groups.html#1834" class="Bound">x</a><a id="1915" class="Symbol">)</a>
+  <a id="1919" href="group-theory.centers-groups.html#1785" class="Function">is-central-element-inclusion-center-Group</a> <a id="1961" href="group-theory.centers-groups.html#1961" class="Bound">x</a> <a id="1963" class="Symbol">=</a>
+    <a id="1969" href="group-theory.subgroups.html#5146" class="Function">is-in-subgroup-inclusion-Subgroup</a> <a id="2003" href="group-theory.centers-groups.html#632" class="Bound">G</a> <a id="2005" href="group-theory.centers-groups.html#761" class="Function">subgroup-center-Group</a> <a id="2027" href="group-theory.centers-groups.html#1961" class="Bound">x</a>
+
+  <a id="2032" href="group-theory.centers-groups.html#2032" class="Function">preserves-mul-inclusion-center-Group</a> <a id="2069" class="Symbol">:</a>
+    <a id="2075" class="Symbol">{</a><a id="2076" href="group-theory.centers-groups.html#2076" class="Bound">x</a> <a id="2078" href="group-theory.centers-groups.html#2078" class="Bound">y</a> <a id="2080" class="Symbol">:</a> <a id="2082" href="group-theory.centers-groups.html#1176" class="Function">type-center-Group</a><a id="2099" class="Symbol">}</a> <a id="2101" class="Symbol">→</a>
+    <a id="2107" href="group-theory.centers-groups.html#1646" class="Function">inclusion-center-Group</a> <a id="2130" class="Symbol">(</a><a id="2131" href="group-theory.centers-groups.html#1268" class="Function">mul-center-Group</a> <a id="2148" href="group-theory.centers-groups.html#2076" class="Bound">x</a> <a id="2150" href="group-theory.centers-groups.html#2078" class="Bound">y</a><a id="2151" class="Symbol">)</a> <a id="2153" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a>
+    <a id="2159" href="group-theory.groups.html#2829" class="Function">mul-Group</a> <a id="2169" href="group-theory.centers-groups.html#632" class="Bound">G</a>
+      <a id="2177" class="Symbol">(</a> <a id="2179" href="group-theory.centers-groups.html#1646" class="Function">inclusion-center-Group</a> <a id="2202" href="group-theory.centers-groups.html#2076" class="Bound">x</a><a id="2203" class="Symbol">)</a>
+      <a id="2211" class="Symbol">(</a> <a id="2213" href="group-theory.centers-groups.html#1646" class="Function">inclusion-center-Group</a> <a id="2236" href="group-theory.centers-groups.html#2078" class="Bound">y</a><a id="2237" class="Symbol">)</a>
+  <a id="2241" href="group-theory.centers-groups.html#2032" class="Function">preserves-mul-inclusion-center-Group</a> <a id="2278" class="Symbol">{</a><a id="2279" href="group-theory.centers-groups.html#2279" class="Bound">x</a><a id="2280" class="Symbol">}</a> <a id="2282" class="Symbol">{</a><a id="2283" href="group-theory.centers-groups.html#2283" class="Bound">y</a><a id="2284" class="Symbol">}</a> <a id="2286" class="Symbol">=</a>
+    <a id="2292" href="group-theory.subgroups.html#11518" class="Function">preserves-mul-inclusion-Subgroup</a> <a id="2325" href="group-theory.centers-groups.html#632" class="Bound">G</a> <a id="2327" href="group-theory.centers-groups.html#761" class="Function">subgroup-center-Group</a> <a id="2349" class="Symbol">{</a><a id="2350" href="group-theory.centers-groups.html#2279" class="Bound">x</a><a id="2351" class="Symbol">}</a> <a id="2353" class="Symbol">{</a><a id="2354" href="group-theory.centers-groups.html#2283" class="Bound">y</a><a id="2355" class="Symbol">}</a>
+
+  <a id="2360" href="group-theory.centers-groups.html#2360" class="Function">hom-inclusion-center-Group</a> <a id="2387" class="Symbol">:</a>
+    <a id="2393" href="group-theory.homomorphisms-groups.html#1698" class="Function">hom-Group</a> <a id="2403" href="group-theory.centers-groups.html#1082" class="Function">group-center-Group</a> <a id="2422" href="group-theory.centers-groups.html#632" class="Bound">G</a>
+  <a id="2426" href="group-theory.centers-groups.html#2360" class="Function">hom-inclusion-center-Group</a> <a id="2453" class="Symbol">=</a>
+    <a id="2459" href="group-theory.subgroups.html#12073" class="Function">hom-inclusion-Subgroup</a> <a id="2482" href="group-theory.centers-groups.html#632" class="Bound">G</a> <a id="2484" href="group-theory.centers-groups.html#761" class="Function">subgroup-center-Group</a>
+
+  <a id="2509" href="group-theory.centers-groups.html#2509" class="Function">is-normal-subgroup-center-Group</a> <a id="2541" class="Symbol">:</a>
+    <a id="2547" href="group-theory.normal-subgroups.html#1679" class="Function">is-normal-Subgroup</a> <a id="2566" href="group-theory.centers-groups.html#632" class="Bound">G</a> <a id="2568" href="group-theory.centers-groups.html#761" class="Function">subgroup-center-Group</a>
+  <a id="2592" href="group-theory.centers-groups.html#2509" class="Function">is-normal-subgroup-center-Group</a> <a id="2624" href="group-theory.centers-groups.html#2624" class="Bound">x</a> <a id="2626" href="group-theory.centers-groups.html#2626" class="Bound">y</a> <a id="2628" class="Symbol">=</a>
+    <a id="2634" href="group-theory.central-elements-groups.html#2582" class="Function">is-central-element-conjugation-Group</a> <a id="2671" href="group-theory.centers-groups.html#632" class="Bound">G</a>
+      <a id="2679" class="Symbol">(</a> <a id="2681" href="group-theory.centers-groups.html#1646" class="Function">inclusion-center-Group</a> <a id="2704" href="group-theory.centers-groups.html#2626" class="Bound">y</a><a id="2705" class="Symbol">)</a>
+      <a id="2713" class="Symbol">(</a> <a id="2715" href="group-theory.centers-groups.html#2624" class="Bound">x</a><a id="2716" class="Symbol">)</a>
+      <a id="2724" class="Symbol">(</a> <a id="2726" href="group-theory.centers-groups.html#1785" class="Function">is-central-element-inclusion-center-Group</a> <a id="2768" href="group-theory.centers-groups.html#2626" class="Bound">y</a><a id="2769" class="Symbol">)</a>
+
+  <a id="2774" href="group-theory.centers-groups.html#2774" class="Function">center-Group</a> <a id="2787" class="Symbol">:</a> <a id="2789" href="group-theory.normal-subgroups.html#2890" class="Function">Normal-Subgroup</a> <a id="2805" href="group-theory.centers-groups.html#620" class="Bound">l</a> <a id="2807" href="group-theory.centers-groups.html#632" class="Bound">G</a>
+  <a id="2811" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="2815" href="group-theory.centers-groups.html#2774" class="Function">center-Group</a> <a id="2828" class="Symbol">=</a> <a id="2830" href="group-theory.centers-groups.html#761" class="Function">subgroup-center-Group</a>
+  <a id="2854" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="2858" href="group-theory.centers-groups.html#2774" class="Function">center-Group</a> <a id="2871" class="Symbol">=</a> <a id="2873" href="group-theory.centers-groups.html#2509" class="Function">is-normal-subgroup-center-Group</a>
+</pre>

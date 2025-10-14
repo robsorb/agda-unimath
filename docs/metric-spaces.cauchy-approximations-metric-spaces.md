@@ -1,0 +1,168 @@
+# Cauchy approximations in metric spaces
+
+<pre class="Agda"><a id="51" class="Keyword">module</a> <a id="58" href="metric-spaces.cauchy-approximations-metric-spaces.html" class="Module">metric-spaces.cauchy-approximations-metric-spaces</a> <a id="108" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="164" class="Keyword">open</a> <a id="169" class="Keyword">import</a> <a id="176" href="elementary-number-theory.positive-rational-numbers.html" class="Module">elementary-number-theory.positive-rational-numbers</a>
+
+<a id="228" class="Keyword">open</a> <a id="233" class="Keyword">import</a> <a id="240" href="foundation.constant-maps.html" class="Module">foundation.constant-maps</a>
+<a id="265" class="Keyword">open</a> <a id="270" class="Keyword">import</a> <a id="277" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="309" class="Keyword">open</a> <a id="314" class="Keyword">import</a> <a id="321" href="foundation.function-extensionality.html" class="Module">foundation.function-extensionality</a>
+<a id="356" class="Keyword">open</a> <a id="361" class="Keyword">import</a> <a id="368" href="foundation.function-types.html" class="Module">foundation.function-types</a>
+<a id="394" class="Keyword">open</a> <a id="399" class="Keyword">import</a> <a id="406" href="foundation.homotopies.html" class="Module">foundation.homotopies</a>
+<a id="428" class="Keyword">open</a> <a id="433" class="Keyword">import</a> <a id="440" href="foundation.identity-types.html" class="Module">foundation.identity-types</a>
+<a id="466" class="Keyword">open</a> <a id="471" class="Keyword">import</a> <a id="478" href="foundation.propositions.html" class="Module">foundation.propositions</a>
+<a id="502" class="Keyword">open</a> <a id="507" class="Keyword">import</a> <a id="514" href="foundation.subtypes.html" class="Module">foundation.subtypes</a>
+<a id="534" class="Keyword">open</a> <a id="539" class="Keyword">import</a> <a id="546" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="574" class="Keyword">open</a> <a id="579" class="Keyword">import</a> <a id="586" href="metric-spaces.cauchy-approximations-pseudometric-spaces.html" class="Module">metric-spaces.cauchy-approximations-pseudometric-spaces</a>
+<a id="642" class="Keyword">open</a> <a id="647" class="Keyword">import</a> <a id="654" href="metric-spaces.metric-spaces.html" class="Module">metric-spaces.metric-spaces</a>
+<a id="682" class="Keyword">open</a> <a id="687" class="Keyword">import</a> <a id="694" href="metric-spaces.short-functions-metric-spaces.html" class="Module">metric-spaces.short-functions-metric-spaces</a>
+</pre>
+</details>
+
+## Idea
+
+A
+{{#concept "Cauchy approximation" Disambiguation="in a metric space" Agda=is-cauchy-approximation-Metric-Space}}
+in a [metric space](metric-spaces.metric-spaces.md) `A` is a
+[Cauchy approximation](metric-spaces.cauchy-approximations-pseudometric-spaces.md)
+in its underlying [pseudometric space](metric-spaces.pseudometric-spaces.md): a
+map `f` from [`ℚ⁺`](elementary-number-theory.positive-rational-numbers.md) to
+the carrier type of `A` such that for all positive rationals `ε` and `δ`, `f ε`
+and `f δ` are in a
+(`ε + δ`)-[neighborhood](metric-spaces.rational-neighborhood-relations.md),
+i.e., the distance between `f ε` and `f δ` is bounded by `ε + δ`.
+
+## Definitions
+
+### Cauchy approximations in metric spaces
+
+<pre class="Agda"><a id="1491" class="Keyword">module</a> <a id="1498" href="metric-spaces.cauchy-approximations-metric-spaces.html#1498" class="Module">_</a>
+  <a id="1502" class="Symbol">{</a><a id="1503" href="metric-spaces.cauchy-approximations-metric-spaces.html#1503" class="Bound">l1</a> <a id="1506" href="metric-spaces.cauchy-approximations-metric-spaces.html#1506" class="Bound">l2</a> <a id="1509" class="Symbol">:</a> <a id="1511" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1516" class="Symbol">}</a> <a id="1518" class="Symbol">(</a><a id="1519" href="metric-spaces.cauchy-approximations-metric-spaces.html#1519" class="Bound">A</a> <a id="1521" class="Symbol">:</a> <a id="1523" href="metric-spaces.metric-spaces.html#4139" class="Function">Metric-Space</a> <a id="1536" href="metric-spaces.cauchy-approximations-metric-spaces.html#1503" class="Bound">l1</a> <a id="1539" href="metric-spaces.cauchy-approximations-metric-spaces.html#1506" class="Bound">l2</a><a id="1541" class="Symbol">)</a>
+  <a id="1545" class="Keyword">where</a>
+
+  <a id="1554" href="metric-spaces.cauchy-approximations-metric-spaces.html#1554" class="Function">is-cauchy-approximation-prop-Metric-Space</a> <a id="1596" class="Symbol">:</a>
+    <a id="1602" class="Symbol">(</a><a id="1603" href="elementary-number-theory.positive-rational-numbers.html#4770" class="Function">ℚ⁺</a> <a id="1606" class="Symbol">→</a> <a id="1608" href="metric-spaces.metric-spaces.html#5090" class="Function">type-Metric-Space</a> <a id="1626" href="metric-spaces.cauchy-approximations-metric-spaces.html#1519" class="Bound">A</a><a id="1627" class="Symbol">)</a> <a id="1629" class="Symbol">→</a> <a id="1631" href="foundation-core.propositions.html#1153" class="Function">Prop</a> <a id="1636" href="metric-spaces.cauchy-approximations-metric-spaces.html#1506" class="Bound">l2</a>
+  <a id="1641" href="metric-spaces.cauchy-approximations-metric-spaces.html#1554" class="Function">is-cauchy-approximation-prop-Metric-Space</a> <a id="1683" class="Symbol">=</a>
+    <a id="1689" href="metric-spaces.cauchy-approximations-pseudometric-spaces.html#1346" class="Function">is-cauchy-approximation-prop-Pseudometric-Space</a>
+      <a id="1743" class="Symbol">(</a> <a id="1745" href="metric-spaces.metric-spaces.html#4998" class="Function">pseudometric-Metric-Space</a> <a id="1771" href="metric-spaces.cauchy-approximations-metric-spaces.html#1519" class="Bound">A</a><a id="1772" class="Symbol">)</a>
+
+  <a id="1777" href="metric-spaces.cauchy-approximations-metric-spaces.html#1777" class="Function">is-cauchy-approximation-Metric-Space</a> <a id="1814" class="Symbol">:</a>
+    <a id="1820" class="Symbol">(</a><a id="1821" href="elementary-number-theory.positive-rational-numbers.html#4770" class="Function">ℚ⁺</a> <a id="1824" class="Symbol">→</a> <a id="1826" href="metric-spaces.metric-spaces.html#5090" class="Function">type-Metric-Space</a> <a id="1844" href="metric-spaces.cauchy-approximations-metric-spaces.html#1519" class="Bound">A</a><a id="1845" class="Symbol">)</a> <a id="1847" class="Symbol">→</a> <a id="1849" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1852" href="metric-spaces.cauchy-approximations-metric-spaces.html#1506" class="Bound">l2</a>
+  <a id="1857" href="metric-spaces.cauchy-approximations-metric-spaces.html#1777" class="Function">is-cauchy-approximation-Metric-Space</a> <a id="1894" class="Symbol">=</a>
+    <a id="1900" href="foundation-core.propositions.html#1249" class="Function">type-Prop</a> <a id="1910" href="foundation-core.function-types.html#504" class="Function Operator">∘</a> <a id="1912" href="metric-spaces.cauchy-approximations-metric-spaces.html#1554" class="Function">is-cauchy-approximation-prop-Metric-Space</a>
+
+  <a id="1957" href="metric-spaces.cauchy-approximations-metric-spaces.html#1957" class="Function">cauchy-approximation-Metric-Space</a> <a id="1991" class="Symbol">:</a> <a id="1993" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1996" class="Symbol">(</a><a id="1997" href="metric-spaces.cauchy-approximations-metric-spaces.html#1503" class="Bound">l1</a> <a id="2000" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="2002" href="metric-spaces.cauchy-approximations-metric-spaces.html#1506" class="Bound">l2</a><a id="2004" class="Symbol">)</a>
+  <a id="2008" href="metric-spaces.cauchy-approximations-metric-spaces.html#1957" class="Function">cauchy-approximation-Metric-Space</a> <a id="2042" class="Symbol">=</a>
+    <a id="2048" href="foundation-core.subtypes.html#1776" class="Function">type-subtype</a> <a id="2061" href="metric-spaces.cauchy-approximations-metric-spaces.html#1554" class="Function">is-cauchy-approximation-prop-Metric-Space</a>
+</pre>
+<pre class="Agda"><a id="2116" class="Keyword">module</a> <a id="2123" href="metric-spaces.cauchy-approximations-metric-spaces.html#2123" class="Module">_</a>
+  <a id="2127" class="Symbol">{</a><a id="2128" href="metric-spaces.cauchy-approximations-metric-spaces.html#2128" class="Bound">l1</a> <a id="2131" href="metric-spaces.cauchy-approximations-metric-spaces.html#2131" class="Bound">l2</a> <a id="2134" class="Symbol">:</a> <a id="2136" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2141" class="Symbol">}</a> <a id="2143" class="Symbol">(</a><a id="2144" href="metric-spaces.cauchy-approximations-metric-spaces.html#2144" class="Bound">A</a> <a id="2146" class="Symbol">:</a> <a id="2148" href="metric-spaces.metric-spaces.html#4139" class="Function">Metric-Space</a> <a id="2161" href="metric-spaces.cauchy-approximations-metric-spaces.html#2128" class="Bound">l1</a> <a id="2164" href="metric-spaces.cauchy-approximations-metric-spaces.html#2131" class="Bound">l2</a><a id="2166" class="Symbol">)</a>
+  <a id="2170" class="Symbol">(</a><a id="2171" href="metric-spaces.cauchy-approximations-metric-spaces.html#2171" class="Bound">f</a> <a id="2173" class="Symbol">:</a> <a id="2175" href="metric-spaces.cauchy-approximations-metric-spaces.html#1957" class="Function">cauchy-approximation-Metric-Space</a> <a id="2209" href="metric-spaces.cauchy-approximations-metric-spaces.html#2144" class="Bound">A</a><a id="2210" class="Symbol">)</a>
+  <a id="2214" class="Keyword">where</a>
+
+  <a id="2223" href="metric-spaces.cauchy-approximations-metric-spaces.html#2223" class="Function">map-cauchy-approximation-Metric-Space</a> <a id="2261" class="Symbol">:</a>
+    <a id="2267" href="elementary-number-theory.positive-rational-numbers.html#4770" class="Function">ℚ⁺</a> <a id="2270" class="Symbol">→</a> <a id="2272" href="metric-spaces.metric-spaces.html#5090" class="Function">type-Metric-Space</a> <a id="2290" href="metric-spaces.cauchy-approximations-metric-spaces.html#2144" class="Bound">A</a>
+  <a id="2294" href="metric-spaces.cauchy-approximations-metric-spaces.html#2223" class="Function">map-cauchy-approximation-Metric-Space</a> <a id="2332" class="Symbol">=</a>
+    <a id="2338" href="metric-spaces.cauchy-approximations-pseudometric-spaces.html#2161" class="Function">map-cauchy-approximation-Pseudometric-Space</a>
+      <a id="2388" class="Symbol">(</a> <a id="2390" href="metric-spaces.metric-spaces.html#4998" class="Function">pseudometric-Metric-Space</a> <a id="2416" href="metric-spaces.cauchy-approximations-metric-spaces.html#2144" class="Bound">A</a><a id="2417" class="Symbol">)</a>
+      <a id="2425" class="Symbol">(</a> <a id="2427" href="metric-spaces.cauchy-approximations-metric-spaces.html#2171" class="Bound">f</a><a id="2428" class="Symbol">)</a>
+
+  <a id="2433" href="metric-spaces.cauchy-approximations-metric-spaces.html#2433" class="Function">is-cauchy-approximation-map-cauchy-approximation-Metric-Space</a> <a id="2495" class="Symbol">:</a>
+    <a id="2501" class="Symbol">(</a><a id="2502" href="metric-spaces.cauchy-approximations-metric-spaces.html#2502" class="Bound">ε</a> <a id="2504" href="metric-spaces.cauchy-approximations-metric-spaces.html#2504" class="Bound">δ</a> <a id="2506" class="Symbol">:</a> <a id="2508" href="elementary-number-theory.positive-rational-numbers.html#4770" class="Function">ℚ⁺</a><a id="2510" class="Symbol">)</a> <a id="2512" class="Symbol">→</a>
+    <a id="2518" href="metric-spaces.metric-spaces.html#5726" class="Function">neighborhood-Metric-Space</a>
+      <a id="2550" class="Symbol">(</a> <a id="2552" href="metric-spaces.cauchy-approximations-metric-spaces.html#2144" class="Bound">A</a><a id="2553" class="Symbol">)</a>
+      <a id="2561" class="Symbol">(</a> <a id="2563" href="metric-spaces.cauchy-approximations-metric-spaces.html#2502" class="Bound">ε</a> <a id="2565" href="elementary-number-theory.positive-rational-numbers.html#11024" class="Function Operator">+ℚ⁺</a> <a id="2569" href="metric-spaces.cauchy-approximations-metric-spaces.html#2504" class="Bound">δ</a><a id="2570" class="Symbol">)</a>
+      <a id="2578" class="Symbol">(</a> <a id="2580" href="metric-spaces.cauchy-approximations-metric-spaces.html#2223" class="Function">map-cauchy-approximation-Metric-Space</a> <a id="2618" href="metric-spaces.cauchy-approximations-metric-spaces.html#2502" class="Bound">ε</a><a id="2619" class="Symbol">)</a>
+      <a id="2627" class="Symbol">(</a> <a id="2629" href="metric-spaces.cauchy-approximations-metric-spaces.html#2223" class="Function">map-cauchy-approximation-Metric-Space</a> <a id="2667" href="metric-spaces.cauchy-approximations-metric-spaces.html#2504" class="Bound">δ</a><a id="2668" class="Symbol">)</a>
+  <a id="2672" href="metric-spaces.cauchy-approximations-metric-spaces.html#2433" class="Function">is-cauchy-approximation-map-cauchy-approximation-Metric-Space</a> <a id="2734" class="Symbol">=</a>
+    <a id="2740" href="metric-spaces.cauchy-approximations-pseudometric-spaces.html#2299" class="Function">is-cauchy-approximation-map-cauchy-approximation-Pseudometric-Space</a>
+      <a id="2814" class="Symbol">(</a> <a id="2816" href="metric-spaces.metric-spaces.html#4998" class="Function">pseudometric-Metric-Space</a> <a id="2842" href="metric-spaces.cauchy-approximations-metric-spaces.html#2144" class="Bound">A</a><a id="2843" class="Symbol">)</a>
+      <a id="2851" class="Symbol">(</a> <a id="2853" href="metric-spaces.cauchy-approximations-metric-spaces.html#2171" class="Bound">f</a><a id="2854" class="Symbol">)</a>
+</pre>
+## Properties
+
+### Constant maps in metric spaces are Cauchy approximations
+
+<pre class="Agda"><a id="2946" class="Keyword">module</a> <a id="2953" href="metric-spaces.cauchy-approximations-metric-spaces.html#2953" class="Module">_</a>
+  <a id="2957" class="Symbol">{</a><a id="2958" href="metric-spaces.cauchy-approximations-metric-spaces.html#2958" class="Bound">l1</a> <a id="2961" href="metric-spaces.cauchy-approximations-metric-spaces.html#2961" class="Bound">l2</a> <a id="2964" class="Symbol">:</a> <a id="2966" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2971" class="Symbol">}</a> <a id="2973" class="Symbol">(</a><a id="2974" href="metric-spaces.cauchy-approximations-metric-spaces.html#2974" class="Bound">A</a> <a id="2976" class="Symbol">:</a> <a id="2978" href="metric-spaces.metric-spaces.html#4139" class="Function">Metric-Space</a> <a id="2991" href="metric-spaces.cauchy-approximations-metric-spaces.html#2958" class="Bound">l1</a> <a id="2994" href="metric-spaces.cauchy-approximations-metric-spaces.html#2961" class="Bound">l2</a><a id="2996" class="Symbol">)</a>
+  <a id="3000" class="Symbol">(</a><a id="3001" href="metric-spaces.cauchy-approximations-metric-spaces.html#3001" class="Bound">x</a> <a id="3003" class="Symbol">:</a> <a id="3005" href="metric-spaces.metric-spaces.html#5090" class="Function">type-Metric-Space</a> <a id="3023" href="metric-spaces.cauchy-approximations-metric-spaces.html#2974" class="Bound">A</a><a id="3024" class="Symbol">)</a>
+  <a id="3028" class="Keyword">where</a>
+
+  <a id="3037" href="metric-spaces.cauchy-approximations-metric-spaces.html#3037" class="Function">const-cauchy-approximation-Metric-Space</a> <a id="3077" class="Symbol">:</a>
+    <a id="3083" href="metric-spaces.cauchy-approximations-metric-spaces.html#1957" class="Function">cauchy-approximation-Metric-Space</a> <a id="3117" href="metric-spaces.cauchy-approximations-metric-spaces.html#2974" class="Bound">A</a>
+  <a id="3121" href="metric-spaces.cauchy-approximations-metric-spaces.html#3037" class="Function">const-cauchy-approximation-Metric-Space</a> <a id="3161" class="Symbol">=</a>
+    <a id="3167" href="metric-spaces.cauchy-approximations-pseudometric-spaces.html#2837" class="Function">const-cauchy-approximation-Pseudometric-Space</a>
+      <a id="3219" class="Symbol">(</a> <a id="3221" href="metric-spaces.metric-spaces.html#4998" class="Function">pseudometric-Metric-Space</a> <a id="3247" href="metric-spaces.cauchy-approximations-metric-spaces.html#2974" class="Bound">A</a><a id="3248" class="Symbol">)</a>
+      <a id="3256" class="Symbol">(</a> <a id="3258" href="metric-spaces.cauchy-approximations-metric-spaces.html#3001" class="Bound">x</a><a id="3259" class="Symbol">)</a>
+</pre>
+### The action of short maps on Cauchy approximations
+
+<pre class="Agda"><a id="3329" class="Keyword">module</a> <a id="3336" href="metric-spaces.cauchy-approximations-metric-spaces.html#3336" class="Module">_</a>
+  <a id="3340" class="Symbol">{</a><a id="3341" href="metric-spaces.cauchy-approximations-metric-spaces.html#3341" class="Bound">l1</a> <a id="3344" href="metric-spaces.cauchy-approximations-metric-spaces.html#3344" class="Bound">l2</a> <a id="3347" href="metric-spaces.cauchy-approximations-metric-spaces.html#3347" class="Bound">l1&#39;</a> <a id="3351" href="metric-spaces.cauchy-approximations-metric-spaces.html#3351" class="Bound">l2&#39;</a> <a id="3355" class="Symbol">:</a> <a id="3357" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="3362" class="Symbol">}</a>
+  <a id="3366" class="Symbol">(</a><a id="3367" href="metric-spaces.cauchy-approximations-metric-spaces.html#3367" class="Bound">A</a> <a id="3369" class="Symbol">:</a> <a id="3371" href="metric-spaces.metric-spaces.html#4139" class="Function">Metric-Space</a> <a id="3384" href="metric-spaces.cauchy-approximations-metric-spaces.html#3341" class="Bound">l1</a> <a id="3387" href="metric-spaces.cauchy-approximations-metric-spaces.html#3344" class="Bound">l2</a><a id="3389" class="Symbol">)</a> <a id="3391" class="Symbol">(</a><a id="3392" href="metric-spaces.cauchy-approximations-metric-spaces.html#3392" class="Bound">B</a> <a id="3394" class="Symbol">:</a> <a id="3396" href="metric-spaces.metric-spaces.html#4139" class="Function">Metric-Space</a> <a id="3409" href="metric-spaces.cauchy-approximations-metric-spaces.html#3347" class="Bound">l1&#39;</a> <a id="3413" href="metric-spaces.cauchy-approximations-metric-spaces.html#3351" class="Bound">l2&#39;</a><a id="3416" class="Symbol">)</a>
+  <a id="3420" class="Symbol">(</a><a id="3421" href="metric-spaces.cauchy-approximations-metric-spaces.html#3421" class="Bound">f</a> <a id="3423" class="Symbol">:</a> <a id="3425" href="metric-spaces.short-functions-metric-spaces.html#2932" class="Function">short-function-Metric-Space</a> <a id="3453" href="metric-spaces.cauchy-approximations-metric-spaces.html#3367" class="Bound">A</a> <a id="3455" href="metric-spaces.cauchy-approximations-metric-spaces.html#3392" class="Bound">B</a><a id="3456" class="Symbol">)</a>
+  <a id="3460" class="Keyword">where</a>
+
+  <a id="3469" href="metric-spaces.cauchy-approximations-metric-spaces.html#3469" class="Function">map-short-function-cauchy-approximation-Metric-Space</a> <a id="3522" class="Symbol">:</a>
+    <a id="3528" href="metric-spaces.cauchy-approximations-metric-spaces.html#1957" class="Function">cauchy-approximation-Metric-Space</a> <a id="3562" href="metric-spaces.cauchy-approximations-metric-spaces.html#3367" class="Bound">A</a> <a id="3564" class="Symbol">→</a>
+    <a id="3570" href="metric-spaces.cauchy-approximations-metric-spaces.html#1957" class="Function">cauchy-approximation-Metric-Space</a> <a id="3604" href="metric-spaces.cauchy-approximations-metric-spaces.html#3392" class="Bound">B</a>
+  <a id="3608" href="metric-spaces.cauchy-approximations-metric-spaces.html#3469" class="Function">map-short-function-cauchy-approximation-Metric-Space</a> <a id="3661" class="Symbol">=</a>
+    <a id="3667" href="metric-spaces.cauchy-approximations-pseudometric-spaces.html#3328" class="Function">map-short-function-cauchy-approximation-Pseudometric-Space</a>
+      <a id="3732" class="Symbol">(</a> <a id="3734" href="metric-spaces.metric-spaces.html#4998" class="Function">pseudometric-Metric-Space</a> <a id="3760" href="metric-spaces.cauchy-approximations-metric-spaces.html#3367" class="Bound">A</a><a id="3761" class="Symbol">)</a>
+      <a id="3769" class="Symbol">(</a> <a id="3771" href="metric-spaces.metric-spaces.html#4998" class="Function">pseudometric-Metric-Space</a> <a id="3797" href="metric-spaces.cauchy-approximations-metric-spaces.html#3392" class="Bound">B</a><a id="3798" class="Symbol">)</a>
+      <a id="3806" class="Symbol">(</a> <a id="3808" href="metric-spaces.cauchy-approximations-metric-spaces.html#3421" class="Bound">f</a><a id="3809" class="Symbol">)</a>
+
+<a id="3812" class="Keyword">module</a> <a id="3819" href="metric-spaces.cauchy-approximations-metric-spaces.html#3819" class="Module">_</a>
+  <a id="3823" class="Symbol">{</a><a id="3824" href="metric-spaces.cauchy-approximations-metric-spaces.html#3824" class="Bound">l1</a> <a id="3827" href="metric-spaces.cauchy-approximations-metric-spaces.html#3827" class="Bound">l2</a> <a id="3830" class="Symbol">:</a> <a id="3832" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="3837" class="Symbol">}</a>
+  <a id="3841" class="Symbol">(</a><a id="3842" href="metric-spaces.cauchy-approximations-metric-spaces.html#3842" class="Bound">A</a> <a id="3844" class="Symbol">:</a> <a id="3846" href="metric-spaces.metric-spaces.html#4139" class="Function">Metric-Space</a> <a id="3859" href="metric-spaces.cauchy-approximations-metric-spaces.html#3824" class="Bound">l1</a> <a id="3862" href="metric-spaces.cauchy-approximations-metric-spaces.html#3827" class="Bound">l2</a><a id="3864" class="Symbol">)</a>
+  <a id="3868" class="Keyword">where</a>
+
+  <a id="3877" href="metric-spaces.cauchy-approximations-metric-spaces.html#3877" class="Function">eq-id-map-short-function-cauchy-approximation-Metric-Space</a> <a id="3936" class="Symbol">:</a>
+    <a id="3942" href="metric-spaces.cauchy-approximations-metric-spaces.html#3469" class="Function">map-short-function-cauchy-approximation-Metric-Space</a>
+      <a id="4001" class="Symbol">(</a> <a id="4003" href="metric-spaces.cauchy-approximations-metric-spaces.html#3842" class="Bound">A</a><a id="4004" class="Symbol">)</a>
+      <a id="4012" class="Symbol">(</a> <a id="4014" href="metric-spaces.cauchy-approximations-metric-spaces.html#3842" class="Bound">A</a><a id="4015" class="Symbol">)</a>
+      <a id="4023" class="Symbol">(</a> <a id="4025" href="metric-spaces.short-functions-metric-spaces.html#4505" class="Function">short-id-Metric-Space</a> <a id="4047" href="metric-spaces.cauchy-approximations-metric-spaces.html#3842" class="Bound">A</a><a id="4048" class="Symbol">)</a> <a id="4050" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a>
+    <a id="4056" href="foundation-core.function-types.html#307" class="Function">id</a>
+  <a id="4061" href="metric-spaces.cauchy-approximations-metric-spaces.html#3877" class="Function">eq-id-map-short-function-cauchy-approximation-Metric-Space</a> <a id="4120" class="Symbol">=</a> <a id="4122" href="foundation-core.identity-types.html#2682" class="InductiveConstructor">refl</a>
+
+<a id="4128" class="Keyword">module</a> <a id="4135" href="metric-spaces.cauchy-approximations-metric-spaces.html#4135" class="Module">_</a>
+  <a id="4139" class="Symbol">{</a><a id="4140" href="metric-spaces.cauchy-approximations-metric-spaces.html#4140" class="Bound">l1a</a> <a id="4144" href="metric-spaces.cauchy-approximations-metric-spaces.html#4144" class="Bound">l2a</a> <a id="4148" href="metric-spaces.cauchy-approximations-metric-spaces.html#4148" class="Bound">l1b</a> <a id="4152" href="metric-spaces.cauchy-approximations-metric-spaces.html#4152" class="Bound">l2b</a> <a id="4156" href="metric-spaces.cauchy-approximations-metric-spaces.html#4156" class="Bound">l1c</a> <a id="4160" href="metric-spaces.cauchy-approximations-metric-spaces.html#4160" class="Bound">l2c</a> <a id="4164" class="Symbol">:</a> <a id="4166" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="4171" class="Symbol">}</a>
+  <a id="4175" class="Symbol">(</a><a id="4176" href="metric-spaces.cauchy-approximations-metric-spaces.html#4176" class="Bound">A</a> <a id="4178" class="Symbol">:</a> <a id="4180" href="metric-spaces.metric-spaces.html#4139" class="Function">Metric-Space</a> <a id="4193" href="metric-spaces.cauchy-approximations-metric-spaces.html#4140" class="Bound">l1a</a> <a id="4197" href="metric-spaces.cauchy-approximations-metric-spaces.html#4144" class="Bound">l2a</a><a id="4200" class="Symbol">)</a>
+  <a id="4204" class="Symbol">(</a><a id="4205" href="metric-spaces.cauchy-approximations-metric-spaces.html#4205" class="Bound">B</a> <a id="4207" class="Symbol">:</a> <a id="4209" href="metric-spaces.metric-spaces.html#4139" class="Function">Metric-Space</a> <a id="4222" href="metric-spaces.cauchy-approximations-metric-spaces.html#4148" class="Bound">l1b</a> <a id="4226" href="metric-spaces.cauchy-approximations-metric-spaces.html#4152" class="Bound">l2b</a><a id="4229" class="Symbol">)</a>
+  <a id="4233" class="Symbol">(</a><a id="4234" href="metric-spaces.cauchy-approximations-metric-spaces.html#4234" class="Bound">C</a> <a id="4236" class="Symbol">:</a> <a id="4238" href="metric-spaces.metric-spaces.html#4139" class="Function">Metric-Space</a> <a id="4251" href="metric-spaces.cauchy-approximations-metric-spaces.html#4156" class="Bound">l1c</a> <a id="4255" href="metric-spaces.cauchy-approximations-metric-spaces.html#4160" class="Bound">l2c</a><a id="4258" class="Symbol">)</a>
+  <a id="4262" class="Symbol">(</a><a id="4263" href="metric-spaces.cauchy-approximations-metric-spaces.html#4263" class="Bound">g</a> <a id="4265" class="Symbol">:</a> <a id="4267" href="metric-spaces.short-functions-metric-spaces.html#2932" class="Function">short-function-Metric-Space</a> <a id="4295" href="metric-spaces.cauchy-approximations-metric-spaces.html#4205" class="Bound">B</a> <a id="4297" href="metric-spaces.cauchy-approximations-metric-spaces.html#4234" class="Bound">C</a><a id="4298" class="Symbol">)</a>
+  <a id="4302" class="Symbol">(</a><a id="4303" href="metric-spaces.cauchy-approximations-metric-spaces.html#4303" class="Bound">f</a> <a id="4305" class="Symbol">:</a> <a id="4307" href="metric-spaces.short-functions-metric-spaces.html#2932" class="Function">short-function-Metric-Space</a> <a id="4335" href="metric-spaces.cauchy-approximations-metric-spaces.html#4176" class="Bound">A</a> <a id="4337" href="metric-spaces.cauchy-approximations-metric-spaces.html#4205" class="Bound">B</a><a id="4338" class="Symbol">)</a>
+  <a id="4342" class="Keyword">where</a>
+
+  <a id="4351" href="metric-spaces.cauchy-approximations-metric-spaces.html#4351" class="Function">eq-comp-map-short-function-cauchy-approximation-Metric-Space</a> <a id="4412" class="Symbol">:</a>
+    <a id="4418" class="Symbol">(</a> <a id="4420" href="metric-spaces.cauchy-approximations-metric-spaces.html#3469" class="Function">map-short-function-cauchy-approximation-Metric-Space</a> <a id="4473" href="metric-spaces.cauchy-approximations-metric-spaces.html#4205" class="Bound">B</a> <a id="4475" href="metric-spaces.cauchy-approximations-metric-spaces.html#4234" class="Bound">C</a> <a id="4477" href="metric-spaces.cauchy-approximations-metric-spaces.html#4263" class="Bound">g</a> <a id="4479" href="foundation-core.function-types.html#504" class="Function Operator">∘</a>
+      <a id="4487" href="metric-spaces.cauchy-approximations-metric-spaces.html#3469" class="Function">map-short-function-cauchy-approximation-Metric-Space</a> <a id="4540" href="metric-spaces.cauchy-approximations-metric-spaces.html#4176" class="Bound">A</a> <a id="4542" href="metric-spaces.cauchy-approximations-metric-spaces.html#4205" class="Bound">B</a> <a id="4544" href="metric-spaces.cauchy-approximations-metric-spaces.html#4303" class="Bound">f</a><a id="4545" class="Symbol">)</a> <a id="4547" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a>
+    <a id="4553" class="Symbol">(</a> <a id="4555" href="metric-spaces.cauchy-approximations-metric-spaces.html#3469" class="Function">map-short-function-cauchy-approximation-Metric-Space</a> <a id="4608" href="metric-spaces.cauchy-approximations-metric-spaces.html#4176" class="Bound">A</a> <a id="4610" href="metric-spaces.cauchy-approximations-metric-spaces.html#4234" class="Bound">C</a>
+      <a id="4618" class="Symbol">(</a><a id="4619" href="metric-spaces.short-functions-metric-spaces.html#6155" class="Function">comp-short-function-Metric-Space</a> <a id="4652" href="metric-spaces.cauchy-approximations-metric-spaces.html#4176" class="Bound">A</a> <a id="4654" href="metric-spaces.cauchy-approximations-metric-spaces.html#4205" class="Bound">B</a> <a id="4656" href="metric-spaces.cauchy-approximations-metric-spaces.html#4234" class="Bound">C</a> <a id="4658" href="metric-spaces.cauchy-approximations-metric-spaces.html#4263" class="Bound">g</a> <a id="4660" href="metric-spaces.cauchy-approximations-metric-spaces.html#4303" class="Bound">f</a><a id="4661" class="Symbol">))</a>
+  <a id="4666" href="metric-spaces.cauchy-approximations-metric-spaces.html#4351" class="Function">eq-comp-map-short-function-cauchy-approximation-Metric-Space</a> <a id="4727" class="Symbol">=</a> <a id="4729" href="foundation-core.identity-types.html#2682" class="InductiveConstructor">refl</a>
+</pre>
+### Homotopic Cauchy approximations are equal
+
+<pre class="Agda"><a id="4794" class="Keyword">module</a> <a id="4801" href="metric-spaces.cauchy-approximations-metric-spaces.html#4801" class="Module">_</a>
+  <a id="4805" class="Symbol">{</a> <a id="4807" href="metric-spaces.cauchy-approximations-metric-spaces.html#4807" class="Bound">l1</a> <a id="4810" href="metric-spaces.cauchy-approximations-metric-spaces.html#4810" class="Bound">l2</a> <a id="4813" class="Symbol">:</a> <a id="4815" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="4820" class="Symbol">}</a> <a id="4822" class="Symbol">(</a><a id="4823" href="metric-spaces.cauchy-approximations-metric-spaces.html#4823" class="Bound">A</a> <a id="4825" class="Symbol">:</a> <a id="4827" href="metric-spaces.metric-spaces.html#4139" class="Function">Metric-Space</a> <a id="4840" href="metric-spaces.cauchy-approximations-metric-spaces.html#4807" class="Bound">l1</a> <a id="4843" href="metric-spaces.cauchy-approximations-metric-spaces.html#4810" class="Bound">l2</a><a id="4845" class="Symbol">)</a>
+  <a id="4849" class="Symbol">{</a> <a id="4851" href="metric-spaces.cauchy-approximations-metric-spaces.html#4851" class="Bound">f</a> <a id="4853" href="metric-spaces.cauchy-approximations-metric-spaces.html#4853" class="Bound">g</a> <a id="4855" class="Symbol">:</a> <a id="4857" href="metric-spaces.cauchy-approximations-metric-spaces.html#1957" class="Function">cauchy-approximation-Metric-Space</a> <a id="4891" href="metric-spaces.cauchy-approximations-metric-spaces.html#4823" class="Bound">A</a><a id="4892" class="Symbol">}</a>
+  <a id="4896" class="Symbol">(</a> <a id="4898" href="metric-spaces.cauchy-approximations-metric-spaces.html#4898" class="Bound">f~g</a> <a id="4902" class="Symbol">:</a>
+    <a id="4908" href="metric-spaces.cauchy-approximations-metric-spaces.html#2223" class="Function">map-cauchy-approximation-Metric-Space</a> <a id="4946" href="metric-spaces.cauchy-approximations-metric-spaces.html#4823" class="Bound">A</a> <a id="4948" href="metric-spaces.cauchy-approximations-metric-spaces.html#4851" class="Bound">f</a> <a id="4950" href="foundation-core.homotopies.html#2535" class="Function Operator">~</a>
+    <a id="4956" href="metric-spaces.cauchy-approximations-metric-spaces.html#2223" class="Function">map-cauchy-approximation-Metric-Space</a> <a id="4994" href="metric-spaces.cauchy-approximations-metric-spaces.html#4823" class="Bound">A</a> <a id="4996" href="metric-spaces.cauchy-approximations-metric-spaces.html#4853" class="Bound">g</a><a id="4997" class="Symbol">)</a>
+  <a id="5001" class="Keyword">where</a>
+
+  <a id="5010" href="metric-spaces.cauchy-approximations-metric-spaces.html#5010" class="Function">eq-htpy-cauchy-approximation-Metric-Space</a> <a id="5052" class="Symbol">:</a> <a id="5054" href="metric-spaces.cauchy-approximations-metric-spaces.html#4851" class="Bound">f</a> <a id="5056" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a> <a id="5058" href="metric-spaces.cauchy-approximations-metric-spaces.html#4853" class="Bound">g</a>
+  <a id="5062" href="metric-spaces.cauchy-approximations-metric-spaces.html#5010" class="Function">eq-htpy-cauchy-approximation-Metric-Space</a> <a id="5104" class="Symbol">=</a>
+    <a id="5110" href="metric-spaces.cauchy-approximations-pseudometric-spaces.html#4099" class="Function">eq-htpy-cauchy-approximation-Pseudometric-Space</a>
+      <a id="5164" class="Symbol">(</a> <a id="5166" href="metric-spaces.metric-spaces.html#4998" class="Function">pseudometric-Metric-Space</a> <a id="5192" href="metric-spaces.cauchy-approximations-metric-spaces.html#4823" class="Bound">A</a><a id="5193" class="Symbol">)</a>
+      <a id="5201" class="Symbol">(</a> <a id="5203" href="metric-spaces.cauchy-approximations-metric-spaces.html#4898" class="Bound">f~g</a><a id="5206" class="Symbol">)</a>
+</pre>
+## References
+
+Our definition of Cauchy approximation follows Definition 4.5.5 of
+{{#cite Booij20PhD}} and Definition 11.2.10 of {{#cite UF13}}.
+
+{{#bibliography}}

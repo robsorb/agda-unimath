@@ -1,0 +1,28 @@
+# Dependent products of subtypes
+
+<pre class="Agda"><a id="43" class="Keyword">module</a> <a id="50" href="foundation.dependent-products-subtypes.html" class="Module">foundation.dependent-products-subtypes</a> <a id="89" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="145" class="Keyword">open</a> <a id="150" class="Keyword">import</a> <a id="157" href="foundation.propositions.html" class="Module">foundation.propositions</a>
+<a id="181" class="Keyword">open</a> <a id="186" class="Keyword">import</a> <a id="193" href="foundation.subtypes.html" class="Module">foundation.subtypes</a>
+<a id="213" class="Keyword">open</a> <a id="218" class="Keyword">import</a> <a id="225" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+</pre>
+</details>
+
+## Idea
+
+Given an indexing type `I`, a type `Aᵢ` for each `i : I`, and a
+[subtype](foundation.subtypes.md) `Sᵢ ⊆ Aᵢ` for each `i : I`, a function
+`f : (i : I) → Aᵢ` is in the
+{{#concept "dependent product" disambiguation="of subtypes" Agda=Π-subtype}} of
+the subtypes `S` if for each `i`, `f i ∈ Sᵢ`.
+
+## Definition
+
+<pre class="Agda"><a id="Π-subtype"></a><a id="594" href="foundation.dependent-products-subtypes.html#594" class="Function">Π-subtype</a> <a id="604" class="Symbol">:</a>
+  <a id="608" class="Symbol">{</a><a id="609" href="foundation.dependent-products-subtypes.html#609" class="Bound">l1</a> <a id="612" href="foundation.dependent-products-subtypes.html#612" class="Bound">l2</a> <a id="615" href="foundation.dependent-products-subtypes.html#615" class="Bound">l3</a> <a id="618" class="Symbol">:</a> <a id="620" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="625" class="Symbol">}</a> <a id="627" class="Symbol">{</a><a id="628" href="foundation.dependent-products-subtypes.html#628" class="Bound">I</a> <a id="630" class="Symbol">:</a> <a id="632" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="635" href="foundation.dependent-products-subtypes.html#609" class="Bound">l1</a><a id="637" class="Symbol">}</a> <a id="639" class="Symbol">{</a><a id="640" href="foundation.dependent-products-subtypes.html#640" class="Bound">A</a> <a id="642" class="Symbol">:</a> <a id="644" href="foundation.dependent-products-subtypes.html#628" class="Bound">I</a> <a id="646" class="Symbol">→</a> <a id="648" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="651" href="foundation.dependent-products-subtypes.html#612" class="Bound">l2</a><a id="653" class="Symbol">}</a> <a id="655" class="Symbol">→</a>
+  <a id="659" class="Symbol">((</a><a id="661" href="foundation.dependent-products-subtypes.html#661" class="Bound">i</a> <a id="663" class="Symbol">:</a> <a id="665" href="foundation.dependent-products-subtypes.html#628" class="Bound">I</a><a id="666" class="Symbol">)</a> <a id="668" class="Symbol">→</a> <a id="670" href="foundation-core.subtypes.html#1435" class="Function">subtype</a> <a id="678" href="foundation.dependent-products-subtypes.html#615" class="Bound">l3</a> <a id="681" class="Symbol">(</a><a id="682" href="foundation.dependent-products-subtypes.html#640" class="Bound">A</a> <a id="684" href="foundation.dependent-products-subtypes.html#661" class="Bound">i</a><a id="685" class="Symbol">))</a> <a id="688" class="Symbol">→</a>
+  <a id="692" href="foundation-core.subtypes.html#1435" class="Function">subtype</a> <a id="700" class="Symbol">(</a><a id="701" href="foundation.dependent-products-subtypes.html#609" class="Bound">l1</a> <a id="704" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="706" href="foundation.dependent-products-subtypes.html#615" class="Bound">l3</a><a id="708" class="Symbol">)</a> <a id="710" class="Symbol">((</a><a id="712" href="foundation.dependent-products-subtypes.html#712" class="Bound">i</a> <a id="714" class="Symbol">:</a> <a id="716" href="foundation.dependent-products-subtypes.html#628" class="Bound">I</a><a id="717" class="Symbol">)</a> <a id="719" class="Symbol">→</a> <a id="721" href="foundation.dependent-products-subtypes.html#640" class="Bound">A</a> <a id="723" href="foundation.dependent-products-subtypes.html#712" class="Bound">i</a><a id="724" class="Symbol">)</a>
+<a id="726" href="foundation.dependent-products-subtypes.html#594" class="Function">Π-subtype</a> <a id="736" class="Symbol">{</a><a id="737" class="Argument">I</a> <a id="739" class="Symbol">=</a> <a id="741" href="foundation.dependent-products-subtypes.html#741" class="Bound">I</a><a id="742" class="Symbol">}</a> <a id="744" href="foundation.dependent-products-subtypes.html#744" class="Bound">S</a> <a id="746" href="foundation.dependent-products-subtypes.html#746" class="Bound">f</a> <a id="748" class="Symbol">=</a> <a id="750" href="foundation-core.propositions.html#6925" class="Function">Π-Prop</a> <a id="757" href="foundation.dependent-products-subtypes.html#741" class="Bound">I</a> <a id="759" class="Symbol">(λ</a> <a id="762" href="foundation.dependent-products-subtypes.html#762" class="Bound">i</a> <a id="764" class="Symbol">→</a> <a id="766" href="foundation.dependent-products-subtypes.html#744" class="Bound">S</a> <a id="768" href="foundation.dependent-products-subtypes.html#762" class="Bound">i</a> <a id="770" class="Symbol">(</a><a id="771" href="foundation.dependent-products-subtypes.html#746" class="Bound">f</a> <a id="773" href="foundation.dependent-products-subtypes.html#762" class="Bound">i</a><a id="774" class="Symbol">))</a>
+</pre>

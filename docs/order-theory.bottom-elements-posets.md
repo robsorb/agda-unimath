@@ -1,0 +1,59 @@
+# Bottom elements in posets
+
+<pre class="Agda"><a id="38" class="Keyword">module</a> <a id="45" href="order-theory.bottom-elements-posets.html" class="Module">order-theory.bottom-elements-posets</a> <a id="81" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="137" class="Keyword">open</a> <a id="142" class="Keyword">import</a> <a id="149" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="181" class="Keyword">open</a> <a id="186" class="Keyword">import</a> <a id="193" href="foundation.propositions.html" class="Module">foundation.propositions</a>
+<a id="217" class="Keyword">open</a> <a id="222" class="Keyword">import</a> <a id="229" href="foundation.subtypes.html" class="Module">foundation.subtypes</a>
+<a id="249" class="Keyword">open</a> <a id="254" class="Keyword">import</a> <a id="261" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="289" class="Keyword">open</a> <a id="294" class="Keyword">import</a> <a id="301" href="order-theory.bottom-elements-preorders.html" class="Module">order-theory.bottom-elements-preorders</a>
+<a id="340" class="Keyword">open</a> <a id="345" class="Keyword">import</a> <a id="352" href="order-theory.posets.html" class="Module">order-theory.posets</a>
+</pre>
+</details>
+
+## Idea
+
+A
+{{#concept "bottom element" Disambiguation="in a poset" Agda=is-bottom-element-Poset}}
+in a [poset](order-theory.posets.md) `P` is an element `b` such that `b ≤ x`
+holds for every element `x : P`.
+
+## Definition
+
+<pre class="Agda"><a id="621" class="Keyword">module</a> <a id="628" href="order-theory.bottom-elements-posets.html#628" class="Module">_</a>
+  <a id="632" class="Symbol">{</a><a id="633" href="order-theory.bottom-elements-posets.html#633" class="Bound">l1</a> <a id="636" href="order-theory.bottom-elements-posets.html#636" class="Bound">l2</a> <a id="639" class="Symbol">:</a> <a id="641" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="646" class="Symbol">}</a> <a id="648" class="Symbol">(</a><a id="649" href="order-theory.bottom-elements-posets.html#649" class="Bound">X</a> <a id="651" class="Symbol">:</a> <a id="653" href="order-theory.posets.html#1114" class="Function">Poset</a> <a id="659" href="order-theory.bottom-elements-posets.html#633" class="Bound">l1</a> <a id="662" href="order-theory.bottom-elements-posets.html#636" class="Bound">l2</a><a id="664" class="Symbol">)</a>
+  <a id="668" class="Keyword">where</a>
+
+  <a id="677" href="order-theory.bottom-elements-posets.html#677" class="Function">is-bottom-element-Poset-Prop</a> <a id="706" class="Symbol">:</a> <a id="708" href="order-theory.posets.html#1347" class="Function">type-Poset</a> <a id="719" href="order-theory.bottom-elements-posets.html#649" class="Bound">X</a> <a id="721" class="Symbol">→</a> <a id="723" href="foundation-core.propositions.html#1153" class="Function">Prop</a> <a id="728" class="Symbol">(</a><a id="729" href="order-theory.bottom-elements-posets.html#633" class="Bound">l1</a> <a id="732" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="734" href="order-theory.bottom-elements-posets.html#636" class="Bound">l2</a><a id="736" class="Symbol">)</a>
+  <a id="740" href="order-theory.bottom-elements-posets.html#677" class="Function">is-bottom-element-Poset-Prop</a> <a id="769" class="Symbol">=</a>
+    <a id="775" href="order-theory.bottom-elements-preorders.html#515" class="Function">is-bottom-element-Preorder-Prop</a> <a id="807" class="Symbol">(</a><a id="808" href="order-theory.posets.html#1287" class="Function">preorder-Poset</a> <a id="823" href="order-theory.bottom-elements-posets.html#649" class="Bound">X</a><a id="824" class="Symbol">)</a>
+
+  <a id="829" href="order-theory.bottom-elements-posets.html#829" class="Function">is-bottom-element-Poset</a> <a id="853" class="Symbol">:</a> <a id="855" href="order-theory.posets.html#1347" class="Function">type-Poset</a> <a id="866" href="order-theory.bottom-elements-posets.html#649" class="Bound">X</a> <a id="868" class="Symbol">→</a> <a id="870" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="873" class="Symbol">(</a><a id="874" href="order-theory.bottom-elements-posets.html#633" class="Bound">l1</a> <a id="877" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="879" href="order-theory.bottom-elements-posets.html#636" class="Bound">l2</a><a id="881" class="Symbol">)</a>
+  <a id="885" href="order-theory.bottom-elements-posets.html#829" class="Function">is-bottom-element-Poset</a> <a id="909" class="Symbol">=</a> <a id="911" href="order-theory.bottom-elements-preorders.html#676" class="Function">is-bottom-element-Preorder</a> <a id="938" class="Symbol">(</a><a id="939" href="order-theory.posets.html#1287" class="Function">preorder-Poset</a> <a id="954" href="order-theory.bottom-elements-posets.html#649" class="Bound">X</a><a id="955" class="Symbol">)</a>
+
+  <a id="960" href="order-theory.bottom-elements-posets.html#960" class="Function">is-prop-is-bottom-element-Poset</a> <a id="992" class="Symbol">:</a>
+    <a id="998" class="Symbol">(</a><a id="999" href="order-theory.bottom-elements-posets.html#999" class="Bound">x</a> <a id="1001" class="Symbol">:</a> <a id="1003" href="order-theory.posets.html#1347" class="Function">type-Poset</a> <a id="1014" href="order-theory.bottom-elements-posets.html#649" class="Bound">X</a><a id="1015" class="Symbol">)</a> <a id="1017" class="Symbol">→</a> <a id="1019" href="foundation-core.propositions.html#1029" class="Function">is-prop</a> <a id="1027" class="Symbol">(</a><a id="1028" href="order-theory.bottom-elements-posets.html#829" class="Function">is-bottom-element-Poset</a> <a id="1052" href="order-theory.bottom-elements-posets.html#999" class="Bound">x</a><a id="1053" class="Symbol">)</a>
+  <a id="1057" href="order-theory.bottom-elements-posets.html#960" class="Function">is-prop-is-bottom-element-Poset</a> <a id="1089" class="Symbol">=</a>
+    <a id="1095" href="order-theory.bottom-elements-preorders.html#818" class="Function">is-prop-is-bottom-element-Preorder</a> <a id="1130" class="Symbol">(</a><a id="1131" href="order-theory.posets.html#1287" class="Function">preorder-Poset</a> <a id="1146" href="order-theory.bottom-elements-posets.html#649" class="Bound">X</a><a id="1147" class="Symbol">)</a>
+
+  <a id="1152" href="order-theory.bottom-elements-posets.html#1152" class="Function">has-bottom-element-Poset</a> <a id="1177" class="Symbol">:</a> <a id="1179" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1182" class="Symbol">(</a><a id="1183" href="order-theory.bottom-elements-posets.html#633" class="Bound">l1</a> <a id="1186" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1188" href="order-theory.bottom-elements-posets.html#636" class="Bound">l2</a><a id="1190" class="Symbol">)</a>
+  <a id="1194" href="order-theory.bottom-elements-posets.html#1152" class="Function">has-bottom-element-Poset</a> <a id="1219" class="Symbol">=</a> <a id="1221" href="order-theory.bottom-elements-preorders.html#1024" class="Function">has-bottom-element-Preorder</a> <a id="1249" class="Symbol">(</a><a id="1250" href="order-theory.posets.html#1287" class="Function">preorder-Poset</a> <a id="1265" href="order-theory.bottom-elements-posets.html#649" class="Bound">X</a><a id="1266" class="Symbol">)</a>
+
+  <a id="1271" href="order-theory.bottom-elements-posets.html#1271" class="Function">all-elements-equal-has-bottom-element-Poset</a> <a id="1315" class="Symbol">:</a>
+    <a id="1321" href="foundation-core.propositions.html#2015" class="Function">all-elements-equal</a> <a id="1340" href="order-theory.bottom-elements-posets.html#1152" class="Function">has-bottom-element-Poset</a>
+  <a id="1367" href="order-theory.bottom-elements-posets.html#1271" class="Function">all-elements-equal-has-bottom-element-Poset</a> <a id="1411" class="Symbol">(</a><a id="1412" href="foundation.dependent-pair-types.html#664" class="InductiveConstructor">pair</a> <a id="1417" href="order-theory.bottom-elements-posets.html#1417" class="Bound">x</a> <a id="1419" href="order-theory.bottom-elements-posets.html#1419" class="Bound">H</a><a id="1420" class="Symbol">)</a> <a id="1422" class="Symbol">(</a><a id="1423" href="foundation.dependent-pair-types.html#664" class="InductiveConstructor">pair</a> <a id="1428" href="order-theory.bottom-elements-posets.html#1428" class="Bound">y</a> <a id="1430" href="order-theory.bottom-elements-posets.html#1430" class="Bound">K</a><a id="1431" class="Symbol">)</a> <a id="1433" class="Symbol">=</a>
+    <a id="1439" href="foundation-core.subtypes.html#3976" class="Function">eq-type-subtype</a>
+      <a id="1461" class="Symbol">(</a> <a id="1463" href="order-theory.bottom-elements-posets.html#677" class="Function">is-bottom-element-Poset-Prop</a><a id="1491" class="Symbol">)</a>
+      <a id="1499" class="Symbol">(</a> <a id="1501" href="order-theory.posets.html#3131" class="Function">antisymmetric-leq-Poset</a> <a id="1525" href="order-theory.bottom-elements-posets.html#649" class="Bound">X</a> <a id="1527" href="order-theory.bottom-elements-posets.html#1417" class="Bound">x</a> <a id="1529" href="order-theory.bottom-elements-posets.html#1428" class="Bound">y</a> <a id="1531" class="Symbol">(</a><a id="1532" href="order-theory.bottom-elements-posets.html#1419" class="Bound">H</a> <a id="1534" href="order-theory.bottom-elements-posets.html#1428" class="Bound">y</a><a id="1535" class="Symbol">)</a> <a id="1537" class="Symbol">(</a><a id="1538" href="order-theory.bottom-elements-posets.html#1430" class="Bound">K</a> <a id="1540" href="order-theory.bottom-elements-posets.html#1417" class="Bound">x</a><a id="1541" class="Symbol">))</a>
+
+  <a id="1547" href="order-theory.bottom-elements-posets.html#1547" class="Function">is-prop-has-bottom-element-Poset</a> <a id="1580" class="Symbol">:</a> <a id="1582" href="foundation-core.propositions.html#1029" class="Function">is-prop</a> <a id="1590" href="order-theory.bottom-elements-posets.html#1152" class="Function">has-bottom-element-Poset</a>
+  <a id="1617" href="order-theory.bottom-elements-posets.html#1547" class="Function">is-prop-has-bottom-element-Poset</a> <a id="1650" class="Symbol">=</a>
+    <a id="1656" href="foundation-core.propositions.html#2210" class="Function">is-prop-all-elements-equal</a> <a id="1683" href="order-theory.bottom-elements-posets.html#1271" class="Function">all-elements-equal-has-bottom-element-Poset</a>
+
+  <a id="1730" href="order-theory.bottom-elements-posets.html#1730" class="Function">has-bottom-element-Poset-Prop</a> <a id="1760" class="Symbol">:</a> <a id="1762" href="foundation-core.propositions.html#1153" class="Function">Prop</a> <a id="1767" class="Symbol">(</a><a id="1768" href="order-theory.bottom-elements-posets.html#633" class="Bound">l1</a> <a id="1771" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1773" href="order-theory.bottom-elements-posets.html#636" class="Bound">l2</a><a id="1775" class="Symbol">)</a>
+  <a id="1779" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="1783" href="order-theory.bottom-elements-posets.html#1730" class="Function">has-bottom-element-Poset-Prop</a> <a id="1813" class="Symbol">=</a> <a id="1815" href="order-theory.bottom-elements-posets.html#1152" class="Function">has-bottom-element-Poset</a>
+  <a id="1842" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1846" href="order-theory.bottom-elements-posets.html#1730" class="Function">has-bottom-element-Poset-Prop</a> <a id="1876" class="Symbol">=</a> <a id="1878" href="order-theory.bottom-elements-posets.html#1547" class="Function">is-prop-has-bottom-element-Poset</a>
+</pre>

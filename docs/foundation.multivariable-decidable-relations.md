@@ -1,0 +1,45 @@
+# Multivariable decidable relations
+
+<pre class="Agda"><a id="46" class="Keyword">module</a> <a id="53" href="foundation.multivariable-decidable-relations.html" class="Module">foundation.multivariable-decidable-relations</a> <a id="98" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="154" class="Keyword">open</a> <a id="159" class="Keyword">import</a> <a id="166" href="elementary-number-theory.natural-numbers.html" class="Module">elementary-number-theory.natural-numbers</a>
+
+<a id="208" class="Keyword">open</a> <a id="213" class="Keyword">import</a> <a id="220" href="foundation.decidable-subtypes.html" class="Module">foundation.decidable-subtypes</a>
+<a id="250" class="Keyword">open</a> <a id="255" class="Keyword">import</a> <a id="262" href="foundation.multivariable-correspondences.html" class="Module">foundation.multivariable-correspondences</a>
+<a id="303" class="Keyword">open</a> <a id="308" class="Keyword">import</a> <a id="315" href="foundation.multivariable-relations.html" class="Module">foundation.multivariable-relations</a>
+<a id="350" class="Keyword">open</a> <a id="355" class="Keyword">import</a> <a id="362" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="390" class="Keyword">open</a> <a id="395" class="Keyword">import</a> <a id="402" href="univalent-combinatorics.standard-finite-types.html" class="Module">univalent-combinatorics.standard-finite-types</a>
+</pre>
+</details>
+
+## Idea
+
+Consider a family of types `A i` indexed by `i : Fin n`. An `n`-ary decidable
+relation on the tuples of elements of the `A i` is a decidable subtype of the
+product of the `A i`.
+
+## Definition
+
+<pre class="Agda"><a id="multivariable-decidable-relation"></a><a id="676" href="foundation.multivariable-decidable-relations.html#676" class="Function">multivariable-decidable-relation</a> <a id="709" class="Symbol">:</a>
+  <a id="713" class="Symbol">{</a><a id="714" href="foundation.multivariable-decidable-relations.html#714" class="Bound">l1</a> <a id="717" class="Symbol">:</a> <a id="719" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="724" class="Symbol">}</a> <a id="726" class="Symbol">(</a><a id="727" href="foundation.multivariable-decidable-relations.html#727" class="Bound">l2</a> <a id="730" class="Symbol">:</a> <a id="732" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="737" class="Symbol">)</a> <a id="739" class="Symbol">(</a><a id="740" href="foundation.multivariable-decidable-relations.html#740" class="Bound">n</a> <a id="742" class="Symbol">:</a> <a id="744" href="elementary-number-theory.natural-numbers.html#825" class="Datatype">ℕ</a><a id="745" class="Symbol">)</a> <a id="747" class="Symbol">(</a><a id="748" href="foundation.multivariable-decidable-relations.html#748" class="Bound">A</a> <a id="750" class="Symbol">:</a> <a id="752" href="univalent-combinatorics.standard-finite-types.html#2192" class="Function">Fin</a> <a id="756" href="foundation.multivariable-decidable-relations.html#740" class="Bound">n</a> <a id="758" class="Symbol">→</a> <a id="760" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="763" href="foundation.multivariable-decidable-relations.html#714" class="Bound">l1</a><a id="765" class="Symbol">)</a> <a id="767" class="Symbol">→</a> <a id="769" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="772" class="Symbol">(</a><a id="773" href="foundation.multivariable-decidable-relations.html#714" class="Bound">l1</a> <a id="776" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="778" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="783" href="foundation.multivariable-decidable-relations.html#727" class="Bound">l2</a><a id="785" class="Symbol">)</a>
+<a id="787" href="foundation.multivariable-decidable-relations.html#676" class="Function">multivariable-decidable-relation</a> <a id="820" href="foundation.multivariable-decidable-relations.html#820" class="Bound">l2</a> <a id="823" href="foundation.multivariable-decidable-relations.html#823" class="Bound">n</a> <a id="825" href="foundation.multivariable-decidable-relations.html#825" class="Bound">A</a> <a id="827" class="Symbol">=</a>
+  <a id="831" href="foundation.decidable-subtypes.html#2727" class="Function">decidable-subtype</a> <a id="849" href="foundation.multivariable-decidable-relations.html#820" class="Bound">l2</a> <a id="852" class="Symbol">((</a><a id="854" href="foundation.multivariable-decidable-relations.html#854" class="Bound">i</a> <a id="856" class="Symbol">:</a> <a id="858" href="univalent-combinatorics.standard-finite-types.html#2192" class="Function">Fin</a> <a id="862" href="foundation.multivariable-decidable-relations.html#823" class="Bound">n</a><a id="863" class="Symbol">)</a> <a id="865" class="Symbol">→</a> <a id="867" href="foundation.multivariable-decidable-relations.html#825" class="Bound">A</a> <a id="869" href="foundation.multivariable-decidable-relations.html#854" class="Bound">i</a><a id="870" class="Symbol">)</a>
+
+<a id="873" class="Keyword">module</a> <a id="880" href="foundation.multivariable-decidable-relations.html#880" class="Module">_</a>
+  <a id="884" class="Symbol">{</a><a id="885" href="foundation.multivariable-decidable-relations.html#885" class="Bound">l1</a> <a id="888" href="foundation.multivariable-decidable-relations.html#888" class="Bound">l2</a> <a id="891" class="Symbol">:</a> <a id="893" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="898" class="Symbol">}</a> <a id="900" class="Symbol">{</a><a id="901" href="foundation.multivariable-decidable-relations.html#901" class="Bound">n</a> <a id="903" class="Symbol">:</a> <a id="905" href="elementary-number-theory.natural-numbers.html#825" class="Datatype">ℕ</a><a id="906" class="Symbol">}</a> <a id="908" class="Symbol">{</a><a id="909" href="foundation.multivariable-decidable-relations.html#909" class="Bound">A</a> <a id="911" class="Symbol">:</a> <a id="913" href="univalent-combinatorics.standard-finite-types.html#2192" class="Function">Fin</a> <a id="917" href="foundation.multivariable-decidable-relations.html#901" class="Bound">n</a> <a id="919" class="Symbol">→</a> <a id="921" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="924" href="foundation.multivariable-decidable-relations.html#885" class="Bound">l1</a><a id="926" class="Symbol">}</a>
+  <a id="930" class="Symbol">(</a><a id="931" href="foundation.multivariable-decidable-relations.html#931" class="Bound">R</a> <a id="933" class="Symbol">:</a> <a id="935" href="foundation.multivariable-decidable-relations.html#676" class="Function">multivariable-decidable-relation</a> <a id="968" href="foundation.multivariable-decidable-relations.html#888" class="Bound">l2</a> <a id="971" href="foundation.multivariable-decidable-relations.html#901" class="Bound">n</a> <a id="973" href="foundation.multivariable-decidable-relations.html#909" class="Bound">A</a><a id="974" class="Symbol">)</a>
+  <a id="978" class="Keyword">where</a>
+
+  <a id="987" href="foundation.multivariable-decidable-relations.html#987" class="Function">multivariable-relation-multivariable-decidable-relation</a> <a id="1043" class="Symbol">:</a>
+    <a id="1049" href="foundation.multivariable-relations.html#489" class="Function">multivariable-relation</a> <a id="1072" href="foundation.multivariable-decidable-relations.html#888" class="Bound">l2</a> <a id="1075" href="foundation.multivariable-decidable-relations.html#901" class="Bound">n</a> <a id="1077" href="foundation.multivariable-decidable-relations.html#909" class="Bound">A</a>
+  <a id="1081" href="foundation.multivariable-decidable-relations.html#987" class="Function">multivariable-relation-multivariable-decidable-relation</a> <a id="1137" class="Symbol">=</a>
+    <a id="1143" href="foundation.decidable-subtypes.html#2991" class="Function">subtype-decidable-subtype</a> <a id="1169" href="foundation.multivariable-decidable-relations.html#931" class="Bound">R</a>
+
+  <a id="1174" href="foundation.multivariable-decidable-relations.html#1174" class="Function">multivariable-correspondence-multivariable-decidable-relation</a> <a id="1236" class="Symbol">:</a>
+    <a id="1242" href="foundation.multivariable-correspondences.html#509" class="Function">multivariable-correspondence</a> <a id="1271" href="foundation.multivariable-decidable-relations.html#888" class="Bound">l2</a> <a id="1274" href="foundation.multivariable-decidable-relations.html#901" class="Bound">n</a> <a id="1276" href="foundation.multivariable-decidable-relations.html#909" class="Bound">A</a>
+  <a id="1280" href="foundation.multivariable-decidable-relations.html#1174" class="Function">multivariable-correspondence-multivariable-decidable-relation</a> <a id="1342" class="Symbol">=</a>
+    <a id="1348" href="foundation.decidable-subtypes.html#3255" class="Function">is-in-decidable-subtype</a> <a id="1372" href="foundation.multivariable-decidable-relations.html#931" class="Bound">R</a>
+</pre>

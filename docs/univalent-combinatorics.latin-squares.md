@@ -1,0 +1,76 @@
+# Latin squares
+
+<pre class="Agda"><a id="26" class="Keyword">module</a> <a id="33" href="univalent-combinatorics.latin-squares.html" class="Module">univalent-combinatorics.latin-squares</a> <a id="71" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="127" class="Keyword">open</a> <a id="132" class="Keyword">import</a> <a id="139" href="foundation.binary-equivalences.html" class="Module">foundation.binary-equivalences</a>
+<a id="170" class="Keyword">open</a> <a id="175" class="Keyword">import</a> <a id="182" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="214" class="Keyword">open</a> <a id="219" class="Keyword">import</a> <a id="226" href="foundation.inhabited-types.html" class="Module">foundation.inhabited-types</a>
+<a id="253" class="Keyword">open</a> <a id="258" class="Keyword">import</a> <a id="265" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+</pre>
+</details>
+
+## Idea
+
+{{#concept "Latin squares" WDID=Q679367 WD="Latin square" Agda=Latin-Square}}
+are multiplication tables in which every element appears in every row and in
+every column exactly once. Latin squares are considered to be the same if they
+are [isotopic](univalent-combinatorics.isotopies-latin-squares.md). We therefore
+define the type of all Latin squares to be the type of all
+[inhabited](foundation.inhabited-types.md) types `A`, `B`, and `C`, equipped
+with a [binary equivalence](foundation.binary-equivalences.md) `f : A → B → C`.
+
+## Definitions
+
+<pre class="Agda"><a id="Latin-Square"></a><a id="874" href="univalent-combinatorics.latin-squares.html#874" class="Function">Latin-Square</a> <a id="887" class="Symbol">:</a> <a id="889" class="Symbol">(</a><a id="890" href="univalent-combinatorics.latin-squares.html#890" class="Bound">l1</a> <a id="893" href="univalent-combinatorics.latin-squares.html#893" class="Bound">l2</a> <a id="896" href="univalent-combinatorics.latin-squares.html#896" class="Bound">l3</a> <a id="899" class="Symbol">:</a> <a id="901" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="906" class="Symbol">)</a> <a id="908" class="Symbol">→</a> <a id="910" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="913" class="Symbol">(</a><a id="914" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="919" href="univalent-combinatorics.latin-squares.html#890" class="Bound">l1</a> <a id="922" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="924" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="929" href="univalent-combinatorics.latin-squares.html#893" class="Bound">l2</a> <a id="932" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="934" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="939" href="univalent-combinatorics.latin-squares.html#896" class="Bound">l3</a><a id="941" class="Symbol">)</a>
+<a id="943" href="univalent-combinatorics.latin-squares.html#874" class="Function">Latin-Square</a> <a id="956" href="univalent-combinatorics.latin-squares.html#956" class="Bound">l1</a> <a id="959" href="univalent-combinatorics.latin-squares.html#959" class="Bound">l2</a> <a id="962" href="univalent-combinatorics.latin-squares.html#962" class="Bound">l3</a> <a id="965" class="Symbol">=</a>
+  <a id="969" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="971" class="Symbol">(</a> <a id="973" href="foundation.inhabited-types.html#1583" class="Function">Inhabited-Type</a> <a id="988" href="univalent-combinatorics.latin-squares.html#956" class="Bound">l1</a><a id="990" class="Symbol">)</a>
+    <a id="996" class="Symbol">(</a> <a id="998" class="Symbol">λ</a> <a id="1000" href="univalent-combinatorics.latin-squares.html#1000" class="Bound">A</a> <a id="1002" class="Symbol">→</a>
+      <a id="1010" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="1012" class="Symbol">(</a> <a id="1014" href="foundation.inhabited-types.html#1583" class="Function">Inhabited-Type</a> <a id="1029" href="univalent-combinatorics.latin-squares.html#959" class="Bound">l2</a><a id="1031" class="Symbol">)</a>
+        <a id="1041" class="Symbol">(</a> <a id="1043" class="Symbol">λ</a> <a id="1045" href="univalent-combinatorics.latin-squares.html#1045" class="Bound">B</a> <a id="1047" class="Symbol">→</a>
+          <a id="1059" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="1061" class="Symbol">(</a> <a id="1063" href="foundation.inhabited-types.html#1583" class="Function">Inhabited-Type</a> <a id="1078" href="univalent-combinatorics.latin-squares.html#962" class="Bound">l3</a><a id="1080" class="Symbol">)</a>
+            <a id="1094" class="Symbol">(</a> <a id="1096" class="Symbol">λ</a> <a id="1098" href="univalent-combinatorics.latin-squares.html#1098" class="Bound">C</a> <a id="1100" class="Symbol">→</a>
+              <a id="1116" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="1118" class="Symbol">(</a> <a id="1120" href="foundation.inhabited-types.html#1725" class="Function">type-Inhabited-Type</a> <a id="1140" href="univalent-combinatorics.latin-squares.html#1000" class="Bound">A</a> <a id="1142" class="Symbol">→</a> <a id="1144" href="foundation.inhabited-types.html#1725" class="Function">type-Inhabited-Type</a> <a id="1164" href="univalent-combinatorics.latin-squares.html#1045" class="Bound">B</a> <a id="1166" class="Symbol">→</a>
+                  <a id="1186" href="foundation.inhabited-types.html#1725" class="Function">type-Inhabited-Type</a> <a id="1206" href="univalent-combinatorics.latin-squares.html#1098" class="Bound">C</a><a id="1207" class="Symbol">)</a>
+                <a id="1225" class="Symbol">(</a> <a id="1227" href="foundation.binary-equivalences.html#775" class="Function">is-binary-equiv</a><a id="1242" class="Symbol">))))</a>
+
+<a id="1248" class="Keyword">module</a> <a id="1255" href="univalent-combinatorics.latin-squares.html#1255" class="Module">_</a>
+  <a id="1259" class="Symbol">{</a><a id="1260" href="univalent-combinatorics.latin-squares.html#1260" class="Bound">l1</a> <a id="1263" href="univalent-combinatorics.latin-squares.html#1263" class="Bound">l2</a> <a id="1266" href="univalent-combinatorics.latin-squares.html#1266" class="Bound">l3</a> <a id="1269" class="Symbol">:</a> <a id="1271" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1276" class="Symbol">}</a> <a id="1278" class="Symbol">(</a><a id="1279" href="univalent-combinatorics.latin-squares.html#1279" class="Bound">L</a> <a id="1281" class="Symbol">:</a> <a id="1283" href="univalent-combinatorics.latin-squares.html#874" class="Function">Latin-Square</a> <a id="1296" href="univalent-combinatorics.latin-squares.html#1260" class="Bound">l1</a> <a id="1299" href="univalent-combinatorics.latin-squares.html#1263" class="Bound">l2</a> <a id="1302" href="univalent-combinatorics.latin-squares.html#1266" class="Bound">l3</a><a id="1304" class="Symbol">)</a>
+  <a id="1308" class="Keyword">where</a>
+
+  <a id="1317" href="univalent-combinatorics.latin-squares.html#1317" class="Function">inhabited-type-row-Latin-Square</a> <a id="1349" class="Symbol">:</a> <a id="1351" href="foundation.inhabited-types.html#1583" class="Function">Inhabited-Type</a> <a id="1366" href="univalent-combinatorics.latin-squares.html#1260" class="Bound">l1</a>
+  <a id="1371" href="univalent-combinatorics.latin-squares.html#1317" class="Function">inhabited-type-row-Latin-Square</a> <a id="1403" class="Symbol">=</a> <a id="1405" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="1409" href="univalent-combinatorics.latin-squares.html#1279" class="Bound">L</a>
+
+  <a id="1414" href="univalent-combinatorics.latin-squares.html#1414" class="Function">row-Latin-Square</a> <a id="1431" class="Symbol">:</a> <a id="1433" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1436" href="univalent-combinatorics.latin-squares.html#1260" class="Bound">l1</a>
+  <a id="1441" href="univalent-combinatorics.latin-squares.html#1414" class="Function">row-Latin-Square</a> <a id="1458" class="Symbol">=</a> <a id="1460" href="foundation.inhabited-types.html#1725" class="Function">type-Inhabited-Type</a> <a id="1480" href="univalent-combinatorics.latin-squares.html#1317" class="Function">inhabited-type-row-Latin-Square</a>
+
+  <a id="1515" href="univalent-combinatorics.latin-squares.html#1515" class="Function">inhabited-type-column-Latin-Square</a> <a id="1550" class="Symbol">:</a> <a id="1552" href="foundation.inhabited-types.html#1583" class="Function">Inhabited-Type</a> <a id="1567" href="univalent-combinatorics.latin-squares.html#1263" class="Bound">l2</a>
+  <a id="1572" href="univalent-combinatorics.latin-squares.html#1515" class="Function">inhabited-type-column-Latin-Square</a> <a id="1607" class="Symbol">=</a> <a id="1609" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="1613" class="Symbol">(</a><a id="1614" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1618" href="univalent-combinatorics.latin-squares.html#1279" class="Bound">L</a><a id="1619" class="Symbol">)</a>
+
+  <a id="1624" href="univalent-combinatorics.latin-squares.html#1624" class="Function">column-Latin-Square</a> <a id="1644" class="Symbol">:</a> <a id="1646" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1649" href="univalent-combinatorics.latin-squares.html#1263" class="Bound">l2</a>
+  <a id="1654" href="univalent-combinatorics.latin-squares.html#1624" class="Function">column-Latin-Square</a> <a id="1674" class="Symbol">=</a> <a id="1676" href="foundation.inhabited-types.html#1725" class="Function">type-Inhabited-Type</a> <a id="1696" href="univalent-combinatorics.latin-squares.html#1515" class="Function">inhabited-type-column-Latin-Square</a>
+
+  <a id="1734" href="univalent-combinatorics.latin-squares.html#1734" class="Function">inhabited-type-symbol-Latin-Square</a> <a id="1769" class="Symbol">:</a> <a id="1771" href="foundation.inhabited-types.html#1583" class="Function">Inhabited-Type</a> <a id="1786" href="univalent-combinatorics.latin-squares.html#1266" class="Bound">l3</a>
+  <a id="1791" href="univalent-combinatorics.latin-squares.html#1734" class="Function">inhabited-type-symbol-Latin-Square</a> <a id="1826" class="Symbol">=</a> <a id="1828" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="1832" class="Symbol">(</a><a id="1833" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1837" class="Symbol">(</a><a id="1838" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1842" href="univalent-combinatorics.latin-squares.html#1279" class="Bound">L</a><a id="1843" class="Symbol">))</a>
+
+  <a id="1849" href="univalent-combinatorics.latin-squares.html#1849" class="Function">symbol-Latin-Square</a> <a id="1869" class="Symbol">:</a> <a id="1871" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1874" href="univalent-combinatorics.latin-squares.html#1266" class="Bound">l3</a>
+  <a id="1879" href="univalent-combinatorics.latin-squares.html#1849" class="Function">symbol-Latin-Square</a> <a id="1899" class="Symbol">=</a> <a id="1901" href="foundation.inhabited-types.html#1725" class="Function">type-Inhabited-Type</a> <a id="1921" href="univalent-combinatorics.latin-squares.html#1734" class="Function">inhabited-type-symbol-Latin-Square</a>
+
+  <a id="1959" href="univalent-combinatorics.latin-squares.html#1959" class="Function">mul-Latin-Square</a> <a id="1976" class="Symbol">:</a>
+    <a id="1982" href="univalent-combinatorics.latin-squares.html#1414" class="Function">row-Latin-Square</a> <a id="1999" class="Symbol">→</a> <a id="2001" href="univalent-combinatorics.latin-squares.html#1624" class="Function">column-Latin-Square</a> <a id="2021" class="Symbol">→</a> <a id="2023" href="univalent-combinatorics.latin-squares.html#1849" class="Function">symbol-Latin-Square</a>
+  <a id="2045" href="univalent-combinatorics.latin-squares.html#1959" class="Function">mul-Latin-Square</a> <a id="2062" class="Symbol">=</a> <a id="2064" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="2068" class="Symbol">(</a><a id="2069" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="2073" class="Symbol">(</a><a id="2074" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="2078" class="Symbol">(</a><a id="2079" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="2083" href="univalent-combinatorics.latin-squares.html#1279" class="Bound">L</a><a id="2084" class="Symbol">)))</a>
+
+  <a id="2091" href="univalent-combinatorics.latin-squares.html#2091" class="Function">mul-Latin-Square&#39;</a> <a id="2109" class="Symbol">:</a>
+    <a id="2115" href="univalent-combinatorics.latin-squares.html#1624" class="Function">column-Latin-Square</a> <a id="2135" class="Symbol">→</a> <a id="2137" href="univalent-combinatorics.latin-squares.html#1414" class="Function">row-Latin-Square</a> <a id="2154" class="Symbol">→</a> <a id="2156" href="univalent-combinatorics.latin-squares.html#1849" class="Function">symbol-Latin-Square</a>
+  <a id="2178" href="univalent-combinatorics.latin-squares.html#2091" class="Function">mul-Latin-Square&#39;</a> <a id="2196" href="univalent-combinatorics.latin-squares.html#2196" class="Bound">x</a> <a id="2198" href="univalent-combinatorics.latin-squares.html#2198" class="Bound">y</a> <a id="2200" class="Symbol">=</a> <a id="2202" href="univalent-combinatorics.latin-squares.html#1959" class="Function">mul-Latin-Square</a> <a id="2219" href="univalent-combinatorics.latin-squares.html#2198" class="Bound">y</a> <a id="2221" href="univalent-combinatorics.latin-squares.html#2196" class="Bound">x</a>
+
+  <a id="2226" href="univalent-combinatorics.latin-squares.html#2226" class="Function">is-binary-equiv-mul-Latin-Square</a> <a id="2259" class="Symbol">:</a>
+    <a id="2265" href="foundation.binary-equivalences.html#775" class="Function">is-binary-equiv</a> <a id="2281" href="univalent-combinatorics.latin-squares.html#1959" class="Function">mul-Latin-Square</a>
+  <a id="2300" href="univalent-combinatorics.latin-squares.html#2226" class="Function">is-binary-equiv-mul-Latin-Square</a> <a id="2333" class="Symbol">=</a> <a id="2335" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="2339" class="Symbol">(</a><a id="2340" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="2344" class="Symbol">(</a><a id="2345" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="2349" class="Symbol">(</a><a id="2350" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="2354" href="univalent-combinatorics.latin-squares.html#1279" class="Bound">L</a><a id="2355" class="Symbol">)))</a>
+</pre>
+## See also
+
+- The [groupoid](foundation.1-types.md) of main classes of latin squares is
+  defined in
+  [`univalent-combinatorics.main-classes-of-latin-squares`](univalent-combinatorics.main-classes-of-latin-squares.md).

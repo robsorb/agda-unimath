@@ -1,0 +1,64 @@
+# Local commutative rings
+
+<pre class="Agda"><a id="36" class="Keyword">module</a> <a id="43" href="commutative-algebra.local-commutative-rings.html" class="Module">commutative-algebra.local-commutative-rings</a> <a id="87" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="143" class="Keyword">open</a> <a id="148" class="Keyword">import</a> <a id="155" href="commutative-algebra.commutative-rings.html" class="Module">commutative-algebra.commutative-rings</a>
+
+<a id="194" class="Keyword">open</a> <a id="199" class="Keyword">import</a> <a id="206" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="238" class="Keyword">open</a> <a id="243" class="Keyword">import</a> <a id="250" href="foundation.propositions.html" class="Module">foundation.propositions</a>
+<a id="274" class="Keyword">open</a> <a id="279" class="Keyword">import</a> <a id="286" href="foundation.sets.html" class="Module">foundation.sets</a>
+<a id="302" class="Keyword">open</a> <a id="307" class="Keyword">import</a> <a id="314" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="342" class="Keyword">open</a> <a id="347" class="Keyword">import</a> <a id="354" href="ring-theory.local-rings.html" class="Module">ring-theory.local-rings</a>
+<a id="378" class="Keyword">open</a> <a id="383" class="Keyword">import</a> <a id="390" href="ring-theory.rings.html" class="Module">ring-theory.rings</a>
+</pre>
+</details>
+
+## Idea
+
+A **local ring** is a ring such that whenever a sum of elements is invertible,
+then one of its summands is invertible. This implies that the noninvertible
+elements form an ideal. However, the law of excluded middle is needed to show
+that any ring of which the noninvertible elements form an ideal is a local ring.
+
+## Definition
+
+<pre class="Agda"><a id="is-local-prop-Commutative-Ring"></a><a id="772" href="commutative-algebra.local-commutative-rings.html#772" class="Function">is-local-prop-Commutative-Ring</a> <a id="803" class="Symbol">:</a>
+  <a id="807" class="Symbol">{</a><a id="808" href="commutative-algebra.local-commutative-rings.html#808" class="Bound">l</a> <a id="810" class="Symbol">:</a> <a id="812" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="817" class="Symbol">}</a> <a id="819" class="Symbol">(</a><a id="820" href="commutative-algebra.local-commutative-rings.html#820" class="Bound">A</a> <a id="822" class="Symbol">:</a> <a id="824" href="commutative-algebra.commutative-rings.html#2100" class="Function">Commutative-Ring</a> <a id="841" href="commutative-algebra.local-commutative-rings.html#808" class="Bound">l</a><a id="842" class="Symbol">)</a> <a id="844" class="Symbol">→</a> <a id="846" href="foundation-core.propositions.html#1153" class="Function">Prop</a> <a id="851" href="commutative-algebra.local-commutative-rings.html#808" class="Bound">l</a>
+<a id="853" href="commutative-algebra.local-commutative-rings.html#772" class="Function">is-local-prop-Commutative-Ring</a> <a id="884" href="commutative-algebra.local-commutative-rings.html#884" class="Bound">A</a> <a id="886" class="Symbol">=</a> <a id="888" href="ring-theory.local-rings.html#734" class="Function">is-local-prop-Ring</a> <a id="907" class="Symbol">(</a><a id="908" href="commutative-algebra.commutative-rings.html#2260" class="Function">ring-Commutative-Ring</a> <a id="930" href="commutative-algebra.local-commutative-rings.html#884" class="Bound">A</a><a id="931" class="Symbol">)</a>
+
+<a id="is-local-Commutative-Ring"></a><a id="934" href="commutative-algebra.local-commutative-rings.html#934" class="Function">is-local-Commutative-Ring</a> <a id="960" class="Symbol">:</a> <a id="962" class="Symbol">{</a><a id="963" href="commutative-algebra.local-commutative-rings.html#963" class="Bound">l</a> <a id="965" class="Symbol">:</a> <a id="967" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="972" class="Symbol">}</a> <a id="974" class="Symbol">→</a> <a id="976" href="commutative-algebra.commutative-rings.html#2100" class="Function">Commutative-Ring</a> <a id="993" href="commutative-algebra.local-commutative-rings.html#963" class="Bound">l</a> <a id="995" class="Symbol">→</a> <a id="997" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1000" href="commutative-algebra.local-commutative-rings.html#963" class="Bound">l</a>
+<a id="1002" href="commutative-algebra.local-commutative-rings.html#934" class="Function">is-local-Commutative-Ring</a> <a id="1028" href="commutative-algebra.local-commutative-rings.html#1028" class="Bound">A</a> <a id="1030" class="Symbol">=</a> <a id="1032" href="ring-theory.local-rings.html#1130" class="Function">is-local-Ring</a> <a id="1046" class="Symbol">(</a><a id="1047" href="commutative-algebra.commutative-rings.html#2260" class="Function">ring-Commutative-Ring</a> <a id="1069" href="commutative-algebra.local-commutative-rings.html#1028" class="Bound">A</a><a id="1070" class="Symbol">)</a>
+
+<a id="is-prop-is-local-Commutative-Ring"></a><a id="1073" href="commutative-algebra.local-commutative-rings.html#1073" class="Function">is-prop-is-local-Commutative-Ring</a> <a id="1107" class="Symbol">:</a>
+  <a id="1111" class="Symbol">{</a><a id="1112" href="commutative-algebra.local-commutative-rings.html#1112" class="Bound">l</a> <a id="1114" class="Symbol">:</a> <a id="1116" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1121" class="Symbol">}</a> <a id="1123" class="Symbol">(</a><a id="1124" href="commutative-algebra.local-commutative-rings.html#1124" class="Bound">A</a> <a id="1126" class="Symbol">:</a> <a id="1128" href="commutative-algebra.commutative-rings.html#2100" class="Function">Commutative-Ring</a> <a id="1145" href="commutative-algebra.local-commutative-rings.html#1112" class="Bound">l</a><a id="1146" class="Symbol">)</a> <a id="1148" class="Symbol">→</a> <a id="1150" href="foundation-core.propositions.html#1029" class="Function">is-prop</a> <a id="1158" class="Symbol">(</a><a id="1159" href="commutative-algebra.local-commutative-rings.html#934" class="Function">is-local-Commutative-Ring</a> <a id="1185" href="commutative-algebra.local-commutative-rings.html#1124" class="Bound">A</a><a id="1186" class="Symbol">)</a>
+<a id="1188" href="commutative-algebra.local-commutative-rings.html#1073" class="Function">is-prop-is-local-Commutative-Ring</a> <a id="1222" href="commutative-algebra.local-commutative-rings.html#1222" class="Bound">A</a> <a id="1224" class="Symbol">=</a>
+  <a id="1228" href="ring-theory.local-rings.html#1226" class="Function">is-prop-is-local-Ring</a> <a id="1250" class="Symbol">(</a><a id="1251" href="commutative-algebra.commutative-rings.html#2260" class="Function">ring-Commutative-Ring</a> <a id="1273" href="commutative-algebra.local-commutative-rings.html#1222" class="Bound">A</a><a id="1274" class="Symbol">)</a>
+
+<a id="Local-Commutative-Ring"></a><a id="1277" href="commutative-algebra.local-commutative-rings.html#1277" class="Function">Local-Commutative-Ring</a> <a id="1300" class="Symbol">:</a> <a id="1302" class="Symbol">(</a><a id="1303" href="commutative-algebra.local-commutative-rings.html#1303" class="Bound">l</a> <a id="1305" class="Symbol">:</a> <a id="1307" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1312" class="Symbol">)</a> <a id="1314" class="Symbol">→</a> <a id="1316" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1319" class="Symbol">(</a><a id="1320" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="1325" href="commutative-algebra.local-commutative-rings.html#1303" class="Bound">l</a><a id="1326" class="Symbol">)</a>
+<a id="1328" href="commutative-algebra.local-commutative-rings.html#1277" class="Function">Local-Commutative-Ring</a> <a id="1351" href="commutative-algebra.local-commutative-rings.html#1351" class="Bound">l</a> <a id="1353" class="Symbol">=</a> <a id="1355" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="1357" class="Symbol">(</a><a id="1358" href="commutative-algebra.commutative-rings.html#2100" class="Function">Commutative-Ring</a> <a id="1375" href="commutative-algebra.local-commutative-rings.html#1351" class="Bound">l</a><a id="1376" class="Symbol">)</a> <a id="1378" href="commutative-algebra.local-commutative-rings.html#934" class="Function">is-local-Commutative-Ring</a>
+
+<a id="1405" class="Keyword">module</a> <a id="1412" href="commutative-algebra.local-commutative-rings.html#1412" class="Module">_</a>
+  <a id="1416" class="Symbol">{</a><a id="1417" href="commutative-algebra.local-commutative-rings.html#1417" class="Bound">l</a> <a id="1419" class="Symbol">:</a> <a id="1421" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1426" class="Symbol">}</a> <a id="1428" class="Symbol">(</a><a id="1429" href="commutative-algebra.local-commutative-rings.html#1429" class="Bound">A</a> <a id="1431" class="Symbol">:</a> <a id="1433" href="commutative-algebra.local-commutative-rings.html#1277" class="Function">Local-Commutative-Ring</a> <a id="1456" href="commutative-algebra.local-commutative-rings.html#1417" class="Bound">l</a><a id="1457" class="Symbol">)</a>
+  <a id="1461" class="Keyword">where</a>
+
+  <a id="1470" href="commutative-algebra.local-commutative-rings.html#1470" class="Function">commutative-ring-Local-Commutative-Ring</a> <a id="1510" class="Symbol">:</a> <a id="1512" href="commutative-algebra.commutative-rings.html#2100" class="Function">Commutative-Ring</a> <a id="1529" href="commutative-algebra.local-commutative-rings.html#1417" class="Bound">l</a>
+  <a id="1533" href="commutative-algebra.local-commutative-rings.html#1470" class="Function">commutative-ring-Local-Commutative-Ring</a> <a id="1573" class="Symbol">=</a> <a id="1575" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="1579" href="commutative-algebra.local-commutative-rings.html#1429" class="Bound">A</a>
+
+  <a id="1584" href="commutative-algebra.local-commutative-rings.html#1584" class="Function">ring-Local-Commutative-Ring</a> <a id="1612" class="Symbol">:</a> <a id="1614" href="ring-theory.rings.html#1968" class="Function">Ring</a> <a id="1619" href="commutative-algebra.local-commutative-rings.html#1417" class="Bound">l</a>
+  <a id="1623" href="commutative-algebra.local-commutative-rings.html#1584" class="Function">ring-Local-Commutative-Ring</a> <a id="1651" class="Symbol">=</a>
+    <a id="1657" href="commutative-algebra.commutative-rings.html#2260" class="Function">ring-Commutative-Ring</a> <a id="1679" href="commutative-algebra.local-commutative-rings.html#1470" class="Function">commutative-ring-Local-Commutative-Ring</a>
+
+  <a id="1722" href="commutative-algebra.local-commutative-rings.html#1722" class="Function">set-Local-Commutative-Ring</a> <a id="1749" class="Symbol">:</a> <a id="1751" href="foundation-core.sets.html#922" class="Function">Set</a> <a id="1755" href="commutative-algebra.local-commutative-rings.html#1417" class="Bound">l</a>
+  <a id="1759" href="commutative-algebra.local-commutative-rings.html#1722" class="Function">set-Local-Commutative-Ring</a> <a id="1786" class="Symbol">=</a> <a id="1788" href="ring-theory.rings.html#2468" class="Function">set-Ring</a> <a id="1797" href="commutative-algebra.local-commutative-rings.html#1584" class="Function">ring-Local-Commutative-Ring</a>
+
+  <a id="1828" href="commutative-algebra.local-commutative-rings.html#1828" class="Function">type-Local-Commutative-Ring</a> <a id="1856" class="Symbol">:</a> <a id="1858" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1861" href="commutative-algebra.local-commutative-rings.html#1417" class="Bound">l</a>
+  <a id="1865" href="commutative-algebra.local-commutative-rings.html#1828" class="Function">type-Local-Commutative-Ring</a> <a id="1893" class="Symbol">=</a>
+    <a id="1899" href="ring-theory.rings.html#2516" class="Function">type-Ring</a> <a id="1909" href="commutative-algebra.local-commutative-rings.html#1584" class="Function">ring-Local-Commutative-Ring</a>
+
+  <a id="1940" href="commutative-algebra.local-commutative-rings.html#1940" class="Function">is-local-commutative-ring-Local-Commutative-Ring</a> <a id="1989" class="Symbol">:</a>
+    <a id="1995" href="commutative-algebra.local-commutative-rings.html#934" class="Function">is-local-Commutative-Ring</a> <a id="2021" href="commutative-algebra.local-commutative-rings.html#1470" class="Function">commutative-ring-Local-Commutative-Ring</a>
+  <a id="2063" href="commutative-algebra.local-commutative-rings.html#1940" class="Function">is-local-commutative-ring-Local-Commutative-Ring</a> <a id="2112" class="Symbol">=</a> <a id="2114" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="2118" href="commutative-algebra.local-commutative-rings.html#1429" class="Bound">A</a>
+</pre>

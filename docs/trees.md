@@ -1,0 +1,65 @@
+# Trees
+
+<pre class="Agda"><a id="18" class="Symbol">{-#</a> <a id="22" class="Keyword">OPTIONS</a> <a id="30" class="Pragma">--guardedness</a> <a id="44" class="Symbol">#-}</a>
+</pre>
+## Modules in the trees namespace
+
+<pre class="Agda"><a id="96" class="Keyword">module</a> <a id="103" href="trees.html" class="Module">trees</a> <a id="109" class="Keyword">where</a>
+
+<a id="116" class="Keyword">open</a> <a id="121" class="Keyword">import</a> <a id="128" href="trees.algebras-polynomial-endofunctors.html" class="Module">trees.algebras-polynomial-endofunctors</a> <a id="167" class="Keyword">public</a>
+<a id="174" class="Keyword">open</a> <a id="179" class="Keyword">import</a> <a id="186" href="trees.bases-directed-trees.html" class="Module">trees.bases-directed-trees</a> <a id="213" class="Keyword">public</a>
+<a id="220" class="Keyword">open</a> <a id="225" class="Keyword">import</a> <a id="232" href="trees.bases-enriched-directed-trees.html" class="Module">trees.bases-enriched-directed-trees</a> <a id="268" class="Keyword">public</a>
+<a id="275" class="Keyword">open</a> <a id="280" class="Keyword">import</a> <a id="287" href="trees.binary-w-types.html" class="Module">trees.binary-w-types</a> <a id="308" class="Keyword">public</a>
+<a id="315" class="Keyword">open</a> <a id="320" class="Keyword">import</a> <a id="327" href="trees.bounded-multisets.html" class="Module">trees.bounded-multisets</a> <a id="351" class="Keyword">public</a>
+<a id="358" class="Keyword">open</a> <a id="363" class="Keyword">import</a> <a id="370" href="trees.coalgebra-of-directed-trees.html" class="Module">trees.coalgebra-of-directed-trees</a> <a id="404" class="Keyword">public</a>
+<a id="411" class="Keyword">open</a> <a id="416" class="Keyword">import</a> <a id="423" href="trees.coalgebra-of-enriched-directed-trees.html" class="Module">trees.coalgebra-of-enriched-directed-trees</a> <a id="466" class="Keyword">public</a>
+<a id="473" class="Keyword">open</a> <a id="478" class="Keyword">import</a> <a id="485" href="trees.coalgebras-polynomial-endofunctors.html" class="Module">trees.coalgebras-polynomial-endofunctors</a> <a id="526" class="Keyword">public</a>
+<a id="533" class="Keyword">open</a> <a id="538" class="Keyword">import</a> <a id="545" href="trees.combinator-directed-trees.html" class="Module">trees.combinator-directed-trees</a> <a id="577" class="Keyword">public</a>
+<a id="584" class="Keyword">open</a> <a id="589" class="Keyword">import</a> <a id="596" href="trees.combinator-enriched-directed-trees.html" class="Module">trees.combinator-enriched-directed-trees</a> <a id="637" class="Keyword">public</a>
+<a id="644" class="Keyword">open</a> <a id="649" class="Keyword">import</a> <a id="656" href="trees.directed-trees.html" class="Module">trees.directed-trees</a> <a id="677" class="Keyword">public</a>
+<a id="684" class="Keyword">open</a> <a id="689" class="Keyword">import</a> <a id="696" href="trees.elementhood-relation-coalgebras-polynomial-endofunctors.html" class="Module">trees.elementhood-relation-coalgebras-polynomial-endofunctors</a> <a id="758" class="Keyword">public</a>
+<a id="765" class="Keyword">open</a> <a id="770" class="Keyword">import</a> <a id="777" href="trees.elementhood-relation-w-types.html" class="Module">trees.elementhood-relation-w-types</a> <a id="812" class="Keyword">public</a>
+<a id="819" class="Keyword">open</a> <a id="824" class="Keyword">import</a> <a id="831" href="trees.empty-multisets.html" class="Module">trees.empty-multisets</a> <a id="853" class="Keyword">public</a>
+<a id="860" class="Keyword">open</a> <a id="865" class="Keyword">import</a> <a id="872" href="trees.enriched-directed-trees.html" class="Module">trees.enriched-directed-trees</a> <a id="902" class="Keyword">public</a>
+<a id="909" class="Keyword">open</a> <a id="914" class="Keyword">import</a> <a id="921" href="trees.equivalences-directed-trees.html" class="Module">trees.equivalences-directed-trees</a> <a id="955" class="Keyword">public</a>
+<a id="962" class="Keyword">open</a> <a id="967" class="Keyword">import</a> <a id="974" href="trees.equivalences-enriched-directed-trees.html" class="Module">trees.equivalences-enriched-directed-trees</a> <a id="1017" class="Keyword">public</a>
+<a id="1024" class="Keyword">open</a> <a id="1029" class="Keyword">import</a> <a id="1036" href="trees.extensional-w-types.html" class="Module">trees.extensional-w-types</a> <a id="1062" class="Keyword">public</a>
+<a id="1069" class="Keyword">open</a> <a id="1074" class="Keyword">import</a> <a id="1081" href="trees.fibers-directed-trees.html" class="Module">trees.fibers-directed-trees</a> <a id="1109" class="Keyword">public</a>
+<a id="1116" class="Keyword">open</a> <a id="1121" class="Keyword">import</a> <a id="1128" href="trees.fibers-enriched-directed-trees.html" class="Module">trees.fibers-enriched-directed-trees</a> <a id="1165" class="Keyword">public</a>
+<a id="1172" class="Keyword">open</a> <a id="1177" class="Keyword">import</a> <a id="1184" href="trees.full-binary-trees.html" class="Module">trees.full-binary-trees</a> <a id="1208" class="Keyword">public</a>
+<a id="1215" class="Keyword">open</a> <a id="1220" class="Keyword">import</a> <a id="1227" href="trees.functoriality-combinator-directed-trees.html" class="Module">trees.functoriality-combinator-directed-trees</a> <a id="1273" class="Keyword">public</a>
+<a id="1280" class="Keyword">open</a> <a id="1285" class="Keyword">import</a> <a id="1292" href="trees.functoriality-fiber-directed-tree.html" class="Module">trees.functoriality-fiber-directed-tree</a> <a id="1332" class="Keyword">public</a>
+<a id="1339" class="Keyword">open</a> <a id="1344" class="Keyword">import</a> <a id="1351" href="trees.functoriality-w-types.html" class="Module">trees.functoriality-w-types</a> <a id="1379" class="Keyword">public</a>
+<a id="1386" class="Keyword">open</a> <a id="1391" class="Keyword">import</a> <a id="1398" href="trees.hereditary-w-types.html" class="Module">trees.hereditary-w-types</a> <a id="1423" class="Keyword">public</a>
+<a id="1430" class="Keyword">open</a> <a id="1435" class="Keyword">import</a> <a id="1442" href="trees.indexed-w-types.html" class="Module">trees.indexed-w-types</a> <a id="1464" class="Keyword">public</a>
+<a id="1471" class="Keyword">open</a> <a id="1476" class="Keyword">import</a> <a id="1483" href="trees.induction-w-types.html" class="Module">trees.induction-w-types</a> <a id="1507" class="Keyword">public</a>
+<a id="1514" class="Keyword">open</a> <a id="1519" class="Keyword">import</a> <a id="1526" href="trees.inequality-w-types.html" class="Module">trees.inequality-w-types</a> <a id="1551" class="Keyword">public</a>
+<a id="1558" class="Keyword">open</a> <a id="1563" class="Keyword">import</a> <a id="1570" href="trees.lower-types-w-types.html" class="Module">trees.lower-types-w-types</a> <a id="1596" class="Keyword">public</a>
+<a id="1603" class="Keyword">open</a> <a id="1608" class="Keyword">import</a> <a id="1615" href="trees.morphisms-algebras-polynomial-endofunctors.html" class="Module">trees.morphisms-algebras-polynomial-endofunctors</a> <a id="1664" class="Keyword">public</a>
+<a id="1671" class="Keyword">open</a> <a id="1676" class="Keyword">import</a> <a id="1683" href="trees.morphisms-coalgebras-polynomial-endofunctors.html" class="Module">trees.morphisms-coalgebras-polynomial-endofunctors</a> <a id="1734" class="Keyword">public</a>
+<a id="1741" class="Keyword">open</a> <a id="1746" class="Keyword">import</a> <a id="1753" href="trees.morphisms-directed-trees.html" class="Module">trees.morphisms-directed-trees</a> <a id="1784" class="Keyword">public</a>
+<a id="1791" class="Keyword">open</a> <a id="1796" class="Keyword">import</a> <a id="1803" href="trees.morphisms-enriched-directed-trees.html" class="Module">trees.morphisms-enriched-directed-trees</a> <a id="1843" class="Keyword">public</a>
+<a id="1850" class="Keyword">open</a> <a id="1855" class="Keyword">import</a> <a id="1862" href="trees.multiset-indexed-dependent-products-of-types.html" class="Module">trees.multiset-indexed-dependent-products-of-types</a> <a id="1913" class="Keyword">public</a>
+<a id="1920" class="Keyword">open</a> <a id="1925" class="Keyword">import</a> <a id="1932" href="trees.multisets.html" class="Module">trees.multisets</a> <a id="1948" class="Keyword">public</a>
+<a id="1955" class="Keyword">open</a> <a id="1960" class="Keyword">import</a> <a id="1967" href="trees.multivariable-polynomial-functors.html" class="Module">trees.multivariable-polynomial-functors</a> <a id="2007" class="Keyword">public</a>
+<a id="2014" class="Keyword">open</a> <a id="2019" class="Keyword">import</a> <a id="2026" href="trees.planar-binary-trees.html" class="Module">trees.planar-binary-trees</a> <a id="2052" class="Keyword">public</a>
+<a id="2059" class="Keyword">open</a> <a id="2064" class="Keyword">import</a> <a id="2071" href="trees.plane-trees.html" class="Module">trees.plane-trees</a> <a id="2089" class="Keyword">public</a>
+<a id="2096" class="Keyword">open</a> <a id="2101" class="Keyword">import</a> <a id="2108" href="trees.polynomial-endofunctors.html" class="Module">trees.polynomial-endofunctors</a> <a id="2138" class="Keyword">public</a>
+<a id="2145" class="Keyword">open</a> <a id="2150" class="Keyword">import</a> <a id="2157" href="trees.raising-universe-levels-directed-trees.html" class="Module">trees.raising-universe-levels-directed-trees</a> <a id="2202" class="Keyword">public</a>
+<a id="2209" class="Keyword">open</a> <a id="2214" class="Keyword">import</a> <a id="2221" href="trees.ranks-of-elements-w-types.html" class="Module">trees.ranks-of-elements-w-types</a> <a id="2253" class="Keyword">public</a>
+<a id="2260" class="Keyword">open</a> <a id="2265" class="Keyword">import</a> <a id="2272" href="trees.rooted-morphisms-directed-trees.html" class="Module">trees.rooted-morphisms-directed-trees</a> <a id="2310" class="Keyword">public</a>
+<a id="2317" class="Keyword">open</a> <a id="2322" class="Keyword">import</a> <a id="2329" href="trees.rooted-morphisms-enriched-directed-trees.html" class="Module">trees.rooted-morphisms-enriched-directed-trees</a> <a id="2376" class="Keyword">public</a>
+<a id="2383" class="Keyword">open</a> <a id="2388" class="Keyword">import</a> <a id="2395" href="trees.rooted-quasitrees.html" class="Module">trees.rooted-quasitrees</a> <a id="2419" class="Keyword">public</a>
+<a id="2426" class="Keyword">open</a> <a id="2431" class="Keyword">import</a> <a id="2438" href="trees.rooted-undirected-trees.html" class="Module">trees.rooted-undirected-trees</a> <a id="2468" class="Keyword">public</a>
+<a id="2475" class="Keyword">open</a> <a id="2480" class="Keyword">import</a> <a id="2487" href="trees.small-multisets.html" class="Module">trees.small-multisets</a> <a id="2509" class="Keyword">public</a>
+<a id="2516" class="Keyword">open</a> <a id="2521" class="Keyword">import</a> <a id="2528" href="trees.submultisets.html" class="Module">trees.submultisets</a> <a id="2547" class="Keyword">public</a>
+<a id="2554" class="Keyword">open</a> <a id="2559" class="Keyword">import</a> <a id="2566" href="trees.transitive-multisets.html" class="Module">trees.transitive-multisets</a> <a id="2593" class="Keyword">public</a>
+<a id="2600" class="Keyword">open</a> <a id="2605" class="Keyword">import</a> <a id="2612" href="trees.underlying-trees-elements-coalgebras-polynomial-endofunctors.html" class="Module">trees.underlying-trees-elements-coalgebras-polynomial-endofunctors</a> <a id="2679" class="Keyword">public</a>
+<a id="2686" class="Keyword">open</a> <a id="2691" class="Keyword">import</a> <a id="2698" href="trees.underlying-trees-of-elements-of-w-types.html" class="Module">trees.underlying-trees-of-elements-of-w-types</a> <a id="2744" class="Keyword">public</a>
+<a id="2751" class="Keyword">open</a> <a id="2756" class="Keyword">import</a> <a id="2763" href="trees.undirected-trees.html" class="Module">trees.undirected-trees</a> <a id="2786" class="Keyword">public</a>
+<a id="2793" class="Keyword">open</a> <a id="2798" class="Keyword">import</a> <a id="2805" href="trees.universal-multiset.html" class="Module">trees.universal-multiset</a> <a id="2830" class="Keyword">public</a>
+<a id="2837" class="Keyword">open</a> <a id="2842" class="Keyword">import</a> <a id="2849" href="trees.universal-tree.html" class="Module">trees.universal-tree</a> <a id="2870" class="Keyword">public</a>
+<a id="2877" class="Keyword">open</a> <a id="2882" class="Keyword">import</a> <a id="2889" href="trees.w-type-of-natural-numbers.html" class="Module">trees.w-type-of-natural-numbers</a> <a id="2921" class="Keyword">public</a>
+<a id="2928" class="Keyword">open</a> <a id="2933" class="Keyword">import</a> <a id="2940" href="trees.w-type-of-propositions.html" class="Module">trees.w-type-of-propositions</a> <a id="2969" class="Keyword">public</a>
+<a id="2976" class="Keyword">open</a> <a id="2981" class="Keyword">import</a> <a id="2988" href="trees.w-types.html" class="Module">trees.w-types</a> <a id="3002" class="Keyword">public</a>
+</pre>

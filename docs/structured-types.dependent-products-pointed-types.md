@@ -1,0 +1,27 @@
+# Dependent products of pointed types
+
+<pre class="Agda"><a id="48" class="Keyword">module</a> <a id="55" href="structured-types.dependent-products-pointed-types.html" class="Module">structured-types.dependent-products-pointed-types</a> <a id="105" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="161" class="Keyword">open</a> <a id="166" class="Keyword">import</a> <a id="173" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="205" class="Keyword">open</a> <a id="210" class="Keyword">import</a> <a id="217" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="245" class="Keyword">open</a> <a id="250" class="Keyword">import</a> <a id="257" href="structured-types.pointed-types.html" class="Module">structured-types.pointed-types</a>
+</pre>
+</details>
+
+## Idea
+
+Given a family of [pointed types](structured-types.pointed-types.md) `Mᵢ`
+indexed by `i : I`, the dependent product `Π(i : I), Mᵢ` is a pointed type
+consisting of dependent functions taking `i : I` to an element of the underlying
+type of `Mᵢ`. The base point is given pointwise.
+
+## Definition
+
+<pre class="Agda"><a id="Π-Pointed-Type"></a><a id="617" href="structured-types.dependent-products-pointed-types.html#617" class="Function">Π-Pointed-Type</a> <a id="632" class="Symbol">:</a>
+  <a id="636" class="Symbol">{</a><a id="637" href="structured-types.dependent-products-pointed-types.html#637" class="Bound">l1</a> <a id="640" href="structured-types.dependent-products-pointed-types.html#640" class="Bound">l2</a> <a id="643" class="Symbol">:</a> <a id="645" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="650" class="Symbol">}</a> <a id="652" class="Symbol">(</a><a id="653" href="structured-types.dependent-products-pointed-types.html#653" class="Bound">I</a> <a id="655" class="Symbol">:</a> <a id="657" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="660" href="structured-types.dependent-products-pointed-types.html#637" class="Bound">l1</a><a id="662" class="Symbol">)</a> <a id="664" class="Symbol">(</a><a id="665" href="structured-types.dependent-products-pointed-types.html#665" class="Bound">P</a> <a id="667" class="Symbol">:</a> <a id="669" href="structured-types.dependent-products-pointed-types.html#653" class="Bound">I</a> <a id="671" class="Symbol">→</a> <a id="673" href="structured-types.pointed-types.html#355" class="Function">Pointed-Type</a> <a id="686" href="structured-types.dependent-products-pointed-types.html#640" class="Bound">l2</a><a id="688" class="Symbol">)</a> <a id="690" class="Symbol">→</a> <a id="692" href="structured-types.pointed-types.html#355" class="Function">Pointed-Type</a> <a id="705" class="Symbol">(</a><a id="706" href="structured-types.dependent-products-pointed-types.html#637" class="Bound">l1</a> <a id="709" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="711" href="structured-types.dependent-products-pointed-types.html#640" class="Bound">l2</a><a id="713" class="Symbol">)</a>
+<a id="715" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="719" class="Symbol">(</a><a id="720" href="structured-types.dependent-products-pointed-types.html#617" class="Function">Π-Pointed-Type</a> <a id="735" href="structured-types.dependent-products-pointed-types.html#735" class="Bound">I</a> <a id="737" href="structured-types.dependent-products-pointed-types.html#737" class="Bound">P</a><a id="738" class="Symbol">)</a> <a id="740" class="Symbol">=</a> <a id="742" class="Symbol">(</a><a id="743" href="structured-types.dependent-products-pointed-types.html#743" class="Bound">x</a> <a id="745" class="Symbol">:</a> <a id="747" href="structured-types.dependent-products-pointed-types.html#735" class="Bound">I</a><a id="748" class="Symbol">)</a> <a id="750" class="Symbol">→</a> <a id="752" href="structured-types.pointed-types.html#488" class="Function">type-Pointed-Type</a> <a id="770" class="Symbol">(</a><a id="771" href="structured-types.dependent-products-pointed-types.html#737" class="Bound">P</a> <a id="773" href="structured-types.dependent-products-pointed-types.html#743" class="Bound">x</a><a id="774" class="Symbol">)</a>
+<a id="776" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="780" class="Symbol">(</a><a id="781" href="structured-types.dependent-products-pointed-types.html#617" class="Function">Π-Pointed-Type</a> <a id="796" href="structured-types.dependent-products-pointed-types.html#796" class="Bound">I</a> <a id="798" href="structured-types.dependent-products-pointed-types.html#798" class="Bound">P</a><a id="799" class="Symbol">)</a> <a id="801" href="structured-types.dependent-products-pointed-types.html#801" class="Bound">x</a> <a id="803" class="Symbol">=</a> <a id="805" href="structured-types.pointed-types.html#544" class="Function">point-Pointed-Type</a> <a id="824" class="Symbol">(</a><a id="825" href="structured-types.dependent-products-pointed-types.html#798" class="Bound">P</a> <a id="827" href="structured-types.dependent-products-pointed-types.html#801" class="Bound">x</a><a id="828" class="Symbol">)</a>
+</pre>

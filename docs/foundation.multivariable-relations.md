@@ -1,0 +1,37 @@
+# Multivariable relations
+
+<pre class="Agda"><a id="36" class="Keyword">module</a> <a id="43" href="foundation.multivariable-relations.html" class="Module">foundation.multivariable-relations</a> <a id="78" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="134" class="Keyword">open</a> <a id="139" class="Keyword">import</a> <a id="146" href="elementary-number-theory.natural-numbers.html" class="Module">elementary-number-theory.natural-numbers</a>
+
+<a id="188" class="Keyword">open</a> <a id="193" class="Keyword">import</a> <a id="200" href="foundation.multivariable-correspondences.html" class="Module">foundation.multivariable-correspondences</a>
+<a id="241" class="Keyword">open</a> <a id="246" class="Keyword">import</a> <a id="253" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="281" class="Keyword">open</a> <a id="286" class="Keyword">import</a> <a id="293" href="foundation-core.subtypes.html" class="Module">foundation-core.subtypes</a>
+
+<a id="319" class="Keyword">open</a> <a id="324" class="Keyword">import</a> <a id="331" href="univalent-combinatorics.standard-finite-types.html" class="Module">univalent-combinatorics.standard-finite-types</a>
+</pre>
+</details>
+
+## Idea
+
+A `n`-ary relation on a type `A` is a subtype of `Fin n → A`.
+
+## Definition
+
+<pre class="Agda"><a id="multivariable-relation"></a><a id="489" href="foundation.multivariable-relations.html#489" class="Function">multivariable-relation</a> <a id="512" class="Symbol">:</a>
+  <a id="516" class="Symbol">{</a><a id="517" href="foundation.multivariable-relations.html#517" class="Bound">l1</a> <a id="520" class="Symbol">:</a> <a id="522" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="527" class="Symbol">}</a> <a id="529" class="Symbol">(</a><a id="530" href="foundation.multivariable-relations.html#530" class="Bound">l2</a> <a id="533" class="Symbol">:</a> <a id="535" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="540" class="Symbol">)</a> <a id="542" class="Symbol">(</a><a id="543" href="foundation.multivariable-relations.html#543" class="Bound">n</a> <a id="545" class="Symbol">:</a> <a id="547" href="elementary-number-theory.natural-numbers.html#825" class="Datatype">ℕ</a><a id="548" class="Symbol">)</a> <a id="550" class="Symbol">(</a><a id="551" href="foundation.multivariable-relations.html#551" class="Bound">A</a> <a id="553" class="Symbol">:</a> <a id="555" href="univalent-combinatorics.standard-finite-types.html#2192" class="Function">Fin</a> <a id="559" href="foundation.multivariable-relations.html#543" class="Bound">n</a> <a id="561" class="Symbol">→</a> <a id="563" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="566" href="foundation.multivariable-relations.html#517" class="Bound">l1</a><a id="568" class="Symbol">)</a> <a id="570" class="Symbol">→</a> <a id="572" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="575" class="Symbol">(</a><a id="576" href="foundation.multivariable-relations.html#517" class="Bound">l1</a> <a id="579" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="581" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="586" href="foundation.multivariable-relations.html#530" class="Bound">l2</a><a id="588" class="Symbol">)</a>
+<a id="590" href="foundation.multivariable-relations.html#489" class="Function">multivariable-relation</a> <a id="613" href="foundation.multivariable-relations.html#613" class="Bound">l2</a> <a id="616" href="foundation.multivariable-relations.html#616" class="Bound">n</a> <a id="618" href="foundation.multivariable-relations.html#618" class="Bound">A</a> <a id="620" class="Symbol">=</a> <a id="622" href="foundation-core.subtypes.html#1435" class="Function">subtype</a> <a id="630" href="foundation.multivariable-relations.html#613" class="Bound">l2</a> <a id="633" class="Symbol">((</a><a id="635" href="foundation.multivariable-relations.html#635" class="Bound">i</a> <a id="637" class="Symbol">:</a> <a id="639" href="univalent-combinatorics.standard-finite-types.html#2192" class="Function">Fin</a> <a id="643" href="foundation.multivariable-relations.html#616" class="Bound">n</a><a id="644" class="Symbol">)</a> <a id="646" class="Symbol">→</a> <a id="648" href="foundation.multivariable-relations.html#618" class="Bound">A</a> <a id="650" href="foundation.multivariable-relations.html#635" class="Bound">i</a><a id="651" class="Symbol">)</a>
+
+<a id="654" class="Keyword">module</a> <a id="661" href="foundation.multivariable-relations.html#661" class="Module">_</a>
+  <a id="665" class="Symbol">{</a><a id="666" href="foundation.multivariable-relations.html#666" class="Bound">l1</a> <a id="669" href="foundation.multivariable-relations.html#669" class="Bound">l2</a> <a id="672" class="Symbol">:</a> <a id="674" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="679" class="Symbol">}</a> <a id="681" class="Symbol">{</a><a id="682" href="foundation.multivariable-relations.html#682" class="Bound">n</a> <a id="684" class="Symbol">:</a> <a id="686" href="elementary-number-theory.natural-numbers.html#825" class="Datatype">ℕ</a><a id="687" class="Symbol">}</a> <a id="689" class="Symbol">{</a><a id="690" href="foundation.multivariable-relations.html#690" class="Bound">A</a> <a id="692" class="Symbol">:</a> <a id="694" href="univalent-combinatorics.standard-finite-types.html#2192" class="Function">Fin</a> <a id="698" href="foundation.multivariable-relations.html#682" class="Bound">n</a> <a id="700" class="Symbol">→</a> <a id="702" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="705" href="foundation.multivariable-relations.html#666" class="Bound">l1</a><a id="707" class="Symbol">}</a>
+  <a id="711" class="Symbol">(</a><a id="712" href="foundation.multivariable-relations.html#712" class="Bound">R</a> <a id="714" class="Symbol">:</a> <a id="716" href="foundation.multivariable-relations.html#489" class="Function">multivariable-relation</a> <a id="739" href="foundation.multivariable-relations.html#669" class="Bound">l2</a> <a id="742" href="foundation.multivariable-relations.html#682" class="Bound">n</a> <a id="744" href="foundation.multivariable-relations.html#690" class="Bound">A</a><a id="745" class="Symbol">)</a>
+  <a id="749" class="Keyword">where</a>
+
+  <a id="758" href="foundation.multivariable-relations.html#758" class="Function">multivariable-correspondence-multivariable-relation</a> <a id="810" class="Symbol">:</a>
+    <a id="816" href="foundation.multivariable-correspondences.html#509" class="Function">multivariable-correspondence</a> <a id="845" href="foundation.multivariable-relations.html#669" class="Bound">l2</a> <a id="848" href="foundation.multivariable-relations.html#682" class="Bound">n</a> <a id="850" href="foundation.multivariable-relations.html#690" class="Bound">A</a>
+  <a id="854" href="foundation.multivariable-relations.html#758" class="Function">multivariable-correspondence-multivariable-relation</a> <a id="906" class="Symbol">=</a>
+    <a id="912" href="foundation-core.subtypes.html#1596" class="Function">is-in-subtype</a> <a id="926" href="foundation.multivariable-relations.html#712" class="Bound">R</a>
+</pre>

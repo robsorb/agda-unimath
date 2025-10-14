@@ -1,0 +1,48 @@
+# Faithful pointed maps
+
+<pre class="Agda"><a id="34" class="Keyword">module</a> <a id="41" href="structured-types.faithful-pointed-maps.html" class="Module">structured-types.faithful-pointed-maps</a> <a id="80" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="136" class="Keyword">open</a> <a id="141" class="Keyword">import</a> <a id="148" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="180" class="Keyword">open</a> <a id="185" class="Keyword">import</a> <a id="192" href="foundation.faithful-maps.html" class="Module">foundation.faithful-maps</a>
+<a id="217" class="Keyword">open</a> <a id="222" class="Keyword">import</a> <a id="229" href="foundation.identity-types.html" class="Module">foundation.identity-types</a>
+<a id="255" class="Keyword">open</a> <a id="260" class="Keyword">import</a> <a id="267" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="295" class="Keyword">open</a> <a id="300" class="Keyword">import</a> <a id="307" href="structured-types.pointed-maps.html" class="Module">structured-types.pointed-maps</a>
+<a id="337" class="Keyword">open</a> <a id="342" class="Keyword">import</a> <a id="349" href="structured-types.pointed-types.html" class="Module">structured-types.pointed-types</a>
+</pre>
+</details>
+
+## Idea
+
+A faithful pointed map from `A` to `B` is a pointed map from `A` to `B` of which
+the underlying map is faithful.
+
+## Definition
+
+<pre class="Agda"><a id="faithful-pointed-map"></a><a id="543" href="structured-types.faithful-pointed-maps.html#543" class="Function">faithful-pointed-map</a> <a id="564" class="Symbol">:</a>
+  <a id="568" class="Symbol">{</a><a id="569" href="structured-types.faithful-pointed-maps.html#569" class="Bound">l1</a> <a id="572" href="structured-types.faithful-pointed-maps.html#572" class="Bound">l2</a> <a id="575" class="Symbol">:</a> <a id="577" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="582" class="Symbol">}</a> <a id="584" class="Symbol">(</a><a id="585" href="structured-types.faithful-pointed-maps.html#585" class="Bound">A</a> <a id="587" class="Symbol">:</a> <a id="589" href="structured-types.pointed-types.html#355" class="Function">Pointed-Type</a> <a id="602" href="structured-types.faithful-pointed-maps.html#569" class="Bound">l1</a><a id="604" class="Symbol">)</a> <a id="606" class="Symbol">(</a><a id="607" href="structured-types.faithful-pointed-maps.html#607" class="Bound">B</a> <a id="609" class="Symbol">:</a> <a id="611" href="structured-types.pointed-types.html#355" class="Function">Pointed-Type</a> <a id="624" href="structured-types.faithful-pointed-maps.html#572" class="Bound">l2</a><a id="626" class="Symbol">)</a> <a id="628" class="Symbol">→</a> <a id="630" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="633" class="Symbol">(</a><a id="634" href="structured-types.faithful-pointed-maps.html#569" class="Bound">l1</a> <a id="637" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="639" href="structured-types.faithful-pointed-maps.html#572" class="Bound">l2</a><a id="641" class="Symbol">)</a>
+<a id="643" href="structured-types.faithful-pointed-maps.html#543" class="Function">faithful-pointed-map</a> <a id="664" href="structured-types.faithful-pointed-maps.html#664" class="Bound">A</a> <a id="666" href="structured-types.faithful-pointed-maps.html#666" class="Bound">B</a> <a id="668" class="Symbol">=</a>
+  <a id="672" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="674" class="Symbol">(</a><a id="675" href="structured-types.faithful-pointed-maps.html#664" class="Bound">A</a> <a id="677" href="structured-types.pointed-maps.html#1157" class="Function Operator">→∗</a> <a id="680" href="structured-types.faithful-pointed-maps.html#666" class="Bound">B</a><a id="681" class="Symbol">)</a> <a id="683" class="Symbol">(λ</a> <a id="686" href="structured-types.faithful-pointed-maps.html#686" class="Bound">f</a> <a id="688" class="Symbol">→</a> <a id="690" href="foundation.faithful-maps.html#1141" class="Function">is-faithful</a> <a id="702" class="Symbol">(</a><a id="703" href="structured-types.pointed-maps.html#1532" class="Function">map-pointed-map</a> <a id="719" href="structured-types.faithful-pointed-maps.html#686" class="Bound">f</a><a id="720" class="Symbol">))</a>
+
+<a id="724" class="Keyword">module</a> <a id="731" href="structured-types.faithful-pointed-maps.html#731" class="Module">_</a>
+  <a id="735" class="Symbol">{</a><a id="736" href="structured-types.faithful-pointed-maps.html#736" class="Bound">l1</a> <a id="739" href="structured-types.faithful-pointed-maps.html#739" class="Bound">l2</a> <a id="742" class="Symbol">:</a> <a id="744" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="749" class="Symbol">}</a> <a id="751" class="Symbol">{</a><a id="752" href="structured-types.faithful-pointed-maps.html#752" class="Bound">A</a> <a id="754" class="Symbol">:</a> <a id="756" href="structured-types.pointed-types.html#355" class="Function">Pointed-Type</a> <a id="769" href="structured-types.faithful-pointed-maps.html#736" class="Bound">l1</a><a id="771" class="Symbol">}</a> <a id="773" class="Symbol">{</a><a id="774" href="structured-types.faithful-pointed-maps.html#774" class="Bound">B</a> <a id="776" class="Symbol">:</a> <a id="778" href="structured-types.pointed-types.html#355" class="Function">Pointed-Type</a> <a id="791" href="structured-types.faithful-pointed-maps.html#739" class="Bound">l2</a><a id="793" class="Symbol">}</a>
+  <a id="797" class="Symbol">(</a><a id="798" href="structured-types.faithful-pointed-maps.html#798" class="Bound">f</a> <a id="800" class="Symbol">:</a> <a id="802" href="structured-types.faithful-pointed-maps.html#543" class="Function">faithful-pointed-map</a> <a id="823" href="structured-types.faithful-pointed-maps.html#752" class="Bound">A</a> <a id="825" href="structured-types.faithful-pointed-maps.html#774" class="Bound">B</a><a id="826" class="Symbol">)</a>
+  <a id="830" class="Keyword">where</a>
+
+  <a id="839" href="structured-types.faithful-pointed-maps.html#839" class="Function">pointed-map-faithful-pointed-map</a> <a id="872" class="Symbol">:</a> <a id="874" href="structured-types.faithful-pointed-maps.html#752" class="Bound">A</a> <a id="876" href="structured-types.pointed-maps.html#1157" class="Function Operator">→∗</a> <a id="879" href="structured-types.faithful-pointed-maps.html#774" class="Bound">B</a>
+  <a id="883" href="structured-types.faithful-pointed-maps.html#839" class="Function">pointed-map-faithful-pointed-map</a> <a id="916" class="Symbol">=</a> <a id="918" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="922" href="structured-types.faithful-pointed-maps.html#798" class="Bound">f</a>
+
+  <a id="927" href="structured-types.faithful-pointed-maps.html#927" class="Function">map-faithful-pointed-map</a> <a id="952" class="Symbol">:</a> <a id="954" href="structured-types.pointed-types.html#488" class="Function">type-Pointed-Type</a> <a id="972" href="structured-types.faithful-pointed-maps.html#752" class="Bound">A</a> <a id="974" class="Symbol">→</a> <a id="976" href="structured-types.pointed-types.html#488" class="Function">type-Pointed-Type</a> <a id="994" href="structured-types.faithful-pointed-maps.html#774" class="Bound">B</a>
+  <a id="998" href="structured-types.faithful-pointed-maps.html#927" class="Function">map-faithful-pointed-map</a> <a id="1023" class="Symbol">=</a>
+    <a id="1029" href="structured-types.pointed-maps.html#1532" class="Function">map-pointed-map</a> <a id="1045" href="structured-types.faithful-pointed-maps.html#839" class="Function">pointed-map-faithful-pointed-map</a>
+
+  <a id="1081" href="structured-types.faithful-pointed-maps.html#1081" class="Function">preserves-point-faithful-pointed-map</a> <a id="1118" class="Symbol">:</a>
+    <a id="1124" href="structured-types.faithful-pointed-maps.html#927" class="Function">map-faithful-pointed-map</a> <a id="1149" class="Symbol">(</a><a id="1150" href="structured-types.pointed-types.html#544" class="Function">point-Pointed-Type</a> <a id="1169" href="structured-types.faithful-pointed-maps.html#752" class="Bound">A</a><a id="1170" class="Symbol">)</a> <a id="1172" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a> <a id="1174" href="structured-types.pointed-types.html#544" class="Function">point-Pointed-Type</a> <a id="1193" href="structured-types.faithful-pointed-maps.html#774" class="Bound">B</a>
+  <a id="1197" href="structured-types.faithful-pointed-maps.html#1081" class="Function">preserves-point-faithful-pointed-map</a> <a id="1234" class="Symbol">=</a>
+    <a id="1240" href="structured-types.pointed-maps.html#1628" class="Function">preserves-point-pointed-map</a> <a id="1268" href="structured-types.faithful-pointed-maps.html#839" class="Function">pointed-map-faithful-pointed-map</a>
+
+  <a id="1304" href="structured-types.faithful-pointed-maps.html#1304" class="Function">is-faithful-faithful-pointed-map</a> <a id="1337" class="Symbol">:</a> <a id="1339" href="foundation.faithful-maps.html#1141" class="Function">is-faithful</a> <a id="1351" href="structured-types.faithful-pointed-maps.html#927" class="Function">map-faithful-pointed-map</a>
+  <a id="1378" href="structured-types.faithful-pointed-maps.html#1304" class="Function">is-faithful-faithful-pointed-map</a> <a id="1411" class="Symbol">=</a> <a id="1413" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1417" href="structured-types.faithful-pointed-maps.html#798" class="Bound">f</a>
+</pre>

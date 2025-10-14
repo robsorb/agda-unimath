@@ -1,0 +1,133 @@
+# Convergent Cauchy approximations in metric spaces
+
+<pre class="Agda"><a id="62" class="Keyword">module</a> <a id="69" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html" class="Module">metric-spaces.convergent-cauchy-approximations-metric-spaces</a> <a id="130" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="186" class="Keyword">open</a> <a id="191" class="Keyword">import</a> <a id="198" href="elementary-number-theory.positive-rational-numbers.html" class="Module">elementary-number-theory.positive-rational-numbers</a>
+
+<a id="250" class="Keyword">open</a> <a id="255" class="Keyword">import</a> <a id="262" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="294" class="Keyword">open</a> <a id="299" class="Keyword">import</a> <a id="306" href="foundation.function-types.html" class="Module">foundation.function-types</a>
+<a id="332" class="Keyword">open</a> <a id="337" class="Keyword">import</a> <a id="344" href="foundation.identity-types.html" class="Module">foundation.identity-types</a>
+<a id="370" class="Keyword">open</a> <a id="375" class="Keyword">import</a> <a id="382" href="foundation.propositions.html" class="Module">foundation.propositions</a>
+<a id="406" class="Keyword">open</a> <a id="411" class="Keyword">import</a> <a id="418" href="foundation.subtypes.html" class="Module">foundation.subtypes</a>
+<a id="438" class="Keyword">open</a> <a id="443" class="Keyword">import</a> <a id="450" href="foundation.transport-along-identifications.html" class="Module">foundation.transport-along-identifications</a>
+<a id="493" class="Keyword">open</a> <a id="498" class="Keyword">import</a> <a id="505" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="533" class="Keyword">open</a> <a id="538" class="Keyword">import</a> <a id="545" href="metric-spaces.cauchy-approximations-metric-spaces.html" class="Module">metric-spaces.cauchy-approximations-metric-spaces</a>
+<a id="595" class="Keyword">open</a> <a id="600" class="Keyword">import</a> <a id="607" href="metric-spaces.limits-of-cauchy-approximations-metric-spaces.html" class="Module">metric-spaces.limits-of-cauchy-approximations-metric-spaces</a>
+<a id="667" class="Keyword">open</a> <a id="672" class="Keyword">import</a> <a id="679" href="metric-spaces.metric-spaces.html" class="Module">metric-spaces.metric-spaces</a>
+</pre>
+</details>
+
+## Idea
+
+A [Cauchy approximation](metric-spaces.cauchy-approximations-metric-spaces.md)
+in a [metric space](metric-spaces.metric-spaces.md) is
+{{#concept "convergent" Disambiguation="Cauchy approximation in a metric space" agda=is-convergent-cauchy-approximation-Metric-Space}}
+if it has a
+[limit](metric-spaces.limits-of-cauchy-approximations-metric-spaces.md). Because
+limits of Cauchy approximations in metric spaces are unique, this is a
+[subtype](foundation.subtypes.md) of the type of Cauchy approximations.
+
+## Definitions
+
+### The property of being a convergent Cauchy approximation in a metric space
+
+<pre class="Agda"><a id="1342" class="Keyword">module</a> <a id="1349" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1349" class="Module">_</a>
+  <a id="1353" class="Symbol">{</a><a id="1354" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1354" class="Bound">l1</a> <a id="1357" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1357" class="Bound">l2</a> <a id="1360" class="Symbol">:</a> <a id="1362" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1367" class="Symbol">}</a> <a id="1369" class="Symbol">(</a><a id="1370" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1370" class="Bound">A</a> <a id="1372" class="Symbol">:</a> <a id="1374" href="metric-spaces.metric-spaces.html#4139" class="Function">Metric-Space</a> <a id="1387" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1354" class="Bound">l1</a> <a id="1390" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1357" class="Bound">l2</a><a id="1392" class="Symbol">)</a>
+  <a id="1396" class="Symbol">(</a><a id="1397" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1397" class="Bound">f</a> <a id="1399" class="Symbol">:</a> <a id="1401" href="metric-spaces.cauchy-approximations-metric-spaces.html#1957" class="Function">cauchy-approximation-Metric-Space</a> <a id="1435" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1370" class="Bound">A</a><a id="1436" class="Symbol">)</a>
+  <a id="1440" class="Keyword">where</a>
+
+  <a id="1449" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1449" class="Function">is-convergent-cauchy-approximation-Metric-Space</a> <a id="1497" class="Symbol">:</a> <a id="1499" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1502" class="Symbol">(</a><a id="1503" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1354" class="Bound">l1</a> <a id="1506" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1508" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1357" class="Bound">l2</a><a id="1510" class="Symbol">)</a>
+  <a id="1514" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1449" class="Function">is-convergent-cauchy-approximation-Metric-Space</a> <a id="1562" class="Symbol">=</a>
+    <a id="1568" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="1570" class="Symbol">(</a> <a id="1572" href="metric-spaces.metric-spaces.html#5090" class="Function">type-Metric-Space</a> <a id="1590" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1370" class="Bound">A</a><a id="1591" class="Symbol">)</a>
+      <a id="1599" class="Symbol">(</a> <a id="1601" href="metric-spaces.limits-of-cauchy-approximations-metric-spaces.html#2059" class="Function">is-limit-cauchy-approximation-Metric-Space</a> <a id="1644" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1370" class="Bound">A</a> <a id="1646" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1397" class="Bound">f</a><a id="1647" class="Symbol">)</a>
+
+  <a id="1652" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1652" class="Function">limit-is-convergent-cauchy-approximation-Metric-Space</a> <a id="1706" class="Symbol">:</a>
+    <a id="1712" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1449" class="Function">is-convergent-cauchy-approximation-Metric-Space</a> <a id="1760" class="Symbol">→</a>
+    <a id="1766" href="metric-spaces.metric-spaces.html#5090" class="Function">type-Metric-Space</a> <a id="1784" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1370" class="Bound">A</a>
+  <a id="1788" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1652" class="Function">limit-is-convergent-cauchy-approximation-Metric-Space</a> <a id="1842" class="Symbol">=</a> <a id="1844" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a>
+
+  <a id="1851" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1851" class="Function">is-limit-limit-is-convergent-cauchy-approximation-Metric-Space</a> <a id="1914" class="Symbol">:</a>
+    <a id="1920" class="Symbol">(</a><a id="1921" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1921" class="Bound">x</a> <a id="1923" class="Symbol">:</a> <a id="1925" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1449" class="Function">is-convergent-cauchy-approximation-Metric-Space</a><a id="1972" class="Symbol">)</a> <a id="1974" class="Symbol">→</a>
+    <a id="1980" href="metric-spaces.limits-of-cauchy-approximations-metric-spaces.html#2059" class="Function">is-limit-cauchy-approximation-Metric-Space</a>
+      <a id="2029" class="Symbol">(</a> <a id="2031" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1370" class="Bound">A</a><a id="2032" class="Symbol">)</a>
+      <a id="2040" class="Symbol">(</a> <a id="2042" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1397" class="Bound">f</a><a id="2043" class="Symbol">)</a>
+      <a id="2051" class="Symbol">(</a> <a id="2053" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1652" class="Function">limit-is-convergent-cauchy-approximation-Metric-Space</a> <a id="2107" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1921" class="Bound">x</a><a id="2108" class="Symbol">)</a>
+  <a id="2112" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1851" class="Function">is-limit-limit-is-convergent-cauchy-approximation-Metric-Space</a> <a id="2175" class="Symbol">=</a> <a id="2177" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a>
+
+  <a id="2184" class="Keyword">abstract</a>
+    <a id="2197" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#2197" class="Function">is-prop-is-convergent-cauchy-approximation-Metric-Space</a> <a id="2253" class="Symbol">:</a>
+      <a id="2261" href="foundation-core.propositions.html#1029" class="Function">is-prop</a> <a id="2269" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1449" class="Function">is-convergent-cauchy-approximation-Metric-Space</a>
+    <a id="2321" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#2197" class="Function">is-prop-is-convergent-cauchy-approximation-Metric-Space</a> <a id="2377" class="Symbol">=</a>
+      <a id="2385" href="foundation-core.propositions.html#2210" class="Function">is-prop-all-elements-equal</a>
+        <a id="2420" class="Symbol">(</a> <a id="2422" class="Symbol">λ</a> <a id="2424" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#2424" class="Bound">x</a> <a id="2426" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#2426" class="Bound">y</a> <a id="2428" class="Symbol">→</a>
+          <a id="2440" href="foundation-core.subtypes.html#3976" class="Function">eq-type-subtype</a>
+            <a id="2468" class="Symbol">(</a> <a id="2470" href="metric-spaces.limits-of-cauchy-approximations-metric-spaces.html#1814" class="Function">is-limit-cauchy-approximation-prop-Metric-Space</a> <a id="2518" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1370" class="Bound">A</a> <a id="2520" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1397" class="Bound">f</a><a id="2521" class="Symbol">)</a>
+            <a id="2535" class="Symbol">(</a> <a id="2537" href="metric-spaces.limits-of-cauchy-approximations-metric-spaces.html#3444" class="Function">all-eq-is-limit-cauchy-approximation-Metric-Space</a>
+              <a id="2601" class="Symbol">(</a> <a id="2603" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1370" class="Bound">A</a><a id="2604" class="Symbol">)</a>
+              <a id="2620" class="Symbol">(</a> <a id="2622" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1397" class="Bound">f</a><a id="2623" class="Symbol">)</a>
+              <a id="2639" class="Symbol">(</a> <a id="2641" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1652" class="Function">limit-is-convergent-cauchy-approximation-Metric-Space</a> <a id="2695" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#2424" class="Bound">x</a><a id="2696" class="Symbol">)</a>
+              <a id="2712" class="Symbol">(</a> <a id="2714" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1652" class="Function">limit-is-convergent-cauchy-approximation-Metric-Space</a> <a id="2768" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#2426" class="Bound">y</a><a id="2769" class="Symbol">)</a>
+              <a id="2785" class="Symbol">(</a> <a id="2787" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1851" class="Function">is-limit-limit-is-convergent-cauchy-approximation-Metric-Space</a>
+                <a id="2866" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#2424" class="Bound">x</a><a id="2867" class="Symbol">)</a>
+              <a id="2883" class="Symbol">(</a> <a id="2885" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1851" class="Function">is-limit-limit-is-convergent-cauchy-approximation-Metric-Space</a>
+                <a id="2964" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#2426" class="Bound">y</a><a id="2965" class="Symbol">)))</a>
+
+  <a id="2972" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#2972" class="Function">is-convergent-prop-cauchy-approximation-Metric-Space</a> <a id="3025" class="Symbol">:</a> <a id="3027" href="foundation-core.propositions.html#1153" class="Function">Prop</a> <a id="3032" class="Symbol">(</a><a id="3033" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1354" class="Bound">l1</a> <a id="3036" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="3038" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1357" class="Bound">l2</a><a id="3040" class="Symbol">)</a>
+  <a id="3044" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#2972" class="Function">is-convergent-prop-cauchy-approximation-Metric-Space</a> <a id="3097" class="Symbol">=</a>
+    <a id="3103" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#1449" class="Function">is-convergent-cauchy-approximation-Metric-Space</a> <a id="3151" href="foundation.dependent-pair-types.html#787" class="InductiveConstructor Operator">,</a>
+    <a id="3157" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#2197" class="Function">is-prop-is-convergent-cauchy-approximation-Metric-Space</a>
+</pre>
+### The type of convergent Cauchy approximations in a metric space
+
+<pre class="Agda"><a id="3294" class="Keyword">module</a> <a id="3301" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3301" class="Module">_</a>
+  <a id="3305" class="Symbol">{</a><a id="3306" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3306" class="Bound">l1</a> <a id="3309" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3309" class="Bound">l2</a> <a id="3312" class="Symbol">:</a> <a id="3314" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="3319" class="Symbol">}</a> <a id="3321" class="Symbol">(</a><a id="3322" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3322" class="Bound">A</a> <a id="3324" class="Symbol">:</a> <a id="3326" href="metric-spaces.metric-spaces.html#4139" class="Function">Metric-Space</a> <a id="3339" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3306" class="Bound">l1</a> <a id="3342" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3309" class="Bound">l2</a><a id="3344" class="Symbol">)</a>
+  <a id="3348" class="Keyword">where</a>
+
+  <a id="3357" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3357" class="Function">convergent-cauchy-approximation-Metric-Space</a> <a id="3402" class="Symbol">:</a> <a id="3404" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="3407" class="Symbol">(</a><a id="3408" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3306" class="Bound">l1</a> <a id="3411" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="3413" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3309" class="Bound">l2</a><a id="3415" class="Symbol">)</a>
+  <a id="3419" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3357" class="Function">convergent-cauchy-approximation-Metric-Space</a> <a id="3464" class="Symbol">=</a>
+    <a id="3470" href="foundation-core.subtypes.html#1776" class="Function">type-subtype</a> <a id="3483" class="Symbol">(</a><a id="3484" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#2972" class="Function">is-convergent-prop-cauchy-approximation-Metric-Space</a> <a id="3537" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3322" class="Bound">A</a><a id="3538" class="Symbol">)</a>
+</pre>
+<pre class="Agda"><a id="3553" class="Keyword">module</a> <a id="3560" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3560" class="Module">_</a>
+  <a id="3564" class="Symbol">{</a><a id="3565" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3565" class="Bound">l1</a> <a id="3568" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3568" class="Bound">l2</a> <a id="3571" class="Symbol">:</a> <a id="3573" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="3578" class="Symbol">}</a> <a id="3580" class="Symbol">(</a><a id="3581" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3581" class="Bound">A</a> <a id="3583" class="Symbol">:</a> <a id="3585" href="metric-spaces.metric-spaces.html#4139" class="Function">Metric-Space</a> <a id="3598" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3565" class="Bound">l1</a> <a id="3601" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3568" class="Bound">l2</a><a id="3603" class="Symbol">)</a>
+  <a id="3607" class="Symbol">(</a><a id="3608" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3608" class="Bound">f</a> <a id="3610" class="Symbol">:</a> <a id="3612" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3357" class="Function">convergent-cauchy-approximation-Metric-Space</a> <a id="3657" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3581" class="Bound">A</a><a id="3658" class="Symbol">)</a>
+  <a id="3662" class="Keyword">where</a>
+
+  <a id="3671" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3671" class="Function">approximation-convergent-cauchy-approximation-Metric-Space</a> <a id="3730" class="Symbol">:</a>
+    <a id="3736" href="metric-spaces.cauchy-approximations-metric-spaces.html#1957" class="Function">cauchy-approximation-Metric-Space</a> <a id="3770" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3581" class="Bound">A</a>
+  <a id="3774" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3671" class="Function">approximation-convergent-cauchy-approximation-Metric-Space</a> <a id="3833" class="Symbol">=</a> <a id="3835" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="3839" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3608" class="Bound">f</a>
+
+  <a id="3844" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3844" class="Function">map-convergent-cauchy-approximation-Metric-Space</a> <a id="3893" class="Symbol">:</a>
+    <a id="3899" href="elementary-number-theory.positive-rational-numbers.html#4770" class="Function">ℚ⁺</a> <a id="3902" class="Symbol">→</a> <a id="3904" href="metric-spaces.metric-spaces.html#5090" class="Function">type-Metric-Space</a> <a id="3922" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3581" class="Bound">A</a>
+  <a id="3926" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3844" class="Function">map-convergent-cauchy-approximation-Metric-Space</a> <a id="3975" class="Symbol">=</a>
+    <a id="3981" href="metric-spaces.cauchy-approximations-metric-spaces.html#2223" class="Function">map-cauchy-approximation-Metric-Space</a>
+      <a id="4025" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3581" class="Bound">A</a>
+      <a id="4033" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3671" class="Function">approximation-convergent-cauchy-approximation-Metric-Space</a>
+
+  <a id="4095" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4095" class="Function">is-cauchy-approximation-map-convergent-cauchy-approximation-Metric-Space</a> <a id="4168" class="Symbol">:</a>
+    <a id="4174" class="Symbol">(</a><a id="4175" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4175" class="Bound">ε</a> <a id="4177" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4177" class="Bound">δ</a> <a id="4179" class="Symbol">:</a> <a id="4181" href="elementary-number-theory.positive-rational-numbers.html#4770" class="Function">ℚ⁺</a><a id="4183" class="Symbol">)</a> <a id="4185" class="Symbol">→</a>
+    <a id="4191" href="metric-spaces.metric-spaces.html#5726" class="Function">neighborhood-Metric-Space</a>
+      <a id="4223" class="Symbol">(</a> <a id="4225" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3581" class="Bound">A</a><a id="4226" class="Symbol">)</a>
+      <a id="4234" class="Symbol">(</a> <a id="4236" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4175" class="Bound">ε</a> <a id="4238" href="elementary-number-theory.positive-rational-numbers.html#11024" class="Function Operator">+ℚ⁺</a> <a id="4242" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4177" class="Bound">δ</a><a id="4243" class="Symbol">)</a>
+      <a id="4251" class="Symbol">(</a> <a id="4253" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3844" class="Function">map-convergent-cauchy-approximation-Metric-Space</a> <a id="4302" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4175" class="Bound">ε</a><a id="4303" class="Symbol">)</a>
+      <a id="4311" class="Symbol">(</a> <a id="4313" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3844" class="Function">map-convergent-cauchy-approximation-Metric-Space</a> <a id="4362" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4177" class="Bound">δ</a><a id="4363" class="Symbol">)</a>
+  <a id="4367" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4095" class="Function">is-cauchy-approximation-map-convergent-cauchy-approximation-Metric-Space</a> <a id="4440" class="Symbol">=</a>
+    <a id="4446" href="metric-spaces.cauchy-approximations-metric-spaces.html#2433" class="Function">is-cauchy-approximation-map-cauchy-approximation-Metric-Space</a>
+      <a id="4514" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3581" class="Bound">A</a>
+      <a id="4522" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3671" class="Function">approximation-convergent-cauchy-approximation-Metric-Space</a>
+
+  <a id="4584" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4584" class="Function">limit-convergent-cauchy-approximation-Metric-Space</a> <a id="4635" class="Symbol">:</a>
+    <a id="4641" href="metric-spaces.metric-spaces.html#5090" class="Function">type-Metric-Space</a> <a id="4659" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3581" class="Bound">A</a>
+  <a id="4663" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4584" class="Function">limit-convergent-cauchy-approximation-Metric-Space</a> <a id="4714" class="Symbol">=</a> <a id="4716" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="4720" class="Symbol">(</a><a id="4721" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="4725" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3608" class="Bound">f</a><a id="4726" class="Symbol">)</a>
+
+  <a id="4731" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4731" class="Function">is-limit-limit-convergent-cauchy-approximation-Metric-Space</a> <a id="4791" class="Symbol">:</a>
+    <a id="4797" class="Symbol">(</a><a id="4798" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4798" class="Bound">ε</a> <a id="4800" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4800" class="Bound">δ</a> <a id="4802" class="Symbol">:</a> <a id="4804" href="elementary-number-theory.positive-rational-numbers.html#4770" class="Function">ℚ⁺</a><a id="4806" class="Symbol">)</a> <a id="4808" class="Symbol">→</a>
+    <a id="4814" href="metric-spaces.metric-spaces.html#5726" class="Function">neighborhood-Metric-Space</a>
+      <a id="4846" class="Symbol">(</a> <a id="4848" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3581" class="Bound">A</a><a id="4849" class="Symbol">)</a>
+      <a id="4857" class="Symbol">(</a> <a id="4859" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4798" class="Bound">ε</a> <a id="4861" href="elementary-number-theory.positive-rational-numbers.html#11024" class="Function Operator">+ℚ⁺</a> <a id="4865" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4800" class="Bound">δ</a><a id="4866" class="Symbol">)</a>
+      <a id="4874" class="Symbol">(</a> <a id="4876" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3844" class="Function">map-convergent-cauchy-approximation-Metric-Space</a> <a id="4925" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4798" class="Bound">ε</a><a id="4926" class="Symbol">)</a>
+      <a id="4934" class="Symbol">(</a> <a id="4936" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4584" class="Function">limit-convergent-cauchy-approximation-Metric-Space</a><a id="4986" class="Symbol">)</a>
+  <a id="4990" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#4731" class="Function">is-limit-limit-convergent-cauchy-approximation-Metric-Space</a> <a id="5050" class="Symbol">=</a> <a id="5052" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="5056" class="Symbol">(</a><a id="5057" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="5061" href="metric-spaces.convergent-cauchy-approximations-metric-spaces.html#3608" class="Bound">f</a><a id="5062" class="Symbol">)</a>
+</pre>

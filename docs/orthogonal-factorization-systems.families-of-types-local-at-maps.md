@@ -1,0 +1,53 @@
+# Families of types local at a map
+
+<pre class="Agda"><a id="45" class="Keyword">module</a> <a id="52" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html" class="Module">orthogonal-factorization-systems.families-of-types-local-at-maps</a> <a id="117" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="173" class="Keyword">open</a> <a id="178" class="Keyword">import</a> <a id="185" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="217" class="Keyword">open</a> <a id="222" class="Keyword">import</a> <a id="229" href="foundation.equivalences.html" class="Module">foundation.equivalences</a>
+<a id="253" class="Keyword">open</a> <a id="258" class="Keyword">import</a> <a id="265" href="foundation.precomposition-functions.html" class="Module">foundation.precomposition-functions</a>
+<a id="301" class="Keyword">open</a> <a id="306" class="Keyword">import</a> <a id="313" href="foundation.propositions.html" class="Module">foundation.propositions</a>
+<a id="337" class="Keyword">open</a> <a id="342" class="Keyword">import</a> <a id="349" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="377" class="Keyword">open</a> <a id="382" class="Keyword">import</a> <a id="389" href="orthogonal-factorization-systems.orthogonal-maps.html" class="Module">orthogonal-factorization-systems.orthogonal-maps</a>
+<a id="438" class="Keyword">open</a> <a id="443" class="Keyword">import</a> <a id="450" href="orthogonal-factorization-systems.types-local-at-maps.html" class="Module">orthogonal-factorization-systems.types-local-at-maps</a>
+</pre>
+</details>
+
+## Idea
+
+A family of types `B : A → UU l` is said to be
+{{#concept "local" Disambiguation="family of types at a map" Agda=is-local-family}}
+at a map `f : X → Y`, or **`f`-local**, if every
+[fiber](foundation-core.fibers-of-maps.md) is.
+
+## Definition
+
+<pre class="Agda"><a id="780" class="Keyword">module</a> <a id="787" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#787" class="Module">_</a>
+  <a id="791" class="Symbol">{</a><a id="792" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#792" class="Bound">l1</a> <a id="795" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#795" class="Bound">l2</a> <a id="798" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#798" class="Bound">l3</a> <a id="801" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#801" class="Bound">l4</a> <a id="804" class="Symbol">:</a> <a id="806" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="811" class="Symbol">}</a> <a id="813" class="Symbol">{</a><a id="814" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#814" class="Bound">X</a> <a id="816" class="Symbol">:</a> <a id="818" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="821" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#792" class="Bound">l1</a><a id="823" class="Symbol">}</a> <a id="825" class="Symbol">{</a><a id="826" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#826" class="Bound">Y</a> <a id="828" class="Symbol">:</a> <a id="830" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="833" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#795" class="Bound">l2</a><a id="835" class="Symbol">}</a>
+  <a id="839" class="Symbol">(</a><a id="840" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#840" class="Bound">f</a> <a id="842" class="Symbol">:</a> <a id="844" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#814" class="Bound">X</a> <a id="846" class="Symbol">→</a> <a id="848" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#826" class="Bound">Y</a><a id="849" class="Symbol">)</a> <a id="851" class="Symbol">{</a><a id="852" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#852" class="Bound">A</a> <a id="854" class="Symbol">:</a> <a id="856" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="859" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#798" class="Bound">l3</a><a id="861" class="Symbol">}</a> <a id="863" class="Symbol">(</a><a id="864" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#864" class="Bound">B</a> <a id="866" class="Symbol">:</a> <a id="868" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#852" class="Bound">A</a> <a id="870" class="Symbol">→</a> <a id="872" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="875" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#801" class="Bound">l4</a><a id="877" class="Symbol">)</a>
+  <a id="881" class="Keyword">where</a>
+
+  <a id="890" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#890" class="Function">is-local-family</a> <a id="906" class="Symbol">:</a> <a id="908" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="911" class="Symbol">(</a><a id="912" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#792" class="Bound">l1</a> <a id="915" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="917" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#795" class="Bound">l2</a> <a id="920" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="922" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#798" class="Bound">l3</a> <a id="925" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="927" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#801" class="Bound">l4</a><a id="929" class="Symbol">)</a>
+  <a id="933" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#890" class="Function">is-local-family</a> <a id="949" class="Symbol">=</a> <a id="951" class="Symbol">(</a><a id="952" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#952" class="Bound">x</a> <a id="954" class="Symbol">:</a> <a id="956" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#852" class="Bound">A</a><a id="957" class="Symbol">)</a> <a id="959" class="Symbol">→</a> <a id="961" href="orthogonal-factorization-systems.types-local-at-maps.html#3464" class="Function">is-local</a> <a id="970" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#840" class="Bound">f</a> <a id="972" class="Symbol">(</a><a id="973" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#864" class="Bound">B</a> <a id="975" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#952" class="Bound">x</a><a id="976" class="Symbol">)</a>
+
+  <a id="981" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#981" class="Function">is-property-is-local-family</a> <a id="1009" class="Symbol">:</a> <a id="1011" href="foundation-core.propositions.html#1029" class="Function">is-prop</a> <a id="1019" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#890" class="Function">is-local-family</a>
+  <a id="1037" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#981" class="Function">is-property-is-local-family</a> <a id="1065" class="Symbol">=</a>
+    <a id="1071" href="foundation-core.propositions.html#6443" class="Function">is-prop-Π</a> <a id="1081" class="Symbol">(λ</a> <a id="1084" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#1084" class="Bound">x</a> <a id="1086" class="Symbol">→</a> <a id="1088" href="foundation.equivalences.html#4907" class="Function">is-property-is-equiv</a> <a id="1109" class="Symbol">(</a><a id="1110" href="foundation-core.precomposition-functions.html#582" class="Function">precomp</a> <a id="1118" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#840" class="Bound">f</a> <a id="1120" class="Symbol">(</a><a id="1121" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#864" class="Bound">B</a> <a id="1123" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#1084" class="Bound">x</a><a id="1124" class="Symbol">)))</a>
+
+  <a id="1131" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#1131" class="Function">is-local-family-Prop</a> <a id="1152" class="Symbol">:</a> <a id="1154" href="foundation-core.propositions.html#1153" class="Function">Prop</a> <a id="1159" class="Symbol">(</a><a id="1160" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#792" class="Bound">l1</a> <a id="1163" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1165" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#795" class="Bound">l2</a> <a id="1168" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1170" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#798" class="Bound">l3</a> <a id="1173" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1175" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#801" class="Bound">l4</a><a id="1177" class="Symbol">)</a>
+  <a id="1181" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="1185" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#1131" class="Function">is-local-family-Prop</a> <a id="1206" class="Symbol">=</a> <a id="1208" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#890" class="Function">is-local-family</a>
+  <a id="1226" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1230" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#1131" class="Function">is-local-family-Prop</a> <a id="1251" class="Symbol">=</a> <a id="1253" href="orthogonal-factorization-systems.families-of-types-local-at-maps.html#981" class="Function">is-property-is-local-family</a>
+</pre>
+## Properties
+
+### A family is `f`-local if and only if it is `f`-orthogonal
+
+This remains to be formalized.
+
+## See also
+
+- [Local maps](orthogonal-factorization-systems.maps-local-at-maps.md)
+- [Localizations with respect to maps](orthogonal-factorization-systems.localizations-at-maps.md)
+- [Localizations with respect to subuniverses](orthogonal-factorization-systems.localizations-at-subuniverses.md)
