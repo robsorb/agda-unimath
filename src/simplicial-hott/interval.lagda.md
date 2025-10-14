@@ -29,6 +29,7 @@ open import foundation.equivalences
 open import foundation.fibers-of-maps
 
 open import order-theory.posets
+open import order-theory.lattices
 open import order-theory.distributive-lattices
 open import order-theory.top-elements-posets
 open import order-theory.bottom-elements-posets
@@ -93,6 +94,15 @@ _∧Δ¹_ = meet-Distributive-Lattice Δ¹-Distributive-Lattice
 _∨Δ¹_ : Δ¹ → Δ¹ → Δ¹
 _∨Δ¹_ = join-Distributive-Lattice Δ¹-Distributive-Lattice
 
+meet-bottom-left-Δ¹ : (i : Δ¹) → 0-Δ¹ ∧Δ¹ i ＝ 0-Δ¹
+meet-bottom-left-Δ¹ i =
+  antisymmetric-leq-Poset
+    Δ¹-Poset
+    (0-Δ¹ ∧Δ¹ i)
+    0-Δ¹
+    {!  leq-left-meet-Lattice !}
+    {! leq-meet-leq-both-Lattice  !}
+
 ```
 
 ```agda
@@ -117,6 +127,9 @@ module _
 
   hom-cod-eq : {x y : C} → (f : hom x y) → (cod (ev-hom f) ＝ y)
   hom-cod-eq f = pr2 (pr2 f)
+
+  id-edge : (x : C) → Δ¹ → C
+  id-edge x _ = x
 
   id-hom : (x : C) → hom x x
   id-hom x = (λ _ → x) , refl , refl
@@ -204,6 +217,18 @@ module _
 
   cod-diagonal : (α : Δ² → C) → cod (diagonal-edge α) ＝ cod (right-edge α)
   cod-diagonal α = ap α (eq-type-subtype subtype-Δ² refl)
+
+module _
+  {l : Level} {C : UU l} (f : Δ¹ → C)
+  where
+  degen-Δ²-bottom : Δ² → C
+  degen-Δ²-bottom ((x , y), prf) = f (x ∧Δ¹ y)
+
+  degen-Δ²-right : Δ² → C
+  degen-Δ²-right ((x , y), prf) = f (x ∨Δ¹ y)
+
+  bottom-degen-bottom : bottom-edge (degen-Δ²-bottom) ~ id-edge (f 0-Δ¹)
+  bottom-degen-bottom i = ap f {!   !}
 
 ```
 
