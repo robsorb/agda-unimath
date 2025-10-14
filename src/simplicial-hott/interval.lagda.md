@@ -18,6 +18,7 @@ open import foundation.disjunction
 
 open import foundation.universe-levels
 open import foundation.dependent-pair-types
+open import foundation.equality-dependent-pair-types
 open import foundation.action-on-identifications-functions
 open import foundation.function-extensionality
 open import foundation.homotopies
@@ -30,6 +31,8 @@ open import foundation.fibers-of-maps
 
 open import order-theory.posets
 open import order-theory.lattices
+open import order-theory.meet-semilattices
+open import order-theory.join-semilattices
 open import order-theory.distributive-lattices
 open import order-theory.top-elements-posets
 open import order-theory.bottom-elements-posets
@@ -51,6 +54,16 @@ postulate
 
 Δ¹ : UU lzero
 Δ¹ = type-Distributive-Lattice Δ¹-Distributive-Lattice
+
+Δ¹-Lattice : Lattice lzero lzero
+Δ¹-Lattice = lattice-Distributive-Lattice Δ¹-Distributive-Lattice
+
+Δ¹-Meet-Semilattice : Meet-Semilattice lzero
+Δ¹-Meet-Semilattice = meet-semilattice-Distributive-Lattice Δ¹-Distributive-Lattice
+
+
+Δ¹-Join-Semilattice : Join-Semilattice lzero
+Δ¹-Join-Semilattice = join-semilattice-Distributive-Lattice Δ¹-Distributive-Lattice
 
 Δ¹-Poset : Poset lzero lzero
 Δ¹-Poset = poset-Distributive-Lattice Δ¹-Distributive-Lattice
@@ -94,14 +107,45 @@ _∧Δ¹_ = meet-Distributive-Lattice Δ¹-Distributive-Lattice
 _∨Δ¹_ : Δ¹ → Δ¹ → Δ¹
 _∨Δ¹_ = join-Distributive-Lattice Δ¹-Distributive-Lattice
 
+commutative-meet-Δ¹ : (i j : Δ¹) → i ∧Δ¹ j ＝ j ∧Δ¹ i
+commutative-meet-Δ¹ = commutative-meet-Meet-Semilattice Δ¹-Meet-Semilattice
+
+commutative-join-Δ¹ : (i j : Δ¹) → i ∨Δ¹ j ＝ j ∨Δ¹ i
+commutative-join-Δ¹ = commutative-join-Join-Semilattice Δ¹-Join-Semilattice
+
 meet-bottom-left-Δ¹ : (i : Δ¹) → 0-Δ¹ ∧Δ¹ i ＝ 0-Δ¹
 meet-bottom-left-Δ¹ i =
-  antisymmetric-leq-Poset
-    Δ¹-Poset
-    (0-Δ¹ ∧Δ¹ i)
-    0-Δ¹
-    {!  leq-left-meet-Lattice !}
-    {! leq-meet-leq-both-Lattice  !}
+  left-leq-right-meet-Lattice Δ¹-Lattice 0-Δ¹ i (0-is-bottom-element-Δ¹ i)
+
+meet-bottom-right-Δ¹ : (i : Δ¹) → i ∧Δ¹ 0-Δ¹ ＝ 0-Δ¹
+meet-bottom-right-Δ¹ i = commutative-meet-Δ¹ i 0-Δ¹ ∙ meet-bottom-left-Δ¹ i
+
+meet-top-right-Δ¹ : (i : Δ¹) → i ∧Δ¹ 1-Δ¹ ＝ i
+meet-top-right-Δ¹ i =
+  left-leq-right-meet-Lattice Δ¹-Lattice i 1-Δ¹ (1-is-top-element-Δ¹ i)
+
+meet-top-left-Δ¹ : (i : Δ¹) → 1-Δ¹ ∧Δ¹ i ＝ i
+meet-top-left-Δ¹ i = commutative-meet-Δ¹ 1-Δ¹ i ∙ meet-top-right-Δ¹ i
+
+join-bottom-left-Δ¹ : (i : Δ¹) → 0-Δ¹ ∨Δ¹ i ＝ i
+join-bottom-left-Δ¹ i =
+  left-leq-right-join-Lattice Δ¹-Lattice 0-Δ¹ i (0-is-bottom-element-Δ¹ i)
+
+join-bottom-right-Δ¹ : (i : Δ¹) → i ∨Δ¹ 0-Δ¹ ＝ i
+join-bottom-right-Δ¹ i = commutative-join-Δ¹ i 0-Δ¹ ∙ join-bottom-left-Δ¹ i
+
+join-top-left-Δ¹ : (i : Δ¹) → 1-Δ¹ ∨Δ¹ i ＝ 1-Δ¹
+join-top-left-Δ¹ i =
+  right-leq-left-join-Lattice Δ¹-Lattice 1-Δ¹ i (1-is-top-element-Δ¹ i)
+
+join-top-right-Δ¹ : (i : Δ¹) → i ∨Δ¹ 1-Δ¹ ＝ 1-Δ¹
+join-top-right-Δ¹ i = commutative-join-Δ¹ i 1-Δ¹ ∙ join-top-left-Δ¹ i
+
+idempotent-meet-Δ¹ : (i : Δ¹) → i ∧Δ¹ i ＝ i
+idempotent-meet-Δ¹ i = idempotent-meet-Meet-Semilattice Δ¹-Meet-Semilattice i
+
+idempotent-join-Δ¹ : (i : Δ¹) → i ∨Δ¹ i ＝ i
+idempotent-join-Δ¹ i = idempotent-join-Join-Semilattice Δ¹-Join-Semilattice i
 
 ```
 
@@ -121,6 +165,15 @@ module _
 
   ev-hom : {x y : C} → hom x y → Δ¹ → C
   ev-hom = pr1
+
+  hom-ext : {x y : C} (f : hom x y) (g : hom x y) →
+    ev-hom f ~ ev-hom g → f ＝ g
+  hom-ext f g H =
+    eq-pair-Σ
+      (eq-htpy H)
+      (eq-pair-Σ
+        {!   !}
+        {!   !})
 
   hom-dom-eq : {x y : C} → (f : hom x y) → (dom (ev-hom f) ＝ x)
   hom-dom-eq f = pr1 (pr2 f)
@@ -228,8 +281,22 @@ module _
   degen-Δ²-right ((x , y), prf) = f (x ∨Δ¹ y)
 
   bottom-degen-bottom : bottom-edge (degen-Δ²-bottom) ~ id-edge (f 0-Δ¹)
-  bottom-degen-bottom i = ap f {!   !}
+  bottom-degen-bottom i = ap f (meet-bottom-right-Δ¹ i)
 
+  right-degen-bottom : right-edge (degen-Δ²-bottom) ~ f
+  right-degen-bottom i = ap f (meet-top-left-Δ¹ i)
+
+  diagonal-degen-bottom : diagonal-edge degen-Δ²-bottom ~ f
+  diagonal-degen-bottom i = ap f (idempotent-meet-Δ¹ i)
+
+  bottom-degen-right : bottom-edge degen-Δ²-right ~ f
+  bottom-degen-right i = ap f (join-bottom-right-Δ¹ i)
+
+  right-degen-right : right-edge degen-Δ²-right ~ id-edge (f 1-Δ¹)
+  right-degen-right i = ap f (join-top-left-Δ¹ i)
+
+  diagonal-degen-right : diagonal-edge degen-Δ²-right ~ f
+  diagonal-degen-right i = ap f (idempotent-join-Δ¹ i)
 ```
 
 ### Horn fillers
@@ -280,7 +347,6 @@ module _
   pr1 (composable-edges-to-cocone g f compat) ((x , y), prfR) = g y
   pr1 (pr2 (composable-edges-to-cocone g f compat)) ((x , y), prfL) = f x
   pr2 (pr2 (composable-edges-to-cocone g f compat)) ((x , y), refl , refl) = compat
-
 
   horn-cocone-right-edge :
     (union-cocones right-edge-square-subtype bottom-edge-square-subtype C) → Δ¹ → C

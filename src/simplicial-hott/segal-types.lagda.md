@@ -72,28 +72,18 @@ module _
   compose-edges-Segal g f compat =
     diagonal-edge (fill-horn-Segal (composable-edges-to-horn g f compat))
 
-  -- comp-triangle :
-  --   {x y z : type-Segal C} →
-  --   (g : hom y z) → (f : hom x y) →
-  --   triangle f g (compose-Segal g f)
-  -- pr1 (comp-triangle g f) = fill-horn-Segal (composable-pair-to-horn f g)
-  -- pr1 (pr2 (comp-triangle g f)) = {!   !}
-  -- pr1 (pr2 (pr2 (comp-triangle g f))) = {!   !}
-  -- pr2 (pr2 (pr2 (comp-triangle g f))) i = refl
+  compose-hom-Segal : {x y z : type-Segal C} (g : hom y z) (f : hom x y) → hom x z
+  compose-hom-Segal (g , prf , refl) (f , refl , refl) =
+    compose-edges-Segal
+      g
+      f
+      prf ,
+      {! compute-fill-horn  !} ,
+      {!   !}
 
-  -- eq-triangle :
-  --   {x y z : type-Segal C} →
-  --   (f : hom x y) → (g : hom y z) → (h : hom x z) →
-  --   triangle f g h → compose-Segal g f ＝ h
-  -- eq-triangle = {!   !}
+  -- qqq :
+  --   diagonal-edge ∘ fill-horn-Segal ∘ restriction-to-Λ²₁ (type-Segal C) ~ diagonal-edge
+  -- qqq α = ap diagonal-edge (is-retraction-map-inv-equiv horn-triangle-equiv-Segal α)
 
-  -- degen-Δ² : (Δ¹ → type-Segal C) → Δ² → type-Segal C
-  -- degen-Δ² f ((x , y) , prf) = f (x ∨Δ¹ y)
 
-  -- bottom (degen-Δ² f) = f
-  -- right (degen-Δ² f) = id
-  -- diagonal (degen-Δ² f) = f
-
-  -- idcomp : {x y : type-Segal C} → (f : hom x y) → compose-Segal f (id-hom x) ＝ f
-  -- idcomp = {!   !}
 ```
