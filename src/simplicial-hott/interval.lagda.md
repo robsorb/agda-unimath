@@ -18,6 +18,8 @@ open import foundation.disjunction
 
 open import foundation.universe-levels
 open import foundation.dependent-pair-types
+open import foundation.cartesian-product-types
+open import foundation.equality-cartesian-product-types
 open import foundation.equality-dependent-pair-types
 open import foundation.action-on-identifications-functions
 open import foundation.function-extensionality
@@ -28,9 +30,11 @@ open import foundation.unions-subtypes
 open import foundation.intersections-subtypes
 open import foundation.equivalences
 open import foundation.fibers-of-maps
+open import foundation.transport-along-identifications
 
 open import order-theory.posets
 open import order-theory.lattices
+open import order-theory.total-orders
 open import order-theory.meet-semilattices
 open import order-theory.join-semilattices
 open import order-theory.distributive-lattices
@@ -45,12 +49,17 @@ open import synthetic-homotopy-theory.universal-property-pushouts
 ## Postulates
 
 We postulate an interval type, which is a bounded (_we may want to drop this
-assumption to allow for a model in cubical spaces_) distributive.
+assumption to allow for a model in cubical spaces_) distributive lattice.
 
 ```agda
 
 postulate
-  Δ¹-Distributive-Lattice : Distributive-Lattice lzero lzero
+  Δ¹-Total-Order : Total-Order lzero lzero
+
+  Δ¹-is-distributive-lattice : is-distributive-Lattice (lattice-Total-Order Δ¹-Total-Order)
+
+Δ¹-Distributive-Lattice : Distributive-Lattice lzero lzero
+Δ¹-Distributive-Lattice = lattice-Total-Order Δ¹-Total-Order , Δ¹-is-distributive-lattice
 
 Δ¹ : UU lzero
 Δ¹ = type-Distributive-Lattice Δ¹-Distributive-Lattice
@@ -106,6 +115,7 @@ _∧Δ¹_ = meet-Distributive-Lattice Δ¹-Distributive-Lattice
 
 _∨Δ¹_ : Δ¹ → Δ¹ → Δ¹
 _∨Δ¹_ = join-Distributive-Lattice Δ¹-Distributive-Lattice
+
 
 commutative-meet-Δ¹ : (i j : Δ¹) → i ∧Δ¹ j ＝ j ∧Δ¹ i
 commutative-meet-Δ¹ = commutative-meet-Meet-Semilattice Δ¹-Meet-Semilattice
@@ -163,23 +173,53 @@ module _
   hom : (x y : C) → UU l
   hom x y = Σ (Δ¹ → C) (λ f → (dom f ＝ x) × (cod f ＝ y))
 
+
   ev-hom : {x y : C} → hom x y → Δ¹ → C
   ev-hom = pr1
-
-  hom-ext : {x y : C} (f : hom x y) (g : hom x y) →
-    ev-hom f ~ ev-hom g → f ＝ g
-  hom-ext f g H =
-    eq-pair-Σ
-      (eq-htpy H)
-      (eq-pair-Σ
-        {!   !}
-        {!   !})
 
   hom-dom-eq : {x y : C} → (f : hom x y) → (dom (ev-hom f) ＝ x)
   hom-dom-eq f = pr1 (pr2 f)
 
   hom-cod-eq : {x y : C} → (f : hom x y) → (cod (ev-hom f) ＝ y)
   hom-cod-eq f = pr2 (pr2 f)
+
+  hom-ext' :
+    {x y : C}
+    ((f , f0 , f1) (g , g0 , g1) : hom x y)
+    (H : f ~ g) →
+    (inv f0 ∙ H 0-Δ¹ ∙ g0 ＝ refl) →
+    (inv f1 ∙ H 1-Δ¹ ∙ g1 ＝ refl) →
+    (f , f0 , f1) ＝ (g , g0 , g1)
+  hom-ext' {x = x} {y = y} (f , refl , refl) (g , g0 , g1) H p q =
+    eq-pair-Σ
+      (eq-htpy H)
+      (equational-reasoning
+        tr (λ f → (dom f ＝ x) × (cod f ＝ y)) (eq-htpy H) (refl , refl)
+          ＝ (tr (λ f → (dom f ＝ x)) (eq-htpy H) refl , tr (λ f → (cod f ＝ y)) (eq-htpy H) refl)
+            by tr-product (λ f → (dom f ＝ x)) (λ f → (cod f ＝ y)) (eq-htpy H) ( refl , refl)
+          ＝ (tr (_＝ x) (ap dom (eq-htpy H)) refl , tr (_＝ y) (ap cod (eq-htpy H)) refl)
+            by eq-pair (inv (substitution-law-tr (_＝ x) dom (eq-htpy H))) (inv (substitution-law-tr (_＝ y) cod (eq-htpy H)))
+          ＝ (inv (ap dom (eq-htpy H)) ∙ refl , inv (ap cod (eq-htpy H)) ∙ refl)
+            by eq-pair (tr-Id-left (ap dom (eq-htpy H)) refl) (tr-Id-left (ap cod (eq-htpy H)) refl)
+          ＝ (inv (H 0-Δ¹) ∙ refl , inv (H 1-Δ¹) ∙ refl)
+            by
+              eq-pair
+                (ap (_∙ refl) (ap inv (ap (λ G → G 0-Δ¹) (is-section-eq-htpy H))))
+                (ap (_∙ refl) (ap inv (ap (λ G → G 1-Δ¹) (is-section-eq-htpy H))))
+          ＝ (g0 , g1)
+            by eq-pair
+              (inv (left-transpose-eq-concat (H 0-Δ¹) g0 refl p))
+              (inv (left-transpose-eq-concat (H 1-Δ¹) g1 refl q)))
+
+  hom-ext :
+    {x y : C}
+    {f g : hom x y}
+    (H : ev-hom f ~ ev-hom g) →
+    (inv (hom-dom-eq f) ∙ H 0-Δ¹ ∙ hom-dom-eq g ＝ refl) →
+    (inv (hom-cod-eq f) ∙ H 1-Δ¹ ∙ hom-cod-eq g ＝ refl) →
+    f ＝ g
+  hom-ext {f = f} {g = g} H p q = hom-ext' f g H p q
+
 
   id-edge : (x : C) → Δ¹ → C
   id-edge x _ = x
@@ -252,6 +292,35 @@ right-Δ² = Λ²₁-to-Δ² ∘ right-Λ²₁
 diagonal-Δ² : Δ¹ → Δ²
 diagonal-Δ² i = (i , i) , refl-leq-Poset Δ¹-Poset i
 
+clamp : Δ² → Δ¹ → Δ¹
+clamp ((u , l) , _ ) i = (i ∧Δ¹ u) ∨Δ¹ l
+
+clamp-diagonal : (i j : Δ¹) → clamp (diagonal-Δ² i) j ＝ i
+clamp-diagonal i j =
+  left-leq-right-join-Lattice
+    Δ¹-Lattice
+    (j ∧Δ¹ i)
+    i
+    (leq-right-meet-Lattice Δ¹-Lattice j i)
+
+clamp-0 : (((u , l) , p) : Δ²) → clamp ((u , l), p) 0-Δ¹ ＝ l
+clamp-0 ((u , l) , p) =
+  equational-reasoning
+    ((0-Δ¹ ∧Δ¹ u) ∨Δ¹ l)
+      ＝ 0-Δ¹ ∨Δ¹ l
+        by ap (λ x → x ∨Δ¹ l) (meet-bottom-left-Δ¹ u)
+      ＝ l
+        by join-bottom-left-Δ¹ l
+
+clamp-1 : (((u , l) , p) : Δ²) → clamp ((u , l), p) 1-Δ¹ ＝ u
+clamp-1 ((u , l) , p) =
+  equational-reasoning
+    (1-Δ¹ ∧Δ¹ u) ∨Δ¹ l
+      ＝ u ∨Δ¹ l
+        by ap (λ x → x ∨Δ¹ l) (meet-top-left-Δ¹ u)
+      ＝ u
+        by right-leq-left-join-Lattice Δ¹-Lattice u l p
+
 module _
   {l : Level} {C : UU l}
   where
@@ -297,6 +366,38 @@ module _
 
   diagonal-degen-right : diagonal-edge degen-Δ²-right ~ f
   diagonal-degen-right i = ap f (idempotent-join-Δ¹ i)
+
+  clamp-edge : (((u , l) , _ ) : Δ²) → hom (f l) (f u)
+  pr1 (clamp-edge t) i = f (clamp t i)
+  pr1 (pr2 (clamp-edge t)) = ap f (clamp-0 t)
+  pr2 (pr2 (clamp-edge t)) = ap f (clamp-1 t)
+
+  clamp-edge-diagonal : (i : Δ¹) → clamp-edge (diagonal-Δ² i) ＝ id-hom (f i)
+  clamp-edge-diagonal i =
+    hom-ext
+      (λ x → ap f (clamp-diagonal i x))
+      (ap (_∙ refl) (equational-reasoning
+        inv (ap f p0) ∙ ap f q0
+          ＝ ap f (inv p0) ∙ ap f q0
+            by ap (_∙ (ap f q0)) (inv (ap-inv f p0))
+          ＝ ap f ((inv p0) ∙ q0)
+            by inv (ap-concat f (inv p0) q0)
+          ＝ refl
+            by ap (ap f) (eq-type-Prop (Id-Prop Δ¹-Set i i))))
+      (ap (_∙ refl) (equational-reasoning
+        inv (ap f p1) ∙ ap f q1
+          ＝ ap f (inv p1) ∙ ap f q1
+            by ap (_∙ ap f q1) (inv (ap-inv f p1))
+          ＝ ap f (inv p1 ∙ q1)
+            by inv (ap-concat f (inv p1) q1)
+          ＝ refl
+            by ap (ap f) (eq-type-Prop (Id-Prop Δ¹-Set i i))))
+      where
+        p0 = clamp-0 (diagonal-Δ² i)
+        q0 = clamp-diagonal i 0-Δ¹
+        p1 = clamp-1 (diagonal-Δ² i)
+        q1 = clamp-diagonal i 1-Δ¹
+
 ```
 
 ### Horn fillers
