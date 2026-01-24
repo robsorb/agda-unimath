@@ -29,6 +29,7 @@ open import foundation.subtypes
 open import foundation.unions-subtypes
 open import foundation.intersections-subtypes
 open import foundation.equivalences
+open import foundation.retractions
 open import foundation.fibers-of-maps
 open import foundation.transport-along-identifications
 
@@ -224,8 +225,16 @@ module _
   id-edge : (x : C) → Δ¹ → C
   id-edge x _ = x
 
+  dom-retraction-id : retraction id-edge
+  pr1 dom-retraction-id = dom
+  pr2 dom-retraction-id i = refl
+
+  cod-retraction-id : retraction id-edge
+  pr1 cod-retraction-id = cod
+  pr2 cod-retraction-id i = refl
+
   id-hom : (x : C) → hom x x
-  id-hom x = (λ _ → x) , refl , refl
+  id-hom x = id-edge x , refl , refl
 ```
 
 ### The 2-1-horn

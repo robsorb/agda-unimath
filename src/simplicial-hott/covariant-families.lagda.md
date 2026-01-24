@@ -6,6 +6,7 @@ module simplicial-hott.covariant-families where
 
 ```agda
 open import foundation.universe-levels
+open import foundation.propositions
 open import foundation.identity-types
 open import foundation.dependent-pair-types
 open import foundation.contractible-types
@@ -14,6 +15,7 @@ open import foundation-core.equality-dependent-pair-types
 open import foundation.action-on-identifications-functions
 open import foundation.homotopies
 open import foundation.function-types
+open import foundation.equivalences
 
 open import simplicial-hott.interval
 
@@ -28,15 +30,36 @@ module _
   {l1 : Level} (X : UU l1)
   where
 
-  is-discrete : UU l1
-  is-discrete = {!   !}
+  is-discrete : Prop l1
+  is-discrete = is-equiv-Prop {A = X} id-edge
+
+
+module _
+  {l : Level} {X : UU l}
+  (X-discrete : type-Prop (is-discrete X))
+  where
+
+  discrete-arrow-equiv : X ≃ (Δ¹ → X)
+  discrete-arrow-equiv = id-edge , X-discrete
+
+  discrete-dom-cod-htpy' : dom {C = X} ~ cod {C = X}
+  discrete-dom-cod-htpy' =
+    inv-htpy (htpy-map-inv-equiv-retraction discrete-arrow-equiv dom-retraction-id)
+      ∙h htpy-map-inv-equiv-retraction discrete-arrow-equiv cod-retraction-id
+
+  discrete-dom-cod-htpy : dom {C = X} ~ cod {C = X}
+  discrete-dom-cod-htpy f =
+    discrete-dom-cod-htpy' f ∙ inv (discrete-dom-cod-htpy' (id-edge (f 1-Δ¹)))
+
+  discrete-dom-cod-htpy-id : (x : X) → discrete-dom-cod-htpy (id-edge x) ＝ refl
+  discrete-dom-cod-htpy-id x = right-inv (discrete-dom-cod-htpy' (id-edge x))
 
 module _
   {l1 l2 : Level} {B : UU l1} (E : B → UU l2)
   (f : Δ¹ → B)
   (action : {x y : B} (g : hom x y) → E x → E y)
   (action-id : (x : B) → action (id-hom x) ~ id)
-  (discrete-fibers : (b : B) → is-discrete (E b))
+  (discrete-fibers : (b : B) → type-Prop (is-discrete (E b)))
   where
 
   map-id : (i : Δ¹) → action (clamp-edge f (diagonal-Δ² i)) ~ id
@@ -44,15 +67,9 @@ module _
     equational-reasoning
       action (clamp-edge f (diagonal-Δ² i)) e
         ＝ action (id-hom (f i)) e
-          by ap (λ x → action x e) {!   !}
+          by ap (λ x → action x e) (clamp-edge-diagonal f i)
         ＝ e
-          by {!   !}
-
-  discr : (b : B) (g : Δ¹ → E b) → g 0-Δ¹ ＝ g 1-Δ¹
-  discr b g = {!   !}
-
-  discr-id : (b : B) (x : E b) → discr b (λ i → x) ＝ refl
-  discr-id = {!   !}
+          by action-id (f i) e
 
   lift1 : (E (f 0-Δ¹)) → (x : Δ¹) → E (f x)
   lift1 e x = action (clamp-edge f (bottom-Δ² x)) e
