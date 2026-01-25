@@ -74,9 +74,6 @@ module _
   dom-proj : ((i : Δ¹) → E (f i)) → E (f 0-Δ¹)
   dom-proj g = g 0-Δ¹
 
-  extensions : E (f 0-Δ¹) → UU l2
-  extensions = fiber dom-proj
-
   clamped-f : (x y i : Δ¹) → B
   clamped-f x y i = f (x ∧Δ¹ (y ∨Δ¹ i))
 
@@ -225,13 +222,19 @@ module _
       l g refl = refl
 
   lift2-bottom : (g : (x : Δ¹) → E (f x)) → lift2 g 0-Δ¹ ~ lift1 (g 0-Δ¹)
-  lift2-bottom = {!   !}
+  lift2-bottom g x = ap (action-clamped x 0-Δ¹) (inv (l g (inv (meet-bottom-right-Δ¹ x))))
+    where
+      l :
+        {l1 l2 : Level} {A : UU l1} {B : A → UU l2}
+        (g : (a : A) → B a) {a a' : A} (p : a ＝ a') →
+          tr B p (g a) ＝ g a'
+      l g refl = refl
 
   square-eq : (square : Δ¹ → (x : Δ¹) → E (f x)) → square 0-Δ¹ ~ square 1-Δ¹
   square-eq square x = discrete-dom-cod-htpy (discrete-fibers (f x)) (λ y → square y x)
 
-  is-retraction-lift1 : (g : (x : Δ¹) → E (f x)) → g ~ lift1 (g 0-Δ¹)
-  is-retraction-lift1 g =
+  lifts-eq : (g : (x : Δ¹) → E (f x)) → g ~ lift1 (g 0-Δ¹)
+  lifts-eq g =
     homotopy-reasoning
       g
         ~ lift2 g 1-Δ¹
@@ -240,5 +243,12 @@ module _
           by inv-htpy (square-eq (lift2 g))
         ~ lift1 (g 0-Δ¹)
           by lift2-bottom g
+
+  is-retraction-lift1 : (g : (x : Δ¹) → E (f x)) → lift1 (dom-proj g) ＝ g
+  is-retraction-lift1 g = eq-htpy (inv-htpy (lifts-eq g))
+
+  is-covariant : is-equiv dom-proj
+  pr1 is-covariant = lift1 , is-section-lift1
+  pr2 is-covariant = lift1 , is-retraction-lift1
 
 ```
