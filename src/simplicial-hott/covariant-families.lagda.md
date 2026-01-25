@@ -128,33 +128,40 @@ module _
         b = pr2 g'
         c = pr2 g
 
+  lift2-square-0 :
+    (g : (i : Δ¹) → E (f i)) → (x : Δ¹) →
+      lift2 g (square-Δ² x 0-Δ¹) ＝ lift1 (g 0-Δ¹) x
+  lift2-square-0 g x =
+    ap
+      (λ ((y , p)) → action (clamp-edge f ((x , y) , p)) (g y))
+      (eq-pair-Σ (meet-bottom-right-Δ¹ x) (eq-type-Prop (leq-Δ¹-Prop 0-Δ¹ x)))
+
+  lift2-diagonal :
+    (g : (i : Δ¹) → E (f i)) (x : Δ¹) →
+      lift2 g (square-Δ² x 1-Δ¹) ＝ lift2 g (diagonal-Δ² x)
+  lift2-diagonal g x =
+    ap
+      (λ (y , p) → action (clamp-edge f ((x , y), p)) (g y))
+      (eq-pair-Σ (meet-top-right-Δ¹ x) (eq-type-Prop (leq-Δ¹-Prop x x)))
+
   is-cov : (e : E (f 0-Δ¹)) → is-contr (extensions e)
   pr1 (is-cov e) = lift1 e , lift1-eq e
-  pr2 (is-cov e) (g , p) =
+  pr2 (is-cov e) (g , refl) =
     extensions-ext
       (lift1 e , lift1-eq e)
-      (g , p)
+      (g , refl)
       (λ x →
-        discrete-hom-eq
-          (discrete-fibers (f x))
-          ((λ y → lift2 g (square-Δ² x y)) ,
-            (equational-reasoning
-              lift2 g (square-Δ² x 0-Δ¹)
-                ＝ lift2 g (bottom-Δ² x)
-                  by ap (λ ((y' , p')) → lift2 g ((x , y') , p')) (eq-pair-Σ (meet-bottom-right-Δ¹ x) (eq-type-Prop (leq-Δ¹-Prop 0-Δ¹ x)))
-                ＝ action (clamp-edge f (bottom-Δ² x)) (g 0-Δ¹)
-                  by refl
-                ＝ action (clamp-edge f (bottom-Δ² x)) e
-                  by ap (action (clamp-edge f (bottom-Δ² x))) p) ,
-            (equational-reasoning
-              lift2 g (square-Δ² x 1-Δ¹)
-                ＝ lift2 g (diagonal-Δ² x)
-                  by ap (λ ((y' , p')) → lift2 g ((x , y') , p')) (eq-pair-Σ (meet-top-right-Δ¹ x) (eq-type-Prop (leq-Δ¹-Prop x x)))
-                ＝ action (clamp-edge f (diagonal-Δ² x)) (g x)
-                  by refl
-                ＝ g x
-                  by map-id x (g x))))
+        inv (lift2-square-0 g x)
+          ∙ discrete-dom-cod-htpy (discrete-fibers (f x)) (λ y → lift2 g (square-Δ² x y))
+          ∙ lift2-diagonal g x
+          ∙ map-id x (g x))
+        -- discrete-hom-eq
+        --   (discrete-fibers (f x))
+        --   ((λ y → lift2 g (square-Δ² x y)) ,
+        --     (lift2-square-0 g x ∙ ap (action (clamp-edge f (bottom-Δ² x))) p) ,
+        --     (lift2-diagonal g x ∙ map-id x (g x))))
       {!   !}
+
 
   -- is-cov : (e : E (f 0-Δ¹)) → is-contr (extensions e)
   -- pr1 (is-cov e) = lift1 e , map-id 0-Δ¹ e
