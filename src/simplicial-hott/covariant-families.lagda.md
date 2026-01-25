@@ -89,6 +89,15 @@ module _
   lem'' : (y i  : Δ¹) → (0-Δ¹ ∧Δ¹ (y ∨Δ¹ i)) ＝ 0-Δ¹
   lem'' y i = meet-bottom-left-Δ¹ (y ∨Δ¹ i)
 
+  lem''' : (x y : Δ¹) → (x ∧Δ¹ (x ∨Δ¹ 0-Δ¹)) ＝ x
+  lem''' = {!   !}
+
+  action-clamped : (x y : Δ¹) → E (f (x ∧Δ¹ y)) → E (f x)
+  action-clamped x y =
+    tr (E ∘ f) (lem x y)
+      ∘ action (clamped-f x y)
+      ∘ tr (E ∘ f) (ap (x ∧Δ¹_) (inv (join-bottom-right-Δ¹ y)))
+
   eq-id-dom-cod-eq : (x : B) (g : Δ¹ → B) → g ＝ id-edge x → g 0-Δ¹ ＝ g 1-Δ¹
   eq-id-dom-cod-eq x g p = htpy-eq p 0-Δ¹ ∙ inv (htpy-eq p 1-Δ¹)
 
@@ -146,8 +155,20 @@ module _
         ~ id
           by refl-htpy
 
-  lift1 : (e : E (f 0-Δ¹)) → extensions e
-  pr1 (lift1 e) x = lift1' x e
-  pr2 (lift1 e) = lift1'-0 e
+  lift1 : E (f 0-Δ¹) → (x : Δ¹) → E (f x)
+  lift1 e x = lift1' x e
+
+  is-section-lift1 : dom-proj ∘ lift1 ~ id
+  is-section-lift1 e = lift1'-0 e
+
+  is-retraction-lift1 : (g : (x : Δ¹) → E (f x)) → g ~ lift1 (g 0-Δ¹)
+  is-retraction-lift1 g x =
+    equational-reasoning g x
+      ＝ (tr (E ∘ f) (lem x x) ∘ action (clamped-f x x) ∘ tr (E ∘ f) (inv (lem''' x x))) (g x)
+        by {!   !}
+      ＝ (tr (E ∘ f) (lem x 0-Δ¹) ∘ action (clamped-f x 0-Δ¹) ∘ tr (E ∘ f) (inv (lem' x))) (g 0-Δ¹)
+        by {!   !}
+      ＝ lift1 (g 0-Δ¹) x
+        by refl
 
 ```
