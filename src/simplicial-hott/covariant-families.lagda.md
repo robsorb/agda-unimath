@@ -13,10 +13,14 @@ open import foundation.contractible-types
 open import foundation.function-extensionality
 open import foundation-core.equality-dependent-pair-types
 open import foundation.action-on-identifications-functions
+open import foundation.action-on-identifications-binary-functions
 open import foundation.homotopies
 open import foundation.function-types
 open import foundation.equivalences
 open import foundation.sets
+open import foundation-core.transport-along-identifications
+open import foundation.transport-along-identifications
+open import foundation.whiskering-homotopies-composition
 
 open import simplicial-hott.interval
 
@@ -61,145 +65,89 @@ module _
 
 module _
   {l1 l2 : Level} {B : UU l1} (E : B → UU l2)
-  (f : Δ¹ → B)
-  (action : {x y : B} (g : hom x y) → E x → E y)
-  (action-id : (x : B) → action (id-hom x) ~ id)
+  (action : (f : Δ¹ → B) → E (f 0-Δ¹) → E (f 1-Δ¹))
+  (action-id : (x : B) → action (id-edge x) ~ id)
   (discrete-fibers : (b : B) → type-Prop (is-discrete (E b)))
+  (f : Δ¹ → B)
   where
 
-  map-id : (i : Δ¹) → action (clamp-edge f (diagonal-Δ² i)) ~ id
-  map-id i e =
-    equational-reasoning
-      action (clamp-edge f (diagonal-Δ² i)) e
-        ＝ action (id-hom (f i)) e
-          by ap (λ x → action x e) (clamp-edge-diagonal f i)
-        ＝ e
-          by action-id (f i) e
-
-  lift1 : (E (f 0-Δ¹)) → (x : Δ¹) → E (f x)
-  lift1 e x = action (clamp-edge f (bottom-Δ² x)) e
-
-  lift1-eq : (e : E (f 0-Δ¹)) → lift1 e 0-Δ¹ ＝ e
-  lift1-eq e =
-    equational-reasoning
-      action (clamp-edge f (bottom-Δ² 0-Δ¹)) e
-        ＝ action (clamp-edge f (diagonal-Δ² 0-Δ¹)) e
-          by
-            ap
-              (λ p → action (clamp-edge f ((0-Δ¹ , 0-Δ¹), p)) e)
-              (eq-type-Prop (leq-Δ¹-Prop 0-Δ¹ 0-Δ¹))
-        ＝ e
-          by map-id 0-Δ¹ e
-
-  lift2 : (g : (i : Δ¹) → E (f i)) (((x , y) , _) : Δ²) → E (f x)
-  lift2 g t = action (clamp-edge f t) (g (pr2 (pr1 t)))
-
   dom-proj : ((i : Δ¹) → E (f i)) → E (f 0-Δ¹)
-  dom-proj l = l 0-Δ¹
+  dom-proj g = g 0-Δ¹
 
-  extensions : (E (f 0-Δ¹)) → UU l2
-  extensions e = fiber dom-proj e
+  extensions : E (f 0-Δ¹) → UU l2
+  extensions = fiber dom-proj
 
-  extensions-ext :
-    {e : E (f 0-Δ¹)} (g g' : extensions e) (H : pr1 g ~ pr1 g') →
-    (inv (pr2 g) ∙ H 0-Δ¹ ∙ pr2 g' ＝ refl) → g ＝ g'
-  extensions-ext {e = e} g g' H p =
-    eq-Eq-fiber
-      dom-proj
-      e
-      (eq-htpy H)
-      (equational-reasoning
-        a ∙ b
-          ＝ a' ∙ b
-            by ap (λ G → (G 0-Δ¹) ∙ b) (is-section-eq-htpy H)
-          ＝ c ∙ inv c ∙ (a' ∙ b)
-            by ap (_∙ (a' ∙ b)) (inv (right-inv c))
-          ＝ c ∙ (inv c ∙ (a' ∙ b))
-            by assoc c (inv c) (a' ∙ b)
-          ＝ c ∙ (inv c ∙ a' ∙ b)
-            by ap (c ∙_) (inv (assoc (inv c) a' b ))
-          ＝ c ∙ refl
-            by ap (c ∙_) p
-          ＝ c
-            by right-unit)
-      where
-        a = ap (λ l → l 0-Δ¹) (eq-htpy H)
-        a' = H 0-Δ¹
-        b = pr2 g'
-        c = pr2 g
+  clamped-f : (x y i : Δ¹) → B
+  clamped-f x y i = f (x ∧Δ¹ (y ∨Δ¹ i))
 
-  lift2-square-0 :
-    (g : (i : Δ¹) → E (f i)) → (x : Δ¹) →
-      lift2 g (square-Δ² x 0-Δ¹) ＝ lift1 (g 0-Δ¹) x
-  lift2-square-0 g x =
-    ap
-      (λ ((y , p)) → action (clamp-edge f ((x , y) , p)) (g y))
-      (eq-pair-Σ (meet-bottom-right-Δ¹ x) (eq-type-Prop (leq-Δ¹-Prop 0-Δ¹ x)))
+  lem : (x y : Δ¹) → (x ∧Δ¹ (y ∨Δ¹ 1-Δ¹)) ＝ x
+  lem x y = ap (x ∧Δ¹_) (join-top-right-Δ¹ y) ∙ meet-top-right-Δ¹ x
 
-  lift2-diagonal :
-    (g : (i : Δ¹) → E (f i)) (x : Δ¹) →
-      lift2 g (square-Δ² x 1-Δ¹) ＝ lift2 g (diagonal-Δ² x)
-  lift2-diagonal g x =
-    ap
-      (λ (y , p) → action (clamp-edge f ((x , y), p)) (g y))
-      (eq-pair-Σ (meet-top-right-Δ¹ x) (eq-type-Prop (leq-Δ¹-Prop x x)))
+  lem' : (x : Δ¹) → (x ∧Δ¹ (0-Δ¹ ∨Δ¹ 0-Δ¹)) ＝ 0-Δ¹
+  lem' x = ap (x ∧Δ¹_) (join-bottom-right-Δ¹ 0-Δ¹) ∙ meet-bottom-right-Δ¹ x
 
-  is-cov : (e : E (f 0-Δ¹)) → is-contr (extensions e)
-  pr1 (is-cov e) = lift1 e , lift1-eq e
-  pr2 (is-cov e) (g , refl) =
-    extensions-ext
-      (lift1 e , lift1-eq e)
-      (g , refl)
-      (λ x →
-        inv (lift2-square-0 g x)
-          ∙ discrete-dom-cod-htpy (discrete-fibers (f x)) (λ y → lift2 g (square-Δ² x y))
-          ∙ lift2-diagonal g x
-          ∙ map-id x (g x))
-        -- discrete-hom-eq
-        --   (discrete-fibers (f x))
-        --   ((λ y → lift2 g (square-Δ² x y)) ,
-        --     (lift2-square-0 g x ∙ ap (action (clamp-edge f (bottom-Δ² x))) p) ,
-        --     (lift2-diagonal g x ∙ map-id x (g x))))
-      {!   !}
+  lem'' : (y i  : Δ¹) → (0-Δ¹ ∧Δ¹ (y ∨Δ¹ i)) ＝ 0-Δ¹
+  lem'' y i = meet-bottom-left-Δ¹ (y ∨Δ¹ i)
 
+  eq-id-dom-cod-eq : (x : B) (g : Δ¹ → B) → g ＝ id-edge x → g 0-Δ¹ ＝ g 1-Δ¹
+  eq-id-dom-cod-eq x g p = htpy-eq p 0-Δ¹ ∙ inv (htpy-eq p 1-Δ¹)
 
-  -- is-cov : (e : E (f 0-Δ¹)) → is-contr (extensions e)
-  -- pr1 (is-cov e) = lift1 e , map-id 0-Δ¹ e
-  -- pr2 (is-cov e) (g , p) =
-  --   eq-Eq-fiber
-  --     dom-proj
-  --     e
-  --     (eq-htpy λ i → ap (λ e' → lift1 e' i) (inv p) ∙ (discr (f i) (lift2 g i) ∙ map-id i (g i)) )
-  --     (equational-reasoning
-  --       (ap (λ l → l 0-Δ¹) (eq-htpy (λ i → ap (λ e' → lift1 e' i) (inv p) ∙ (discr (f i) (lift2 g i) ∙ map-id i (g i)))) ∙ p)
-  --         ＝ (htpy-eq (eq-htpy (λ i → ap (λ e' → lift1 e' i) (inv p) ∙ (discr (f i) (lift2 g i) ∙ map-id i (g i)))) 0-Δ¹ ∙ p)
-  --           by refl
-  --         ＝ ap (λ e' → lift1 e' 0-Δ¹) (inv p) ∙ (discr (f 0-Δ¹) (lift2 g 0-Δ¹) ∙ map-id 0-Δ¹ (g 0-Δ¹)) ∙ p
-  --           by ap (λ q → (q 0-Δ¹) ∙ p) (is-section-eq-htpy (λ i → ap (λ e' → lift1 e' i) (inv p) ∙ (discr (f i) (lift2 g i) ∙ map-id i (g i))))
-  --         ＝ ap (λ e' → lift1 e' 0-Δ¹) (inv p) ∙ (refl ∙ map-id 0-Δ¹ (g 0-Δ¹)) ∙ p
-  --           by ap
-  --             (λ d →
-  --                ap (λ e' → lift1 e' 0-Δ¹) (inv p) ∙ (d ∙ map-id 0-Δ¹ (g 0-Δ¹)) ∙ p)
-  --                (discr-id (f 0-Δ¹) (lift1 (g 0-Δ¹) 0-Δ¹))
-  --         ＝ (ap (λ e' → lift1 e' 0-Δ¹) (inv p) ∙ map-id 0-Δ¹ (g 0-Δ¹)) ∙ p
-  --           by refl
-  --         ＝ (map-id 0-Δ¹ e ∙ ap (λ x → x) (inv p)) ∙  p
-  --           by ap (λ q → q ∙ p) (inv-nat-htpy (map-id 0-Δ¹) (inv p))
-  --         ＝ map-id 0-Δ¹ e ∙ inv p ∙  p
-  --           by ap (λ q → map-id 0-Δ¹ e ∙ q ∙  p) (ap-id (inv p))
-  --         ＝ map-id 0-Δ¹ e ∙ refl
-  --           by left-inv p
-  --         ＝ map-id 0-Δ¹ e
-  --           by right-unit)
-      -- equational-reasoning lift1 e i
-      --   ＝ lift1 (g 0-Δ¹) i
-      --     by ap (λ e' → lift1 e' i) (inv p)
-      --   ＝ lift2 g i 0-Δ¹
-      --     by refl
-      --   ＝ lift2 g i i
-      --     by discr (f i) (lift2 g i)
-      --   ＝ g i
-      --     by map-id i (g i)) {!   !}
-    -- eq-pair-Σ (eq-htpy λ i → {!   !}) {!   !}
+  eq-id-action : (x : B) (g : Δ¹ → B) → (p : g ＝ id-edge x) → action g ~ tr E (eq-id-dom-cod-eq x g p)
+  eq-id-action x g refl = action-id x
+
+  clamped-f-0-0-id : clamped-f 0-Δ¹ 0-Δ¹ ＝ id-edge (f 0-Δ¹)
+  clamped-f-0-0-id = eq-htpy (λ i → ap f (lem'' 0-Δ¹ i))
+
+  clamped-f-0-0-dom-cod-eq :
+    eq-id-dom-cod-eq (f 0-Δ¹) (clamped-f 0-Δ¹ 0-Δ¹) clamped-f-0-0-id
+      ＝ ap f (lem'' 0-Δ¹ 0-Δ¹ ∙ inv (lem'' 0-Δ¹ 1-Δ¹))
+  clamped-f-0-0-dom-cod-eq =
+    equational-reasoning
+      eq-id-dom-cod-eq (f 0-Δ¹) (clamped-f 0-Δ¹ 0-Δ¹) clamped-f-0-0-id
+        ＝ ap f (lem'' 0-Δ¹ 0-Δ¹) ∙ inv (ap f (lem'' 0-Δ¹ 1-Δ¹))
+          by
+            ap-binary
+              _∙_
+              (ap (λ h → h 0-Δ¹) (is-section-eq-htpy λ i → ap f (meet-bottom-left-Δ¹ (0-Δ¹ ∨Δ¹ i))))
+              (ap inv (ap (λ h → h 1-Δ¹) (is-section-eq-htpy λ i → ap f (meet-bottom-left-Δ¹ (0-Δ¹ ∨Δ¹ i)))))
+        ＝ ap f (lem'' 0-Δ¹ 0-Δ¹) ∙ ap f (inv (lem'' 0-Δ¹ 1-Δ¹))
+          by ap-binary _∙_ refl (inv (ap-inv f (lem'' 0-Δ¹ 1-Δ¹)))
+        ＝ ap f (lem'' 0-Δ¹ 0-Δ¹ ∙ inv (lem'' 0-Δ¹ 1-Δ¹))
+          by inv (ap-concat f (lem'' 0-Δ¹ 0-Δ¹) (inv (lem'' 0-Δ¹ 1-Δ¹)))
+
+  action-clamped-0-0 : action (clamped-f 0-Δ¹ 0-Δ¹) ~ tr (E ∘ f) (lem'' 0-Δ¹ 0-Δ¹ ∙ inv (lem'' 0-Δ¹ 1-Δ¹))
+  action-clamped-0-0 =
+    homotopy-reasoning
+      action (clamped-f 0-Δ¹ 0-Δ¹)
+        ~ tr E (eq-id-dom-cod-eq (f 0-Δ¹) (clamped-f 0-Δ¹ 0-Δ¹) clamped-f-0-0-id)
+          by eq-id-action (f 0-Δ¹) (clamped-f 0-Δ¹ 0-Δ¹) clamped-f-0-0-id
+        ~ tr E (ap f (lem'' 0-Δ¹ 0-Δ¹ ∙ inv (lem'' 0-Δ¹ 1-Δ¹)))
+          by (λ e → ap (λ p → tr E p e) clamped-f-0-0-dom-cod-eq)
+        ~ tr (E ∘ f) (lem'' 0-Δ¹ 0-Δ¹ ∙ inv (lem'' 0-Δ¹ 1-Δ¹))
+          by λ e → substitution-law-tr E f (lem'' 0-Δ¹ 0-Δ¹ ∙ inv (lem'' 0-Δ¹ 1-Δ¹))
+
+  lift1' : (x : Δ¹) → E (f 0-Δ¹) → E (f x)
+  lift1' x = tr (E ∘ f) (lem x 0-Δ¹) ∘ action (clamped-f x 0-Δ¹) ∘ tr (E ∘ f) (inv (lem' x))
+
+  lift1'-0 : lift1' 0-Δ¹ ~ id
+  lift1'-0 =
+    homotopy-reasoning
+      lift1' 0-Δ¹
+        ~ tr (E ∘ f) (lem 0-Δ¹ 0-Δ¹) ∘ action (clamped-f 0-Δ¹ 0-Δ¹) ∘ tr (E ∘ f) (inv (lem' 0-Δ¹))
+          by refl-htpy
+        ~ tr (E ∘ f) (lem 0-Δ¹ 0-Δ¹) ∘ tr (E ∘ f) (lem'' 0-Δ¹ 0-Δ¹ ∙ inv (lem'' 0-Δ¹ 1-Δ¹)) ∘ tr (E ∘ f) (inv (lem' 0-Δ¹))
+          by tr (E ∘ f) (lem 0-Δ¹ 0-Δ¹) ·l (action-clamped-0-0 ·r tr (E ∘ f) (inv (lem' 0-Δ¹)))
+        ~ tr (E ∘ f) (lem'' 0-Δ¹ 0-Δ¹ ∙ inv (lem'' 0-Δ¹ 1-Δ¹) ∙ lem 0-Δ¹ 0-Δ¹) ∘ tr (E ∘ f) (inv (lem' 0-Δ¹))
+          by (λ e → inv (tr-concat (lem'' 0-Δ¹ 0-Δ¹ ∙ inv (lem'' 0-Δ¹ 1-Δ¹)) (lem 0-Δ¹ 0-Δ¹) e)) ·r tr (E ∘ f) (inv (lem' 0-Δ¹))
+        ~ tr (E ∘ f) (inv (lem' 0-Δ¹) ∙ (lem'' 0-Δ¹ 0-Δ¹ ∙ inv (lem'' 0-Δ¹ 1-Δ¹) ∙ lem 0-Δ¹ 0-Δ¹))
+          by (λ e → inv (tr-concat (inv (lem' 0-Δ¹)) ((lem'' 0-Δ¹ 0-Δ¹ ∙ inv (lem'' 0-Δ¹ 1-Δ¹) ∙ lem 0-Δ¹ 0-Δ¹)) e))
+        ~ tr (E ∘ f) refl
+          by (λ e → ap (λ p → tr (E ∘ f) p e) (eq-type-Prop (Id-Prop Δ¹-Set 0-Δ¹ 0-Δ¹)))
+        ~ id
+          by refl-htpy
+
+  lift1 : (e : E (f 0-Δ¹)) → extensions e
+  pr1 (lift1 e) x = lift1' x e
+  pr2 (lift1 e) = lift1'-0 e
 
 ```
