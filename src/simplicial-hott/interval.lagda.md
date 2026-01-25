@@ -301,6 +301,9 @@ right-Δ² = Λ²₁-to-Δ² ∘ right-Λ²₁
 diagonal-Δ² : Δ¹ → Δ²
 diagonal-Δ² i = (i , i) , refl-leq-Poset Δ¹-Poset i
 
+square-Δ² : Δ¹ → Δ¹ → Δ²
+square-Δ² x y = (x , x ∧Δ¹ y) , leq-left-meet-Lattice Δ¹-Lattice x y
+
 clamp : Δ² → Δ¹ → Δ¹
 clamp ((u , l) , _ ) i = (i ∧Δ¹ u) ∨Δ¹ l
 
