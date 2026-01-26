@@ -49,8 +49,9 @@ open import synthetic-homotopy-theory.universal-property-pushouts
 
 ## Postulates
 
-We postulate an interval type, which is a bounded (_we may want to drop this
-assumption to allow for a model in cubical spaces_) distributive lattice.
+We postulate an interval type, which is a totally ordered, bounded (_we may want
+to drop this assumption to allow for a model in cubical spaces_) distributive
+lattice.
 
 ```agda
 
@@ -161,6 +162,7 @@ idempotent-join-Δ¹ i = idempotent-join-Join-Semilattice Δ¹-Join-Semilattice 
 ```
 
 ```agda
+
 module _
   {l : Level} {C : UU l}
   where
