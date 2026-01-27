@@ -1,0 +1,52 @@
+# Extensions of functors between precategories
+
+<pre class="Agda"><a id="57" class="Keyword">module</a> <a id="64" href="category-theory.extensions-of-functors-precategories.html" class="Module">category-theory.extensions-of-functors-precategories</a> <a id="117" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="173" class="Keyword">open</a> <a id="178" class="Keyword">import</a> <a id="185" href="category-theory.functors-precategories.html" class="Module">category-theory.functors-precategories</a>
+<a id="224" class="Keyword">open</a> <a id="229" class="Keyword">import</a> <a id="236" href="category-theory.precategories.html" class="Module">category-theory.precategories</a>
+
+<a id="267" class="Keyword">open</a> <a id="272" class="Keyword">import</a> <a id="279" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="311" class="Keyword">open</a> <a id="316" class="Keyword">import</a> <a id="323" href="foundation.identity-types.html" class="Module">foundation.identity-types</a>
+<a id="349" class="Keyword">open</a> <a id="354" class="Keyword">import</a> <a id="361" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+</pre>
+</details>
+
+## Idea
+
+An
+{{#concept "extension" Disambiguation="of a functor between precategories" Agda=is-extension-functor-Precategory}}
+[functor](category-theory.functors-precategories.md) `F : C → D` between
+[precategories](category-theory.precategories.md) along another functor
+`p : C → C'` is a functor `G : C' → D` such that `g ∘ p ＝ G`.
+
+```text
+  C
+  |  \
+  p    F
+  |      \
+  ∨        ∨
+  C' - G -> D
+```
+
+## Definition
+
+### Extensions of dependent functions
+
+<pre class="Agda"><a id="873" class="Keyword">module</a> <a id="880" href="category-theory.extensions-of-functors-precategories.html#880" class="Module">_</a>
+  <a id="884" class="Symbol">{</a><a id="885" href="category-theory.extensions-of-functors-precategories.html#885" class="Bound">l1</a> <a id="888" href="category-theory.extensions-of-functors-precategories.html#888" class="Bound">l2</a> <a id="891" href="category-theory.extensions-of-functors-precategories.html#891" class="Bound">l3</a> <a id="894" href="category-theory.extensions-of-functors-precategories.html#894" class="Bound">l4</a> <a id="897" href="category-theory.extensions-of-functors-precategories.html#897" class="Bound">l5</a> <a id="900" href="category-theory.extensions-of-functors-precategories.html#900" class="Bound">l6</a> <a id="903" class="Symbol">:</a> <a id="905" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="910" class="Symbol">}</a>
+  <a id="914" class="Symbol">(</a><a id="915" href="category-theory.extensions-of-functors-precategories.html#915" class="Bound">C</a> <a id="917" class="Symbol">:</a> <a id="919" href="category-theory.precategories.html#3316" class="Function">Precategory</a> <a id="931" href="category-theory.extensions-of-functors-precategories.html#885" class="Bound">l1</a> <a id="934" href="category-theory.extensions-of-functors-precategories.html#888" class="Bound">l2</a><a id="936" class="Symbol">)</a> <a id="938" class="Symbol">(</a><a id="939" href="category-theory.extensions-of-functors-precategories.html#939" class="Bound">C&#39;</a> <a id="942" class="Symbol">:</a> <a id="944" href="category-theory.precategories.html#3316" class="Function">Precategory</a> <a id="956" href="category-theory.extensions-of-functors-precategories.html#891" class="Bound">l3</a> <a id="959" href="category-theory.extensions-of-functors-precategories.html#894" class="Bound">l4</a><a id="961" class="Symbol">)</a> <a id="963" class="Symbol">(</a><a id="964" href="category-theory.extensions-of-functors-precategories.html#964" class="Bound">D</a> <a id="966" class="Symbol">:</a> <a id="968" href="category-theory.precategories.html#3316" class="Function">Precategory</a> <a id="980" href="category-theory.extensions-of-functors-precategories.html#897" class="Bound">l5</a> <a id="983" href="category-theory.extensions-of-functors-precategories.html#900" class="Bound">l6</a><a id="985" class="Symbol">)</a>
+  <a id="989" class="Symbol">(</a><a id="990" href="category-theory.extensions-of-functors-precategories.html#990" class="Bound">p</a> <a id="992" class="Symbol">:</a> <a id="994" href="category-theory.functors-precategories.html#3811" class="Function">functor-Precategory</a> <a id="1014" href="category-theory.extensions-of-functors-precategories.html#915" class="Bound">C</a> <a id="1016" href="category-theory.extensions-of-functors-precategories.html#939" class="Bound">C&#39;</a><a id="1018" class="Symbol">)</a>
+  <a id="1022" class="Keyword">where</a>
+
+  <a id="1031" href="category-theory.extensions-of-functors-precategories.html#1031" class="Function">is-extension-functor-Precategory</a> <a id="1064" class="Symbol">:</a>
+    <a id="1070" href="category-theory.functors-precategories.html#3811" class="Function">functor-Precategory</a> <a id="1090" href="category-theory.extensions-of-functors-precategories.html#915" class="Bound">C</a> <a id="1092" href="category-theory.extensions-of-functors-precategories.html#964" class="Bound">D</a> <a id="1094" class="Symbol">→</a> <a id="1096" href="category-theory.functors-precategories.html#3811" class="Function">functor-Precategory</a> <a id="1116" href="category-theory.extensions-of-functors-precategories.html#939" class="Bound">C&#39;</a> <a id="1119" href="category-theory.extensions-of-functors-precategories.html#964" class="Bound">D</a> <a id="1121" class="Symbol">→</a> <a id="1123" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1126" class="Symbol">(</a><a id="1127" href="category-theory.extensions-of-functors-precategories.html#885" class="Bound">l1</a> <a id="1130" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1132" href="category-theory.extensions-of-functors-precategories.html#888" class="Bound">l2</a> <a id="1135" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1137" href="category-theory.extensions-of-functors-precategories.html#897" class="Bound">l5</a> <a id="1140" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1142" href="category-theory.extensions-of-functors-precategories.html#900" class="Bound">l6</a><a id="1144" class="Symbol">)</a>
+  <a id="1148" href="category-theory.extensions-of-functors-precategories.html#1031" class="Function">is-extension-functor-Precategory</a> <a id="1181" href="category-theory.extensions-of-functors-precategories.html#1181" class="Bound">F</a> <a id="1183" href="category-theory.extensions-of-functors-precategories.html#1183" class="Bound">G</a> <a id="1185" class="Symbol">=</a>
+    <a id="1191" href="category-theory.functors-precategories.html#8191" class="Function">comp-functor-Precategory</a> <a id="1216" href="category-theory.extensions-of-functors-precategories.html#915" class="Bound">C</a> <a id="1218" href="category-theory.extensions-of-functors-precategories.html#939" class="Bound">C&#39;</a> <a id="1221" href="category-theory.extensions-of-functors-precategories.html#964" class="Bound">D</a> <a id="1223" href="category-theory.extensions-of-functors-precategories.html#1183" class="Bound">G</a> <a id="1225" href="category-theory.extensions-of-functors-precategories.html#990" class="Bound">p</a> <a id="1227" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a> <a id="1229" href="category-theory.extensions-of-functors-precategories.html#1181" class="Bound">F</a>
+
+  <a id="1234" href="category-theory.extensions-of-functors-precategories.html#1234" class="Function">extension-functor-Precategory</a> <a id="1264" class="Symbol">:</a>
+    <a id="1270" href="category-theory.functors-precategories.html#3811" class="Function">functor-Precategory</a> <a id="1290" href="category-theory.extensions-of-functors-precategories.html#915" class="Bound">C</a> <a id="1292" href="category-theory.extensions-of-functors-precategories.html#964" class="Bound">D</a> <a id="1294" class="Symbol">→</a> <a id="1296" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1299" class="Symbol">(</a><a id="1300" href="category-theory.extensions-of-functors-precategories.html#885" class="Bound">l1</a> <a id="1303" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1305" href="category-theory.extensions-of-functors-precategories.html#888" class="Bound">l2</a> <a id="1308" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1310" href="category-theory.extensions-of-functors-precategories.html#891" class="Bound">l3</a> <a id="1313" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1315" href="category-theory.extensions-of-functors-precategories.html#894" class="Bound">l4</a> <a id="1318" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1320" href="category-theory.extensions-of-functors-precategories.html#897" class="Bound">l5</a> <a id="1323" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1325" href="category-theory.extensions-of-functors-precategories.html#900" class="Bound">l6</a><a id="1327" class="Symbol">)</a>
+  <a id="1331" href="category-theory.extensions-of-functors-precategories.html#1234" class="Function">extension-functor-Precategory</a> <a id="1361" href="category-theory.extensions-of-functors-precategories.html#1361" class="Bound">F</a> <a id="1363" class="Symbol">=</a>
+    <a id="1369" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="1371" class="Symbol">(</a><a id="1372" href="category-theory.functors-precategories.html#3811" class="Function">functor-Precategory</a> <a id="1392" href="category-theory.extensions-of-functors-precategories.html#939" class="Bound">C&#39;</a> <a id="1395" href="category-theory.extensions-of-functors-precategories.html#964" class="Bound">D</a><a id="1396" class="Symbol">)</a> <a id="1398" class="Symbol">(</a><a id="1399" href="category-theory.extensions-of-functors-precategories.html#1031" class="Function">is-extension-functor-Precategory</a> <a id="1432" href="category-theory.extensions-of-functors-precategories.html#1361" class="Bound">F</a><a id="1433" class="Symbol">)</a>
+</pre>

@@ -1,0 +1,132 @@
+# Descent property of sequential colimits
+
+<pre class="Agda"><a id="52" class="Keyword">module</a> <a id="59" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html" class="Module">synthetic-homotopy-theory.descent-property-sequential-colimits</a> <a id="122" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="178" class="Keyword">open</a> <a id="183" class="Keyword">import</a> <a id="190" href="elementary-number-theory.natural-numbers.html" class="Module">elementary-number-theory.natural-numbers</a>
+
+<a id="232" class="Keyword">open</a> <a id="237" class="Keyword">import</a> <a id="244" href="foundation.binary-homotopies.html" class="Module">foundation.binary-homotopies</a>
+<a id="273" class="Keyword">open</a> <a id="278" class="Keyword">import</a> <a id="285" href="foundation.commuting-triangles-of-maps.html" class="Module">foundation.commuting-triangles-of-maps</a>
+<a id="324" class="Keyword">open</a> <a id="329" class="Keyword">import</a> <a id="336" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="368" class="Keyword">open</a> <a id="373" class="Keyword">import</a> <a id="380" href="foundation.equality-dependent-pair-types.html" class="Module">foundation.equality-dependent-pair-types</a>
+<a id="421" class="Keyword">open</a> <a id="426" class="Keyword">import</a> <a id="433" href="foundation.equivalences.html" class="Module">foundation.equivalences</a>
+<a id="457" class="Keyword">open</a> <a id="462" class="Keyword">import</a> <a id="469" href="foundation.functoriality-dependent-function-types.html" class="Module">foundation.functoriality-dependent-function-types</a>
+<a id="519" class="Keyword">open</a> <a id="524" class="Keyword">import</a> <a id="531" href="foundation.functoriality-dependent-pair-types.html" class="Module">foundation.functoriality-dependent-pair-types</a>
+<a id="577" class="Keyword">open</a> <a id="582" class="Keyword">import</a> <a id="589" href="foundation.identity-types.html" class="Module">foundation.identity-types</a>
+<a id="615" class="Keyword">open</a> <a id="620" class="Keyword">import</a> <a id="627" href="foundation.univalence.html" class="Module">foundation.univalence</a>
+<a id="649" class="Keyword">open</a> <a id="654" class="Keyword">import</a> <a id="661" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="689" class="Keyword">open</a> <a id="694" class="Keyword">import</a> <a id="701" href="synthetic-homotopy-theory.cocones-under-sequential-diagrams.html" class="Module">synthetic-homotopy-theory.cocones-under-sequential-diagrams</a>
+<a id="761" class="Keyword">open</a> <a id="766" class="Keyword">import</a> <a id="773" href="synthetic-homotopy-theory.descent-data-sequential-colimits.html" class="Module">synthetic-homotopy-theory.descent-data-sequential-colimits</a>
+<a id="832" class="Keyword">open</a> <a id="837" class="Keyword">import</a> <a id="844" href="synthetic-homotopy-theory.sequential-diagrams.html" class="Module">synthetic-homotopy-theory.sequential-diagrams</a>
+<a id="890" class="Keyword">open</a> <a id="895" class="Keyword">import</a> <a id="902" href="synthetic-homotopy-theory.universal-property-sequential-colimits.html" class="Module">synthetic-homotopy-theory.universal-property-sequential-colimits</a>
+</pre>
+</details>
+
+## Idea
+
+The
+{{#concept "descent property" Disambiguation="sequential colimits" Agda=equiv-descent-data-family-cocone-sequential-diagram}}
+of
+[sequential colimits](synthetic-homotopy-theory.universal-property-sequential-colimits.md)
+characterizes type families over sequential colimits as
+[descent data](synthetic-homotopy-theory.descent-data-sequential-colimits.md)
+over the base
+[sequential diagram](synthetic-homotopy-theory.sequential-diagrams.md).
+
+Given a sequential diagram `(A, a)` and a
+[cocone](synthetic-homotopy-theory.cocones-under-sequential-diagrams.md) with
+vertex `X`, there is a commuting triangle
+
+```text
+          cocone-map
+  (X → 𝒰) ---------> cocone A 𝒰
+           \       /
+            \     /
+             \   /
+              ∨ ∨
+         descent-data A .
+```
+
+From [univalence](foundation-core.univalence.md) it follows that the right map
+is an equivalence. If `X` is a colimit of `A`, then we have that the top map is
+an equivalence, which imples that the left map is an equivalence.
+
+## Theorem
+
+<pre class="Agda"><a id="2017" class="Keyword">module</a> <a id="2024" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2024" class="Module">_</a>
+  <a id="2028" class="Symbol">{</a><a id="2029" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2029" class="Bound">l1</a> <a id="2032" class="Symbol">:</a> <a id="2034" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2039" class="Symbol">}</a> <a id="2041" class="Symbol">{</a><a id="2042" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2042" class="Bound">A</a> <a id="2044" class="Symbol">:</a> <a id="2046" href="synthetic-homotopy-theory.sequential-diagrams.html#872" class="Function">sequential-diagram</a> <a id="2065" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2029" class="Bound">l1</a><a id="2067" class="Symbol">}</a>
+  <a id="2071" class="Keyword">where</a>
+
+  <a id="2080" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2080" class="Function">equiv-descent-data-cocone-sequential-diagram</a> <a id="2125" class="Symbol">:</a>
+    <a id="2131" class="Symbol">{</a><a id="2132" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2132" class="Bound">l2</a> <a id="2135" class="Symbol">:</a> <a id="2137" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2142" class="Symbol">}</a> <a id="2144" class="Symbol">→</a>
+    <a id="2150" href="synthetic-homotopy-theory.cocones-under-sequential-diagrams.html#1775" class="Function">cocone-sequential-diagram</a> <a id="2176" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2042" class="Bound">A</a> <a id="2178" class="Symbol">(</a><a id="2179" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2182" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2132" class="Bound">l2</a><a id="2184" class="Symbol">)</a> <a id="2186" href="foundation-core.equivalences.html#2554" class="Function Operator">≃</a>
+    <a id="2192" href="synthetic-homotopy-theory.descent-data-sequential-colimits.html#1708" class="Function">descent-data-sequential-colimit</a> <a id="2224" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2042" class="Bound">A</a> <a id="2226" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2132" class="Bound">l2</a>
+  <a id="2231" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2080" class="Function">equiv-descent-data-cocone-sequential-diagram</a> <a id="2276" class="Symbol">=</a>
+    <a id="2282" href="foundation-core.functoriality-dependent-pair-types.html#7287" class="Function">equiv-tot</a>
+      <a id="2298" class="Symbol">(</a> <a id="2300" class="Symbol">λ</a> <a id="2302" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2302" class="Bound">B</a> <a id="2304" class="Symbol">→</a>
+        <a id="2314" href="foundation-core.functoriality-dependent-function-types.html#3135" class="Function">equiv-Π-equiv-family</a>
+          <a id="2345" class="Symbol">(</a> <a id="2347" class="Symbol">λ</a> <a id="2349" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2349" class="Bound">n</a> <a id="2351" class="Symbol">→</a> <a id="2353" href="foundation-core.functoriality-dependent-function-types.html#3135" class="Function">equiv-Π-equiv-family</a> <a id="2374" class="Symbol">(λ</a> <a id="2377" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2377" class="Bound">a</a> <a id="2379" class="Symbol">→</a> <a id="2381" href="foundation.univalence.html#2311" class="Function">equiv-univalence</a><a id="2397" class="Symbol">)))</a>
+
+  <a id="2404" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2404" class="Function">descent-data-cocone-sequential-diagram</a> <a id="2443" class="Symbol">:</a>
+    <a id="2449" class="Symbol">{</a><a id="2450" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2450" class="Bound">l2</a> <a id="2453" class="Symbol">:</a> <a id="2455" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2460" class="Symbol">}</a> <a id="2462" class="Symbol">→</a>
+    <a id="2468" href="synthetic-homotopy-theory.cocones-under-sequential-diagrams.html#1775" class="Function">cocone-sequential-diagram</a> <a id="2494" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2042" class="Bound">A</a> <a id="2496" class="Symbol">(</a><a id="2497" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2500" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2450" class="Bound">l2</a><a id="2502" class="Symbol">)</a> <a id="2504" class="Symbol">→</a>
+    <a id="2510" href="synthetic-homotopy-theory.descent-data-sequential-colimits.html#1708" class="Function">descent-data-sequential-colimit</a> <a id="2542" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2042" class="Bound">A</a> <a id="2544" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2450" class="Bound">l2</a>
+  <a id="2549" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2404" class="Function">descent-data-cocone-sequential-diagram</a> <a id="2588" class="Symbol">=</a>
+    <a id="2594" href="foundation-core.equivalences.html#2754" class="Function">map-equiv</a> <a id="2604" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2080" class="Function">equiv-descent-data-cocone-sequential-diagram</a>
+
+  <a id="2652" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2652" class="Function">is-equiv-descent-data-cocone-sequential-diagram</a> <a id="2700" class="Symbol">:</a>
+    <a id="2706" class="Symbol">{</a><a id="2707" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2707" class="Bound">l2</a> <a id="2710" class="Symbol">:</a> <a id="2712" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2717" class="Symbol">}</a> <a id="2719" class="Symbol">→</a> <a id="2721" href="foundation-core.equivalences.html#1532" class="Function">is-equiv</a> <a id="2730" class="Symbol">(</a><a id="2731" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2404" class="Function">descent-data-cocone-sequential-diagram</a> <a id="2770" class="Symbol">{</a><a id="2771" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2707" class="Bound">l2</a><a id="2773" class="Symbol">})</a>
+  <a id="2778" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2652" class="Function">is-equiv-descent-data-cocone-sequential-diagram</a> <a id="2826" class="Symbol">=</a>
+    <a id="2832" href="foundation-core.equivalences.html#2795" class="Function">is-equiv-map-equiv</a> <a id="2851" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2080" class="Function">equiv-descent-data-cocone-sequential-diagram</a>
+
+<a id="2897" class="Keyword">module</a> <a id="2904" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2904" class="Module">_</a>
+  <a id="2908" class="Symbol">{</a><a id="2909" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2909" class="Bound">l1</a> <a id="2912" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2912" class="Bound">l2</a> <a id="2915" class="Symbol">:</a> <a id="2917" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2922" class="Symbol">}</a> <a id="2924" class="Symbol">{</a><a id="2925" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2925" class="Bound">A</a> <a id="2927" class="Symbol">:</a> <a id="2929" href="synthetic-homotopy-theory.sequential-diagrams.html#872" class="Function">sequential-diagram</a> <a id="2948" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2909" class="Bound">l1</a><a id="2950" class="Symbol">}</a>
+  <a id="2954" class="Symbol">{</a><a id="2955" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2955" class="Bound">X</a> <a id="2957" class="Symbol">:</a> <a id="2959" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2962" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2912" class="Bound">l2</a><a id="2964" class="Symbol">}</a> <a id="2966" class="Symbol">(</a><a id="2967" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2967" class="Bound">c</a> <a id="2969" class="Symbol">:</a> <a id="2971" href="synthetic-homotopy-theory.cocones-under-sequential-diagrams.html#1775" class="Function">cocone-sequential-diagram</a> <a id="2997" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2925" class="Bound">A</a> <a id="2999" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2955" class="Bound">X</a><a id="3000" class="Symbol">)</a>
+  <a id="3004" class="Keyword">where</a>
+
+  <a id="3013" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3013" class="Function">triangle-descent-data-family-cocone-sequential-diagram</a> <a id="3068" class="Symbol">:</a>
+    <a id="3074" class="Symbol">{</a><a id="3075" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3075" class="Bound">l3</a> <a id="3078" class="Symbol">:</a> <a id="3080" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="3085" class="Symbol">}</a> <a id="3087" class="Symbol">→</a>
+    <a id="3093" href="foundation-core.commuting-triangles-of-maps.html#867" class="Function">coherence-triangle-maps</a>
+      <a id="3123" class="Symbol">(</a> <a id="3125" href="synthetic-homotopy-theory.descent-data-sequential-colimits.html#6938" class="Function">descent-data-family-cocone-sequential-diagram</a> <a id="3171" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2967" class="Bound">c</a><a id="3172" class="Symbol">)</a>
+      <a id="3180" class="Symbol">(</a> <a id="3182" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2404" class="Function">descent-data-cocone-sequential-diagram</a><a id="3220" class="Symbol">)</a>
+      <a id="3228" class="Symbol">(</a> <a id="3230" href="synthetic-homotopy-theory.cocones-under-sequential-diagrams.html#7170" class="Function">cocone-map-sequential-diagram</a> <a id="3260" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2967" class="Bound">c</a> <a id="3262" class="Symbol">{</a><a id="3263" class="Argument">Y</a> <a id="3265" class="Symbol">=</a> <a id="3267" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="3270" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3075" class="Bound">l3</a><a id="3272" class="Symbol">})</a>
+  <a id="3277" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3013" class="Function">triangle-descent-data-family-cocone-sequential-diagram</a> <a id="3332" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3332" class="Bound">P</a> <a id="3334" class="Symbol">=</a>
+    <a id="3340" href="foundation-core.equality-dependent-pair-types.html#1905" class="Function">eq-pair-eq-fiber</a>
+      <a id="3363" class="Symbol">(</a> <a id="3365" href="foundation.binary-homotopies.html#2037" class="Function">eq-binary-htpy</a> <a id="3380" class="Symbol">_</a> <a id="3382" class="Symbol">_</a>
+        <a id="3392" class="Symbol">(</a> <a id="3394" class="Symbol">λ</a> <a id="3396" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3396" class="Bound">n</a> <a id="3398" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3398" class="Bound">a</a> <a id="3400" class="Symbol">→</a>
+          <a id="3412" href="foundation-core.identity-types.html#6358" class="Function">inv</a>
+            <a id="3428" class="Symbol">(</a> <a id="3430" href="foundation-core.univalence.html#3681" class="Function">compute-equiv-eq-ap</a>
+              <a id="3464" class="Symbol">(</a> <a id="3466" href="synthetic-homotopy-theory.cocones-under-sequential-diagrams.html#2352" class="Function">coherence-cocone-sequential-diagram</a> <a id="3502" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2967" class="Bound">c</a> <a id="3504" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3396" class="Bound">n</a> <a id="3506" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3398" class="Bound">a</a><a id="3507" class="Symbol">))))</a>
+
+<a id="3513" class="Keyword">module</a> <a id="3520" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3520" class="Module">_</a>
+  <a id="3524" class="Symbol">{</a><a id="3525" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3525" class="Bound">l1</a> <a id="3528" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3528" class="Bound">l2</a> <a id="3531" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3531" class="Bound">l3</a> <a id="3534" class="Symbol">:</a> <a id="3536" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="3541" class="Symbol">}</a> <a id="3543" class="Symbol">{</a><a id="3544" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3544" class="Bound">A</a> <a id="3546" class="Symbol">:</a> <a id="3548" href="synthetic-homotopy-theory.sequential-diagrams.html#872" class="Function">sequential-diagram</a> <a id="3567" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3525" class="Bound">l1</a><a id="3569" class="Symbol">}</a>
+  <a id="3573" class="Symbol">{</a><a id="3574" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3574" class="Bound">X</a> <a id="3576" class="Symbol">:</a> <a id="3578" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="3581" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3528" class="Bound">l2</a><a id="3583" class="Symbol">}</a> <a id="3585" class="Symbol">{</a><a id="3586" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3586" class="Bound">c</a> <a id="3588" class="Symbol">:</a> <a id="3590" href="synthetic-homotopy-theory.cocones-under-sequential-diagrams.html#1775" class="Function">cocone-sequential-diagram</a> <a id="3616" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3544" class="Bound">A</a> <a id="3618" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3574" class="Bound">X</a><a id="3619" class="Symbol">}</a>
+  <a id="3623" class="Symbol">(</a><a id="3624" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3624" class="Bound">up-c</a> <a id="3629" class="Symbol">:</a> <a id="3631" href="synthetic-homotopy-theory.universal-property-sequential-colimits.html#2517" class="Function">universal-property-sequential-colimit</a> <a id="3669" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3586" class="Bound">c</a><a id="3670" class="Symbol">)</a>
+  <a id="3674" class="Keyword">where</a>
+
+  <a id="3683" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3683" class="Function">is-equiv-descent-data-family-cocone-sequential-diagram</a> <a id="3738" class="Symbol">:</a>
+    <a id="3744" href="foundation-core.equivalences.html#1532" class="Function">is-equiv</a> <a id="3753" class="Symbol">(</a><a id="3754" href="synthetic-homotopy-theory.descent-data-sequential-colimits.html#6938" class="Function">descent-data-family-cocone-sequential-diagram</a> <a id="3800" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3586" class="Bound">c</a> <a id="3802" class="Symbol">{</a><a id="3803" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3531" class="Bound">l3</a><a id="3805" class="Symbol">})</a>
+  <a id="3810" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3683" class="Function">is-equiv-descent-data-family-cocone-sequential-diagram</a> <a id="3865" class="Symbol">=</a>
+    <a id="3871" href="foundation-core.equivalences.html#10197" class="Function">is-equiv-left-map-triangle</a>
+      <a id="3904" class="Symbol">(</a> <a id="3906" href="synthetic-homotopy-theory.descent-data-sequential-colimits.html#6938" class="Function">descent-data-family-cocone-sequential-diagram</a> <a id="3952" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3586" class="Bound">c</a><a id="3953" class="Symbol">)</a>
+      <a id="3961" class="Symbol">(</a> <a id="3963" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2404" class="Function">descent-data-cocone-sequential-diagram</a><a id="4001" class="Symbol">)</a>
+      <a id="4009" class="Symbol">(</a> <a id="4011" href="synthetic-homotopy-theory.cocones-under-sequential-diagrams.html#7170" class="Function">cocone-map-sequential-diagram</a> <a id="4041" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3586" class="Bound">c</a><a id="4042" class="Symbol">)</a>
+      <a id="4050" class="Symbol">(</a> <a id="4052" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3013" class="Function">triangle-descent-data-family-cocone-sequential-diagram</a> <a id="4107" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3586" class="Bound">c</a><a id="4108" class="Symbol">)</a>
+      <a id="4116" class="Symbol">(</a> <a id="4118" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3624" class="Bound">up-c</a> <a id="4123" class="Symbol">(</a><a id="4124" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="4127" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3531" class="Bound">l3</a><a id="4129" class="Symbol">))</a>
+      <a id="4138" class="Symbol">(</a> <a id="4140" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#2652" class="Function">is-equiv-descent-data-cocone-sequential-diagram</a><a id="4187" class="Symbol">)</a>
+
+  <a id="4192" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#4192" class="Function">equiv-descent-data-family-cocone-sequential-diagram</a> <a id="4244" class="Symbol">:</a>
+    <a id="4250" class="Symbol">(</a><a id="4251" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3574" class="Bound">X</a> <a id="4253" class="Symbol">→</a> <a id="4255" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="4258" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3531" class="Bound">l3</a><a id="4260" class="Symbol">)</a> <a id="4262" href="foundation-core.equivalences.html#2554" class="Function Operator">≃</a> <a id="4264" href="synthetic-homotopy-theory.descent-data-sequential-colimits.html#1708" class="Function">descent-data-sequential-colimit</a> <a id="4296" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3544" class="Bound">A</a> <a id="4298" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3531" class="Bound">l3</a>
+  <a id="4303" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="4307" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#4192" class="Function">equiv-descent-data-family-cocone-sequential-diagram</a> <a id="4359" class="Symbol">=</a>
+    <a id="4365" href="synthetic-homotopy-theory.descent-data-sequential-colimits.html#6938" class="Function">descent-data-family-cocone-sequential-diagram</a> <a id="4411" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3586" class="Bound">c</a>
+  <a id="4415" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="4419" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#4192" class="Function">equiv-descent-data-family-cocone-sequential-diagram</a> <a id="4471" class="Symbol">=</a>
+    <a id="4477" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3683" class="Function">is-equiv-descent-data-family-cocone-sequential-diagram</a>
+
+  <a id="4535" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#4535" class="Function">family-cocone-descent-data-sequential-colimit</a> <a id="4581" class="Symbol">:</a>
+    <a id="4587" href="synthetic-homotopy-theory.descent-data-sequential-colimits.html#1708" class="Function">descent-data-sequential-colimit</a> <a id="4619" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3544" class="Bound">A</a> <a id="4621" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3531" class="Bound">l3</a> <a id="4624" class="Symbol">→</a> <a id="4626" class="Symbol">(</a><a id="4627" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3574" class="Bound">X</a> <a id="4629" class="Symbol">→</a> <a id="4631" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="4634" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#3531" class="Bound">l3</a><a id="4636" class="Symbol">)</a>
+  <a id="4640" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#4535" class="Function">family-cocone-descent-data-sequential-colimit</a> <a id="4686" class="Symbol">=</a>
+    <a id="4692" href="foundation-core.equivalences.html#8070" class="Function">map-inv-equiv</a>
+      <a id="4712" class="Symbol">(</a> <a id="4714" href="synthetic-homotopy-theory.descent-property-sequential-colimits.html#4192" class="Function">equiv-descent-data-family-cocone-sequential-diagram</a><a id="4765" class="Symbol">)</a>
+</pre>

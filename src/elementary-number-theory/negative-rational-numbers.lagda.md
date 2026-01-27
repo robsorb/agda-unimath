@@ -13,6 +13,7 @@ open import elementary-number-theory.difference-rational-numbers
 open import elementary-number-theory.inequality-rational-numbers
 open import elementary-number-theory.integer-fractions
 open import elementary-number-theory.integers
+open import elementary-number-theory.multiplication-positive-rational-numbers
 open import elementary-number-theory.multiplication-rational-numbers
 open import elementary-number-theory.multiplicative-group-of-positive-rational-numbers
 open import elementary-number-theory.negative-integer-fractions
@@ -149,6 +150,9 @@ opaque
 negative-rational-negative-ℤ : negative-ℤ → ℚ⁻
 negative-rational-negative-ℤ (x , x-is-neg) =
   rational-ℤ x , is-negative-rational-ℤ x x-is-neg
+
+neg-one-ℚ⁻ : ℚ⁻
+neg-one-ℚ⁻ = (neg-one-ℚ , is-negative-rational-ℤ _ _)
 ```
 
 ### The rational image of a negative integer fraction is negative
@@ -288,6 +292,14 @@ module _
           ( neg-ℚ r)
           ( neg-ℚ q)
           ( neg-le-ℚ q r H))
+
+    reverses-le-left-mul-ℚ⁻ : le-ℚ (rational-ℚ⁻ p *ℚ r) (rational-ℚ⁻ p *ℚ q)
+    reverses-le-left-mul-ℚ⁻ =
+      binary-tr
+        ( le-ℚ)
+        ( commutative-mul-ℚ _ _)
+        ( commutative-mul-ℚ _ _)
+        ( reverses-le-right-mul-ℚ⁻)
 ```
 
 ### The negative rational numbers are invertible elements of the multiplicative monoid of rational numbers
@@ -354,4 +366,39 @@ opaque
         ( neg-ℚ⁻ q)
         ( neg-ℚ⁻ p)
         ( neg-le-ℚ _ _ p<q))
+```
+
+### If `p ≤ q` for negative `q`, then `p` is negative
+
+```agda
+abstract
+  is-negative-leq-ℚ⁻ :
+    (q : ℚ⁻) (p : ℚ) → leq-ℚ p (rational-ℚ⁻ q) → is-negative-ℚ p
+  is-negative-leq-ℚ⁻ (q , neg-q) p p≤q =
+    is-negative-le-zero-ℚ
+      ( p)
+      ( concatenate-leq-le-ℚ p q zero-ℚ p≤q (le-zero-is-negative-ℚ q neg-q))
+
+  is-negative-le-ℚ⁻ :
+    (q : ℚ⁻) (p : ℚ) → le-ℚ p (rational-ℚ⁻ q) → is-negative-ℚ p
+  is-negative-le-ℚ⁻ q p p<q = is-negative-leq-ℚ⁻ q p (leq-le-ℚ p<q)
+```
+
+### There is no greatest negative rational number
+
+```agda
+opaque
+  mediant-zero-ℚ⁻ : ℚ⁻ → ℚ⁻
+  mediant-zero-ℚ⁻ (q , is-neg-q) =
+    ( mediant-ℚ q zero-ℚ ,
+      is-negative-le-zero-ℚ _
+        ( le-right-mediant-ℚ _ _ (le-zero-is-negative-ℚ q is-neg-q)))
+
+  le-mediant-zero-ℚ⁻ :
+    (q : ℚ⁻) → le-ℚ (rational-ℚ⁻ q) (rational-ℚ⁻ (mediant-zero-ℚ⁻ q))
+  le-mediant-zero-ℚ⁻ (q , is-neg-q) =
+    le-left-mediant-ℚ _ _ (le-zero-is-negative-ℚ q is-neg-q)
+
+rational-mediant-zero-ℚ⁻ : ℚ⁻ → ℚ
+rational-mediant-zero-ℚ⁻ q = rational-ℚ⁻ (mediant-zero-ℚ⁻ q)
 ```

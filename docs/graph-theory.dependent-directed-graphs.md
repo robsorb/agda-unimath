@@ -1,0 +1,89 @@
+# Dependent directed graphs
+
+<pre class="Agda"><a id="38" class="Keyword">module</a> <a id="45" href="graph-theory.dependent-directed-graphs.html" class="Module">graph-theory.dependent-directed-graphs</a> <a id="84" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="140" class="Keyword">open</a> <a id="145" class="Keyword">import</a> <a id="152" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="184" class="Keyword">open</a> <a id="189" class="Keyword">import</a> <a id="196" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="224" class="Keyword">open</a> <a id="229" class="Keyword">import</a> <a id="236" href="graph-theory.directed-graphs.html" class="Module">graph-theory.directed-graphs</a>
+</pre>
+</details>
+
+## Idea
+
+Consider a [directed graph](graph-theory.directed-graphs.md) `A`. A
+{{#concept "dependent directed graph" Agda=Dependent-Directed-Graph}} `B` over
+`A` consists of:
+
+- A family `B₀ : A₀ → 𝒰` of vertices
+- A family `B₁ : (x y : A₀) → A₁ x y → B₀ x → B₀ y → 𝒰` of
+  [binary relations](foundation.binary-relations.md) between the types of
+  vertices `B₀`, indexed by the type of edges `A₁` in `A`.
+
+To see that this is a sensible definition of dependent directed graphs, observe
+that the type of directed graphs itself is
+[equivalent](foundation-core.equivalences.md) to the type of dependent directed
+graphs over the
+[terminal directed graph](graph-theory.terminal-directed-graphs.md).
+Furthermore, [graph homomorphisms](graph-theory.morphisms-directed-graphs.md)
+into the [universal directed graph](graph-theory.universal-directed-graph.md)
+are equivalent to dependent directed graphs.
+
+## Definitions
+
+### Dependent directed graphs
+
+<pre class="Agda"><a id="Dependent-Directed-Graph"></a><a id="1231" href="graph-theory.dependent-directed-graphs.html#1231" class="Function">Dependent-Directed-Graph</a> <a id="1256" class="Symbol">:</a>
+  <a id="1260" class="Symbol">{</a><a id="1261" href="graph-theory.dependent-directed-graphs.html#1261" class="Bound">l1</a> <a id="1264" href="graph-theory.dependent-directed-graphs.html#1264" class="Bound">l2</a> <a id="1267" class="Symbol">:</a> <a id="1269" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1274" class="Symbol">}</a> <a id="1276" class="Symbol">(</a><a id="1277" href="graph-theory.dependent-directed-graphs.html#1277" class="Bound">l3</a> <a id="1280" href="graph-theory.dependent-directed-graphs.html#1280" class="Bound">l4</a> <a id="1283" class="Symbol">:</a> <a id="1285" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1290" class="Symbol">)</a> <a id="1292" class="Symbol">→</a> <a id="1294" href="graph-theory.directed-graphs.html#1345" class="Function">Directed-Graph</a> <a id="1309" href="graph-theory.dependent-directed-graphs.html#1261" class="Bound">l1</a> <a id="1312" href="graph-theory.dependent-directed-graphs.html#1264" class="Bound">l2</a> <a id="1315" class="Symbol">→</a>
+  <a id="1319" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1322" class="Symbol">(</a><a id="1323" href="graph-theory.dependent-directed-graphs.html#1261" class="Bound">l1</a> <a id="1326" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1328" href="graph-theory.dependent-directed-graphs.html#1264" class="Bound">l2</a> <a id="1331" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1333" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="1338" href="graph-theory.dependent-directed-graphs.html#1277" class="Bound">l3</a> <a id="1341" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1343" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="1348" href="graph-theory.dependent-directed-graphs.html#1280" class="Bound">l4</a><a id="1350" class="Symbol">)</a>
+<a id="1352" href="graph-theory.dependent-directed-graphs.html#1231" class="Function">Dependent-Directed-Graph</a> <a id="1377" href="graph-theory.dependent-directed-graphs.html#1377" class="Bound">l3</a> <a id="1380" href="graph-theory.dependent-directed-graphs.html#1380" class="Bound">l4</a> <a id="1383" href="graph-theory.dependent-directed-graphs.html#1383" class="Bound">A</a> <a id="1385" class="Symbol">=</a>
+  <a id="1389" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="1391" class="Symbol">(</a> <a id="1393" href="graph-theory.directed-graphs.html#1524" class="Function">vertex-Directed-Graph</a> <a id="1415" href="graph-theory.dependent-directed-graphs.html#1383" class="Bound">A</a> <a id="1417" class="Symbol">→</a> <a id="1419" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1422" href="graph-theory.dependent-directed-graphs.html#1377" class="Bound">l3</a><a id="1424" class="Symbol">)</a>
+    <a id="1430" class="Symbol">(</a> <a id="1432" class="Symbol">λ</a> <a id="1434" href="graph-theory.dependent-directed-graphs.html#1434" class="Bound">B₀</a> <a id="1437" class="Symbol">→</a>
+      <a id="1445" class="Symbol">(</a><a id="1446" href="graph-theory.dependent-directed-graphs.html#1446" class="Bound">x</a> <a id="1448" href="graph-theory.dependent-directed-graphs.html#1448" class="Bound">y</a> <a id="1450" class="Symbol">:</a> <a id="1452" href="graph-theory.directed-graphs.html#1524" class="Function">vertex-Directed-Graph</a> <a id="1474" href="graph-theory.dependent-directed-graphs.html#1383" class="Bound">A</a><a id="1475" class="Symbol">)</a> <a id="1477" class="Symbol">→</a>
+      <a id="1485" href="graph-theory.directed-graphs.html#1589" class="Function">edge-Directed-Graph</a> <a id="1505" href="graph-theory.dependent-directed-graphs.html#1383" class="Bound">A</a> <a id="1507" href="graph-theory.dependent-directed-graphs.html#1446" class="Bound">x</a> <a id="1509" href="graph-theory.dependent-directed-graphs.html#1448" class="Bound">y</a> <a id="1511" class="Symbol">→</a> <a id="1513" href="graph-theory.dependent-directed-graphs.html#1434" class="Bound">B₀</a> <a id="1516" href="graph-theory.dependent-directed-graphs.html#1446" class="Bound">x</a> <a id="1518" class="Symbol">→</a> <a id="1520" href="graph-theory.dependent-directed-graphs.html#1434" class="Bound">B₀</a> <a id="1523" href="graph-theory.dependent-directed-graphs.html#1448" class="Bound">y</a> <a id="1525" class="Symbol">→</a> <a id="1527" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1530" href="graph-theory.dependent-directed-graphs.html#1380" class="Bound">l4</a><a id="1532" class="Symbol">)</a>
+
+<a id="1535" class="Keyword">module</a> <a id="1542" href="graph-theory.dependent-directed-graphs.html#1542" class="Module">_</a>
+  <a id="1546" class="Symbol">{</a><a id="1547" href="graph-theory.dependent-directed-graphs.html#1547" class="Bound">l1</a> <a id="1550" href="graph-theory.dependent-directed-graphs.html#1550" class="Bound">l2</a> <a id="1553" href="graph-theory.dependent-directed-graphs.html#1553" class="Bound">l3</a> <a id="1556" href="graph-theory.dependent-directed-graphs.html#1556" class="Bound">l4</a> <a id="1559" class="Symbol">:</a> <a id="1561" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1566" class="Symbol">}</a> <a id="1568" class="Symbol">{</a><a id="1569" href="graph-theory.dependent-directed-graphs.html#1569" class="Bound">A</a> <a id="1571" class="Symbol">:</a> <a id="1573" href="graph-theory.directed-graphs.html#1345" class="Function">Directed-Graph</a> <a id="1588" href="graph-theory.dependent-directed-graphs.html#1547" class="Bound">l1</a> <a id="1591" href="graph-theory.dependent-directed-graphs.html#1550" class="Bound">l2</a><a id="1593" class="Symbol">}</a>
+  <a id="1597" class="Symbol">(</a><a id="1598" href="graph-theory.dependent-directed-graphs.html#1598" class="Bound">B</a> <a id="1600" class="Symbol">:</a> <a id="1602" href="graph-theory.dependent-directed-graphs.html#1231" class="Function">Dependent-Directed-Graph</a> <a id="1627" href="graph-theory.dependent-directed-graphs.html#1553" class="Bound">l3</a> <a id="1630" href="graph-theory.dependent-directed-graphs.html#1556" class="Bound">l4</a> <a id="1633" href="graph-theory.dependent-directed-graphs.html#1569" class="Bound">A</a><a id="1634" class="Symbol">)</a>
+  <a id="1638" class="Keyword">where</a>
+
+  <a id="1647" href="graph-theory.dependent-directed-graphs.html#1647" class="Function">vertex-Dependent-Directed-Graph</a> <a id="1679" class="Symbol">:</a> <a id="1681" href="graph-theory.directed-graphs.html#1524" class="Function">vertex-Directed-Graph</a> <a id="1703" href="graph-theory.dependent-directed-graphs.html#1569" class="Bound">A</a> <a id="1705" class="Symbol">→</a> <a id="1707" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1710" href="graph-theory.dependent-directed-graphs.html#1553" class="Bound">l3</a>
+  <a id="1715" href="graph-theory.dependent-directed-graphs.html#1647" class="Function">vertex-Dependent-Directed-Graph</a> <a id="1747" class="Symbol">=</a> <a id="1749" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="1753" href="graph-theory.dependent-directed-graphs.html#1598" class="Bound">B</a>
+
+  <a id="1758" href="graph-theory.dependent-directed-graphs.html#1758" class="Function">edge-Dependent-Directed-Graph</a> <a id="1788" class="Symbol">:</a>
+    <a id="1794" class="Symbol">{</a><a id="1795" href="graph-theory.dependent-directed-graphs.html#1795" class="Bound">x</a> <a id="1797" href="graph-theory.dependent-directed-graphs.html#1797" class="Bound">y</a> <a id="1799" class="Symbol">:</a> <a id="1801" href="graph-theory.directed-graphs.html#1524" class="Function">vertex-Directed-Graph</a> <a id="1823" href="graph-theory.dependent-directed-graphs.html#1569" class="Bound">A</a><a id="1824" class="Symbol">}</a> <a id="1826" class="Symbol">→</a>
+    <a id="1832" href="graph-theory.directed-graphs.html#1589" class="Function">edge-Directed-Graph</a> <a id="1852" href="graph-theory.dependent-directed-graphs.html#1569" class="Bound">A</a> <a id="1854" href="graph-theory.dependent-directed-graphs.html#1795" class="Bound">x</a> <a id="1856" href="graph-theory.dependent-directed-graphs.html#1797" class="Bound">y</a> <a id="1858" class="Symbol">→</a>
+    <a id="1864" href="graph-theory.dependent-directed-graphs.html#1647" class="Function">vertex-Dependent-Directed-Graph</a> <a id="1896" href="graph-theory.dependent-directed-graphs.html#1795" class="Bound">x</a> <a id="1898" class="Symbol">→</a>
+    <a id="1904" href="graph-theory.dependent-directed-graphs.html#1647" class="Function">vertex-Dependent-Directed-Graph</a> <a id="1936" href="graph-theory.dependent-directed-graphs.html#1797" class="Bound">y</a> <a id="1938" class="Symbol">→</a> <a id="1940" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1943" href="graph-theory.dependent-directed-graphs.html#1556" class="Bound">l4</a>
+  <a id="1948" href="graph-theory.dependent-directed-graphs.html#1758" class="Function">edge-Dependent-Directed-Graph</a> <a id="1978" class="Symbol">=</a> <a id="1980" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1984" href="graph-theory.dependent-directed-graphs.html#1598" class="Bound">B</a> <a id="1986" class="Symbol">_</a> <a id="1988" class="Symbol">_</a>
+</pre>
+### Constant dependent directed graphs
+
+<pre class="Agda"><a id="2043" class="Keyword">module</a> <a id="2050" href="graph-theory.dependent-directed-graphs.html#2050" class="Module">_</a>
+  <a id="2054" class="Symbol">{</a><a id="2055" href="graph-theory.dependent-directed-graphs.html#2055" class="Bound">l1</a> <a id="2058" href="graph-theory.dependent-directed-graphs.html#2058" class="Bound">l2</a> <a id="2061" href="graph-theory.dependent-directed-graphs.html#2061" class="Bound">l3</a> <a id="2064" href="graph-theory.dependent-directed-graphs.html#2064" class="Bound">l4</a> <a id="2067" class="Symbol">:</a> <a id="2069" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2074" class="Symbol">}</a> <a id="2076" class="Symbol">(</a><a id="2077" href="graph-theory.dependent-directed-graphs.html#2077" class="Bound">A</a> <a id="2079" class="Symbol">:</a> <a id="2081" href="graph-theory.directed-graphs.html#1345" class="Function">Directed-Graph</a> <a id="2096" href="graph-theory.dependent-directed-graphs.html#2055" class="Bound">l1</a> <a id="2099" href="graph-theory.dependent-directed-graphs.html#2058" class="Bound">l2</a><a id="2101" class="Symbol">)</a> <a id="2103" class="Symbol">(</a><a id="2104" href="graph-theory.dependent-directed-graphs.html#2104" class="Bound">B</a> <a id="2106" class="Symbol">:</a> <a id="2108" href="graph-theory.directed-graphs.html#1345" class="Function">Directed-Graph</a> <a id="2123" href="graph-theory.dependent-directed-graphs.html#2061" class="Bound">l3</a> <a id="2126" href="graph-theory.dependent-directed-graphs.html#2064" class="Bound">l4</a><a id="2128" class="Symbol">)</a>
+  <a id="2132" class="Keyword">where</a>
+
+  <a id="2141" href="graph-theory.dependent-directed-graphs.html#2141" class="Function">vertex-constant-Dependent-Directed-Graph</a> <a id="2182" class="Symbol">:</a>
+    <a id="2188" href="graph-theory.directed-graphs.html#1524" class="Function">vertex-Directed-Graph</a> <a id="2210" href="graph-theory.dependent-directed-graphs.html#2077" class="Bound">A</a> <a id="2212" class="Symbol">→</a> <a id="2214" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2217" href="graph-theory.dependent-directed-graphs.html#2061" class="Bound">l3</a>
+  <a id="2222" href="graph-theory.dependent-directed-graphs.html#2141" class="Function">vertex-constant-Dependent-Directed-Graph</a> <a id="2263" href="graph-theory.dependent-directed-graphs.html#2263" class="Bound">x</a> <a id="2265" class="Symbol">=</a> <a id="2267" href="graph-theory.directed-graphs.html#1524" class="Function">vertex-Directed-Graph</a> <a id="2289" href="graph-theory.dependent-directed-graphs.html#2104" class="Bound">B</a>
+
+  <a id="2294" href="graph-theory.dependent-directed-graphs.html#2294" class="Function">edge-constant-Dependent-Directed-Graph</a> <a id="2333" class="Symbol">:</a>
+    <a id="2339" class="Symbol">{</a><a id="2340" href="graph-theory.dependent-directed-graphs.html#2340" class="Bound">x</a> <a id="2342" href="graph-theory.dependent-directed-graphs.html#2342" class="Bound">y</a> <a id="2344" class="Symbol">:</a> <a id="2346" href="graph-theory.directed-graphs.html#1524" class="Function">vertex-Directed-Graph</a> <a id="2368" href="graph-theory.dependent-directed-graphs.html#2077" class="Bound">A</a><a id="2369" class="Symbol">}</a> <a id="2371" class="Symbol">→</a>
+    <a id="2377" href="graph-theory.directed-graphs.html#1589" class="Function">edge-Directed-Graph</a> <a id="2397" href="graph-theory.dependent-directed-graphs.html#2077" class="Bound">A</a> <a id="2399" href="graph-theory.dependent-directed-graphs.html#2340" class="Bound">x</a> <a id="2401" href="graph-theory.dependent-directed-graphs.html#2342" class="Bound">y</a> <a id="2403" class="Symbol">→</a>
+    <a id="2409" href="graph-theory.dependent-directed-graphs.html#2141" class="Function">vertex-constant-Dependent-Directed-Graph</a> <a id="2450" href="graph-theory.dependent-directed-graphs.html#2340" class="Bound">x</a> <a id="2452" class="Symbol">→</a>
+    <a id="2458" href="graph-theory.dependent-directed-graphs.html#2141" class="Function">vertex-constant-Dependent-Directed-Graph</a> <a id="2499" href="graph-theory.dependent-directed-graphs.html#2342" class="Bound">y</a> <a id="2501" class="Symbol">→</a> <a id="2503" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2506" href="graph-theory.dependent-directed-graphs.html#2064" class="Bound">l4</a>
+  <a id="2511" href="graph-theory.dependent-directed-graphs.html#2294" class="Function">edge-constant-Dependent-Directed-Graph</a> <a id="2550" href="graph-theory.dependent-directed-graphs.html#2550" class="Bound">e</a> <a id="2552" class="Symbol">=</a>
+    <a id="2558" href="graph-theory.directed-graphs.html#1589" class="Function">edge-Directed-Graph</a> <a id="2578" href="graph-theory.dependent-directed-graphs.html#2104" class="Bound">B</a>
+
+  <a id="2583" href="graph-theory.dependent-directed-graphs.html#2583" class="Function">constant-Dependent-Directed-Graph</a> <a id="2617" class="Symbol">:</a> <a id="2619" href="graph-theory.dependent-directed-graphs.html#1231" class="Function">Dependent-Directed-Graph</a> <a id="2644" href="graph-theory.dependent-directed-graphs.html#2061" class="Bound">l3</a> <a id="2647" href="graph-theory.dependent-directed-graphs.html#2064" class="Bound">l4</a> <a id="2650" href="graph-theory.dependent-directed-graphs.html#2077" class="Bound">A</a>
+  <a id="2654" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="2658" href="graph-theory.dependent-directed-graphs.html#2583" class="Function">constant-Dependent-Directed-Graph</a> <a id="2692" class="Symbol">=</a>
+    <a id="2698" href="graph-theory.dependent-directed-graphs.html#2141" class="Function">vertex-constant-Dependent-Directed-Graph</a>
+  <a id="2741" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="2745" href="graph-theory.dependent-directed-graphs.html#2583" class="Function">constant-Dependent-Directed-Graph</a> <a id="2779" class="Symbol">_</a> <a id="2781" class="Symbol">_</a> <a id="2783" class="Symbol">=</a>
+    <a id="2789" href="graph-theory.dependent-directed-graphs.html#2294" class="Function">edge-constant-Dependent-Directed-Graph</a>
+</pre>
+## See also
+
+- The [universal directed graph](graph-theory.universal-directed-graph.md)
+- [base change of dependent directed graphs](graph-theory.base-change-dependent-directed-graphs.md)

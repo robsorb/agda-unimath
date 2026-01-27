@@ -1,0 +1,56 @@
+# Equivalences between precategories
+
+<pre class="Agda"><a id="47" class="Keyword">module</a> <a id="54" href="category-theory.equivalences-of-precategories.html" class="Module">category-theory.equivalences-of-precategories</a> <a id="100" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="156" class="Keyword">open</a> <a id="161" class="Keyword">import</a> <a id="168" href="category-theory.functors-precategories.html" class="Module">category-theory.functors-precategories</a>
+<a id="207" class="Keyword">open</a> <a id="212" class="Keyword">import</a> <a id="219" href="category-theory.natural-isomorphisms-functors-precategories.html" class="Module">category-theory.natural-isomorphisms-functors-precategories</a>
+<a id="279" class="Keyword">open</a> <a id="284" class="Keyword">import</a> <a id="291" href="category-theory.precategories.html" class="Module">category-theory.precategories</a>
+
+<a id="322" class="Keyword">open</a> <a id="327" class="Keyword">import</a> <a id="334" href="foundation.cartesian-product-types.html" class="Module">foundation.cartesian-product-types</a>
+<a id="369" class="Keyword">open</a> <a id="374" class="Keyword">import</a> <a id="381" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="413" class="Keyword">open</a> <a id="418" class="Keyword">import</a> <a id="425" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+</pre>
+</details>
+
+## Idea
+
+A [functor](category-theory.functors-precategories.md) `F : C → D` is an
+**equivalence** of [precategories](category-theory.precategories.md) if there is
+
+1. a functor `G : D → C` such that `G ∘ F` is
+   [naturally isomorphic](category-theory.natural-isomorphisms-functors-precategories.md)
+   to the identity functor on `C`,
+2. a functor `H : D → C` such that `F ∘ H` is naturally isomorphic to the
+   identity functor on `D`.
+
+## Definition
+
+### The predicate on functors of being an equivalence of precategories
+
+<pre class="Agda"><a id="1002" class="Keyword">module</a> <a id="1009" href="category-theory.equivalences-of-precategories.html#1009" class="Module">_</a>
+  <a id="1013" class="Symbol">{</a><a id="1014" href="category-theory.equivalences-of-precategories.html#1014" class="Bound">l1</a> <a id="1017" href="category-theory.equivalences-of-precategories.html#1017" class="Bound">l2</a> <a id="1020" href="category-theory.equivalences-of-precategories.html#1020" class="Bound">l3</a> <a id="1023" href="category-theory.equivalences-of-precategories.html#1023" class="Bound">l4</a> <a id="1026" class="Symbol">:</a> <a id="1028" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1033" class="Symbol">}</a>
+  <a id="1037" class="Symbol">(</a><a id="1038" href="category-theory.equivalences-of-precategories.html#1038" class="Bound">C</a> <a id="1040" class="Symbol">:</a> <a id="1042" href="category-theory.precategories.html#3316" class="Function">Precategory</a> <a id="1054" href="category-theory.equivalences-of-precategories.html#1014" class="Bound">l1</a> <a id="1057" href="category-theory.equivalences-of-precategories.html#1017" class="Bound">l2</a><a id="1059" class="Symbol">)</a>
+  <a id="1063" class="Symbol">(</a><a id="1064" href="category-theory.equivalences-of-precategories.html#1064" class="Bound">D</a> <a id="1066" class="Symbol">:</a> <a id="1068" href="category-theory.precategories.html#3316" class="Function">Precategory</a> <a id="1080" href="category-theory.equivalences-of-precategories.html#1020" class="Bound">l3</a> <a id="1083" href="category-theory.equivalences-of-precategories.html#1023" class="Bound">l4</a><a id="1085" class="Symbol">)</a>
+  <a id="1089" class="Keyword">where</a>
+
+  <a id="1098" href="category-theory.equivalences-of-precategories.html#1098" class="Function">is-equiv-functor-Precategory</a> <a id="1127" class="Symbol">:</a>
+    <a id="1133" href="category-theory.functors-precategories.html#3811" class="Function">functor-Precategory</a> <a id="1153" href="category-theory.equivalences-of-precategories.html#1038" class="Bound">C</a> <a id="1155" href="category-theory.equivalences-of-precategories.html#1064" class="Bound">D</a> <a id="1157" class="Symbol">→</a> <a id="1159" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1162" class="Symbol">(</a><a id="1163" href="category-theory.equivalences-of-precategories.html#1014" class="Bound">l1</a> <a id="1166" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1168" href="category-theory.equivalences-of-precategories.html#1017" class="Bound">l2</a> <a id="1171" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1173" href="category-theory.equivalences-of-precategories.html#1020" class="Bound">l3</a> <a id="1176" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1178" href="category-theory.equivalences-of-precategories.html#1023" class="Bound">l4</a><a id="1180" class="Symbol">)</a>
+  <a id="1184" href="category-theory.equivalences-of-precategories.html#1098" class="Function">is-equiv-functor-Precategory</a> <a id="1213" href="category-theory.equivalences-of-precategories.html#1213" class="Bound">F</a> <a id="1215" class="Symbol">=</a>
+    <a id="1221" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="1223" class="Symbol">(</a> <a id="1225" href="category-theory.functors-precategories.html#3811" class="Function">functor-Precategory</a> <a id="1245" href="category-theory.equivalences-of-precategories.html#1064" class="Bound">D</a> <a id="1247" href="category-theory.equivalences-of-precategories.html#1038" class="Bound">C</a><a id="1248" class="Symbol">)</a>
+      <a id="1256" class="Symbol">(</a> <a id="1258" class="Symbol">λ</a> <a id="1260" href="category-theory.equivalences-of-precategories.html#1260" class="Bound">G</a> <a id="1262" class="Symbol">→</a>
+        <a id="1272" class="Symbol">(</a> <a id="1274" href="category-theory.natural-isomorphisms-functors-precategories.html#4619" class="Function">natural-isomorphism-Precategory</a> <a id="1306" href="category-theory.equivalences-of-precategories.html#1038" class="Bound">C</a> <a id="1308" href="category-theory.equivalences-of-precategories.html#1038" class="Bound">C</a>
+          <a id="1320" class="Symbol">(</a> <a id="1322" href="category-theory.functors-precategories.html#8191" class="Function">comp-functor-Precategory</a> <a id="1347" href="category-theory.equivalences-of-precategories.html#1038" class="Bound">C</a> <a id="1349" href="category-theory.equivalences-of-precategories.html#1064" class="Bound">D</a> <a id="1351" href="category-theory.equivalences-of-precategories.html#1038" class="Bound">C</a> <a id="1353" href="category-theory.equivalences-of-precategories.html#1260" class="Bound">G</a> <a id="1355" href="category-theory.equivalences-of-precategories.html#1213" class="Bound">F</a><a id="1356" class="Symbol">)</a>
+          <a id="1368" class="Symbol">(</a> <a id="1370" href="category-theory.functors-precategories.html#6226" class="Function">id-functor-Precategory</a> <a id="1393" href="category-theory.equivalences-of-precategories.html#1038" class="Bound">C</a><a id="1394" class="Symbol">)))</a> <a id="1398" href="foundation-core.cartesian-product-types.html#585" class="Function Operator">×</a>
+    <a id="1404" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="1406" class="Symbol">(</a> <a id="1408" href="category-theory.functors-precategories.html#3811" class="Function">functor-Precategory</a> <a id="1428" href="category-theory.equivalences-of-precategories.html#1064" class="Bound">D</a> <a id="1430" href="category-theory.equivalences-of-precategories.html#1038" class="Bound">C</a><a id="1431" class="Symbol">)</a>
+      <a id="1439" class="Symbol">(</a> <a id="1441" class="Symbol">λ</a> <a id="1443" href="category-theory.equivalences-of-precategories.html#1443" class="Bound">H</a> <a id="1445" class="Symbol">→</a>
+        <a id="1455" class="Symbol">(</a> <a id="1457" href="category-theory.natural-isomorphisms-functors-precategories.html#4619" class="Function">natural-isomorphism-Precategory</a> <a id="1489" href="category-theory.equivalences-of-precategories.html#1064" class="Bound">D</a> <a id="1491" href="category-theory.equivalences-of-precategories.html#1064" class="Bound">D</a>
+          <a id="1503" class="Symbol">(</a> <a id="1505" href="category-theory.functors-precategories.html#8191" class="Function">comp-functor-Precategory</a> <a id="1530" href="category-theory.equivalences-of-precategories.html#1064" class="Bound">D</a> <a id="1532" href="category-theory.equivalences-of-precategories.html#1038" class="Bound">C</a> <a id="1534" href="category-theory.equivalences-of-precategories.html#1064" class="Bound">D</a> <a id="1536" href="category-theory.equivalences-of-precategories.html#1213" class="Bound">F</a> <a id="1538" href="category-theory.equivalences-of-precategories.html#1443" class="Bound">H</a><a id="1539" class="Symbol">)</a>
+          <a id="1551" class="Symbol">(</a> <a id="1553" href="category-theory.functors-precategories.html#6226" class="Function">id-functor-Precategory</a> <a id="1576" href="category-theory.equivalences-of-precategories.html#1064" class="Bound">D</a><a id="1577" class="Symbol">)))</a>
+</pre>
+### The type of equivalences of precategories
+
+<pre class="Agda">  <a id="1643" href="category-theory.equivalences-of-precategories.html#1643" class="Function">equiv-Precategory</a> <a id="1661" class="Symbol">:</a> <a id="1663" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1666" class="Symbol">(</a><a id="1667" href="category-theory.equivalences-of-precategories.html#1014" class="Bound">l1</a> <a id="1670" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1672" href="category-theory.equivalences-of-precategories.html#1017" class="Bound">l2</a> <a id="1675" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1677" href="category-theory.equivalences-of-precategories.html#1020" class="Bound">l3</a> <a id="1680" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1682" href="category-theory.equivalences-of-precategories.html#1023" class="Bound">l4</a><a id="1684" class="Symbol">)</a>
+  <a id="1688" href="category-theory.equivalences-of-precategories.html#1643" class="Function">equiv-Precategory</a> <a id="1706" class="Symbol">=</a> <a id="1708" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="1710" class="Symbol">(</a><a id="1711" href="category-theory.functors-precategories.html#3811" class="Function">functor-Precategory</a> <a id="1731" href="category-theory.equivalences-of-precategories.html#1038" class="Bound">C</a> <a id="1733" href="category-theory.equivalences-of-precategories.html#1064" class="Bound">D</a><a id="1734" class="Symbol">)</a> <a id="1736" class="Symbol">(</a><a id="1737" href="category-theory.equivalences-of-precategories.html#1098" class="Function">is-equiv-functor-Precategory</a><a id="1765" class="Symbol">)</a>
+</pre>

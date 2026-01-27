@@ -1,0 +1,160 @@
+# Null cocones under pointed span diagrams
+
+<pre class="Agda"><a id="53" class="Keyword">module</a> <a id="60" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html" class="Module">synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams</a> <a id="127" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="183" class="Keyword">open</a> <a id="188" class="Keyword">import</a> <a id="195" href="foundation.action-on-identifications-functions.html" class="Module">foundation.action-on-identifications-functions</a>
+<a id="242" class="Keyword">open</a> <a id="247" class="Keyword">import</a> <a id="254" href="foundation.commuting-squares-of-maps.html" class="Module">foundation.commuting-squares-of-maps</a>
+<a id="291" class="Keyword">open</a> <a id="296" class="Keyword">import</a> <a id="303" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="335" class="Keyword">open</a> <a id="340" class="Keyword">import</a> <a id="347" href="foundation.homotopies.html" class="Module">foundation.homotopies</a>
+<a id="369" class="Keyword">open</a> <a id="374" class="Keyword">import</a> <a id="381" href="foundation.identity-types.html" class="Module">foundation.identity-types</a>
+<a id="407" class="Keyword">open</a> <a id="412" class="Keyword">import</a> <a id="419" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+<a id="446" class="Keyword">open</a> <a id="451" class="Keyword">import</a> <a id="458" href="foundation.whiskering-identifications-concatenation.html" class="Module">foundation.whiskering-identifications-concatenation</a>
+
+<a id="511" class="Keyword">open</a> <a id="516" class="Keyword">import</a> <a id="523" href="structured-types.commuting-squares-of-pointed-maps.html" class="Module">structured-types.commuting-squares-of-pointed-maps</a>
+<a id="574" class="Keyword">open</a> <a id="579" class="Keyword">import</a> <a id="586" href="structured-types.constant-pointed-maps.html" class="Module">structured-types.constant-pointed-maps</a>
+<a id="625" class="Keyword">open</a> <a id="630" class="Keyword">import</a> <a id="637" href="structured-types.pointed-homotopies.html" class="Module">structured-types.pointed-homotopies</a>
+<a id="673" class="Keyword">open</a> <a id="678" class="Keyword">import</a> <a id="685" href="structured-types.pointed-maps.html" class="Module">structured-types.pointed-maps</a>
+<a id="715" class="Keyword">open</a> <a id="720" class="Keyword">import</a> <a id="727" href="structured-types.pointed-span-diagrams.html" class="Module">structured-types.pointed-span-diagrams</a>
+<a id="766" class="Keyword">open</a> <a id="771" class="Keyword">import</a> <a id="778" href="structured-types.pointed-types.html" class="Module">structured-types.pointed-types</a>
+
+<a id="810" class="Keyword">open</a> <a id="815" class="Keyword">import</a> <a id="822" href="synthetic-homotopy-theory.cocones-under-pointed-span-diagrams.html" class="Module">synthetic-homotopy-theory.cocones-under-pointed-span-diagrams</a>
+</pre>
+</details>
+
+## Idea
+
+The {{#concept "null cocone" Disambiguation="pointed span diagram"}} under a
+[pointed span diagram](structured-types.pointed-span-diagrams.md) `𝒮` given by
+
+```text
+      f       g
+  A <---- S ----> B
+```
+
+with codomain `X` is the
+[cocone](synthetic-homotopy-theory.cocones-under-pointed-span-diagrams.md) under
+`𝒮` consisting of the
+[constant pointed maps](structured-types.constant-pointed-maps.md) `A →∗ X` and
+`B →∗ X` and the canonical homotopy witnessing that the square of pointed maps
+
+```text
+        g
+    S -----> B
+    |        |
+  f |        | const
+    ∨        ∨
+    A -----> X
+      const
+```
+
+[commutes](structured-types.commuting-squares-of-pointed-maps.md). The null
+cocone under `𝒮` provides a canonical pointing of the type
+`cocone-Pointed-Type f g`.
+
+## Definitions
+
+### Null cocones under pointed span diagrams
+
+<pre class="Agda"><a id="1753" class="Keyword">module</a> <a id="1760" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1760" class="Module">_</a>
+  <a id="1764" class="Symbol">{</a><a id="1765" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1765" class="Bound">l1</a> <a id="1768" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1768" class="Bound">l2</a> <a id="1771" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1771" class="Bound">l3</a> <a id="1774" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1774" class="Bound">l4</a> <a id="1777" class="Symbol">:</a> <a id="1779" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1784" class="Symbol">}</a> <a id="1786" class="Symbol">(</a><a id="1787" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a> <a id="1789" class="Symbol">:</a> <a id="1791" href="structured-types.pointed-span-diagrams.html#955" class="Function">pointed-span-diagram</a> <a id="1812" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1765" class="Bound">l1</a> <a id="1815" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1768" class="Bound">l2</a> <a id="1818" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1771" class="Bound">l3</a><a id="1820" class="Symbol">)</a>
+  <a id="1824" class="Symbol">(</a><a id="1825" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1825" class="Bound">X</a> <a id="1827" class="Symbol">:</a> <a id="1829" href="structured-types.pointed-types.html#355" class="Function">Pointed-Type</a> <a id="1842" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1774" class="Bound">l4</a><a id="1844" class="Symbol">)</a>
+  <a id="1848" class="Keyword">where</a>
+
+  <a id="1857" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1857" class="Function">left-pointed-map-null-cocone-Pointed-Type</a> <a id="1899" class="Symbol">:</a>
+    <a id="1905" href="structured-types.pointed-span-diagrams.html#1468" class="Function">pointed-domain-pointed-span-diagram</a> <a id="1941" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a> <a id="1943" href="structured-types.pointed-maps.html#1157" class="Function Operator">→∗</a> <a id="1946" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1825" class="Bound">X</a>
+  <a id="1950" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1857" class="Function">left-pointed-map-null-cocone-Pointed-Type</a> <a id="1992" class="Symbol">=</a> <a id="1994" href="structured-types.constant-pointed-maps.html#1156" class="Function">constant-pointed-map</a> <a id="2015" class="Symbol">_</a> <a id="2017" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1825" class="Bound">X</a>
+
+  <a id="2022" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#2022" class="Function">left-map-null-cocone-Pointed-Type</a> <a id="2056" class="Symbol">:</a>
+    <a id="2062" href="structured-types.pointed-span-diagrams.html#1571" class="Function">domain-pointed-span-diagram</a> <a id="2090" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a> <a id="2092" class="Symbol">→</a> <a id="2094" href="structured-types.pointed-types.html#488" class="Function">type-Pointed-Type</a> <a id="2112" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1825" class="Bound">X</a>
+  <a id="2116" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#2022" class="Function">left-map-null-cocone-Pointed-Type</a> <a id="2150" class="Symbol">=</a>
+    <a id="2156" href="structured-types.pointed-maps.html#1532" class="Function">map-pointed-map</a> <a id="2172" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1857" class="Function">left-pointed-map-null-cocone-Pointed-Type</a>
+
+  <a id="2217" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#2217" class="Function">preserves-point-left-map-null-cocone-Pointed-Type</a> <a id="2267" class="Symbol">:</a>
+    <a id="2273" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#2022" class="Function">left-map-null-cocone-Pointed-Type</a> <a id="2307" class="Symbol">(</a><a id="2308" href="structured-types.pointed-span-diagrams.html#1700" class="Function">point-domain-pointed-span-diagram</a> <a id="2342" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a><a id="2343" class="Symbol">)</a> <a id="2345" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a>
+    <a id="2351" href="structured-types.pointed-types.html#544" class="Function">point-Pointed-Type</a> <a id="2370" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1825" class="Bound">X</a>
+  <a id="2374" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#2217" class="Function">preserves-point-left-map-null-cocone-Pointed-Type</a> <a id="2424" class="Symbol">=</a>
+    <a id="2430" href="structured-types.pointed-maps.html#1628" class="Function">preserves-point-pointed-map</a> <a id="2458" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1857" class="Function">left-pointed-map-null-cocone-Pointed-Type</a>
+
+  <a id="2503" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#2503" class="Function">right-pointed-map-null-cocone-Pointed-Type</a> <a id="2546" class="Symbol">:</a>
+    <a id="2552" href="structured-types.pointed-span-diagrams.html#1868" class="Function">pointed-codomain-pointed-span-diagram</a> <a id="2590" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a> <a id="2592" href="structured-types.pointed-maps.html#1157" class="Function Operator">→∗</a> <a id="2595" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1825" class="Bound">X</a>
+  <a id="2599" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#2503" class="Function">right-pointed-map-null-cocone-Pointed-Type</a> <a id="2642" class="Symbol">=</a> <a id="2644" href="structured-types.constant-pointed-maps.html#1156" class="Function">constant-pointed-map</a> <a id="2665" class="Symbol">_</a> <a id="2667" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1825" class="Bound">X</a>
+
+  <a id="2672" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#2672" class="Function">right-map-null-cocone-Pointed-Type</a> <a id="2707" class="Symbol">:</a>
+    <a id="2713" href="structured-types.pointed-span-diagrams.html#1981" class="Function">codomain-pointed-span-diagram</a> <a id="2743" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a> <a id="2745" class="Symbol">→</a> <a id="2747" href="structured-types.pointed-types.html#488" class="Function">type-Pointed-Type</a> <a id="2765" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1825" class="Bound">X</a>
+  <a id="2769" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#2672" class="Function">right-map-null-cocone-Pointed-Type</a> <a id="2804" class="Symbol">=</a>
+    <a id="2810" href="structured-types.pointed-maps.html#1532" class="Function">map-pointed-map</a> <a id="2826" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#2503" class="Function">right-pointed-map-null-cocone-Pointed-Type</a>
+
+  <a id="2872" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#2872" class="Function">preserves-point-right-map-null-cocone-Pointed-Type</a> <a id="2923" class="Symbol">:</a>
+    <a id="2929" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#2672" class="Function">right-map-null-cocone-Pointed-Type</a>
+      <a id="2970" class="Symbol">(</a> <a id="2972" href="structured-types.pointed-span-diagrams.html#2116" class="Function">point-codomain-pointed-span-diagram</a> <a id="3008" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a><a id="3009" class="Symbol">)</a> <a id="3011" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a>
+    <a id="3017" href="structured-types.pointed-types.html#544" class="Function">point-Pointed-Type</a> <a id="3036" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1825" class="Bound">X</a>
+  <a id="3040" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#2872" class="Function">preserves-point-right-map-null-cocone-Pointed-Type</a> <a id="3091" class="Symbol">=</a>
+    <a id="3097" href="structured-types.pointed-maps.html#1628" class="Function">preserves-point-pointed-map</a> <a id="3125" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#2503" class="Function">right-pointed-map-null-cocone-Pointed-Type</a>
+
+  <a id="3171" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#3171" class="Function">htpy-coherence-square-null-cocone-Pointed-Type</a> <a id="3218" class="Symbol">:</a>
+    <a id="3224" href="foundation-core.commuting-squares-of-maps.html#1303" class="Function">coherence-square-maps</a>
+      <a id="3252" class="Symbol">(</a> <a id="3254" href="structured-types.pointed-maps.html#1532" class="Function">map-pointed-map</a> <a id="3270" class="Symbol">(</a><a id="3271" href="structured-types.pointed-span-diagrams.html#3801" class="Function">right-pointed-map-pointed-span-diagram</a> <a id="3310" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a><a id="3311" class="Symbol">))</a>
+      <a id="3320" class="Symbol">(</a> <a id="3322" href="structured-types.pointed-maps.html#1532" class="Function">map-pointed-map</a> <a id="3338" class="Symbol">(</a><a id="3339" href="structured-types.pointed-span-diagrams.html#3032" class="Function">left-pointed-map-pointed-span-diagram</a> <a id="3377" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a><a id="3378" class="Symbol">))</a>
+      <a id="3387" class="Symbol">(</a> <a id="3389" href="structured-types.constant-pointed-maps.html#837" class="Function">map-constant-pointed-map</a> <a id="3414" class="Symbol">(</a><a id="3415" href="structured-types.pointed-span-diagrams.html#1868" class="Function">pointed-codomain-pointed-span-diagram</a> <a id="3453" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a><a id="3454" class="Symbol">)</a> <a id="3456" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1825" class="Bound">X</a><a id="3457" class="Symbol">)</a>
+      <a id="3465" class="Symbol">(</a> <a id="3467" href="structured-types.constant-pointed-maps.html#837" class="Function">map-constant-pointed-map</a> <a id="3492" class="Symbol">(</a><a id="3493" href="structured-types.pointed-span-diagrams.html#1468" class="Function">pointed-domain-pointed-span-diagram</a> <a id="3529" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a><a id="3530" class="Symbol">)</a> <a id="3532" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1825" class="Bound">X</a><a id="3533" class="Symbol">)</a>
+  <a id="3537" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#3171" class="Function">htpy-coherence-square-null-cocone-Pointed-Type</a> <a id="3584" class="Symbol">=</a> <a id="3586" href="foundation-core.homotopies.html#2724" class="Function">refl-htpy</a>
+
+  <a id="3599" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#3599" class="Function">coherence-point-coherence-square-null-cocone-Pointed-Type</a> <a id="3657" class="Symbol">:</a>
+    <a id="3663" href="structured-types.pointed-homotopies.html#5970" class="Function">coherence-point-unpointed-htpy-pointed-Π</a>
+      <a id="3710" class="Symbol">(</a> <a id="3712" href="structured-types.constant-pointed-maps.html#1156" class="Function">constant-pointed-map</a> <a id="3733" class="Symbol">_</a> <a id="3735" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1825" class="Bound">X</a> <a id="3737" href="structured-types.pointed-maps.html#3415" class="Function Operator">∘∗</a> <a id="3740" class="Symbol">(</a><a id="3741" href="structured-types.pointed-span-diagrams.html#3032" class="Function">left-pointed-map-pointed-span-diagram</a> <a id="3779" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a><a id="3780" class="Symbol">))</a>
+      <a id="3789" class="Symbol">(</a> <a id="3791" href="structured-types.constant-pointed-maps.html#1156" class="Function">constant-pointed-map</a> <a id="3812" class="Symbol">_</a> <a id="3814" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1825" class="Bound">X</a> <a id="3816" href="structured-types.pointed-maps.html#3415" class="Function Operator">∘∗</a> <a id="3819" class="Symbol">(</a><a id="3820" href="structured-types.pointed-span-diagrams.html#3801" class="Function">right-pointed-map-pointed-span-diagram</a> <a id="3859" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a><a id="3860" class="Symbol">))</a>
+      <a id="3869" class="Symbol">(</a> <a id="3871" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#3171" class="Function">htpy-coherence-square-null-cocone-Pointed-Type</a><a id="3917" class="Symbol">)</a>
+  <a id="3921" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#3599" class="Function">coherence-point-coherence-square-null-cocone-Pointed-Type</a> <a id="3979" class="Symbol">=</a>
+    <a id="3985" href="foundation-core.whiskering-identifications-concatenation.html#2188" class="Function">right-whisker-concat</a>
+      <a id="4012" class="Symbol">(</a> <a id="4014" class="Symbol">(</a> <a id="4016" href="foundation.action-on-identifications-functions.html#2474" class="Function">ap-const</a>
+          <a id="4035" class="Symbol">(</a> <a id="4037" href="structured-types.pointed-types.html#544" class="Function">point-Pointed-Type</a> <a id="4056" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1825" class="Bound">X</a><a id="4057" class="Symbol">)</a>
+          <a id="4069" class="Symbol">(</a> <a id="4071" href="structured-types.pointed-span-diagrams.html#3491" class="Function">preserves-point-left-map-pointed-span-diagram</a> <a id="4117" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a><a id="4118" class="Symbol">))</a> <a id="4121" href="foundation-core.identity-types.html#6054" class="Function Operator">∙</a>
+        <a id="4131" class="Symbol">(</a> <a id="4133" href="foundation-core.identity-types.html#6358" class="Function">inv</a>
+          <a id="4147" class="Symbol">(</a> <a id="4149" href="foundation.action-on-identifications-functions.html#2474" class="Function">ap-const</a>
+            <a id="4170" class="Symbol">(</a> <a id="4172" href="structured-types.pointed-types.html#544" class="Function">point-Pointed-Type</a> <a id="4191" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1825" class="Bound">X</a><a id="4192" class="Symbol">)</a>
+            <a id="4206" class="Symbol">(</a> <a id="4208" href="structured-types.pointed-span-diagrams.html#4270" class="Function">preserves-point-right-map-pointed-span-diagram</a> <a id="4255" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a><a id="4256" class="Symbol">))))</a>
+      <a id="4267" class="Symbol">(</a> <a id="4269" href="foundation-core.identity-types.html#2682" class="InductiveConstructor">refl</a><a id="4273" class="Symbol">)</a>
+
+  <a id="4278" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#4278" class="Function">coherence-square-null-cocone-Pointed-Type</a> <a id="4320" class="Symbol">:</a>
+    <a id="4326" href="structured-types.commuting-squares-of-pointed-maps.html#1740" class="Function">coherence-square-pointed-maps</a>
+      <a id="4362" class="Symbol">(</a> <a id="4364" href="structured-types.pointed-span-diagrams.html#3801" class="Function">right-pointed-map-pointed-span-diagram</a> <a id="4403" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a><a id="4404" class="Symbol">)</a>
+      <a id="4412" class="Symbol">(</a> <a id="4414" href="structured-types.pointed-span-diagrams.html#3032" class="Function">left-pointed-map-pointed-span-diagram</a> <a id="4452" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a><a id="4453" class="Symbol">)</a>
+      <a id="4461" class="Symbol">(</a> <a id="4463" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#2503" class="Function">right-pointed-map-null-cocone-Pointed-Type</a><a id="4505" class="Symbol">)</a>
+      <a id="4513" class="Symbol">(</a> <a id="4515" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1857" class="Function">left-pointed-map-null-cocone-Pointed-Type</a><a id="4556" class="Symbol">)</a>
+  <a id="4560" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="4564" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#4278" class="Function">coherence-square-null-cocone-Pointed-Type</a> <a id="4606" class="Symbol">=</a>
+    <a id="4612" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#3171" class="Function">htpy-coherence-square-null-cocone-Pointed-Type</a>
+  <a id="4661" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="4665" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#4278" class="Function">coherence-square-null-cocone-Pointed-Type</a> <a id="4707" class="Symbol">=</a>
+    <a id="4713" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#3599" class="Function">coherence-point-coherence-square-null-cocone-Pointed-Type</a>
+
+  <a id="4774" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#4774" class="Function">null-cocone-Pointed-Type</a> <a id="4799" class="Symbol">:</a>
+    <a id="4805" href="synthetic-homotopy-theory.cocones-under-pointed-span-diagrams.html#1327" class="Function">cocone-Pointed-Type</a>
+      <a id="4831" class="Symbol">(</a> <a id="4833" href="structured-types.pointed-span-diagrams.html#3032" class="Function">left-pointed-map-pointed-span-diagram</a> <a id="4871" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a><a id="4872" class="Symbol">)</a>
+      <a id="4880" class="Symbol">(</a> <a id="4882" href="structured-types.pointed-span-diagrams.html#3801" class="Function">right-pointed-map-pointed-span-diagram</a> <a id="4921" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1787" class="Bound">𝒮</a><a id="4922" class="Symbol">)</a>
+      <a id="4930" class="Symbol">(</a> <a id="4932" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1825" class="Bound">X</a><a id="4933" class="Symbol">)</a>
+  <a id="4937" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="4941" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#4774" class="Function">null-cocone-Pointed-Type</a> <a id="4966" class="Symbol">=</a>
+    <a id="4972" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#1857" class="Function">left-pointed-map-null-cocone-Pointed-Type</a>
+  <a id="5016" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="5020" class="Symbol">(</a><a id="5021" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="5025" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#4774" class="Function">null-cocone-Pointed-Type</a><a id="5049" class="Symbol">)</a> <a id="5051" class="Symbol">=</a>
+    <a id="5057" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#2503" class="Function">right-pointed-map-null-cocone-Pointed-Type</a>
+  <a id="5102" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="5106" class="Symbol">(</a><a id="5107" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="5111" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#4774" class="Function">null-cocone-Pointed-Type</a><a id="5135" class="Symbol">)</a> <a id="5137" class="Symbol">=</a>
+    <a id="5143" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#4278" class="Function">coherence-square-null-cocone-Pointed-Type</a>
+</pre>
+### The pointed type of cocones under pointed span diagrams
+
+<pre class="Agda"><a id="5259" class="Keyword">module</a> <a id="5266" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5266" class="Module">_</a>
+  <a id="5270" class="Symbol">{</a><a id="5271" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5271" class="Bound">l1</a> <a id="5274" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5274" class="Bound">l2</a> <a id="5277" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5277" class="Bound">l3</a> <a id="5280" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5280" class="Bound">l4</a> <a id="5283" class="Symbol">:</a> <a id="5285" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="5290" class="Symbol">}</a> <a id="5292" class="Symbol">(</a><a id="5293" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5293" class="Bound">𝒮</a> <a id="5295" class="Symbol">:</a> <a id="5297" href="structured-types.pointed-span-diagrams.html#955" class="Function">pointed-span-diagram</a> <a id="5318" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5271" class="Bound">l1</a> <a id="5321" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5274" class="Bound">l2</a> <a id="5324" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5277" class="Bound">l3</a><a id="5326" class="Symbol">)</a>
+  <a id="5330" class="Symbol">(</a><a id="5331" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5331" class="Bound">X</a> <a id="5333" class="Symbol">:</a> <a id="5335" href="structured-types.pointed-types.html#355" class="Function">Pointed-Type</a> <a id="5348" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5280" class="Bound">l4</a><a id="5350" class="Symbol">)</a>
+  <a id="5354" class="Keyword">where</a>
+
+  <a id="5363" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5363" class="Function">type-cocone-pointed-type-Pointed-Type</a> <a id="5401" class="Symbol">:</a> <a id="5403" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="5406" class="Symbol">(</a><a id="5407" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5271" class="Bound">l1</a> <a id="5410" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="5412" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5274" class="Bound">l2</a> <a id="5415" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="5417" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5277" class="Bound">l3</a> <a id="5420" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="5422" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5280" class="Bound">l4</a><a id="5424" class="Symbol">)</a>
+  <a id="5428" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5363" class="Function">type-cocone-pointed-type-Pointed-Type</a> <a id="5466" class="Symbol">=</a>
+    <a id="5472" href="synthetic-homotopy-theory.cocones-under-pointed-span-diagrams.html#1327" class="Function">cocone-Pointed-Type</a>
+      <a id="5498" class="Symbol">(</a> <a id="5500" href="structured-types.pointed-span-diagrams.html#3032" class="Function">left-pointed-map-pointed-span-diagram</a> <a id="5538" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5293" class="Bound">𝒮</a><a id="5539" class="Symbol">)</a>
+      <a id="5547" class="Symbol">(</a> <a id="5549" href="structured-types.pointed-span-diagrams.html#3801" class="Function">right-pointed-map-pointed-span-diagram</a> <a id="5588" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5293" class="Bound">𝒮</a><a id="5589" class="Symbol">)</a>
+      <a id="5597" class="Symbol">(</a> <a id="5599" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5331" class="Bound">X</a><a id="5600" class="Symbol">)</a>
+
+  <a id="5605" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5605" class="Function">cocone-pointed-type-Pointed-Type</a> <a id="5638" class="Symbol">:</a> <a id="5640" href="structured-types.pointed-types.html#355" class="Function">Pointed-Type</a> <a id="5653" class="Symbol">(</a><a id="5654" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5271" class="Bound">l1</a> <a id="5657" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="5659" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5274" class="Bound">l2</a> <a id="5662" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="5664" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5277" class="Bound">l3</a> <a id="5667" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="5669" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5280" class="Bound">l4</a><a id="5671" class="Symbol">)</a>
+  <a id="5675" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="5679" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5605" class="Function">cocone-pointed-type-Pointed-Type</a> <a id="5712" class="Symbol">=</a> <a id="5714" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5363" class="Function">type-cocone-pointed-type-Pointed-Type</a>
+  <a id="5754" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="5758" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5605" class="Function">cocone-pointed-type-Pointed-Type</a> <a id="5791" class="Symbol">=</a> <a id="5793" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#4774" class="Function">null-cocone-Pointed-Type</a> <a id="5818" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5293" class="Bound">𝒮</a> <a id="5820" href="synthetic-homotopy-theory.null-cocones-under-pointed-span-diagrams.html#5331" class="Bound">X</a>
+</pre>

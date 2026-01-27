@@ -1,0 +1,39 @@
+# Automorphisms
+
+<pre class="Agda"><a id="26" class="Keyword">module</a> <a id="33" href="foundation.automorphisms.html" class="Module">foundation.automorphisms</a> <a id="58" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="114" class="Keyword">open</a> <a id="119" class="Keyword">import</a> <a id="126" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="158" class="Keyword">open</a> <a id="163" class="Keyword">import</a> <a id="170" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="198" class="Keyword">open</a> <a id="203" class="Keyword">import</a> <a id="210" href="foundation-core.equivalences.html" class="Module">foundation-core.equivalences</a>
+<a id="239" class="Keyword">open</a> <a id="244" class="Keyword">import</a> <a id="251" href="foundation-core.sets.html" class="Module">foundation-core.sets</a>
+
+<a id="273" class="Keyword">open</a> <a id="278" class="Keyword">import</a> <a id="285" href="structured-types.pointed-types.html" class="Module">structured-types.pointed-types</a>
+</pre>
+</details>
+
+## Idea
+
+An automorphism on a type `A` is an equivalence `A ≃ A`. We will just reuse the
+infrastructure of equivalences for automorphisms.
+
+## Definitions
+
+### The type of automorphisms on a type
+
+<pre class="Agda"><a id="Aut"></a><a id="538" href="foundation.automorphisms.html#538" class="Function">Aut</a> <a id="542" class="Symbol">:</a> <a id="544" class="Symbol">{</a><a id="545" href="foundation.automorphisms.html#545" class="Bound">l</a> <a id="547" class="Symbol">:</a> <a id="549" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="554" class="Symbol">}</a> <a id="556" class="Symbol">→</a> <a id="558" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="561" href="foundation.automorphisms.html#545" class="Bound">l</a> <a id="563" class="Symbol">→</a> <a id="565" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="568" href="foundation.automorphisms.html#545" class="Bound">l</a>
+<a id="570" href="foundation.automorphisms.html#538" class="Function">Aut</a> <a id="574" href="foundation.automorphisms.html#574" class="Bound">Y</a> <a id="576" class="Symbol">=</a> <a id="578" href="foundation.automorphisms.html#574" class="Bound">Y</a> <a id="580" href="foundation-core.equivalences.html#2554" class="Function Operator">≃</a> <a id="582" href="foundation.automorphisms.html#574" class="Bound">Y</a>
+
+<a id="is-set-Aut"></a><a id="585" href="foundation.automorphisms.html#585" class="Function">is-set-Aut</a> <a id="596" class="Symbol">:</a> <a id="598" class="Symbol">{</a><a id="599" href="foundation.automorphisms.html#599" class="Bound">l</a> <a id="601" class="Symbol">:</a> <a id="603" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="608" class="Symbol">}</a> <a id="610" class="Symbol">{</a><a id="611" href="foundation.automorphisms.html#611" class="Bound">A</a> <a id="613" class="Symbol">:</a> <a id="615" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="618" href="foundation.automorphisms.html#599" class="Bound">l</a><a id="619" class="Symbol">}</a> <a id="621" class="Symbol">→</a> <a id="623" href="foundation-core.sets.html#847" class="Function">is-set</a> <a id="630" href="foundation.automorphisms.html#611" class="Bound">A</a> <a id="632" class="Symbol">→</a> <a id="634" href="foundation-core.sets.html#847" class="Function">is-set</a> <a id="641" class="Symbol">(</a><a id="642" href="foundation.automorphisms.html#538" class="Function">Aut</a> <a id="646" href="foundation.automorphisms.html#611" class="Bound">A</a><a id="647" class="Symbol">)</a>
+<a id="649" href="foundation.automorphisms.html#585" class="Function">is-set-Aut</a> <a id="660" href="foundation.automorphisms.html#660" class="Bound">H</a> <a id="662" class="Symbol">=</a> <a id="664" href="foundation-core.sets.html#5086" class="Function">is-set-equiv-is-set</a> <a id="684" href="foundation.automorphisms.html#660" class="Bound">H</a> <a id="686" href="foundation.automorphisms.html#660" class="Bound">H</a>
+
+<a id="Aut-Set"></a><a id="689" href="foundation.automorphisms.html#689" class="Function">Aut-Set</a> <a id="697" class="Symbol">:</a> <a id="699" class="Symbol">{</a><a id="700" href="foundation.automorphisms.html#700" class="Bound">l</a> <a id="702" class="Symbol">:</a> <a id="704" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="709" class="Symbol">}</a> <a id="711" class="Symbol">→</a> <a id="713" href="foundation-core.sets.html#922" class="Function">Set</a> <a id="717" href="foundation.automorphisms.html#700" class="Bound">l</a> <a id="719" class="Symbol">→</a> <a id="721" href="foundation-core.sets.html#922" class="Function">Set</a> <a id="725" href="foundation.automorphisms.html#700" class="Bound">l</a>
+<a id="727" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="731" class="Symbol">(</a><a id="732" href="foundation.automorphisms.html#689" class="Function">Aut-Set</a> <a id="740" href="foundation.automorphisms.html#740" class="Bound">A</a><a id="741" class="Symbol">)</a> <a id="743" class="Symbol">=</a> <a id="745" href="foundation.automorphisms.html#538" class="Function">Aut</a> <a id="749" class="Symbol">(</a><a id="750" href="foundation-core.sets.html#1025" class="Function">type-Set</a> <a id="759" href="foundation.automorphisms.html#740" class="Bound">A</a><a id="760" class="Symbol">)</a>
+<a id="762" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="766" class="Symbol">(</a><a id="767" href="foundation.automorphisms.html#689" class="Function">Aut-Set</a> <a id="775" href="foundation.automorphisms.html#775" class="Bound">A</a><a id="776" class="Symbol">)</a> <a id="778" class="Symbol">=</a> <a id="780" href="foundation.automorphisms.html#585" class="Function">is-set-Aut</a> <a id="791" class="Symbol">(</a><a id="792" href="foundation-core.sets.html#1076" class="Function">is-set-type-Set</a> <a id="808" href="foundation.automorphisms.html#775" class="Bound">A</a><a id="809" class="Symbol">)</a>
+
+<a id="Aut-Pointed-Type"></a><a id="812" href="foundation.automorphisms.html#812" class="Function">Aut-Pointed-Type</a> <a id="829" class="Symbol">:</a> <a id="831" class="Symbol">{</a><a id="832" href="foundation.automorphisms.html#832" class="Bound">l</a> <a id="834" class="Symbol">:</a> <a id="836" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="841" class="Symbol">}</a> <a id="843" class="Symbol">→</a> <a id="845" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="848" href="foundation.automorphisms.html#832" class="Bound">l</a> <a id="850" class="Symbol">→</a> <a id="852" href="structured-types.pointed-types.html#355" class="Function">Pointed-Type</a> <a id="865" href="foundation.automorphisms.html#832" class="Bound">l</a>
+<a id="867" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="871" class="Symbol">(</a><a id="872" href="foundation.automorphisms.html#812" class="Function">Aut-Pointed-Type</a> <a id="889" href="foundation.automorphisms.html#889" class="Bound">A</a><a id="890" class="Symbol">)</a> <a id="892" class="Symbol">=</a> <a id="894" href="foundation.automorphisms.html#538" class="Function">Aut</a> <a id="898" href="foundation.automorphisms.html#889" class="Bound">A</a>
+<a id="900" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="904" class="Symbol">(</a><a id="905" href="foundation.automorphisms.html#812" class="Function">Aut-Pointed-Type</a> <a id="922" href="foundation.automorphisms.html#922" class="Bound">A</a><a id="923" class="Symbol">)</a> <a id="925" class="Symbol">=</a> <a id="927" href="foundation-core.equivalences.html#3922" class="Function">id-equiv</a>
+</pre>

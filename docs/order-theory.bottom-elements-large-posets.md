@@ -1,0 +1,70 @@
+# Bottom elements in large posets
+
+<pre class="Agda"><a id="44" class="Keyword">module</a> <a id="51" href="order-theory.bottom-elements-large-posets.html" class="Module">order-theory.bottom-elements-large-posets</a> <a id="93" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="149" class="Keyword">open</a> <a id="154" class="Keyword">import</a> <a id="161" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="189" class="Keyword">open</a> <a id="194" class="Keyword">import</a> <a id="201" href="order-theory.dependent-products-large-posets.html" class="Module">order-theory.dependent-products-large-posets</a>
+<a id="246" class="Keyword">open</a> <a id="251" class="Keyword">import</a> <a id="258" href="order-theory.large-posets.html" class="Module">order-theory.large-posets</a>
+</pre>
+</details>
+
+## Idea
+
+We say that a [large poset](order-theory.large-posets.md) `P` has a
+{{#concept "least element" Disambiguation="in a large poset" Agda=is-bottom-element-Large-Poset}}
+if it comes equipped with an element `t : type-Large-Poset P lzero` such that
+`t ≤ x` holds for every `x : P`.
+
+## Definition
+
+### The predicate on elements of posets of being a bottom element
+
+<pre class="Agda"><a id="678" class="Keyword">module</a> <a id="685" href="order-theory.bottom-elements-large-posets.html#685" class="Module">_</a>
+  <a id="689" class="Symbol">{</a><a id="690" href="order-theory.bottom-elements-large-posets.html#690" class="Bound">α</a> <a id="692" class="Symbol">:</a> <a id="694" href="Agda.Primitive.html#742" class="Postulate">Level</a> <a id="700" class="Symbol">→</a> <a id="702" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="707" class="Symbol">}</a> <a id="709" class="Symbol">{</a><a id="710" href="order-theory.bottom-elements-large-posets.html#710" class="Bound">β</a> <a id="712" class="Symbol">:</a> <a id="714" href="Agda.Primitive.html#742" class="Postulate">Level</a> <a id="720" class="Symbol">→</a> <a id="722" href="Agda.Primitive.html#742" class="Postulate">Level</a> <a id="728" class="Symbol">→</a> <a id="730" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="735" class="Symbol">}</a> <a id="737" class="Symbol">(</a><a id="738" href="order-theory.bottom-elements-large-posets.html#738" class="Bound">P</a> <a id="740" class="Symbol">:</a> <a id="742" href="order-theory.large-posets.html#1060" class="Record">Large-Poset</a> <a id="754" href="order-theory.bottom-elements-large-posets.html#690" class="Bound">α</a> <a id="756" href="order-theory.bottom-elements-large-posets.html#710" class="Bound">β</a><a id="757" class="Symbol">)</a>
+  <a id="761" class="Keyword">where</a>
+
+  <a id="770" href="order-theory.bottom-elements-large-posets.html#770" class="Function">is-bottom-element-Large-Poset</a> <a id="800" class="Symbol">:</a>
+    <a id="806" class="Symbol">{</a><a id="807" href="order-theory.bottom-elements-large-posets.html#807" class="Bound">l1</a> <a id="810" class="Symbol">:</a> <a id="812" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="817" class="Symbol">}</a> <a id="819" class="Symbol">→</a> <a id="821" href="order-theory.large-posets.html#1534" class="Function">type-Large-Poset</a> <a id="838" href="order-theory.bottom-elements-large-posets.html#738" class="Bound">P</a> <a id="840" href="order-theory.bottom-elements-large-posets.html#807" class="Bound">l1</a> <a id="843" class="Symbol">→</a> <a id="845" href="Agda.Primitive.html#512" class="Primitive">UUω</a>
+  <a id="851" href="order-theory.bottom-elements-large-posets.html#770" class="Function">is-bottom-element-Large-Poset</a> <a id="881" href="order-theory.bottom-elements-large-posets.html#881" class="Bound">x</a> <a id="883" class="Symbol">=</a>
+    <a id="889" class="Symbol">{</a><a id="890" href="order-theory.bottom-elements-large-posets.html#890" class="Bound">l</a> <a id="892" class="Symbol">:</a> <a id="894" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="899" class="Symbol">}</a> <a id="901" class="Symbol">(</a><a id="902" href="order-theory.bottom-elements-large-posets.html#902" class="Bound">y</a> <a id="904" class="Symbol">:</a> <a id="906" href="order-theory.large-posets.html#1534" class="Function">type-Large-Poset</a> <a id="923" href="order-theory.bottom-elements-large-posets.html#738" class="Bound">P</a> <a id="925" href="order-theory.bottom-elements-large-posets.html#890" class="Bound">l</a><a id="926" class="Symbol">)</a> <a id="928" class="Symbol">→</a> <a id="930" href="order-theory.large-posets.html#1798" class="Function">leq-Large-Poset</a> <a id="946" href="order-theory.bottom-elements-large-posets.html#738" class="Bound">P</a> <a id="948" href="order-theory.bottom-elements-large-posets.html#881" class="Bound">x</a> <a id="950" href="order-theory.bottom-elements-large-posets.html#902" class="Bound">y</a>
+</pre>
+### The predicate on posets of having a bottom element
+
+<pre class="Agda"><a id="1021" class="Keyword">module</a> <a id="1028" href="order-theory.bottom-elements-large-posets.html#1028" class="Module">_</a>
+  <a id="1032" class="Symbol">{</a><a id="1033" href="order-theory.bottom-elements-large-posets.html#1033" class="Bound">α</a> <a id="1035" class="Symbol">:</a> <a id="1037" href="Agda.Primitive.html#742" class="Postulate">Level</a> <a id="1043" class="Symbol">→</a> <a id="1045" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1050" class="Symbol">}</a> <a id="1052" class="Symbol">{</a><a id="1053" href="order-theory.bottom-elements-large-posets.html#1053" class="Bound">β</a> <a id="1055" class="Symbol">:</a> <a id="1057" href="Agda.Primitive.html#742" class="Postulate">Level</a> <a id="1063" class="Symbol">→</a> <a id="1065" href="Agda.Primitive.html#742" class="Postulate">Level</a> <a id="1071" class="Symbol">→</a> <a id="1073" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1078" class="Symbol">}</a>
+  <a id="1082" class="Symbol">(</a><a id="1083" href="order-theory.bottom-elements-large-posets.html#1083" class="Bound">P</a> <a id="1085" class="Symbol">:</a> <a id="1087" href="order-theory.large-posets.html#1060" class="Record">Large-Poset</a> <a id="1099" href="order-theory.bottom-elements-large-posets.html#1033" class="Bound">α</a> <a id="1101" href="order-theory.bottom-elements-large-posets.html#1053" class="Bound">β</a><a id="1102" class="Symbol">)</a>
+  <a id="1106" class="Keyword">where</a>
+
+  <a id="1115" class="Keyword">record</a>
+    <a id="1126" href="order-theory.bottom-elements-large-posets.html#1126" class="Record">has-bottom-element-Large-Poset</a> <a id="1157" class="Symbol">:</a> <a id="1159" href="Agda.Primitive.html#512" class="Primitive">UUω</a>
+    <a id="1167" class="Keyword">where</a>
+    <a id="1177" class="Keyword">field</a>
+      <a id="1189" href="order-theory.bottom-elements-large-posets.html#1189" class="Field">bottom-has-bottom-element-Large-Poset</a> <a id="1227" class="Symbol">:</a>
+        <a id="1237" href="order-theory.large-posets.html#1534" class="Function">type-Large-Poset</a> <a id="1254" href="order-theory.bottom-elements-large-posets.html#1083" class="Bound">P</a> <a id="1256" href="Agda.Primitive.html#915" class="Primitive">lzero</a>
+      <a id="1268" href="order-theory.bottom-elements-large-posets.html#1268" class="Field">is-bottom-element-bottom-has-bottom-element-Large-Poset</a> <a id="1324" class="Symbol">:</a>
+        <a id="1334" href="order-theory.bottom-elements-large-posets.html#770" class="Function">is-bottom-element-Large-Poset</a> <a id="1364" href="order-theory.bottom-elements-large-posets.html#1083" class="Bound">P</a> <a id="1366" href="order-theory.bottom-elements-large-posets.html#1189" class="Field">bottom-has-bottom-element-Large-Poset</a>
+
+  <a id="1407" class="Keyword">open</a> <a id="1412" href="order-theory.bottom-elements-large-posets.html#1126" class="Module">has-bottom-element-Large-Poset</a> <a id="1443" class="Keyword">public</a>
+</pre>
+## Properties
+
+### If `P` is a family of large posets, then `Π-Large-Poset P` has a bottom element
+
+<pre class="Agda"><a id="1563" class="Keyword">module</a> <a id="1570" href="order-theory.bottom-elements-large-posets.html#1570" class="Module">_</a>
+  <a id="1574" class="Symbol">{</a><a id="1575" href="order-theory.bottom-elements-large-posets.html#1575" class="Bound">α</a> <a id="1577" class="Symbol">:</a> <a id="1579" href="Agda.Primitive.html#742" class="Postulate">Level</a> <a id="1585" class="Symbol">→</a> <a id="1587" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1592" class="Symbol">}</a> <a id="1594" class="Symbol">{</a><a id="1595" href="order-theory.bottom-elements-large-posets.html#1595" class="Bound">β</a> <a id="1597" class="Symbol">:</a> <a id="1599" href="Agda.Primitive.html#742" class="Postulate">Level</a> <a id="1605" class="Symbol">→</a> <a id="1607" href="Agda.Primitive.html#742" class="Postulate">Level</a> <a id="1613" class="Symbol">→</a> <a id="1615" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1620" class="Symbol">}</a>
+  <a id="1624" class="Symbol">{</a><a id="1625" href="order-theory.bottom-elements-large-posets.html#1625" class="Bound">l1</a> <a id="1628" class="Symbol">:</a> <a id="1630" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1635" class="Symbol">}</a> <a id="1637" class="Symbol">{</a><a id="1638" href="order-theory.bottom-elements-large-posets.html#1638" class="Bound">I</a> <a id="1640" class="Symbol">:</a> <a id="1642" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1645" href="order-theory.bottom-elements-large-posets.html#1625" class="Bound">l1</a><a id="1647" class="Symbol">}</a> <a id="1649" class="Symbol">(</a><a id="1650" href="order-theory.bottom-elements-large-posets.html#1650" class="Bound">P</a> <a id="1652" class="Symbol">:</a> <a id="1654" href="order-theory.bottom-elements-large-posets.html#1638" class="Bound">I</a> <a id="1656" class="Symbol">→</a> <a id="1658" href="order-theory.large-posets.html#1060" class="Record">Large-Poset</a> <a id="1670" href="order-theory.bottom-elements-large-posets.html#1575" class="Bound">α</a> <a id="1672" href="order-theory.bottom-elements-large-posets.html#1595" class="Bound">β</a><a id="1673" class="Symbol">)</a>
+  <a id="1677" class="Keyword">where</a>
+
+  <a id="1686" href="order-theory.bottom-elements-large-posets.html#1686" class="Function">has-bottom-element-Π-Large-Poset</a> <a id="1719" class="Symbol">:</a>
+    <a id="1725" class="Symbol">((</a><a id="1727" href="order-theory.bottom-elements-large-posets.html#1727" class="Bound">i</a> <a id="1729" class="Symbol">:</a> <a id="1731" href="order-theory.bottom-elements-large-posets.html#1638" class="Bound">I</a><a id="1732" class="Symbol">)</a> <a id="1734" class="Symbol">→</a> <a id="1736" href="order-theory.bottom-elements-large-posets.html#1126" class="Record">has-bottom-element-Large-Poset</a> <a id="1767" class="Symbol">(</a><a id="1768" href="order-theory.bottom-elements-large-posets.html#1650" class="Bound">P</a> <a id="1770" href="order-theory.bottom-elements-large-posets.html#1727" class="Bound">i</a><a id="1771" class="Symbol">))</a> <a id="1774" class="Symbol">→</a>
+    <a id="1780" href="order-theory.bottom-elements-large-posets.html#1126" class="Record">has-bottom-element-Large-Poset</a> <a id="1811" class="Symbol">(</a><a id="1812" href="order-theory.dependent-products-large-posets.html#2315" class="Function">Π-Large-Poset</a> <a id="1826" href="order-theory.bottom-elements-large-posets.html#1650" class="Bound">P</a><a id="1827" class="Symbol">)</a>
+  <a id="1831" href="order-theory.bottom-elements-large-posets.html#1189" class="Field">bottom-has-bottom-element-Large-Poset</a>
+    <a id="1873" class="Symbol">(</a> <a id="1875" href="order-theory.bottom-elements-large-posets.html#1686" class="Function">has-bottom-element-Π-Large-Poset</a> <a id="1908" href="order-theory.bottom-elements-large-posets.html#1908" class="Bound">H</a><a id="1909" class="Symbol">)</a> <a id="1911" href="order-theory.bottom-elements-large-posets.html#1911" class="Bound">i</a> <a id="1913" class="Symbol">=</a>
+    <a id="1919" href="order-theory.bottom-elements-large-posets.html#1189" class="Field">bottom-has-bottom-element-Large-Poset</a> <a id="1957" class="Symbol">(</a><a id="1958" href="order-theory.bottom-elements-large-posets.html#1908" class="Bound">H</a> <a id="1960" href="order-theory.bottom-elements-large-posets.html#1911" class="Bound">i</a><a id="1961" class="Symbol">)</a>
+  <a id="1965" href="order-theory.bottom-elements-large-posets.html#1268" class="Field">is-bottom-element-bottom-has-bottom-element-Large-Poset</a>
+    <a id="2025" class="Symbol">(</a> <a id="2027" href="order-theory.bottom-elements-large-posets.html#1686" class="Function">has-bottom-element-Π-Large-Poset</a> <a id="2060" href="order-theory.bottom-elements-large-posets.html#2060" class="Bound">H</a><a id="2061" class="Symbol">)</a> <a id="2063" href="order-theory.bottom-elements-large-posets.html#2063" class="Bound">x</a> <a id="2065" href="order-theory.bottom-elements-large-posets.html#2065" class="Bound">i</a> <a id="2067" class="Symbol">=</a>
+    <a id="2073" href="order-theory.bottom-elements-large-posets.html#1268" class="Field">is-bottom-element-bottom-has-bottom-element-Large-Poset</a> <a id="2129" class="Symbol">(</a><a id="2130" href="order-theory.bottom-elements-large-posets.html#2060" class="Bound">H</a> <a id="2132" href="order-theory.bottom-elements-large-posets.html#2065" class="Bound">i</a><a id="2133" class="Symbol">)</a> <a id="2135" class="Symbol">(</a><a id="2136" href="order-theory.bottom-elements-large-posets.html#2063" class="Bound">x</a> <a id="2138" href="order-theory.bottom-elements-large-posets.html#2065" class="Bound">i</a><a id="2139" class="Symbol">)</a>
+</pre>

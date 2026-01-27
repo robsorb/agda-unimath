@@ -32,6 +32,7 @@ open import foundation.transport-along-identifications
 open import foundation.universal-property-equivalences
 open import foundation.universe-levels
 open import foundation.whiskering-homotopies-composition
+open import foundation.universal-property-dependent-pair-types
 
 open import synthetic-homotopy-theory.cocones-under-spans
 open import synthetic-homotopy-theory.pullback-property-pushouts
@@ -1069,4 +1070,125 @@ module _
       ( is-equiv-map-equiv hB)
       ( is-equiv-map-equiv hC)
       ( is-equiv-map-equiv hD)
+```
+
+### Pushouts commute with dependent pairs in the right
+
+```agda
+
+module _
+  {l1 l2 l3 l4 l5 : Level}
+  {X : UU l1}
+  {S : X → UU l2} {A : X → UU l3} {B : X → UU l4}
+  (f : (x : X) → S x → A x) (g : (x : X) → S x → B x)
+  {C : UU l5}
+  where
+  total-cocone-fibers-const : cocone (tot f) (tot g) C → (x : X) → cocone (f x) (g x) C
+  pr1 (total-cocone-fibers-const c x) a = horizontal-map-cocone (tot f) (tot g) c (x , a)
+  pr1 (pr2 (total-cocone-fibers-const c x)) b = vertical-map-cocone (tot f) (tot g) c (x , b)
+  pr2 (pr2 (total-cocone-fibers-const c x)) s = coherence-square-cocone  (tot f) (tot g) c (x , s)
+
+  total-cocone-const : ((x : X) → cocone (f x) (g x) C) → cocone (tot f) (tot g) C
+  pr1 (total-cocone-const c) (x , a) = horizontal-map-cocone (f x) (g x) (c x) a
+  pr1 (pr2 (total-cocone-const c)) (x , b) = vertical-map-cocone (f x) (g x) (c x) b
+  pr2 (pr2 (total-cocone-const c)) (x , s) = coherence-square-cocone (f x) (g x) (c x) s
+
+  total-fibers-const : total-cocone-fibers-const ∘ total-cocone-const ~ id
+  total-fibers-const c = refl
+
+  fibers-total-const : total-cocone-const ∘ total-cocone-fibers-const ~ id
+  fibers-total-const c = refl
+
+  abstract
+    is-equiv-total-cocone-fibers-const : is-equiv total-cocone-fibers-const
+    is-equiv-total-cocone-fibers-const =
+      is-equiv-is-invertible total-cocone-const total-fibers-const fibers-total-const
+
+
+module _
+  {l1 l2 l3 l4 l5 : Level}
+  {X : UU l1}
+  {S : X → UU l2} {A : X → UU l3} {B : X → UU l4} (P : X → UU l5)
+  (f : (x : X) → S x → A x) (g : (x : X) → S x → B x)
+  (c : (x : X) → cocone (f x) (g x) (P x))
+  where
+
+  total-cocone : cocone (tot f) (tot g) (Σ X P)
+  pr1 total-cocone (x , a) = (x , horizontal-map-cocone (f x) (g x) (c x) a)
+  pr1 (pr2 total-cocone) (x , b) = (x , vertical-map-cocone (f x) (g x) (c x) b)
+  pr2 (pr2 total-cocone) (x , s) =
+    eq-pair-Σ
+      refl
+      (coherence-square-cocone (f x) (g x) (c x) s)
+
+module _
+  {l1 l2 l3 l4 l5 l6 : Level}
+  {X : UU l1}
+  {S : X → UU l2} {A : X → UU l3} {B : X → UU l4} (P : X → UU l5)
+  (f : (x : X) → S x → A x) (g : (x : X) → S x → B x)
+  (c : (x : X) → cocone (f x) (g x) (P x))
+  {C : UU l6}
+  where
+
+  total-cocone-map : ((x : X) → P x → C) → (x : X) → cocone (f x) (g x) C
+  total-cocone-map h x = cocone-map (f x) (g x) (c x) (h x)
+
+  inv-total-cocone-map :
+    ((x : X) → universal-property-pushout (f x) (g x) (c x)) →
+    ((x : X) → cocone (f x) (g x) C) → (x : X) → P x → C
+  inv-total-cocone-map up c x p = map-inv-is-equiv (up x C) (c x) p
+
+  is-section-total-cocone-map :
+    (up : (x : X) → universal-property-pushout (f x) (g x) (c x)) →
+    inv-total-cocone-map up ∘ total-cocone-map ~ id
+  is-section-total-cocone-map up h =
+    eq-htpy (λ x → is-retraction-map-inv-is-equiv (up x C) (h x))
+
+  is-retraction-total-cocone-map :
+    (up : (x : X) → universal-property-pushout (f x) (g x) (c x)) →
+    total-cocone-map ∘ inv-total-cocone-map up ~ id
+  is-retraction-total-cocone-map up c =
+    eq-htpy (λ x → is-section-map-inv-is-equiv (up x C) (c x))
+
+  abstract
+    is-equiv-total-cocone-map :
+      (up : (x : X) → universal-property-pushout (f x) (g x) (c x)) →
+      is-equiv total-cocone-map
+    is-equiv-total-cocone-map up =
+      is-equiv-is-invertible
+        (inv-total-cocone-map up)
+        (is-retraction-total-cocone-map up)
+        (is-section-total-cocone-map up)
+
+  total-cocone-maps-square-commutes :
+    total-cocone-fibers-const f g ∘ cocone-map (tot f) (tot g) (total-cocone P f g c)
+      ~ total-cocone-map ∘ ev-pair
+  total-cocone-maps-square-commutes h =
+    eq-htpy (λ x →
+      eq-pair-Σ
+        refl
+        (eq-pair-Σ
+          refl
+          (eq-htpy (λ s → inv (ap-comp h (pair x) (pr2 (pr2 (c x)) s))))))
+
+module _
+  {l1 l2 l3 l4 l5 : Level}
+  {X : UU l1}
+  {S : X → UU l2} {A : X → UU l3} {B : X → UU l4} (P : X → UU l5)
+  (f : (x : X) → S x → A x) (g : (x : X) → S x → B x)
+  (c : (x : X) → cocone (f x) (g x) (P x))
+  (up : (x : X) → universal-property-pushout (f x) (g x) (c x))
+  where
+  abstract
+    total-cocone-is-pushout : universal-property-pushout (tot f) (tot g) (total-cocone P f g c)
+    total-cocone-is-pushout C =
+      is-equiv-left-is-equiv-right-square
+        (cocone-map (tot f) (tot g) (total-cocone P f g c))
+        (total-cocone-map P f g c)
+        (ev-pair)
+        (total-cocone-fibers-const f g)
+        (total-cocone-maps-square-commutes P f g c)
+        is-equiv-ev-pair
+        (is-equiv-total-cocone-fibers-const f g)
+        (is-equiv-total-cocone-map P f g c up)
 ```

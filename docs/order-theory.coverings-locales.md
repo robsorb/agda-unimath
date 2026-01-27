@@ -1,0 +1,51 @@
+# Coverings in locales
+
+<pre class="Agda"><a id="33" class="Keyword">module</a> <a id="40" href="order-theory.coverings-locales.html" class="Module">order-theory.coverings-locales</a> <a id="71" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="127" class="Keyword">open</a> <a id="132" class="Keyword">import</a> <a id="139" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="171" class="Keyword">open</a> <a id="176" class="Keyword">import</a> <a id="183" href="foundation.identity-types.html" class="Module">foundation.identity-types</a>
+<a id="209" class="Keyword">open</a> <a id="214" class="Keyword">import</a> <a id="221" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="249" class="Keyword">open</a> <a id="254" class="Keyword">import</a> <a id="261" href="order-theory.locales.html" class="Module">order-theory.locales</a>
+</pre>
+</details>
+
+## Idea
+
+A **covering** of an object `u` in a [locale](order-theory.locales.md) is a
+family of objects whose join is `u`.
+
+## Definition
+
+<pre class="Agda"><a id="445" class="Keyword">module</a> <a id="452" href="order-theory.coverings-locales.html#452" class="Module">_</a>
+  <a id="456" class="Symbol">{</a><a id="457" href="order-theory.coverings-locales.html#457" class="Bound">l1</a> <a id="460" href="order-theory.coverings-locales.html#460" class="Bound">l2</a> <a id="463" class="Symbol">:</a> <a id="465" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="470" class="Symbol">}</a> <a id="472" class="Symbol">(</a><a id="473" href="order-theory.coverings-locales.html#473" class="Bound">L</a> <a id="475" class="Symbol">:</a> <a id="477" href="order-theory.locales.html#764" class="Function">Locale</a> <a id="484" href="order-theory.coverings-locales.html#457" class="Bound">l1</a> <a id="487" href="order-theory.coverings-locales.html#460" class="Bound">l2</a><a id="489" class="Symbol">)</a> <a id="491" class="Symbol">(</a><a id="492" href="order-theory.coverings-locales.html#492" class="Bound">u</a> <a id="494" class="Symbol">:</a> <a id="496" href="order-theory.locales.html#1297" class="Function">type-Locale</a> <a id="508" href="order-theory.coverings-locales.html#473" class="Bound">L</a><a id="509" class="Symbol">)</a>
+  <a id="513" class="Keyword">where</a>
+
+  <a id="522" href="order-theory.coverings-locales.html#522" class="Function">is-covering-Locale</a> <a id="541" class="Symbol">:</a> <a id="543" class="Symbol">{</a><a id="544" href="order-theory.coverings-locales.html#544" class="Bound">I</a> <a id="546" class="Symbol">:</a> <a id="548" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="551" href="order-theory.coverings-locales.html#460" class="Bound">l2</a><a id="553" class="Symbol">}</a> <a id="555" class="Symbol">→</a> <a id="557" class="Symbol">(</a><a id="558" href="order-theory.coverings-locales.html#544" class="Bound">I</a> <a id="560" class="Symbol">→</a> <a id="562" href="order-theory.locales.html#1297" class="Function">type-Locale</a> <a id="574" href="order-theory.coverings-locales.html#473" class="Bound">L</a><a id="575" class="Symbol">)</a> <a id="577" class="Symbol">→</a> <a id="579" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="582" href="order-theory.coverings-locales.html#457" class="Bound">l1</a>
+  <a id="587" href="order-theory.coverings-locales.html#522" class="Function">is-covering-Locale</a> <a id="606" href="order-theory.coverings-locales.html#606" class="Bound">x</a> <a id="608" class="Symbol">=</a> <a id="610" class="Symbol">(</a><a id="611" href="order-theory.coverings-locales.html#492" class="Bound">u</a> <a id="613" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a> <a id="615" href="order-theory.locales.html#2893" class="Function">sup-Locale</a> <a id="626" href="order-theory.coverings-locales.html#473" class="Bound">L</a> <a id="628" href="order-theory.coverings-locales.html#606" class="Bound">x</a><a id="629" class="Symbol">)</a>
+
+  <a id="634" href="order-theory.coverings-locales.html#634" class="Function">covering-Locale</a> <a id="650" class="Symbol">:</a> <a id="652" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="655" class="Symbol">(</a><a id="656" href="order-theory.coverings-locales.html#457" class="Bound">l1</a> <a id="659" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="661" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="666" href="order-theory.coverings-locales.html#460" class="Bound">l2</a><a id="668" class="Symbol">)</a>
+  <a id="672" href="order-theory.coverings-locales.html#634" class="Function">covering-Locale</a> <a id="688" class="Symbol">=</a>
+    <a id="694" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="696" class="Symbol">(</a> <a id="698" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="701" href="order-theory.coverings-locales.html#460" class="Bound">l2</a><a id="703" class="Symbol">)</a>
+      <a id="711" class="Symbol">(</a> <a id="713" class="Symbol">λ</a> <a id="715" href="order-theory.coverings-locales.html#715" class="Bound">I</a> <a id="717" class="Symbol">→</a>
+        <a id="727" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="729" class="Symbol">(</a> <a id="731" href="order-theory.coverings-locales.html#715" class="Bound">I</a> <a id="733" class="Symbol">→</a> <a id="735" href="order-theory.locales.html#1297" class="Function">type-Locale</a> <a id="747" href="order-theory.coverings-locales.html#473" class="Bound">L</a><a id="748" class="Symbol">)</a>
+          <a id="760" class="Symbol">(</a> <a id="762" href="order-theory.coverings-locales.html#522" class="Function">is-covering-Locale</a><a id="780" class="Symbol">))</a>
+
+<a id="784" class="Keyword">module</a> <a id="791" href="order-theory.coverings-locales.html#791" class="Module">_</a>
+  <a id="795" class="Symbol">{</a><a id="796" href="order-theory.coverings-locales.html#796" class="Bound">l1</a> <a id="799" href="order-theory.coverings-locales.html#799" class="Bound">l2</a> <a id="802" class="Symbol">:</a> <a id="804" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="809" class="Symbol">}</a> <a id="811" class="Symbol">(</a><a id="812" href="order-theory.coverings-locales.html#812" class="Bound">L</a> <a id="814" class="Symbol">:</a> <a id="816" href="order-theory.locales.html#764" class="Function">Locale</a> <a id="823" href="order-theory.coverings-locales.html#796" class="Bound">l1</a> <a id="826" href="order-theory.coverings-locales.html#799" class="Bound">l2</a><a id="828" class="Symbol">)</a>
+  <a id="832" class="Symbol">{</a><a id="833" href="order-theory.coverings-locales.html#833" class="Bound">u</a> <a id="835" class="Symbol">:</a> <a id="837" href="order-theory.locales.html#1297" class="Function">type-Locale</a> <a id="849" href="order-theory.coverings-locales.html#812" class="Bound">L</a><a id="850" class="Symbol">}</a> <a id="852" class="Symbol">(</a><a id="853" href="order-theory.coverings-locales.html#853" class="Bound">v</a> <a id="855" class="Symbol">:</a> <a id="857" href="order-theory.coverings-locales.html#634" class="Function">covering-Locale</a> <a id="873" href="order-theory.coverings-locales.html#812" class="Bound">L</a> <a id="875" href="order-theory.coverings-locales.html#833" class="Bound">u</a><a id="876" class="Symbol">)</a>
+  <a id="880" class="Keyword">where</a>
+
+  <a id="889" href="order-theory.coverings-locales.html#889" class="Function">indexing-type-covering-Locale</a> <a id="919" class="Symbol">:</a> <a id="921" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="924" href="order-theory.coverings-locales.html#799" class="Bound">l2</a>
+  <a id="929" href="order-theory.coverings-locales.html#889" class="Function">indexing-type-covering-Locale</a> <a id="959" class="Symbol">=</a> <a id="961" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="965" href="order-theory.coverings-locales.html#853" class="Bound">v</a>
+
+  <a id="970" href="order-theory.coverings-locales.html#970" class="Function">covering-family-covering-Locale</a> <a id="1002" class="Symbol">:</a>
+    <a id="1008" href="order-theory.coverings-locales.html#889" class="Function">indexing-type-covering-Locale</a> <a id="1038" class="Symbol">→</a> <a id="1040" href="order-theory.locales.html#1297" class="Function">type-Locale</a> <a id="1052" href="order-theory.coverings-locales.html#812" class="Bound">L</a>
+  <a id="1056" href="order-theory.coverings-locales.html#970" class="Function">covering-family-covering-Locale</a> <a id="1088" class="Symbol">=</a> <a id="1090" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="1094" class="Symbol">(</a><a id="1095" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1099" href="order-theory.coverings-locales.html#853" class="Bound">v</a><a id="1100" class="Symbol">)</a>
+
+  <a id="1105" href="order-theory.coverings-locales.html#1105" class="Function">is-covering-covering-Locale</a> <a id="1133" class="Symbol">:</a>
+    <a id="1139" href="order-theory.coverings-locales.html#522" class="Function">is-covering-Locale</a> <a id="1158" href="order-theory.coverings-locales.html#812" class="Bound">L</a> <a id="1160" href="order-theory.coverings-locales.html#833" class="Bound">u</a> <a id="1162" href="order-theory.coverings-locales.html#970" class="Function">covering-family-covering-Locale</a>
+  <a id="1196" href="order-theory.coverings-locales.html#1105" class="Function">is-covering-covering-Locale</a> <a id="1224" class="Symbol">=</a> <a id="1226" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1230" class="Symbol">(</a><a id="1231" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1235" href="order-theory.coverings-locales.html#853" class="Bound">v</a><a id="1236" class="Symbol">)</a>
+</pre>

@@ -25,7 +25,10 @@ open import foundation.type-arithmetic-empty-type
 open import foundation.type-arithmetic-unit-type
 open import foundation.unit-type
 open import foundation.universe-levels
-open import foundation.whiskering-homotopies-composition
+
+open import foundation.subtypes
+open import foundation.unions-subtypes
+open import foundation.intersections-subtypes
 
 open import synthetic-homotopy-theory.cocones-under-spans
 open import synthetic-homotopy-theory.dependent-cocones-under-spans
@@ -432,6 +435,84 @@ module _
               ( vertical-map-cocone pr1 pr2 cocone-disjunction b))))
       ( is-equiv-map-disjunction-join-Prop)
       ( up-join)
+```
+
+_TODO: Move this stuff_
+
+```agda
+module _
+  {l1 l2 l3 : Level}
+  (P : Prop l1) (Q : Prop l2) {X : UU l3}
+  (c : cocone pr1 pr2 X)
+  where
+
+  abstract
+    cogap-disjunction : type-Prop (P ∨ Q) → X
+    cogap-disjunction d =
+      cogap-join
+        X
+        c
+        (map-join-disjunction-Prop P Q d)
+
+    compute-inl-cogap-disjunction : cogap-disjunction ∘ inl-disjunction ~ horizontal-map-cocone pr1 pr2 c
+    compute-inl-cogap-disjunction p =
+      equational-reasoning
+        cogap-disjunction (inl-disjunction p)
+          ＝ cogap-join X c (inl-join p)
+            by ap (cogap-join X c) (eq-is-prop (is-prop-join-is-prop (pr2 P) (pr2 Q)))
+          ＝ horizontal-map-cocone pr1 pr2 c p
+            by compute-inl-cogap-join c p
+
+    compute-inr-cogap-disjunction : cogap-disjunction ∘ inr-disjunction ~ vertical-map-cocone pr1 pr2 c
+    compute-inr-cogap-disjunction q =
+      equational-reasoning
+        cogap-disjunction (inr-disjunction q)
+          ＝ cogap-join X c (inr-join q)
+            by ap (cogap-join X c) (eq-is-prop (is-prop-join-is-prop (pr2 P) (pr2 Q)))
+          ＝ vertical-map-cocone pr1 pr2 c q
+            by compute-inr-cogap-join c q
+```
+
+```agda
+
+module _
+  {l1 l2 l3 l4 : Level}
+  {X : UU l1}
+  (A : subtype l2 X) (B : subtype l3 X) (C : UU l4)
+  where
+  union-cocones : UU (l1 ⊔ l2 ⊔ l3 ⊔ l4)
+  union-cocones =
+    cocone
+      (map-intersection-pr1 A B)
+      (map-intersection-pr2 A B)
+      C
+
+module _
+  {l1 l2 l3 : Level}
+  {X : UU l1}
+  (A : subtype l2 X) (B : subtype l3 X)
+  where
+  union-cocone : union-cocones A B (type-subtype (union-subtype A B))
+  union-cocone =
+    total-cocone
+      (type-Prop ∘ union-subtype A B)
+      (λ _ → pr1)
+      (λ _ → pr2)
+      (λ x → cocone-disjunction (A x) (B x))
+
+  abstract
+    union-cocone-is-pushout :
+      universal-property-pushout
+        (map-intersection-pr1 A B)
+        (map-intersection-pr2 A B)
+        union-cocone
+    union-cocone-is-pushout =
+      total-cocone-is-pushout
+        (type-Prop ∘ union-subtype A B)
+        (λ _ → pr1)
+        (λ _ → pr2)
+        (λ x → cocone-disjunction (A x) (B x))
+        (λ x → up-join-disjunction (A x) (B x))
 ```
 
 ## See also

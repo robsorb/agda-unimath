@@ -1,0 +1,102 @@
+# Rooted undirected trees
+
+<pre class="Agda"><a id="36" class="Keyword">module</a> <a id="43" href="trees.rooted-undirected-trees.html" class="Module">trees.rooted-undirected-trees</a> <a id="73" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="129" class="Keyword">open</a> <a id="134" class="Keyword">import</a> <a id="141" href="elementary-number-theory.natural-numbers.html" class="Module">elementary-number-theory.natural-numbers</a>
+
+<a id="183" class="Keyword">open</a> <a id="188" class="Keyword">import</a> <a id="195" href="foundation.coproduct-types.html" class="Module">foundation.coproduct-types</a>
+<a id="222" class="Keyword">open</a> <a id="227" class="Keyword">import</a> <a id="234" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="266" class="Keyword">open</a> <a id="271" class="Keyword">import</a> <a id="278" href="foundation.unit-type.html" class="Module">foundation.unit-type</a>
+<a id="299" class="Keyword">open</a> <a id="304" class="Keyword">import</a> <a id="311" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+<a id="338" class="Keyword">open</a> <a id="343" class="Keyword">import</a> <a id="350" href="foundation.unordered-pairs.html" class="Module">foundation.unordered-pairs</a>
+
+<a id="378" class="Keyword">open</a> <a id="383" class="Keyword">import</a> <a id="390" href="graph-theory.trails-undirected-graphs.html" class="Module">graph-theory.trails-undirected-graphs</a>
+<a id="428" class="Keyword">open</a> <a id="433" class="Keyword">import</a> <a id="440" href="graph-theory.undirected-graphs.html" class="Module">graph-theory.undirected-graphs</a>
+
+<a id="472" class="Keyword">open</a> <a id="477" class="Keyword">import</a> <a id="484" href="trees.undirected-trees.html" class="Module">trees.undirected-trees</a>
+</pre>
+</details>
+
+## Idea
+
+A **rooted undirected tree** is a tree equipped with a marked node. The marked
+node is called the **root** of the undirected tree.
+
+## Definition
+
+<pre class="Agda"><a id="Rooted-Undirected-Tree"></a><a id="688" href="trees.rooted-undirected-trees.html#688" class="Function">Rooted-Undirected-Tree</a> <a id="711" class="Symbol">:</a> <a id="713" class="Symbol">(</a><a id="714" href="trees.rooted-undirected-trees.html#714" class="Bound">l1</a> <a id="717" href="trees.rooted-undirected-trees.html#717" class="Bound">l2</a> <a id="720" class="Symbol">:</a> <a id="722" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="727" class="Symbol">)</a> <a id="729" class="Symbol">→</a> <a id="731" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="734" class="Symbol">(</a><a id="735" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="740" href="trees.rooted-undirected-trees.html#714" class="Bound">l1</a> <a id="743" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="745" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="750" href="trees.rooted-undirected-trees.html#717" class="Bound">l2</a><a id="752" class="Symbol">)</a>
+<a id="754" href="trees.rooted-undirected-trees.html#688" class="Function">Rooted-Undirected-Tree</a> <a id="777" href="trees.rooted-undirected-trees.html#777" class="Bound">l1</a> <a id="780" href="trees.rooted-undirected-trees.html#780" class="Bound">l2</a> <a id="783" class="Symbol">=</a> <a id="785" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="787" class="Symbol">(</a><a id="788" href="trees.undirected-trees.html#1297" class="Function">Undirected-Tree</a> <a id="804" href="trees.rooted-undirected-trees.html#777" class="Bound">l1</a> <a id="807" href="trees.rooted-undirected-trees.html#780" class="Bound">l2</a><a id="809" class="Symbol">)</a> <a id="811" href="trees.undirected-trees.html#1762" class="Function">node-Undirected-Tree</a>
+
+<a id="833" class="Keyword">module</a> <a id="840" href="trees.rooted-undirected-trees.html#840" class="Module">_</a>
+  <a id="844" class="Symbol">{</a><a id="845" href="trees.rooted-undirected-trees.html#845" class="Bound">l1</a> <a id="848" href="trees.rooted-undirected-trees.html#848" class="Bound">l2</a> <a id="851" class="Symbol">:</a> <a id="853" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="858" class="Symbol">}</a> <a id="860" class="Symbol">(</a><a id="861" href="trees.rooted-undirected-trees.html#861" class="Bound">T</a> <a id="863" class="Symbol">:</a> <a id="865" href="trees.rooted-undirected-trees.html#688" class="Function">Rooted-Undirected-Tree</a> <a id="888" href="trees.rooted-undirected-trees.html#845" class="Bound">l1</a> <a id="891" href="trees.rooted-undirected-trees.html#848" class="Bound">l2</a><a id="893" class="Symbol">)</a>
+  <a id="897" class="Keyword">where</a>
+
+  <a id="906" href="trees.rooted-undirected-trees.html#906" class="Function">tree-Rooted-Undirected-Tree</a> <a id="934" class="Symbol">:</a> <a id="936" href="trees.undirected-trees.html#1297" class="Function">Undirected-Tree</a> <a id="952" href="trees.rooted-undirected-trees.html#845" class="Bound">l1</a> <a id="955" href="trees.rooted-undirected-trees.html#848" class="Bound">l2</a>
+  <a id="960" href="trees.rooted-undirected-trees.html#906" class="Function">tree-Rooted-Undirected-Tree</a> <a id="988" class="Symbol">=</a> <a id="990" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="994" href="trees.rooted-undirected-trees.html#861" class="Bound">T</a>
+
+  <a id="999" href="trees.rooted-undirected-trees.html#999" class="Function">undirected-graph-Rooted-Undirected-Tree</a> <a id="1039" class="Symbol">:</a> <a id="1041" href="graph-theory.undirected-graphs.html#627" class="Function">Undirected-Graph</a> <a id="1058" href="trees.rooted-undirected-trees.html#845" class="Bound">l1</a> <a id="1061" href="trees.rooted-undirected-trees.html#848" class="Bound">l2</a>
+  <a id="1066" href="trees.rooted-undirected-trees.html#999" class="Function">undirected-graph-Rooted-Undirected-Tree</a> <a id="1106" class="Symbol">=</a>
+    <a id="1112" href="trees.undirected-trees.html#1499" class="Function">undirected-graph-Undirected-Tree</a> <a id="1145" href="trees.rooted-undirected-trees.html#906" class="Function">tree-Rooted-Undirected-Tree</a>
+
+  <a id="1176" href="trees.rooted-undirected-trees.html#1176" class="Function">node-Rooted-Undirected-Tree</a> <a id="1204" class="Symbol">:</a> <a id="1206" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1209" href="trees.rooted-undirected-trees.html#845" class="Bound">l1</a>
+  <a id="1214" href="trees.rooted-undirected-trees.html#1176" class="Function">node-Rooted-Undirected-Tree</a> <a id="1242" class="Symbol">=</a> <a id="1244" href="trees.undirected-trees.html#1762" class="Function">node-Undirected-Tree</a> <a id="1265" href="trees.rooted-undirected-trees.html#906" class="Function">tree-Rooted-Undirected-Tree</a>
+
+  <a id="1296" href="trees.rooted-undirected-trees.html#1296" class="Function">root-Rooted-Undirected-Tree</a> <a id="1324" class="Symbol">:</a> <a id="1326" href="trees.rooted-undirected-trees.html#1176" class="Function">node-Rooted-Undirected-Tree</a>
+  <a id="1356" href="trees.rooted-undirected-trees.html#1296" class="Function">root-Rooted-Undirected-Tree</a> <a id="1384" class="Symbol">=</a> <a id="1386" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1390" href="trees.rooted-undirected-trees.html#861" class="Bound">T</a>
+
+  <a id="1395" href="trees.rooted-undirected-trees.html#1395" class="Function">trail-to-root-Rooted-Undirected-Tree</a> <a id="1432" class="Symbol">:</a>
+    <a id="1438" class="Symbol">(</a><a id="1439" href="trees.rooted-undirected-trees.html#1439" class="Bound">x</a> <a id="1441" class="Symbol">:</a> <a id="1443" href="trees.rooted-undirected-trees.html#1176" class="Function">node-Rooted-Undirected-Tree</a><a id="1470" class="Symbol">)</a> <a id="1472" class="Symbol">→</a>
+    <a id="1478" href="graph-theory.trails-undirected-graphs.html#1001" class="Function">trail-Undirected-Graph</a> <a id="1501" href="trees.rooted-undirected-trees.html#999" class="Function">undirected-graph-Rooted-Undirected-Tree</a> <a id="1541" href="trees.rooted-undirected-trees.html#1439" class="Bound">x</a>
+      <a id="1549" href="trees.rooted-undirected-trees.html#1296" class="Function">root-Rooted-Undirected-Tree</a>
+  <a id="1579" href="trees.rooted-undirected-trees.html#1395" class="Function">trail-to-root-Rooted-Undirected-Tree</a> <a id="1616" href="trees.rooted-undirected-trees.html#1616" class="Bound">x</a> <a id="1618" class="Symbol">=</a>
+    <a id="1624" href="trees.undirected-trees.html#6961" class="Function">standard-trail-Undirected-Tree</a>
+      <a id="1661" class="Symbol">(</a> <a id="1663" href="trees.rooted-undirected-trees.html#906" class="Function">tree-Rooted-Undirected-Tree</a><a id="1690" class="Symbol">)</a>
+      <a id="1698" class="Symbol">(</a> <a id="1700" href="trees.rooted-undirected-trees.html#1616" class="Bound">x</a><a id="1701" class="Symbol">)</a>
+      <a id="1709" class="Symbol">(</a> <a id="1711" href="trees.rooted-undirected-trees.html#1296" class="Function">root-Rooted-Undirected-Tree</a><a id="1738" class="Symbol">)</a>
+
+  <a id="1743" href="trees.rooted-undirected-trees.html#1743" class="Function">height-node-Rooted-Undirected-Tree</a> <a id="1778" class="Symbol">:</a> <a id="1780" href="trees.rooted-undirected-trees.html#1176" class="Function">node-Rooted-Undirected-Tree</a> <a id="1808" class="Symbol">→</a> <a id="1810" href="elementary-number-theory.natural-numbers.html#825" class="Datatype">ℕ</a>
+  <a id="1814" href="trees.rooted-undirected-trees.html#1743" class="Function">height-node-Rooted-Undirected-Tree</a> <a id="1849" href="trees.rooted-undirected-trees.html#1849" class="Bound">x</a> <a id="1851" class="Symbol">=</a>
+    <a id="1857" href="graph-theory.trails-undirected-graphs.html#3276" class="Function">length-trail-Undirected-Graph</a>
+      <a id="1893" class="Symbol">(</a> <a id="1895" href="trees.rooted-undirected-trees.html#999" class="Function">undirected-graph-Rooted-Undirected-Tree</a><a id="1934" class="Symbol">)</a>
+      <a id="1942" class="Symbol">(</a> <a id="1944" href="trees.rooted-undirected-trees.html#1395" class="Function">trail-to-root-Rooted-Undirected-Tree</a> <a id="1981" href="trees.rooted-undirected-trees.html#1849" class="Bound">x</a><a id="1982" class="Symbol">)</a>
+
+  <a id="1987" href="trees.rooted-undirected-trees.html#1987" class="Function">node-of-height-one-Rooted-Undirected-Tree</a> <a id="2029" class="Symbol">:</a> <a id="2031" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2034" href="trees.rooted-undirected-trees.html#845" class="Bound">l1</a>
+  <a id="2039" href="trees.rooted-undirected-trees.html#1987" class="Function">node-of-height-one-Rooted-Undirected-Tree</a> <a id="2081" class="Symbol">=</a>
+    <a id="2087" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="2089" class="Symbol">(</a> <a id="2091" href="trees.rooted-undirected-trees.html#1176" class="Function">node-Rooted-Undirected-Tree</a><a id="2118" class="Symbol">)</a>
+      <a id="2126" class="Symbol">(</a> <a id="2128" class="Symbol">λ</a> <a id="2130" href="trees.rooted-undirected-trees.html#2130" class="Bound">x</a> <a id="2132" class="Symbol">→</a> <a id="2134" href="elementary-number-theory.natural-numbers.html#1544" class="Function">is-one-ℕ</a> <a id="2143" class="Symbol">(</a><a id="2144" href="trees.rooted-undirected-trees.html#1743" class="Function">height-node-Rooted-Undirected-Tree</a> <a id="2179" href="trees.rooted-undirected-trees.html#2130" class="Bound">x</a><a id="2180" class="Symbol">))</a>
+</pre>
+## Properties
+
+### The type of rooted trees is equivalent to the type of forests of rooted trees
+
+<pre class="Agda"><a id="Forest-Rooted-Undirected-Trees"></a><a id="2294" href="trees.rooted-undirected-trees.html#2294" class="Function">Forest-Rooted-Undirected-Trees</a> <a id="2325" class="Symbol">:</a>
+  <a id="2329" class="Symbol">(</a><a id="2330" href="trees.rooted-undirected-trees.html#2330" class="Bound">l1</a> <a id="2333" href="trees.rooted-undirected-trees.html#2333" class="Bound">l2</a> <a id="2336" href="trees.rooted-undirected-trees.html#2336" class="Bound">l3</a> <a id="2339" class="Symbol">:</a> <a id="2341" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2346" class="Symbol">)</a> <a id="2348" class="Symbol">→</a> <a id="2350" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2353" class="Symbol">(</a><a id="2354" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="2359" href="trees.rooted-undirected-trees.html#2330" class="Bound">l1</a> <a id="2362" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="2364" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="2369" href="trees.rooted-undirected-trees.html#2333" class="Bound">l2</a> <a id="2372" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="2374" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="2379" href="trees.rooted-undirected-trees.html#2336" class="Bound">l3</a><a id="2381" class="Symbol">)</a>
+<a id="2383" href="trees.rooted-undirected-trees.html#2294" class="Function">Forest-Rooted-Undirected-Trees</a> <a id="2414" href="trees.rooted-undirected-trees.html#2414" class="Bound">l1</a> <a id="2417" href="trees.rooted-undirected-trees.html#2417" class="Bound">l2</a> <a id="2420" href="trees.rooted-undirected-trees.html#2420" class="Bound">l3</a> <a id="2423" class="Symbol">=</a>
+  <a id="2427" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="2429" class="Symbol">(</a><a id="2430" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2433" href="trees.rooted-undirected-trees.html#2414" class="Bound">l1</a><a id="2435" class="Symbol">)</a> <a id="2437" class="Symbol">(λ</a> <a id="2440" href="trees.rooted-undirected-trees.html#2440" class="Bound">X</a> <a id="2442" class="Symbol">→</a> <a id="2444" href="trees.rooted-undirected-trees.html#2440" class="Bound">X</a> <a id="2446" class="Symbol">→</a> <a id="2448" href="trees.rooted-undirected-trees.html#688" class="Function">Rooted-Undirected-Tree</a> <a id="2471" href="trees.rooted-undirected-trees.html#2417" class="Bound">l2</a> <a id="2474" href="trees.rooted-undirected-trees.html#2420" class="Bound">l3</a><a id="2476" class="Symbol">)</a>
+
+<a id="2479" class="Keyword">module</a> <a id="2486" href="trees.rooted-undirected-trees.html#2486" class="Module">_</a>
+  <a id="2490" class="Symbol">{</a><a id="2491" href="trees.rooted-undirected-trees.html#2491" class="Bound">l1</a> <a id="2494" href="trees.rooted-undirected-trees.html#2494" class="Bound">l2</a> <a id="2497" href="trees.rooted-undirected-trees.html#2497" class="Bound">l3</a> <a id="2500" class="Symbol">:</a> <a id="2502" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2507" class="Symbol">}</a> <a id="2509" class="Symbol">(</a><a id="2510" href="trees.rooted-undirected-trees.html#2510" class="Bound">F</a> <a id="2512" class="Symbol">:</a> <a id="2514" href="trees.rooted-undirected-trees.html#2294" class="Function">Forest-Rooted-Undirected-Trees</a> <a id="2545" href="trees.rooted-undirected-trees.html#2491" class="Bound">l1</a> <a id="2548" href="trees.rooted-undirected-trees.html#2494" class="Bound">l2</a> <a id="2551" href="trees.rooted-undirected-trees.html#2497" class="Bound">l3</a><a id="2553" class="Symbol">)</a>
+  <a id="2557" class="Keyword">where</a>
+
+  <a id="2566" href="trees.rooted-undirected-trees.html#2566" class="Function">indexing-type-Forest-Rooted-Undirected-Trees</a> <a id="2611" class="Symbol">:</a> <a id="2613" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2616" href="trees.rooted-undirected-trees.html#2491" class="Bound">l1</a>
+  <a id="2621" href="trees.rooted-undirected-trees.html#2566" class="Function">indexing-type-Forest-Rooted-Undirected-Trees</a> <a id="2666" class="Symbol">=</a> <a id="2668" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="2672" href="trees.rooted-undirected-trees.html#2510" class="Bound">F</a>
+
+  <a id="2677" href="trees.rooted-undirected-trees.html#2677" class="Function">family-of-rooted-trees-Forest-Rooted-Undirected-Trees</a> <a id="2731" class="Symbol">:</a>
+    <a id="2737" href="trees.rooted-undirected-trees.html#2566" class="Function">indexing-type-Forest-Rooted-Undirected-Trees</a> <a id="2782" class="Symbol">→</a> <a id="2784" href="trees.rooted-undirected-trees.html#688" class="Function">Rooted-Undirected-Tree</a> <a id="2807" href="trees.rooted-undirected-trees.html#2494" class="Bound">l2</a> <a id="2810" href="trees.rooted-undirected-trees.html#2497" class="Bound">l3</a>
+  <a id="2815" href="trees.rooted-undirected-trees.html#2677" class="Function">family-of-rooted-trees-Forest-Rooted-Undirected-Trees</a> <a id="2869" class="Symbol">=</a> <a id="2871" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="2875" href="trees.rooted-undirected-trees.html#2510" class="Bound">F</a>
+
+  <a id="2880" href="trees.rooted-undirected-trees.html#2880" class="Function">node-rooted-tree-Forest-Rooted-Undirected-Trees</a> <a id="2928" class="Symbol">:</a> <a id="2930" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2933" class="Symbol">(</a><a id="2934" href="trees.rooted-undirected-trees.html#2491" class="Bound">l1</a> <a id="2937" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="2939" href="trees.rooted-undirected-trees.html#2494" class="Bound">l2</a><a id="2941" class="Symbol">)</a>
+  <a id="2945" href="trees.rooted-undirected-trees.html#2880" class="Function">node-rooted-tree-Forest-Rooted-Undirected-Trees</a> <a id="2993" class="Symbol">=</a>
+    <a id="2999" class="Symbol">(</a> <a id="3001" href="foundation.dependent-pair-types.html#583" class="Record">Σ</a> <a id="3003" href="trees.rooted-undirected-trees.html#2566" class="Function">indexing-type-Forest-Rooted-Undirected-Trees</a>
+      <a id="3054" class="Symbol">(</a> <a id="3056" class="Symbol">λ</a> <a id="3058" href="trees.rooted-undirected-trees.html#3058" class="Bound">x</a> <a id="3060" class="Symbol">→</a>
+        <a id="3070" href="trees.rooted-undirected-trees.html#1176" class="Function">node-Rooted-Undirected-Tree</a>
+          <a id="3108" class="Symbol">(</a> <a id="3110" href="trees.rooted-undirected-trees.html#2677" class="Function">family-of-rooted-trees-Forest-Rooted-Undirected-Trees</a> <a id="3164" href="trees.rooted-undirected-trees.html#3058" class="Bound">x</a><a id="3165" class="Symbol">)))</a> <a id="3169" href="foundation-core.coproduct-types.html#389" class="Datatype Operator">+</a>
+    <a id="3175" class="Symbol">(</a> <a id="3177" href="foundation.unit-type.html#950" class="Record">unit</a><a id="3181" class="Symbol">)</a>
+
+  <a id="3186" href="trees.rooted-undirected-trees.html#3186" class="Function">unordered-pair-of-nodes-rooted-tree-Forest-Rooted-Undirected-Trees</a> <a id="3253" class="Symbol">:</a>
+    <a id="3259" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="3262" class="Symbol">(</a><a id="3263" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="3268" href="Agda.Primitive.html#915" class="Primitive">lzero</a> <a id="3274" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="3276" href="trees.rooted-undirected-trees.html#2491" class="Bound">l1</a> <a id="3279" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="3281" href="trees.rooted-undirected-trees.html#2494" class="Bound">l2</a><a id="3283" class="Symbol">)</a>
+  <a id="3287" href="trees.rooted-undirected-trees.html#3186" class="Function">unordered-pair-of-nodes-rooted-tree-Forest-Rooted-Undirected-Trees</a> <a id="3354" class="Symbol">=</a>
+    <a id="3360" href="foundation.unordered-pairs.html#2222" class="Function">unordered-pair</a> <a id="3375" href="trees.rooted-undirected-trees.html#2880" class="Function">node-rooted-tree-Forest-Rooted-Undirected-Trees</a>
+</pre>

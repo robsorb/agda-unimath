@@ -1,0 +1,170 @@
+# Horizontal composition of spans of spans
+
+<pre class="Agda"><a id="53" class="Keyword">module</a> <a id="60" href="foundation.horizontal-composition-spans-of-spans.html" class="Module">foundation.horizontal-composition-spans-of-spans</a> <a id="109" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="165" class="Keyword">open</a> <a id="170" class="Keyword">import</a> <a id="177" href="foundation.commuting-triangles-of-maps.html" class="Module">foundation.commuting-triangles-of-maps</a>
+<a id="216" class="Keyword">open</a> <a id="221" class="Keyword">import</a> <a id="228" href="foundation.composition-spans.html" class="Module">foundation.composition-spans</a>
+<a id="257" class="Keyword">open</a> <a id="262" class="Keyword">import</a> <a id="269" href="foundation.cones-over-cospan-diagrams.html" class="Module">foundation.cones-over-cospan-diagrams</a>
+<a id="307" class="Keyword">open</a> <a id="312" class="Keyword">import</a> <a id="319" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="351" class="Keyword">open</a> <a id="356" class="Keyword">import</a> <a id="363" href="foundation.equivalences.html" class="Module">foundation.equivalences</a>
+<a id="387" class="Keyword">open</a> <a id="392" class="Keyword">import</a> <a id="399" href="foundation.equivalences-arrows.html" class="Module">foundation.equivalences-arrows</a>
+<a id="430" class="Keyword">open</a> <a id="435" class="Keyword">import</a> <a id="442" href="foundation.equivalences-spans.html" class="Module">foundation.equivalences-spans</a>
+<a id="472" class="Keyword">open</a> <a id="477" class="Keyword">import</a> <a id="484" href="foundation.homotopies.html" class="Module">foundation.homotopies</a>
+<a id="506" class="Keyword">open</a> <a id="511" class="Keyword">import</a> <a id="518" href="foundation.identity-types.html" class="Module">foundation.identity-types</a>
+<a id="544" class="Keyword">open</a> <a id="549" class="Keyword">import</a> <a id="556" href="foundation.morphisms-arrows.html" class="Module">foundation.morphisms-arrows</a>
+<a id="584" class="Keyword">open</a> <a id="589" class="Keyword">import</a> <a id="596" href="foundation.morphisms-spans.html" class="Module">foundation.morphisms-spans</a>
+<a id="623" class="Keyword">open</a> <a id="628" class="Keyword">import</a> <a id="635" href="foundation.pullbacks.html" class="Module">foundation.pullbacks</a>
+<a id="656" class="Keyword">open</a> <a id="661" class="Keyword">import</a> <a id="668" href="foundation.spans.html" class="Module">foundation.spans</a>
+<a id="685" class="Keyword">open</a> <a id="690" class="Keyword">import</a> <a id="697" href="foundation.spans-of-spans.html" class="Module">foundation.spans-of-spans</a>
+<a id="723" class="Keyword">open</a> <a id="728" class="Keyword">import</a> <a id="735" href="foundation.standard-pullbacks.html" class="Module">foundation.standard-pullbacks</a>
+<a id="765" class="Keyword">open</a> <a id="770" class="Keyword">import</a> <a id="777" href="foundation.type-arithmetic-standard-pullbacks.html" class="Module">foundation.type-arithmetic-standard-pullbacks</a>
+<a id="823" class="Keyword">open</a> <a id="828" class="Keyword">import</a> <a id="835" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+<a id="862" class="Keyword">open</a> <a id="867" class="Keyword">import</a> <a id="874" href="foundation.whiskering-homotopies-composition.html" class="Module">foundation.whiskering-homotopies-composition</a>
+
+<a id="920" class="Keyword">open</a> <a id="925" class="Keyword">import</a> <a id="932" href="foundation-core.function-types.html" class="Module">foundation-core.function-types</a>
+</pre>
+</details>
+
+## Idea
+
+Given two [spans](foundation.spans.md) `F` and `G` from `A` to `B` and two spans
+`H` and `I` from `B` to `C` together with
+[higher spans](foundation.spans-of-spans.md) `α` from `F` to `G` and `β` from
+`H` to `I`, i.e., we have a commuting diagram of types of the form
+
+```text
+      F₀      H₀
+    ↙ ↑ ↘   ↙ ↑ ↘
+  A   α₀  B   β₀  C,
+    ↖ ↓ ↗   ↖ ↓ ↗
+      G₀      I₀
+```
+
+then we may
+{{#concept "horizontally compose" Disambiguation="spans of spans" Agda=horizontal-comp-span-of-spans}}
+`α` and `β` to obtain a span of spans `α ∙ β` from `H ∘ F` to `I ∘ G`.
+Explicitly, the horizontal composite is given by the unique construction of a
+span of spans
+
+```text
+  F₀ ×_B H₀ ----------> C
+      |    ↖            ∧
+      |    α₀ ×_B β₀    |
+      ∨            ↘    |
+      A <---------- G₀ ×_B I₀.
+```
+
+**Note.** There are four equivalent, but judgmentally different choices of
+spanning type `α₀ ×_B β₀` of the horizontal composite. We pick
+
+```text
+  α₀ ×_B β₀ ------> I₀
+      | ⌟           |
+      |             |
+      ∨             ∨
+      F₀ ---------> B
+```
+
+as this choice avoids inversions of coherences as part of the construction,
+given our choice of orientation for coherences of spans of spans.
+
+## Definitions
+
+### Horizontal composition of spans of spans
+
+<pre class="Agda"><a id="2265" class="Keyword">module</a> <a id="2272" href="foundation.horizontal-composition-spans-of-spans.html#2272" class="Module">_</a>
+  <a id="2276" class="Symbol">{</a><a id="2277" href="foundation.horizontal-composition-spans-of-spans.html#2277" class="Bound">l1</a> <a id="2280" href="foundation.horizontal-composition-spans-of-spans.html#2280" class="Bound">l2</a> <a id="2283" href="foundation.horizontal-composition-spans-of-spans.html#2283" class="Bound">l3</a> <a id="2286" href="foundation.horizontal-composition-spans-of-spans.html#2286" class="Bound">l4</a> <a id="2289" href="foundation.horizontal-composition-spans-of-spans.html#2289" class="Bound">l5</a> <a id="2292" href="foundation.horizontal-composition-spans-of-spans.html#2292" class="Bound">l6</a> <a id="2295" href="foundation.horizontal-composition-spans-of-spans.html#2295" class="Bound">l7</a> <a id="2298" href="foundation.horizontal-composition-spans-of-spans.html#2298" class="Bound">l8</a> <a id="2301" href="foundation.horizontal-composition-spans-of-spans.html#2301" class="Bound">l9</a> <a id="2304" class="Symbol">:</a> <a id="2306" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2311" class="Symbol">}</a>
+  <a id="2315" class="Symbol">{</a><a id="2316" href="foundation.horizontal-composition-spans-of-spans.html#2316" class="Bound">A</a> <a id="2318" class="Symbol">:</a> <a id="2320" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2323" href="foundation.horizontal-composition-spans-of-spans.html#2277" class="Bound">l1</a><a id="2325" class="Symbol">}</a> <a id="2327" class="Symbol">{</a><a id="2328" href="foundation.horizontal-composition-spans-of-spans.html#2328" class="Bound">B</a> <a id="2330" class="Symbol">:</a> <a id="2332" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2335" href="foundation.horizontal-composition-spans-of-spans.html#2280" class="Bound">l2</a><a id="2337" class="Symbol">}</a> <a id="2339" class="Symbol">{</a><a id="2340" href="foundation.horizontal-composition-spans-of-spans.html#2340" class="Bound">C</a> <a id="2342" class="Symbol">:</a> <a id="2344" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2347" href="foundation.horizontal-composition-spans-of-spans.html#2283" class="Bound">l3</a><a id="2349" class="Symbol">}</a>
+  <a id="2353" class="Symbol">(</a><a id="2354" href="foundation.horizontal-composition-spans-of-spans.html#2354" class="Bound">F</a> <a id="2356" class="Symbol">:</a> <a id="2358" href="foundation.spans.html#1830" class="Function">span</a> <a id="2363" href="foundation.horizontal-composition-spans-of-spans.html#2286" class="Bound">l4</a> <a id="2366" href="foundation.horizontal-composition-spans-of-spans.html#2316" class="Bound">A</a> <a id="2368" href="foundation.horizontal-composition-spans-of-spans.html#2328" class="Bound">B</a><a id="2369" class="Symbol">)</a> <a id="2371" class="Symbol">(</a><a id="2372" href="foundation.horizontal-composition-spans-of-spans.html#2372" class="Bound">G</a> <a id="2374" class="Symbol">:</a> <a id="2376" href="foundation.spans.html#1830" class="Function">span</a> <a id="2381" href="foundation.horizontal-composition-spans-of-spans.html#2289" class="Bound">l5</a> <a id="2384" href="foundation.horizontal-composition-spans-of-spans.html#2316" class="Bound">A</a> <a id="2386" href="foundation.horizontal-composition-spans-of-spans.html#2328" class="Bound">B</a><a id="2387" class="Symbol">)</a>
+  <a id="2391" class="Symbol">(</a><a id="2392" href="foundation.horizontal-composition-spans-of-spans.html#2392" class="Bound">H</a> <a id="2394" class="Symbol">:</a> <a id="2396" href="foundation.spans.html#1830" class="Function">span</a> <a id="2401" href="foundation.horizontal-composition-spans-of-spans.html#2292" class="Bound">l6</a> <a id="2404" href="foundation.horizontal-composition-spans-of-spans.html#2328" class="Bound">B</a> <a id="2406" href="foundation.horizontal-composition-spans-of-spans.html#2340" class="Bound">C</a><a id="2407" class="Symbol">)</a> <a id="2409" class="Symbol">(</a><a id="2410" href="foundation.horizontal-composition-spans-of-spans.html#2410" class="Bound">I</a> <a id="2412" class="Symbol">:</a> <a id="2414" href="foundation.spans.html#1830" class="Function">span</a> <a id="2419" href="foundation.horizontal-composition-spans-of-spans.html#2295" class="Bound">l7</a> <a id="2422" href="foundation.horizontal-composition-spans-of-spans.html#2328" class="Bound">B</a> <a id="2424" href="foundation.horizontal-composition-spans-of-spans.html#2340" class="Bound">C</a><a id="2425" class="Symbol">)</a>
+  <a id="2429" class="Symbol">(</a><a id="2430" href="foundation.horizontal-composition-spans-of-spans.html#2430" class="Bound">α</a> <a id="2432" class="Symbol">:</a> <a id="2434" href="foundation.spans-of-spans.html#1890" class="Function">span-of-spans</a> <a id="2448" href="foundation.horizontal-composition-spans-of-spans.html#2298" class="Bound">l8</a> <a id="2451" href="foundation.horizontal-composition-spans-of-spans.html#2354" class="Bound">F</a> <a id="2453" href="foundation.horizontal-composition-spans-of-spans.html#2372" class="Bound">G</a><a id="2454" class="Symbol">)</a>
+  <a id="2458" class="Symbol">(</a><a id="2459" href="foundation.horizontal-composition-spans-of-spans.html#2459" class="Bound">β</a> <a id="2461" class="Symbol">:</a> <a id="2463" href="foundation.spans-of-spans.html#1890" class="Function">span-of-spans</a> <a id="2477" href="foundation.horizontal-composition-spans-of-spans.html#2301" class="Bound">l9</a> <a id="2480" href="foundation.horizontal-composition-spans-of-spans.html#2392" class="Bound">H</a> <a id="2482" href="foundation.horizontal-composition-spans-of-spans.html#2410" class="Bound">I</a><a id="2483" class="Symbol">)</a>
+  <a id="2487" class="Keyword">where</a>
+
+  <a id="2496" href="foundation.horizontal-composition-spans-of-spans.html#2496" class="Function">spanning-type-horizontal-comp-span-of-spans</a> <a id="2540" class="Symbol">:</a> <a id="2542" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2545" class="Symbol">(</a><a id="2546" href="foundation.horizontal-composition-spans-of-spans.html#2280" class="Bound">l2</a> <a id="2549" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="2551" href="foundation.horizontal-composition-spans-of-spans.html#2298" class="Bound">l8</a> <a id="2554" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="2556" href="foundation.horizontal-composition-spans-of-spans.html#2301" class="Bound">l9</a><a id="2558" class="Symbol">)</a>
+  <a id="2562" href="foundation.horizontal-composition-spans-of-spans.html#2496" class="Function">spanning-type-horizontal-comp-span-of-spans</a> <a id="2606" class="Symbol">=</a>
+    <a id="2612" href="foundation.standard-pullbacks.html#2175" class="Function">standard-pullback</a>
+      <a id="2636" class="Symbol">(</a> <a id="2638" href="foundation.spans.html#2180" class="Function">right-map-span</a> <a id="2653" href="foundation.horizontal-composition-spans-of-spans.html#2354" class="Bound">F</a> <a id="2655" href="foundation-core.function-types.html#504" class="Function Operator">∘</a> <a id="2657" href="foundation.spans-of-spans.html#2462" class="Function">left-map-span-of-spans</a> <a id="2680" href="foundation.horizontal-composition-spans-of-spans.html#2354" class="Bound">F</a> <a id="2682" href="foundation.horizontal-composition-spans-of-spans.html#2372" class="Bound">G</a> <a id="2684" href="foundation.horizontal-composition-spans-of-spans.html#2430" class="Bound">α</a><a id="2685" class="Symbol">)</a>
+      <a id="2693" class="Symbol">(</a> <a id="2695" href="foundation.spans.html#2108" class="Function">left-map-span</a> <a id="2709" href="foundation.horizontal-composition-spans-of-spans.html#2410" class="Bound">I</a> <a id="2711" href="foundation-core.function-types.html#504" class="Function Operator">∘</a> <a id="2713" href="foundation.spans-of-spans.html#2601" class="Function">right-map-span-of-spans</a> <a id="2737" href="foundation.horizontal-composition-spans-of-spans.html#2392" class="Bound">H</a> <a id="2739" href="foundation.horizontal-composition-spans-of-spans.html#2410" class="Bound">I</a> <a id="2741" href="foundation.horizontal-composition-spans-of-spans.html#2459" class="Bound">β</a><a id="2742" class="Symbol">)</a>
+
+  <a id="2747" href="foundation.horizontal-composition-spans-of-spans.html#2747" class="Function">cone-left-map-horizontal-comp-span-of-spans</a> <a id="2791" class="Symbol">:</a>
+    <a id="2797" href="foundation.cones-over-cospan-diagrams.html#1803" class="Function">cone</a>
+      <a id="2808" class="Symbol">(</a> <a id="2810" href="foundation.spans.html#2180" class="Function">right-map-span</a> <a id="2825" href="foundation.horizontal-composition-spans-of-spans.html#2354" class="Bound">F</a><a id="2826" class="Symbol">)</a>
+      <a id="2834" class="Symbol">(</a> <a id="2836" href="foundation.spans.html#2108" class="Function">left-map-span</a> <a id="2850" href="foundation.horizontal-composition-spans-of-spans.html#2392" class="Bound">H</a><a id="2851" class="Symbol">)</a>
+      <a id="2859" class="Symbol">(</a> <a id="2861" href="foundation.horizontal-composition-spans-of-spans.html#2496" class="Function">spanning-type-horizontal-comp-span-of-spans</a><a id="2904" class="Symbol">)</a>
+  <a id="2908" href="foundation.horizontal-composition-spans-of-spans.html#2747" class="Function">cone-left-map-horizontal-comp-span-of-spans</a> <a id="2952" class="Symbol">=</a>
+    <a id="2958" href="foundation.spans-of-spans.html#2462" class="Function">left-map-span-of-spans</a> <a id="2981" href="foundation.horizontal-composition-spans-of-spans.html#2354" class="Bound">F</a> <a id="2983" href="foundation.horizontal-composition-spans-of-spans.html#2372" class="Bound">G</a> <a id="2985" href="foundation.horizontal-composition-spans-of-spans.html#2430" class="Bound">α</a> <a id="2987" href="foundation-core.function-types.html#504" class="Function Operator">∘</a> <a id="2989" href="foundation.standard-pullbacks.html#2371" class="Function">vertical-map-standard-pullback</a> <a id="3020" href="foundation.dependent-pair-types.html#787" class="InductiveConstructor Operator">,</a>
+    <a id="3026" href="foundation.spans-of-spans.html#2462" class="Function">left-map-span-of-spans</a> <a id="3049" href="foundation.horizontal-composition-spans-of-spans.html#2392" class="Bound">H</a> <a id="3051" href="foundation.horizontal-composition-spans-of-spans.html#2410" class="Bound">I</a> <a id="3053" href="foundation.horizontal-composition-spans-of-spans.html#2459" class="Bound">β</a> <a id="3055" href="foundation-core.function-types.html#504" class="Function Operator">∘</a> <a id="3057" href="foundation.standard-pullbacks.html#2472" class="Function">horizontal-map-standard-pullback</a> <a id="3090" href="foundation.dependent-pair-types.html#787" class="InductiveConstructor Operator">,</a>
+    <a id="3096" href="foundation.standard-pullbacks.html#2587" class="Function">coherence-square-standard-pullback</a> <a id="3131" href="foundation-core.homotopies.html#3099" class="Function Operator">∙h</a>
+    <a id="3138" href="foundation.spans-of-spans.html#2841" class="Function">coh-left-span-of-spans</a> <a id="3161" href="foundation.horizontal-composition-spans-of-spans.html#2392" class="Bound">H</a> <a id="3163" href="foundation.horizontal-composition-spans-of-spans.html#2410" class="Bound">I</a> <a id="3165" href="foundation.horizontal-composition-spans-of-spans.html#2459" class="Bound">β</a> <a id="3167" href="foundation.whiskering-homotopies-composition.html#2725" class="Function Operator">·r</a> <a id="3170" href="foundation.standard-pullbacks.html#2472" class="Function">horizontal-map-standard-pullback</a>
+
+  <a id="3206" href="foundation.horizontal-composition-spans-of-spans.html#3206" class="Function">left-map-horizontal-comp-span-of-spans</a> <a id="3245" class="Symbol">:</a>
+    <a id="3251" href="foundation.horizontal-composition-spans-of-spans.html#2496" class="Function">spanning-type-horizontal-comp-span-of-spans</a> <a id="3295" class="Symbol">→</a> <a id="3297" href="foundation.composition-spans.html#1546" class="Function">spanning-type-comp-span</a> <a id="3321" href="foundation.horizontal-composition-spans-of-spans.html#2392" class="Bound">H</a> <a id="3323" href="foundation.horizontal-composition-spans-of-spans.html#2354" class="Bound">F</a>
+  <a id="3327" href="foundation.horizontal-composition-spans-of-spans.html#3206" class="Function">left-map-horizontal-comp-span-of-spans</a> <a id="3366" class="Symbol">=</a>
+    <a id="3372" href="foundation.standard-pullbacks.html#3616" class="Function">gap</a>
+      <a id="3382" class="Symbol">(</a> <a id="3384" href="foundation.spans.html#2180" class="Function">right-map-span</a> <a id="3399" href="foundation.horizontal-composition-spans-of-spans.html#2354" class="Bound">F</a><a id="3400" class="Symbol">)</a>
+      <a id="3408" class="Symbol">(</a> <a id="3410" href="foundation.spans.html#2108" class="Function">left-map-span</a> <a id="3424" href="foundation.horizontal-composition-spans-of-spans.html#2392" class="Bound">H</a><a id="3425" class="Symbol">)</a>
+      <a id="3433" class="Symbol">(</a> <a id="3435" href="foundation.horizontal-composition-spans-of-spans.html#2747" class="Function">cone-left-map-horizontal-comp-span-of-spans</a><a id="3478" class="Symbol">)</a>
+
+  <a id="3483" href="foundation.horizontal-composition-spans-of-spans.html#3483" class="Function">cone-right-map-horizontal-comp-span-of-spans</a> <a id="3528" class="Symbol">:</a>
+    <a id="3534" href="foundation.cones-over-cospan-diagrams.html#1803" class="Function">cone</a>
+      <a id="3545" class="Symbol">(</a> <a id="3547" href="foundation.spans.html#2180" class="Function">right-map-span</a> <a id="3562" href="foundation.horizontal-composition-spans-of-spans.html#2372" class="Bound">G</a><a id="3563" class="Symbol">)</a>
+      <a id="3571" class="Symbol">(</a> <a id="3573" href="foundation.spans.html#2108" class="Function">left-map-span</a> <a id="3587" href="foundation.horizontal-composition-spans-of-spans.html#2410" class="Bound">I</a><a id="3588" class="Symbol">)</a>
+      <a id="3596" class="Symbol">(</a> <a id="3598" href="foundation.horizontal-composition-spans-of-spans.html#2496" class="Function">spanning-type-horizontal-comp-span-of-spans</a><a id="3641" class="Symbol">)</a>
+  <a id="3645" href="foundation.horizontal-composition-spans-of-spans.html#3483" class="Function">cone-right-map-horizontal-comp-span-of-spans</a> <a id="3690" class="Symbol">=</a>
+    <a id="3696" href="foundation.spans-of-spans.html#2601" class="Function">right-map-span-of-spans</a> <a id="3720" href="foundation.horizontal-composition-spans-of-spans.html#2354" class="Bound">F</a> <a id="3722" href="foundation.horizontal-composition-spans-of-spans.html#2372" class="Bound">G</a> <a id="3724" href="foundation.horizontal-composition-spans-of-spans.html#2430" class="Bound">α</a> <a id="3726" href="foundation-core.function-types.html#504" class="Function Operator">∘</a> <a id="3728" href="foundation.standard-pullbacks.html#2371" class="Function">vertical-map-standard-pullback</a> <a id="3759" href="foundation.dependent-pair-types.html#787" class="InductiveConstructor Operator">,</a>
+    <a id="3765" href="foundation.spans-of-spans.html#2601" class="Function">right-map-span-of-spans</a> <a id="3789" href="foundation.horizontal-composition-spans-of-spans.html#2392" class="Bound">H</a> <a id="3791" href="foundation.horizontal-composition-spans-of-spans.html#2410" class="Bound">I</a> <a id="3793" href="foundation.horizontal-composition-spans-of-spans.html#2459" class="Bound">β</a> <a id="3795" href="foundation-core.function-types.html#504" class="Function Operator">∘</a> <a id="3797" href="foundation.standard-pullbacks.html#2472" class="Function">horizontal-map-standard-pullback</a> <a id="3830" href="foundation.dependent-pair-types.html#787" class="InductiveConstructor Operator">,</a>
+    <a id="3836" href="foundation.spans-of-spans.html#3059" class="Function">coh-right-span-of-spans</a> <a id="3860" href="foundation.horizontal-composition-spans-of-spans.html#2354" class="Bound">F</a> <a id="3862" href="foundation.horizontal-composition-spans-of-spans.html#2372" class="Bound">G</a> <a id="3864" href="foundation.horizontal-composition-spans-of-spans.html#2430" class="Bound">α</a> <a id="3866" href="foundation.whiskering-homotopies-composition.html#2725" class="Function Operator">·r</a> <a id="3869" href="foundation.standard-pullbacks.html#2371" class="Function">vertical-map-standard-pullback</a> <a id="3900" href="foundation-core.homotopies.html#3099" class="Function Operator">∙h</a>
+    <a id="3907" href="foundation.standard-pullbacks.html#2587" class="Function">coherence-square-standard-pullback</a>
+
+  <a id="3945" href="foundation.horizontal-composition-spans-of-spans.html#3945" class="Function">right-map-horizontal-comp-span-of-spans</a> <a id="3985" class="Symbol">:</a>
+    <a id="3991" href="foundation.horizontal-composition-spans-of-spans.html#2496" class="Function">spanning-type-horizontal-comp-span-of-spans</a> <a id="4035" class="Symbol">→</a> <a id="4037" href="foundation.composition-spans.html#1546" class="Function">spanning-type-comp-span</a> <a id="4061" href="foundation.horizontal-composition-spans-of-spans.html#2410" class="Bound">I</a> <a id="4063" href="foundation.horizontal-composition-spans-of-spans.html#2372" class="Bound">G</a>
+  <a id="4067" href="foundation.horizontal-composition-spans-of-spans.html#3945" class="Function">right-map-horizontal-comp-span-of-spans</a> <a id="4107" class="Symbol">=</a>
+    <a id="4113" href="foundation.standard-pullbacks.html#3616" class="Function">gap</a>
+      <a id="4123" class="Symbol">(</a> <a id="4125" href="foundation.spans.html#2180" class="Function">right-map-span</a> <a id="4140" href="foundation.horizontal-composition-spans-of-spans.html#2372" class="Bound">G</a><a id="4141" class="Symbol">)</a>
+      <a id="4149" class="Symbol">(</a> <a id="4151" href="foundation.spans.html#2108" class="Function">left-map-span</a> <a id="4165" href="foundation.horizontal-composition-spans-of-spans.html#2410" class="Bound">I</a><a id="4166" class="Symbol">)</a>
+      <a id="4174" class="Symbol">(</a> <a id="4176" href="foundation.horizontal-composition-spans-of-spans.html#3483" class="Function">cone-right-map-horizontal-comp-span-of-spans</a><a id="4220" class="Symbol">)</a>
+
+  <a id="4225" href="foundation.horizontal-composition-spans-of-spans.html#4225" class="Function">span-horizontal-comp-span-of-spans</a> <a id="4260" class="Symbol">:</a>
+    <a id="4266" href="foundation.spans.html#1830" class="Function">span</a>
+      <a id="4277" class="Symbol">(</a> <a id="4279" href="foundation.horizontal-composition-spans-of-spans.html#2280" class="Bound">l2</a> <a id="4282" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="4284" href="foundation.horizontal-composition-spans-of-spans.html#2298" class="Bound">l8</a> <a id="4287" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="4289" href="foundation.horizontal-composition-spans-of-spans.html#2301" class="Bound">l9</a><a id="4291" class="Symbol">)</a>
+      <a id="4299" class="Symbol">(</a> <a id="4301" href="foundation.composition-spans.html#1546" class="Function">spanning-type-comp-span</a> <a id="4325" href="foundation.horizontal-composition-spans-of-spans.html#2392" class="Bound">H</a> <a id="4327" href="foundation.horizontal-composition-spans-of-spans.html#2354" class="Bound">F</a><a id="4328" class="Symbol">)</a>
+      <a id="4336" class="Symbol">(</a> <a id="4338" href="foundation.composition-spans.html#1546" class="Function">spanning-type-comp-span</a> <a id="4362" href="foundation.horizontal-composition-spans-of-spans.html#2410" class="Bound">I</a> <a id="4364" href="foundation.horizontal-composition-spans-of-spans.html#2372" class="Bound">G</a><a id="4365" class="Symbol">)</a>
+  <a id="4369" href="foundation.horizontal-composition-spans-of-spans.html#4225" class="Function">span-horizontal-comp-span-of-spans</a> <a id="4404" class="Symbol">=</a>
+    <a id="4410" href="foundation.horizontal-composition-spans-of-spans.html#2496" class="Function">spanning-type-horizontal-comp-span-of-spans</a> <a id="4454" href="foundation.dependent-pair-types.html#787" class="InductiveConstructor Operator">,</a>
+    <a id="4460" href="foundation.horizontal-composition-spans-of-spans.html#3206" class="Function">left-map-horizontal-comp-span-of-spans</a> <a id="4499" href="foundation.dependent-pair-types.html#787" class="InductiveConstructor Operator">,</a>
+    <a id="4505" href="foundation.horizontal-composition-spans-of-spans.html#3945" class="Function">right-map-horizontal-comp-span-of-spans</a>
+
+  <a id="4548" href="foundation.horizontal-composition-spans-of-spans.html#4548" class="Function">coherence-left-horizontal-comp-span-of-spans</a> <a id="4593" class="Symbol">:</a>
+    <a id="4599" href="foundation.spans-of-spans.html#948" class="Function">coherence-left-span-of-spans</a>
+      <a id="4634" class="Symbol">(</a> <a id="4636" href="foundation.composition-spans.html#1933" class="Function">comp-span</a> <a id="4646" href="foundation.horizontal-composition-spans-of-spans.html#2392" class="Bound">H</a> <a id="4648" href="foundation.horizontal-composition-spans-of-spans.html#2354" class="Bound">F</a><a id="4649" class="Symbol">)</a>
+      <a id="4657" class="Symbol">(</a> <a id="4659" href="foundation.composition-spans.html#1933" class="Function">comp-span</a> <a id="4669" href="foundation.horizontal-composition-spans-of-spans.html#2410" class="Bound">I</a> <a id="4671" href="foundation.horizontal-composition-spans-of-spans.html#2372" class="Bound">G</a><a id="4672" class="Symbol">)</a>
+      <a id="4680" class="Symbol">(</a> <a id="4682" href="foundation.horizontal-composition-spans-of-spans.html#4225" class="Function">span-horizontal-comp-span-of-spans</a><a id="4716" class="Symbol">)</a>
+  <a id="4720" href="foundation.horizontal-composition-spans-of-spans.html#4548" class="Function">coherence-left-horizontal-comp-span-of-spans</a> <a id="4765" class="Symbol">=</a>
+    <a id="4771" href="foundation.spans-of-spans.html#2841" class="Function">coh-left-span-of-spans</a> <a id="4794" href="foundation.horizontal-composition-spans-of-spans.html#2354" class="Bound">F</a> <a id="4796" href="foundation.horizontal-composition-spans-of-spans.html#2372" class="Bound">G</a> <a id="4798" href="foundation.horizontal-composition-spans-of-spans.html#2430" class="Bound">α</a> <a id="4800" href="foundation.whiskering-homotopies-composition.html#2725" class="Function Operator">·r</a> <a id="4803" href="foundation.standard-pullbacks.html#2371" class="Function">vertical-map-standard-pullback</a>
+
+  <a id="4837" href="foundation.horizontal-composition-spans-of-spans.html#4837" class="Function">coherence-right-horizontal-comp-span-of-spans</a> <a id="4883" class="Symbol">:</a>
+    <a id="4889" href="foundation.spans-of-spans.html#1277" class="Function">coherence-right-span-of-spans</a>
+      <a id="4925" class="Symbol">(</a> <a id="4927" href="foundation.composition-spans.html#1933" class="Function">comp-span</a> <a id="4937" href="foundation.horizontal-composition-spans-of-spans.html#2392" class="Bound">H</a> <a id="4939" href="foundation.horizontal-composition-spans-of-spans.html#2354" class="Bound">F</a><a id="4940" class="Symbol">)</a>
+      <a id="4948" class="Symbol">(</a> <a id="4950" href="foundation.composition-spans.html#1933" class="Function">comp-span</a> <a id="4960" href="foundation.horizontal-composition-spans-of-spans.html#2410" class="Bound">I</a> <a id="4962" href="foundation.horizontal-composition-spans-of-spans.html#2372" class="Bound">G</a><a id="4963" class="Symbol">)</a>
+      <a id="4971" class="Symbol">(</a> <a id="4973" href="foundation.horizontal-composition-spans-of-spans.html#4225" class="Function">span-horizontal-comp-span-of-spans</a><a id="5007" class="Symbol">)</a>
+  <a id="5011" href="foundation.horizontal-composition-spans-of-spans.html#4837" class="Function">coherence-right-horizontal-comp-span-of-spans</a> <a id="5057" class="Symbol">=</a>
+    <a id="5063" href="foundation.spans-of-spans.html#3059" class="Function">coh-right-span-of-spans</a> <a id="5087" href="foundation.horizontal-composition-spans-of-spans.html#2392" class="Bound">H</a> <a id="5089" href="foundation.horizontal-composition-spans-of-spans.html#2410" class="Bound">I</a> <a id="5091" href="foundation.horizontal-composition-spans-of-spans.html#2459" class="Bound">β</a> <a id="5093" href="foundation.whiskering-homotopies-composition.html#2725" class="Function Operator">·r</a> <a id="5096" href="foundation.standard-pullbacks.html#2472" class="Function">horizontal-map-standard-pullback</a>
+
+  <a id="5132" href="foundation.horizontal-composition-spans-of-spans.html#5132" class="Function">coherence-horizontal-comp-span-of-spans</a> <a id="5172" class="Symbol">:</a>
+    <a id="5178" href="foundation.spans-of-spans.html#1610" class="Function">coherence-span-of-spans</a>
+      <a id="5208" class="Symbol">(</a> <a id="5210" href="foundation.composition-spans.html#1933" class="Function">comp-span</a> <a id="5220" href="foundation.horizontal-composition-spans-of-spans.html#2392" class="Bound">H</a> <a id="5222" href="foundation.horizontal-composition-spans-of-spans.html#2354" class="Bound">F</a><a id="5223" class="Symbol">)</a>
+      <a id="5231" class="Symbol">(</a> <a id="5233" href="foundation.composition-spans.html#1933" class="Function">comp-span</a> <a id="5243" href="foundation.horizontal-composition-spans-of-spans.html#2410" class="Bound">I</a> <a id="5245" href="foundation.horizontal-composition-spans-of-spans.html#2372" class="Bound">G</a><a id="5246" class="Symbol">)</a>
+      <a id="5254" class="Symbol">(</a> <a id="5256" href="foundation.horizontal-composition-spans-of-spans.html#4225" class="Function">span-horizontal-comp-span-of-spans</a><a id="5290" class="Symbol">)</a>
+  <a id="5294" href="foundation.horizontal-composition-spans-of-spans.html#5132" class="Function">coherence-horizontal-comp-span-of-spans</a> <a id="5334" class="Symbol">=</a>
+    <a id="5340" href="foundation.horizontal-composition-spans-of-spans.html#4548" class="Function">coherence-left-horizontal-comp-span-of-spans</a> <a id="5385" href="foundation.dependent-pair-types.html#787" class="InductiveConstructor Operator">,</a>
+    <a id="5391" href="foundation.horizontal-composition-spans-of-spans.html#4837" class="Function">coherence-right-horizontal-comp-span-of-spans</a>
+
+  <a id="5440" href="foundation.horizontal-composition-spans-of-spans.html#5440" class="Function">horizontal-comp-span-of-spans</a> <a id="5470" class="Symbol">:</a>
+    <a id="5476" href="foundation.spans-of-spans.html#1890" class="Function">span-of-spans</a> <a id="5490" class="Symbol">(</a><a id="5491" href="foundation.horizontal-composition-spans-of-spans.html#2280" class="Bound">l2</a> <a id="5494" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="5496" href="foundation.horizontal-composition-spans-of-spans.html#2298" class="Bound">l8</a> <a id="5499" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="5501" href="foundation.horizontal-composition-spans-of-spans.html#2301" class="Bound">l9</a><a id="5503" class="Symbol">)</a> <a id="5505" class="Symbol">(</a><a id="5506" href="foundation.composition-spans.html#1933" class="Function">comp-span</a> <a id="5516" href="foundation.horizontal-composition-spans-of-spans.html#2392" class="Bound">H</a> <a id="5518" href="foundation.horizontal-composition-spans-of-spans.html#2354" class="Bound">F</a><a id="5519" class="Symbol">)</a> <a id="5521" class="Symbol">(</a><a id="5522" href="foundation.composition-spans.html#1933" class="Function">comp-span</a> <a id="5532" href="foundation.horizontal-composition-spans-of-spans.html#2410" class="Bound">I</a> <a id="5534" href="foundation.horizontal-composition-spans-of-spans.html#2372" class="Bound">G</a><a id="5535" class="Symbol">)</a>
+  <a id="5539" href="foundation.horizontal-composition-spans-of-spans.html#5440" class="Function">horizontal-comp-span-of-spans</a> <a id="5569" class="Symbol">=</a>
+    <a id="5575" href="foundation.horizontal-composition-spans-of-spans.html#4225" class="Function">span-horizontal-comp-span-of-spans</a> <a id="5610" href="foundation.dependent-pair-types.html#787" class="InductiveConstructor Operator">,</a>
+    <a id="5616" href="foundation.horizontal-composition-spans-of-spans.html#5132" class="Function">coherence-horizontal-comp-span-of-spans</a>
+</pre>

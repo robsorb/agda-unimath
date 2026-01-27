@@ -1,0 +1,58 @@
+# The opposite of a group
+
+<pre class="Agda"><a id="36" class="Keyword">module</a> <a id="43" href="group-theory.opposite-groups.html" class="Module">group-theory.opposite-groups</a> <a id="72" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="128" class="Keyword">open</a> <a id="133" class="Keyword">import</a> <a id="140" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="172" class="Keyword">open</a> <a id="177" class="Keyword">import</a> <a id="184" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="212" class="Keyword">open</a> <a id="217" class="Keyword">import</a> <a id="224" href="group-theory.groups.html" class="Module">group-theory.groups</a>
+<a id="244" class="Keyword">open</a> <a id="249" class="Keyword">import</a> <a id="256" href="group-theory.isomorphisms-groups.html" class="Module">group-theory.isomorphisms-groups</a>
+<a id="289" class="Keyword">open</a> <a id="294" class="Keyword">import</a> <a id="301" href="group-theory.monoids.html" class="Module">group-theory.monoids</a>
+<a id="322" class="Keyword">open</a> <a id="327" class="Keyword">import</a> <a id="334" href="group-theory.opposite-semigroups.html" class="Module">group-theory.opposite-semigroups</a>
+</pre>
+</details>
+
+## Idea
+
+The **opposite of a [group](group-theory.groups.md)** `G` with multiplication
+`μ` is a group with the same underlying [set](foundation-core.sets.md) as `G`
+and multiplication given by `x y ↦ μ y x`.
+
+## Definition
+
+<pre class="Agda"><a id="616" class="Keyword">module</a> <a id="623" href="group-theory.opposite-groups.html#623" class="Module">_</a>
+  <a id="627" class="Symbol">{</a><a id="628" href="group-theory.opposite-groups.html#628" class="Bound">l</a> <a id="630" class="Symbol">:</a> <a id="632" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="637" class="Symbol">}</a> <a id="639" class="Symbol">(</a><a id="640" href="group-theory.opposite-groups.html#640" class="Bound">G</a> <a id="642" class="Symbol">:</a> <a id="644" href="group-theory.groups.html#2346" class="Function">Group</a> <a id="650" href="group-theory.opposite-groups.html#628" class="Bound">l</a><a id="651" class="Symbol">)</a>
+  <a id="655" class="Keyword">where</a>
+
+  <a id="664" href="group-theory.opposite-groups.html#664" class="Function">is-unital-op-Group</a> <a id="683" class="Symbol">:</a> <a id="685" href="group-theory.monoids.html#725" class="Function">is-unital-Semigroup</a> <a id="705" class="Symbol">(</a><a id="706" href="group-theory.opposite-semigroups.html#1138" class="Function">op-Semigroup</a> <a id="719" class="Symbol">(</a><a id="720" href="group-theory.groups.html#2476" class="Function">semigroup-Group</a> <a id="736" href="group-theory.opposite-groups.html#640" class="Bound">G</a><a id="737" class="Symbol">))</a>
+  <a id="742" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="746" href="group-theory.opposite-groups.html#664" class="Function">is-unital-op-Group</a> <a id="765" class="Symbol">=</a> <a id="767" href="group-theory.groups.html#3628" class="Function">unit-Group</a> <a id="778" href="group-theory.opposite-groups.html#640" class="Bound">G</a>
+  <a id="782" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="786" class="Symbol">(</a><a id="787" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="791" href="group-theory.opposite-groups.html#664" class="Function">is-unital-op-Group</a><a id="809" class="Symbol">)</a> <a id="811" class="Symbol">=</a> <a id="813" href="group-theory.groups.html#4534" class="Function">right-unit-law-mul-Group</a> <a id="838" href="group-theory.opposite-groups.html#640" class="Bound">G</a>
+  <a id="842" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="846" class="Symbol">(</a><a id="847" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="851" href="group-theory.opposite-groups.html#664" class="Function">is-unital-op-Group</a><a id="869" class="Symbol">)</a> <a id="871" class="Symbol">=</a> <a id="873" href="group-theory.groups.html#4398" class="Function">left-unit-law-mul-Group</a> <a id="897" href="group-theory.opposite-groups.html#640" class="Bound">G</a>
+
+  <a id="902" href="group-theory.opposite-groups.html#902" class="Function">is-group-op-Group</a> <a id="920" class="Symbol">:</a> <a id="922" href="group-theory.groups.html#2165" class="Function">is-group-Semigroup</a> <a id="941" class="Symbol">(</a><a id="942" href="group-theory.opposite-semigroups.html#1138" class="Function">op-Semigroup</a> <a id="955" class="Symbol">(</a><a id="956" href="group-theory.groups.html#2476" class="Function">semigroup-Group</a> <a id="972" href="group-theory.opposite-groups.html#640" class="Bound">G</a><a id="973" class="Symbol">))</a>
+  <a id="978" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="982" href="group-theory.opposite-groups.html#902" class="Function">is-group-op-Group</a> <a id="1000" class="Symbol">=</a> <a id="1002" href="group-theory.opposite-groups.html#664" class="Function">is-unital-op-Group</a>
+  <a id="1023" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="1027" class="Symbol">(</a><a id="1028" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1032" href="group-theory.opposite-groups.html#902" class="Function">is-group-op-Group</a><a id="1049" class="Symbol">)</a> <a id="1051" class="Symbol">=</a> <a id="1053" href="group-theory.groups.html#5404" class="Function">inv-Group</a> <a id="1063" href="group-theory.opposite-groups.html#640" class="Bound">G</a>
+  <a id="1067" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="1071" class="Symbol">(</a><a id="1072" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1076" class="Symbol">(</a><a id="1077" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1081" href="group-theory.opposite-groups.html#902" class="Function">is-group-op-Group</a><a id="1098" class="Symbol">))</a> <a id="1101" class="Symbol">=</a> <a id="1103" href="group-theory.groups.html#5637" class="Function">right-inverse-law-mul-Group</a> <a id="1131" href="group-theory.opposite-groups.html#640" class="Bound">G</a>
+  <a id="1135" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1139" class="Symbol">(</a><a id="1140" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1144" class="Symbol">(</a><a id="1145" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1149" href="group-theory.opposite-groups.html#902" class="Function">is-group-op-Group</a><a id="1166" class="Symbol">))</a> <a id="1169" class="Symbol">=</a> <a id="1171" href="group-theory.groups.html#5480" class="Function">left-inverse-law-mul-Group</a> <a id="1198" href="group-theory.opposite-groups.html#640" class="Bound">G</a>
+
+  <a id="1203" href="group-theory.opposite-groups.html#1203" class="Function">op-Group</a> <a id="1212" class="Symbol">:</a> <a id="1214" href="group-theory.groups.html#2346" class="Function">Group</a> <a id="1220" href="group-theory.opposite-groups.html#628" class="Bound">l</a>
+  <a id="1224" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="1228" href="group-theory.opposite-groups.html#1203" class="Function">op-Group</a> <a id="1237" class="Symbol">=</a> <a id="1239" href="group-theory.opposite-semigroups.html#1138" class="Function">op-Semigroup</a> <a id="1252" class="Symbol">(</a><a id="1253" href="group-theory.groups.html#2476" class="Function">semigroup-Group</a> <a id="1269" href="group-theory.opposite-groups.html#640" class="Bound">G</a><a id="1270" class="Symbol">)</a>
+  <a id="1274" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1278" href="group-theory.opposite-groups.html#1203" class="Function">op-Group</a> <a id="1287" class="Symbol">=</a> <a id="1289" href="group-theory.opposite-groups.html#902" class="Function">is-group-op-Group</a>
+</pre>
+## Properties
+
+### The opposite group of `G` is isomorphic to `G`
+
+<pre class="Agda"><a id="1387" class="Keyword">module</a> <a id="1394" href="group-theory.opposite-groups.html#1394" class="Module">_</a>
+  <a id="1398" class="Symbol">{</a><a id="1399" href="group-theory.opposite-groups.html#1399" class="Bound">l</a> <a id="1401" class="Symbol">:</a> <a id="1403" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1408" class="Symbol">}</a> <a id="1410" class="Symbol">(</a><a id="1411" href="group-theory.opposite-groups.html#1411" class="Bound">G</a> <a id="1413" class="Symbol">:</a> <a id="1415" href="group-theory.groups.html#2346" class="Function">Group</a> <a id="1421" href="group-theory.opposite-groups.html#1399" class="Bound">l</a><a id="1422" class="Symbol">)</a>
+  <a id="1426" class="Keyword">where</a>
+
+  <a id="1435" href="group-theory.opposite-groups.html#1435" class="Function">equiv-inv-Group</a> <a id="1451" class="Symbol">:</a> <a id="1453" href="group-theory.isomorphisms-groups.html#3164" class="Function">equiv-Group</a> <a id="1465" href="group-theory.opposite-groups.html#1411" class="Bound">G</a> <a id="1467" class="Symbol">(</a><a id="1468" href="group-theory.opposite-groups.html#1203" class="Function">op-Group</a> <a id="1477" href="group-theory.opposite-groups.html#1411" class="Bound">G</a><a id="1478" class="Symbol">)</a>
+  <a id="1482" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="1486" href="group-theory.opposite-groups.html#1435" class="Function">equiv-inv-Group</a> <a id="1502" class="Symbol">=</a> <a id="1504" href="group-theory.groups.html#14977" class="Function">equiv-equiv-inv-Group</a> <a id="1526" href="group-theory.opposite-groups.html#1411" class="Bound">G</a>
+  <a id="1530" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1534" href="group-theory.opposite-groups.html#1435" class="Function">equiv-inv-Group</a> <a id="1550" class="Symbol">=</a> <a id="1552" href="group-theory.groups.html#13420" class="Function">distributive-inv-mul-Group</a> <a id="1579" href="group-theory.opposite-groups.html#1411" class="Bound">G</a>
+
+  <a id="1584" href="group-theory.opposite-groups.html#1584" class="Function">iso-inv-Group</a> <a id="1598" class="Symbol">:</a> <a id="1600" href="group-theory.isomorphisms-groups.html#3368" class="Function">iso-Group</a> <a id="1610" href="group-theory.opposite-groups.html#1411" class="Bound">G</a> <a id="1612" class="Symbol">(</a><a id="1613" href="group-theory.opposite-groups.html#1203" class="Function">op-Group</a> <a id="1622" href="group-theory.opposite-groups.html#1411" class="Bound">G</a><a id="1623" class="Symbol">)</a>
+  <a id="1627" href="group-theory.opposite-groups.html#1584" class="Function">iso-inv-Group</a> <a id="1641" class="Symbol">=</a> <a id="1643" href="group-theory.isomorphisms-groups.html#6268" class="Function">iso-equiv-Group</a> <a id="1659" href="group-theory.opposite-groups.html#1411" class="Bound">G</a> <a id="1661" class="Symbol">(</a><a id="1662" href="group-theory.opposite-groups.html#1203" class="Function">op-Group</a> <a id="1671" href="group-theory.opposite-groups.html#1411" class="Bound">G</a><a id="1672" class="Symbol">)</a> <a id="1674" href="group-theory.opposite-groups.html#1435" class="Function">equiv-inv-Group</a>
+</pre>

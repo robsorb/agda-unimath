@@ -1,0 +1,29 @@
+# Standard finite pruned trees
+
+<pre class="Agda"><a id="41" class="Keyword">module</a> <a id="48" href="univalent-combinatorics.standard-finite-pruned-trees.html" class="Module">univalent-combinatorics.standard-finite-pruned-trees</a> <a id="101" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="157" class="Keyword">open</a> <a id="162" class="Keyword">import</a> <a id="169" href="elementary-number-theory.natural-numbers.html" class="Module">elementary-number-theory.natural-numbers</a>
+
+<a id="211" class="Keyword">open</a> <a id="216" class="Keyword">import</a> <a id="223" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="251" class="Keyword">open</a> <a id="256" class="Keyword">import</a> <a id="263" href="univalent-combinatorics.standard-finite-types.html" class="Module">univalent-combinatorics.standard-finite-types</a>
+</pre>
+</details>
+
+## Idea
+
+A standard finite pruned tree of height `n` can be thought of as a standard
+finite tree in which each path from the root to a leaf has length `n + 1`.
+
+## Definition
+
+<pre class="Agda"><a id="510" class="Keyword">data</a> <a id="Pruned-Tree-Fin"></a><a id="515" href="univalent-combinatorics.standard-finite-pruned-trees.html#515" class="Datatype">Pruned-Tree-Fin</a> <a id="531" class="Symbol">:</a> <a id="533" href="elementary-number-theory.natural-numbers.html#825" class="Datatype">ℕ</a> <a id="535" class="Symbol">→</a> <a id="537" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="540" href="Agda.Primitive.html#915" class="Primitive">lzero</a> <a id="546" class="Keyword">where</a>
+  <a id="Pruned-Tree-Fin.root-Pruned-Tree-Fin"></a><a id="554" href="univalent-combinatorics.standard-finite-pruned-trees.html#554" class="InductiveConstructor">root-Pruned-Tree-Fin</a> <a id="575" class="Symbol">:</a> <a id="577" href="univalent-combinatorics.standard-finite-pruned-trees.html#515" class="Datatype">Pruned-Tree-Fin</a> <a id="593" href="elementary-number-theory.natural-numbers.html#846" class="InductiveConstructor">zero-ℕ</a>
+  <a id="Pruned-Tree-Fin.tree-Pruned-Tree-Fin"></a><a id="602" href="univalent-combinatorics.standard-finite-pruned-trees.html#602" class="InductiveConstructor">tree-Pruned-Tree-Fin</a> <a id="623" class="Symbol">:</a>
+    <a id="629" class="Symbol">(</a><a id="630" href="univalent-combinatorics.standard-finite-pruned-trees.html#630" class="Bound">n</a> <a id="632" href="univalent-combinatorics.standard-finite-pruned-trees.html#632" class="Bound">k</a> <a id="634" class="Symbol">:</a> <a id="636" href="elementary-number-theory.natural-numbers.html#825" class="Datatype">ℕ</a><a id="637" class="Symbol">)</a> <a id="639" class="Symbol">→</a> <a id="641" class="Symbol">(</a><a id="642" href="univalent-combinatorics.standard-finite-types.html#2192" class="Function">Fin</a> <a id="646" href="univalent-combinatorics.standard-finite-pruned-trees.html#632" class="Bound">k</a> <a id="648" class="Symbol">→</a> <a id="650" href="univalent-combinatorics.standard-finite-pruned-trees.html#515" class="Datatype">Pruned-Tree-Fin</a> <a id="666" href="univalent-combinatorics.standard-finite-pruned-trees.html#630" class="Bound">n</a><a id="667" class="Symbol">)</a> <a id="669" class="Symbol">→</a> <a id="671" href="univalent-combinatorics.standard-finite-pruned-trees.html#515" class="Datatype">Pruned-Tree-Fin</a> <a id="687" class="Symbol">(</a><a id="688" href="elementary-number-theory.natural-numbers.html#859" class="InductiveConstructor">succ-ℕ</a> <a id="695" href="univalent-combinatorics.standard-finite-pruned-trees.html#630" class="Bound">n</a><a id="696" class="Symbol">)</a>
+
+<a id="width-Pruned-Tree-Fin"></a><a id="699" href="univalent-combinatorics.standard-finite-pruned-trees.html#699" class="Function">width-Pruned-Tree-Fin</a> <a id="721" class="Symbol">:</a> <a id="723" class="Symbol">(</a><a id="724" href="univalent-combinatorics.standard-finite-pruned-trees.html#724" class="Bound">n</a> <a id="726" class="Symbol">:</a> <a id="728" href="elementary-number-theory.natural-numbers.html#825" class="Datatype">ℕ</a><a id="729" class="Symbol">)</a> <a id="731" class="Symbol">→</a> <a id="733" href="univalent-combinatorics.standard-finite-pruned-trees.html#515" class="Datatype">Pruned-Tree-Fin</a> <a id="749" class="Symbol">(</a><a id="750" href="elementary-number-theory.natural-numbers.html#859" class="InductiveConstructor">succ-ℕ</a> <a id="757" href="univalent-combinatorics.standard-finite-pruned-trees.html#724" class="Bound">n</a><a id="758" class="Symbol">)</a> <a id="760" class="Symbol">→</a> <a id="762" href="elementary-number-theory.natural-numbers.html#825" class="Datatype">ℕ</a>
+<a id="764" href="univalent-combinatorics.standard-finite-pruned-trees.html#699" class="Function">width-Pruned-Tree-Fin</a> <a id="786" href="univalent-combinatorics.standard-finite-pruned-trees.html#786" class="Bound">n</a> <a id="788" class="Symbol">(</a><a id="789" href="univalent-combinatorics.standard-finite-pruned-trees.html#602" class="InductiveConstructor">tree-Pruned-Tree-Fin</a> <a id="810" class="DottedPattern Symbol">.</a><a id="811" href="univalent-combinatorics.standard-finite-pruned-trees.html#786" class="DottedPattern Bound">n</a> <a id="813" href="univalent-combinatorics.standard-finite-pruned-trees.html#813" class="Bound">k</a> <a id="815" href="univalent-combinatorics.standard-finite-pruned-trees.html#815" class="Bound">x</a><a id="816" class="Symbol">)</a> <a id="818" class="Symbol">=</a> <a id="820" href="univalent-combinatorics.standard-finite-pruned-trees.html#813" class="Bound">k</a>
+</pre>

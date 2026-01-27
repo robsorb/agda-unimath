@@ -1,0 +1,31 @@
+# Binary equivalences on unordered pairs of types
+
+<pre class="Agda"><a id="60" class="Keyword">module</a> <a id="67" href="foundation.binary-equivalences-unordered-pairs-of-types.html" class="Module">foundation.binary-equivalences-unordered-pairs-of-types</a> <a id="123" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="179" class="Keyword">open</a> <a id="184" class="Keyword">import</a> <a id="191" href="foundation.binary-operations-unordered-pairs-of-types.html" class="Module">foundation.binary-operations-unordered-pairs-of-types</a>
+<a id="245" class="Keyword">open</a> <a id="250" class="Keyword">import</a> <a id="257" href="foundation.products-unordered-pairs-of-types.html" class="Module">foundation.products-unordered-pairs-of-types</a>
+<a id="302" class="Keyword">open</a> <a id="307" class="Keyword">import</a> <a id="314" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+<a id="341" class="Keyword">open</a> <a id="346" class="Keyword">import</a> <a id="353" href="foundation.unordered-pairs.html" class="Module">foundation.unordered-pairs</a>
+
+<a id="381" class="Keyword">open</a> <a id="386" class="Keyword">import</a> <a id="393" href="foundation-core.equivalences.html" class="Module">foundation-core.equivalences</a>
+<a id="422" class="Keyword">open</a> <a id="427" class="Keyword">import</a> <a id="434" href="foundation-core.function-types.html" class="Module">foundation-core.function-types</a>
+</pre>
+</details>
+
+## Idea
+
+A binary operation `f : ((i : I) → A i) → B` is a binary equivalence if for each
+`i : I` and each `x : A i` the map `f ∘ pair x : A (swap i) → B` is an
+equivalence.
+
+## Definition
+
+<pre class="Agda"><a id="is-binary-equiv-unordered-pair-types"></a><a id="680" href="foundation.binary-equivalences-unordered-pairs-of-types.html#680" class="Function">is-binary-equiv-unordered-pair-types</a> <a id="717" class="Symbol">:</a>
+  <a id="721" class="Symbol">{</a><a id="722" href="foundation.binary-equivalences-unordered-pairs-of-types.html#722" class="Bound">l1</a> <a id="725" href="foundation.binary-equivalences-unordered-pairs-of-types.html#725" class="Bound">l2</a> <a id="728" class="Symbol">:</a> <a id="730" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="735" class="Symbol">}</a> <a id="737" class="Symbol">(</a><a id="738" href="foundation.binary-equivalences-unordered-pairs-of-types.html#738" class="Bound">A</a> <a id="740" class="Symbol">:</a> <a id="742" href="foundation.unordered-pairs.html#2222" class="Function">unordered-pair</a> <a id="757" class="Symbol">(</a><a id="758" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="761" href="foundation.binary-equivalences-unordered-pairs-of-types.html#722" class="Bound">l1</a><a id="763" class="Symbol">))</a> <a id="766" class="Symbol">{</a><a id="767" href="foundation.binary-equivalences-unordered-pairs-of-types.html#767" class="Bound">B</a> <a id="769" class="Symbol">:</a> <a id="771" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="774" href="foundation.binary-equivalences-unordered-pairs-of-types.html#725" class="Bound">l2</a><a id="776" class="Symbol">}</a>
+  <a id="780" class="Symbol">(</a><a id="781" href="foundation.binary-equivalences-unordered-pairs-of-types.html#781" class="Bound">f</a> <a id="783" class="Symbol">:</a> <a id="785" href="foundation.binary-operations-unordered-pairs-of-types.html#473" class="Function">binary-operation-unordered-pair-types</a> <a id="823" href="foundation.binary-equivalences-unordered-pairs-of-types.html#738" class="Bound">A</a> <a id="825" href="foundation.binary-equivalences-unordered-pairs-of-types.html#767" class="Bound">B</a><a id="826" class="Symbol">)</a> <a id="828" class="Symbol">→</a> <a id="830" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="833" class="Symbol">(</a><a id="834" href="foundation.binary-equivalences-unordered-pairs-of-types.html#722" class="Bound">l1</a> <a id="837" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="839" href="foundation.binary-equivalences-unordered-pairs-of-types.html#725" class="Bound">l2</a><a id="841" class="Symbol">)</a>
+<a id="843" href="foundation.binary-equivalences-unordered-pairs-of-types.html#680" class="Function">is-binary-equiv-unordered-pair-types</a> <a id="880" href="foundation.binary-equivalences-unordered-pairs-of-types.html#880" class="Bound">A</a> <a id="882" href="foundation.binary-equivalences-unordered-pairs-of-types.html#882" class="Bound">f</a> <a id="884" class="Symbol">=</a>
+  <a id="888" class="Symbol">(</a><a id="889" href="foundation.binary-equivalences-unordered-pairs-of-types.html#889" class="Bound">i</a> <a id="891" class="Symbol">:</a> <a id="893" href="foundation.unordered-pairs.html#2595" class="Function">type-unordered-pair</a> <a id="913" href="foundation.binary-equivalences-unordered-pairs-of-types.html#880" class="Bound">A</a><a id="914" class="Symbol">)</a> <a id="916" class="Symbol">(</a><a id="917" href="foundation.binary-equivalences-unordered-pairs-of-types.html#917" class="Bound">x</a> <a id="919" class="Symbol">:</a> <a id="921" href="foundation.unordered-pairs.html#3321" class="Function">element-unordered-pair</a> <a id="944" href="foundation.binary-equivalences-unordered-pairs-of-types.html#880" class="Bound">A</a> <a id="946" href="foundation.binary-equivalences-unordered-pairs-of-types.html#889" class="Bound">i</a><a id="947" class="Symbol">)</a> <a id="949" class="Symbol">→</a>
+  <a id="953" href="foundation-core.equivalences.html#1532" class="Function">is-equiv</a> <a id="962" class="Symbol">(</a><a id="963" href="foundation.binary-equivalences-unordered-pairs-of-types.html#882" class="Bound">f</a> <a id="965" href="foundation-core.function-types.html#504" class="Function Operator">∘</a> <a id="967" href="foundation.products-unordered-pairs-of-types.html#2702" class="Function">pair-product-unordered-pair-types</a> <a id="1001" href="foundation.binary-equivalences-unordered-pairs-of-types.html#880" class="Bound">A</a> <a id="1003" href="foundation.binary-equivalences-unordered-pairs-of-types.html#889" class="Bound">i</a> <a id="1005" href="foundation.binary-equivalences-unordered-pairs-of-types.html#917" class="Bound">x</a><a id="1006" class="Symbol">)</a>
+</pre>

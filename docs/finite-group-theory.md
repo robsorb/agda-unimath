@@ -1,0 +1,29 @@
+# Finite group theory
+
+## Modules in the finite group theory namespace
+
+<pre class="Agda"><a id="81" class="Keyword">module</a> <a id="88" href="finite-group-theory.html" class="Module">finite-group-theory</a> <a id="108" class="Keyword">where</a>
+
+<a id="115" class="Keyword">open</a> <a id="120" class="Keyword">import</a> <a id="127" href="finite-group-theory.abstract-quaternion-group.html" class="Module">finite-group-theory.abstract-quaternion-group</a> <a id="173" class="Keyword">public</a>
+<a id="180" class="Keyword">open</a> <a id="185" class="Keyword">import</a> <a id="192" href="finite-group-theory.alternating-concrete-groups.html" class="Module">finite-group-theory.alternating-concrete-groups</a> <a id="240" class="Keyword">public</a>
+<a id="247" class="Keyword">open</a> <a id="252" class="Keyword">import</a> <a id="259" href="finite-group-theory.alternating-groups.html" class="Module">finite-group-theory.alternating-groups</a> <a id="298" class="Keyword">public</a>
+<a id="305" class="Keyword">open</a> <a id="310" class="Keyword">import</a> <a id="317" href="finite-group-theory.cartier-delooping-sign-homomorphism.html" class="Module">finite-group-theory.cartier-delooping-sign-homomorphism</a> <a id="373" class="Keyword">public</a>
+<a id="380" class="Keyword">open</a> <a id="385" class="Keyword">import</a> <a id="392" href="finite-group-theory.concrete-quaternion-group.html" class="Module">finite-group-theory.concrete-quaternion-group</a> <a id="438" class="Keyword">public</a>
+<a id="445" class="Keyword">open</a> <a id="450" class="Keyword">import</a> <a id="457" href="finite-group-theory.delooping-sign-homomorphism.html" class="Module">finite-group-theory.delooping-sign-homomorphism</a> <a id="505" class="Keyword">public</a>
+<a id="512" class="Keyword">open</a> <a id="517" class="Keyword">import</a> <a id="524" href="finite-group-theory.finite-abelian-groups.html" class="Module">finite-group-theory.finite-abelian-groups</a> <a id="566" class="Keyword">public</a>
+<a id="573" class="Keyword">open</a> <a id="578" class="Keyword">import</a> <a id="585" href="finite-group-theory.finite-commutative-monoids.html" class="Module">finite-group-theory.finite-commutative-monoids</a> <a id="632" class="Keyword">public</a>
+<a id="639" class="Keyword">open</a> <a id="644" class="Keyword">import</a> <a id="651" href="finite-group-theory.finite-groups.html" class="Module">finite-group-theory.finite-groups</a> <a id="685" class="Keyword">public</a>
+<a id="692" class="Keyword">open</a> <a id="697" class="Keyword">import</a> <a id="704" href="finite-group-theory.finite-monoids.html" class="Module">finite-group-theory.finite-monoids</a> <a id="739" class="Keyword">public</a>
+<a id="746" class="Keyword">open</a> <a id="751" class="Keyword">import</a> <a id="758" href="finite-group-theory.finite-semigroups.html" class="Module">finite-group-theory.finite-semigroups</a> <a id="796" class="Keyword">public</a>
+<a id="803" class="Keyword">open</a> <a id="808" class="Keyword">import</a> <a id="815" href="finite-group-theory.finite-type-groups.html" class="Module">finite-group-theory.finite-type-groups</a> <a id="854" class="Keyword">public</a>
+<a id="861" class="Keyword">open</a> <a id="866" class="Keyword">import</a> <a id="873" href="finite-group-theory.groups-of-order-2.html" class="Module">finite-group-theory.groups-of-order-2</a> <a id="911" class="Keyword">public</a>
+<a id="918" class="Keyword">open</a> <a id="923" class="Keyword">import</a> <a id="930" href="finite-group-theory.orbits-permutations.html" class="Module">finite-group-theory.orbits-permutations</a> <a id="970" class="Keyword">public</a>
+<a id="977" class="Keyword">open</a> <a id="982" class="Keyword">import</a> <a id="989" href="finite-group-theory.permutations.html" class="Module">finite-group-theory.permutations</a> <a id="1022" class="Keyword">public</a>
+<a id="1029" class="Keyword">open</a> <a id="1034" class="Keyword">import</a> <a id="1041" href="finite-group-theory.permutations-standard-finite-types.html" class="Module">finite-group-theory.permutations-standard-finite-types</a> <a id="1096" class="Keyword">public</a>
+<a id="1103" class="Keyword">open</a> <a id="1108" class="Keyword">import</a> <a id="1115" href="finite-group-theory.sign-homomorphism.html" class="Module">finite-group-theory.sign-homomorphism</a> <a id="1153" class="Keyword">public</a>
+<a id="1160" class="Keyword">open</a> <a id="1165" class="Keyword">import</a> <a id="1172" href="finite-group-theory.simpson-delooping-sign-homomorphism.html" class="Module">finite-group-theory.simpson-delooping-sign-homomorphism</a> <a id="1228" class="Keyword">public</a>
+<a id="1235" class="Keyword">open</a> <a id="1240" class="Keyword">import</a> <a id="1247" href="finite-group-theory.subgroups-finite-groups.html" class="Module">finite-group-theory.subgroups-finite-groups</a> <a id="1291" class="Keyword">public</a>
+<a id="1298" class="Keyword">open</a> <a id="1303" class="Keyword">import</a> <a id="1310" href="finite-group-theory.tetrahedra-in-3-space.html" class="Module">finite-group-theory.tetrahedra-in-3-space</a> <a id="1352" class="Keyword">public</a>
+<a id="1359" class="Keyword">open</a> <a id="1364" class="Keyword">import</a> <a id="1371" href="finite-group-theory.transpositions.html" class="Module">finite-group-theory.transpositions</a> <a id="1406" class="Keyword">public</a>
+<a id="1413" class="Keyword">open</a> <a id="1418" class="Keyword">import</a> <a id="1425" href="finite-group-theory.transpositions-standard-finite-types.html" class="Module">finite-group-theory.transpositions-standard-finite-types</a> <a id="1482" class="Keyword">public</a>
+</pre>

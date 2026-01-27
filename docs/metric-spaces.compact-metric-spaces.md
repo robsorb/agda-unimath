@@ -1,0 +1,41 @@
+# Compact metric spaces
+
+<pre class="Agda"><a id="34" class="Keyword">module</a> <a id="41" href="metric-spaces.compact-metric-spaces.html" class="Module">metric-spaces.compact-metric-spaces</a> <a id="77" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="133" class="Keyword">open</a> <a id="138" class="Keyword">import</a> <a id="145" href="foundation.conjunction.html" class="Module">foundation.conjunction</a>
+<a id="168" class="Keyword">open</a> <a id="173" class="Keyword">import</a> <a id="180" href="foundation.propositions.html" class="Module">foundation.propositions</a>
+<a id="204" class="Keyword">open</a> <a id="209" class="Keyword">import</a> <a id="216" href="foundation.subtypes.html" class="Module">foundation.subtypes</a>
+<a id="236" class="Keyword">open</a> <a id="241" class="Keyword">import</a> <a id="248" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="276" class="Keyword">open</a> <a id="281" class="Keyword">import</a> <a id="288" href="metric-spaces.complete-metric-spaces.html" class="Module">metric-spaces.complete-metric-spaces</a>
+<a id="325" class="Keyword">open</a> <a id="330" class="Keyword">import</a> <a id="337" href="metric-spaces.metric-spaces.html" class="Module">metric-spaces.metric-spaces</a>
+<a id="365" class="Keyword">open</a> <a id="370" class="Keyword">import</a> <a id="377" href="metric-spaces.totally-bounded-metric-spaces.html" class="Module">metric-spaces.totally-bounded-metric-spaces</a>
+</pre>
+</details>
+
+## Idea
+
+A [metric space](metric-spaces.metric-spaces.md) is
+{{#concept "compact" WDID=Q381892 WD="compact space" Agda=is-compact-Metric-Space}}
+if it is [totally bounded](metric-spaces.totally-bounded-metric-spaces.md) and
+[complete](metric-spaces.complete-metric-spaces.md).
+
+## Definition
+
+<pre class="Agda"><a id="739" class="Keyword">module</a> <a id="746" href="metric-spaces.compact-metric-spaces.html#746" class="Module">_</a>
+  <a id="750" class="Symbol">{</a><a id="751" href="metric-spaces.compact-metric-spaces.html#751" class="Bound">l1</a> <a id="754" href="metric-spaces.compact-metric-spaces.html#754" class="Bound">l2</a> <a id="757" class="Symbol">:</a> <a id="759" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="764" class="Symbol">}</a> <a id="766" class="Symbol">(</a><a id="767" href="metric-spaces.compact-metric-spaces.html#767" class="Bound">l3</a> <a id="770" class="Symbol">:</a> <a id="772" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="777" class="Symbol">)</a> <a id="779" class="Symbol">(</a><a id="780" href="metric-spaces.compact-metric-spaces.html#780" class="Bound">X</a> <a id="782" class="Symbol">:</a> <a id="784" href="metric-spaces.metric-spaces.html#4139" class="Function">Metric-Space</a> <a id="797" href="metric-spaces.compact-metric-spaces.html#751" class="Bound">l1</a> <a id="800" href="metric-spaces.compact-metric-spaces.html#754" class="Bound">l2</a><a id="802" class="Symbol">)</a>
+  <a id="806" class="Keyword">where</a>
+
+  <a id="815" href="metric-spaces.compact-metric-spaces.html#815" class="Function">is-compact-prop-Metric-Space</a> <a id="844" class="Symbol">:</a> <a id="846" href="foundation-core.propositions.html#1153" class="Function">Prop</a> <a id="851" class="Symbol">(</a><a id="852" href="metric-spaces.compact-metric-spaces.html#751" class="Bound">l1</a> <a id="855" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="857" href="metric-spaces.compact-metric-spaces.html#754" class="Bound">l2</a> <a id="860" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="862" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="867" href="metric-spaces.compact-metric-spaces.html#767" class="Bound">l3</a><a id="869" class="Symbol">)</a>
+  <a id="873" href="metric-spaces.compact-metric-spaces.html#815" class="Function">is-compact-prop-Metric-Space</a> <a id="902" class="Symbol">=</a>
+    <a id="908" href="metric-spaces.totally-bounded-metric-spaces.html#1696" class="Function">is-totally-bounded-prop-Metric-Space</a> <a id="945" href="metric-spaces.compact-metric-spaces.html#767" class="Bound">l3</a> <a id="948" href="metric-spaces.compact-metric-spaces.html#780" class="Bound">X</a> <a id="950" href="foundation.conjunction.html#2377" class="Function Operator">∧</a> <a id="952" href="metric-spaces.complete-metric-spaces.html#1292" class="Function">is-complete-prop-Metric-Space</a> <a id="982" href="metric-spaces.compact-metric-spaces.html#780" class="Bound">X</a>
+
+  <a id="987" href="metric-spaces.compact-metric-spaces.html#987" class="Function">is-compact-Metric-Space</a> <a id="1011" class="Symbol">:</a> <a id="1013" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1016" class="Symbol">(</a><a id="1017" href="metric-spaces.compact-metric-spaces.html#751" class="Bound">l1</a> <a id="1020" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1022" href="metric-spaces.compact-metric-spaces.html#754" class="Bound">l2</a> <a id="1025" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1027" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="1032" href="metric-spaces.compact-metric-spaces.html#767" class="Bound">l3</a><a id="1034" class="Symbol">)</a>
+  <a id="1038" href="metric-spaces.compact-metric-spaces.html#987" class="Function">is-compact-Metric-Space</a> <a id="1062" class="Symbol">=</a> <a id="1064" href="foundation-core.propositions.html#1249" class="Function">type-Prop</a> <a id="1074" href="metric-spaces.compact-metric-spaces.html#815" class="Function">is-compact-prop-Metric-Space</a>
+
+<a id="Compact-Metric-Space"></a><a id="1104" href="metric-spaces.compact-metric-spaces.html#1104" class="Function">Compact-Metric-Space</a> <a id="1125" class="Symbol">:</a> <a id="1127" class="Symbol">(</a><a id="1128" href="metric-spaces.compact-metric-spaces.html#1128" class="Bound">l1</a> <a id="1131" href="metric-spaces.compact-metric-spaces.html#1131" class="Bound">l2</a> <a id="1134" href="metric-spaces.compact-metric-spaces.html#1134" class="Bound">l3</a> <a id="1137" class="Symbol">:</a> <a id="1139" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1144" class="Symbol">)</a> <a id="1146" class="Symbol">→</a> <a id="1148" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1151" class="Symbol">(</a><a id="1152" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="1157" href="metric-spaces.compact-metric-spaces.html#1128" class="Bound">l1</a> <a id="1160" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1162" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="1167" href="metric-spaces.compact-metric-spaces.html#1131" class="Bound">l2</a> <a id="1170" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1172" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="1177" href="metric-spaces.compact-metric-spaces.html#1134" class="Bound">l3</a><a id="1179" class="Symbol">)</a>
+<a id="1181" href="metric-spaces.compact-metric-spaces.html#1104" class="Function">Compact-Metric-Space</a> <a id="1202" href="metric-spaces.compact-metric-spaces.html#1202" class="Bound">l1</a> <a id="1205" href="metric-spaces.compact-metric-spaces.html#1205" class="Bound">l2</a> <a id="1208" href="metric-spaces.compact-metric-spaces.html#1208" class="Bound">l3</a> <a id="1211" class="Symbol">=</a>
+  <a id="1215" href="foundation-core.subtypes.html#1776" class="Function">type-subtype</a> <a id="1228" class="Symbol">(</a><a id="1229" href="metric-spaces.compact-metric-spaces.html#815" class="Function">is-compact-prop-Metric-Space</a> <a id="1258" class="Symbol">{</a><a id="1259" href="metric-spaces.compact-metric-spaces.html#1202" class="Bound">l1</a><a id="1261" class="Symbol">}</a> <a id="1263" class="Symbol">{</a><a id="1264" href="metric-spaces.compact-metric-spaces.html#1205" class="Bound">l2</a><a id="1266" class="Symbol">}</a> <a id="1268" href="metric-spaces.compact-metric-spaces.html#1208" class="Bound">l3</a><a id="1270" class="Symbol">)</a>
+</pre>

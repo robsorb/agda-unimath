@@ -1,0 +1,66 @@
+# Descent data for constant type families over the circle
+
+<pre class="Agda"><a id="68" class="Keyword">module</a> <a id="75" href="synthetic-homotopy-theory.descent-circle-constant-families.html" class="Module">synthetic-homotopy-theory.descent-circle-constant-families</a> <a id="134" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="190" class="Keyword">open</a> <a id="195" class="Keyword">import</a> <a id="202" href="foundation.constant-type-families.html" class="Module">foundation.constant-type-families</a>
+<a id="236" class="Keyword">open</a> <a id="241" class="Keyword">import</a> <a id="248" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="280" class="Keyword">open</a> <a id="285" class="Keyword">import</a> <a id="292" href="foundation.equivalences.html" class="Module">foundation.equivalences</a>
+<a id="316" class="Keyword">open</a> <a id="321" class="Keyword">import</a> <a id="328" href="foundation.identity-types.html" class="Module">foundation.identity-types</a>
+<a id="354" class="Keyword">open</a> <a id="359" class="Keyword">import</a> <a id="366" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="394" class="Keyword">open</a> <a id="399" class="Keyword">import</a> <a id="406" href="synthetic-homotopy-theory.descent-circle.html" class="Module">synthetic-homotopy-theory.descent-circle</a>
+<a id="447" class="Keyword">open</a> <a id="452" class="Keyword">import</a> <a id="459" href="synthetic-homotopy-theory.free-loops.html" class="Module">synthetic-homotopy-theory.free-loops</a>
+</pre>
+</details>
+
+## Idea
+
+[Descent data for the circle](synthetic-homotopy-theory.descent-circle.md) for a
+[constant type family](foundation.constant-type-families.md) is the type it
+evaluates to, together with the identity.
+
+## Definitions
+
+### Descent data for constant type families over the circle
+
+<pre class="Agda"><a id="807" class="Keyword">module</a> <a id="814" href="synthetic-homotopy-theory.descent-circle-constant-families.html#814" class="Module">_</a>
+  <a id="818" class="Symbol">{</a> <a id="820" href="synthetic-homotopy-theory.descent-circle-constant-families.html#820" class="Bound">l1</a> <a id="823" href="synthetic-homotopy-theory.descent-circle-constant-families.html#823" class="Bound">l2</a> <a id="826" class="Symbol">:</a> <a id="828" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="833" class="Symbol">}</a> <a id="835" class="Symbol">{</a><a id="836" href="synthetic-homotopy-theory.descent-circle-constant-families.html#836" class="Bound">S</a> <a id="838" class="Symbol">:</a> <a id="840" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="843" href="synthetic-homotopy-theory.descent-circle-constant-families.html#820" class="Bound">l1</a><a id="845" class="Symbol">}</a> <a id="847" class="Symbol">(</a><a id="848" href="synthetic-homotopy-theory.descent-circle-constant-families.html#848" class="Bound">l</a> <a id="850" class="Symbol">:</a> <a id="852" href="synthetic-homotopy-theory.free-loops.html#997" class="Function">free-loop</a> <a id="862" href="synthetic-homotopy-theory.descent-circle-constant-families.html#836" class="Bound">S</a><a id="863" class="Symbol">)</a>
+  <a id="867" class="Symbol">(</a> <a id="869" href="synthetic-homotopy-theory.descent-circle-constant-families.html#869" class="Bound">X</a> <a id="871" class="Symbol">:</a> <a id="873" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="876" href="synthetic-homotopy-theory.descent-circle-constant-families.html#823" class="Bound">l2</a><a id="878" class="Symbol">)</a>
+  <a id="882" class="Keyword">where</a>
+
+  <a id="891" href="synthetic-homotopy-theory.descent-circle-constant-families.html#891" class="Function">descent-data-circle-constant-type</a> <a id="925" class="Symbol">:</a> <a id="927" href="synthetic-homotopy-theory.descent-circle.html#1763" class="Function">descent-data-circle</a> <a id="947" href="synthetic-homotopy-theory.descent-circle-constant-families.html#823" class="Bound">l2</a>
+  <a id="952" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="956" href="synthetic-homotopy-theory.descent-circle-constant-families.html#891" class="Function">descent-data-circle-constant-type</a> <a id="990" class="Symbol">=</a> <a id="992" href="synthetic-homotopy-theory.descent-circle-constant-families.html#869" class="Bound">X</a>
+  <a id="996" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1000" href="synthetic-homotopy-theory.descent-circle-constant-families.html#891" class="Function">descent-data-circle-constant-type</a> <a id="1034" class="Symbol">=</a> <a id="1036" href="foundation-core.equivalences.html#3922" class="Function">id-equiv</a>
+
+  <a id="1048" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1048" class="Function">family-descent-data-circle-constant-type</a> <a id="1089" class="Symbol">:</a> <a id="1091" href="synthetic-homotopy-theory.descent-circle-constant-families.html#836" class="Bound">S</a> <a id="1093" class="Symbol">→</a> <a id="1095" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1098" href="synthetic-homotopy-theory.descent-circle-constant-families.html#823" class="Bound">l2</a>
+  <a id="1103" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1048" class="Function">family-descent-data-circle-constant-type</a> <a id="1144" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1144" class="Bound">x</a> <a id="1146" class="Symbol">=</a> <a id="1148" href="synthetic-homotopy-theory.descent-circle-constant-families.html#869" class="Bound">X</a>
+</pre>
+## Properties
+
+### Characterization of descent data for constant type families over the circle
+
+<pre class="Agda"><a id="1259" class="Keyword">module</a> <a id="1266" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1266" class="Module">_</a>
+  <a id="1270" class="Symbol">{</a> <a id="1272" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1272" class="Bound">l1</a> <a id="1275" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1275" class="Bound">l2</a> <a id="1278" class="Symbol">:</a> <a id="1280" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1285" class="Symbol">}</a> <a id="1287" class="Symbol">{</a><a id="1288" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1288" class="Bound">S</a> <a id="1290" class="Symbol">:</a> <a id="1292" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1295" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1272" class="Bound">l1</a><a id="1297" class="Symbol">}</a> <a id="1299" class="Symbol">(</a><a id="1300" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1300" class="Bound">l</a> <a id="1302" class="Symbol">:</a> <a id="1304" href="synthetic-homotopy-theory.free-loops.html#997" class="Function">free-loop</a> <a id="1314" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1288" class="Bound">S</a><a id="1315" class="Symbol">)</a>
+  <a id="1319" class="Symbol">(</a> <a id="1321" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1321" class="Bound">X</a> <a id="1323" class="Symbol">:</a> <a id="1325" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1328" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1275" class="Bound">l2</a><a id="1330" class="Symbol">)</a>
+  <a id="1334" class="Keyword">where</a>
+
+  <a id="1343" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1343" class="Function">eq-descent-data-circle-constant-type</a> <a id="1380" class="Symbol">:</a>
+    <a id="1386" href="synthetic-homotopy-theory.descent-circle.html#3011" class="Function">equiv-descent-data-circle</a>
+      <a id="1418" class="Symbol">(</a> <a id="1420" href="synthetic-homotopy-theory.descent-circle-constant-families.html#891" class="Function">descent-data-circle-constant-type</a> <a id="1454" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1300" class="Bound">l</a> <a id="1456" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1321" class="Bound">X</a><a id="1457" class="Symbol">)</a>
+      <a id="1465" class="Symbol">(</a> <a id="1467" href="synthetic-homotopy-theory.descent-circle.html#2542" class="Function">descent-data-family-circle</a> <a id="1494" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1300" class="Bound">l</a>
+        <a id="1504" class="Symbol">(</a> <a id="1506" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1048" class="Function">family-descent-data-circle-constant-type</a> <a id="1547" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1300" class="Bound">l</a> <a id="1549" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1321" class="Bound">X</a><a id="1550" class="Symbol">))</a>
+  <a id="1555" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="1559" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1343" class="Function">eq-descent-data-circle-constant-type</a> <a id="1596" class="Symbol">=</a> <a id="1598" href="foundation-core.equivalences.html#3922" class="Function">id-equiv</a>
+  <a id="1609" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1613" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1343" class="Function">eq-descent-data-circle-constant-type</a> <a id="1650" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1650" class="Bound">x</a> <a id="1652" class="Symbol">=</a>
+    <a id="1658" href="foundation-core.identity-types.html#6358" class="Function">inv</a> <a id="1662" class="Symbol">(</a><a id="1663" href="foundation.constant-type-families.html#1939" class="Function">tr-constant-type-family</a> <a id="1687" class="Symbol">(</a><a id="1688" href="synthetic-homotopy-theory.free-loops.html#1181" class="Function">loop-free-loop</a> <a id="1703" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1300" class="Bound">l</a><a id="1704" class="Symbol">)</a> <a id="1706" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1650" class="Bound">x</a><a id="1707" class="Symbol">)</a>
+
+  <a id="1712" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1712" class="Function">family-with-descent-data-constant-type</a> <a id="1751" class="Symbol">:</a>
+    <a id="1757" href="synthetic-homotopy-theory.descent-circle.html#5607" class="Function">family-with-descent-data-circle</a> <a id="1789" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1300" class="Bound">l</a> <a id="1791" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1275" class="Bound">l2</a>
+  <a id="1796" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="1800" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1712" class="Function">family-with-descent-data-constant-type</a> <a id="1839" class="Symbol">=</a>
+    <a id="1845" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1048" class="Function">family-descent-data-circle-constant-type</a> <a id="1886" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1300" class="Bound">l</a> <a id="1888" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1321" class="Bound">X</a>
+  <a id="1892" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="1896" class="Symbol">(</a><a id="1897" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1901" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1712" class="Function">family-with-descent-data-constant-type</a><a id="1939" class="Symbol">)</a> <a id="1941" class="Symbol">=</a>
+    <a id="1947" href="synthetic-homotopy-theory.descent-circle-constant-families.html#891" class="Function">descent-data-circle-constant-type</a> <a id="1981" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1300" class="Bound">l</a> <a id="1983" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1321" class="Bound">X</a>
+  <a id="1987" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1991" class="Symbol">(</a><a id="1992" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="1996" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1712" class="Function">family-with-descent-data-constant-type</a><a id="2034" class="Symbol">)</a> <a id="2036" class="Symbol">=</a>
+    <a id="2042" href="synthetic-homotopy-theory.descent-circle-constant-families.html#1343" class="Function">eq-descent-data-circle-constant-type</a>
+</pre>

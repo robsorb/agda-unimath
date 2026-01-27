@@ -1,0 +1,95 @@
+# Convergent series in metric abelian groups
+
+<pre class="Agda"><a id="55" class="Keyword">module</a> <a id="62" href="analysis.convergent-series-metric-abelian-groups.html" class="Module">analysis.convergent-series-metric-abelian-groups</a> <a id="111" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="167" class="Keyword">open</a> <a id="172" class="Keyword">import</a> <a id="179" href="analysis.metric-abelian-groups.html" class="Module">analysis.metric-abelian-groups</a>
+<a id="210" class="Keyword">open</a> <a id="215" class="Keyword">import</a> <a id="222" href="analysis.series-metric-abelian-groups.html" class="Module">analysis.series-metric-abelian-groups</a>
+
+<a id="261" class="Keyword">open</a> <a id="266" class="Keyword">import</a> <a id="273" href="foundation.dependent-pair-types.html" class="Module">foundation.dependent-pair-types</a>
+<a id="305" class="Keyword">open</a> <a id="310" class="Keyword">import</a> <a id="317" href="foundation.propositions.html" class="Module">foundation.propositions</a>
+<a id="341" class="Keyword">open</a> <a id="346" class="Keyword">import</a> <a id="353" href="foundation.subtypes.html" class="Module">foundation.subtypes</a>
+<a id="373" class="Keyword">open</a> <a id="378" class="Keyword">import</a> <a id="385" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="413" class="Keyword">open</a> <a id="418" class="Keyword">import</a> <a id="425" href="lists.sequences.html" class="Module">lists.sequences</a>
+
+<a id="442" class="Keyword">open</a> <a id="447" class="Keyword">import</a> <a id="454" href="metric-spaces.convergent-sequences-metric-spaces.html" class="Module">metric-spaces.convergent-sequences-metric-spaces</a>
+<a id="503" class="Keyword">open</a> <a id="508" class="Keyword">import</a> <a id="515" href="metric-spaces.limits-of-sequences-metric-spaces.html" class="Module">metric-spaces.limits-of-sequences-metric-spaces</a>
+</pre>
+</details>
+
+## Idea
+
+A [series](analysis.series-metric-abelian-groups.md) in a
+[metric abelian group](analysis.metric-abelian-groups.md) is
+{{#concept "convergent" Disambiguation="series in a metric abelian group" Agda=is-convergent-series-Metric-Ab Agda=convergent-series-Metric-Ab WDID=Q1211057 WD="convergent series"}}
+if its [sequence](lists.sequences.md) of partial sums
+[converges](metric-spaces.convergent-sequences-metric-spaces.md) in the
+associated [metric space](metric-spaces.metric-spaces.md).
+
+## Definition
+
+<pre class="Agda"><a id="1099" class="Keyword">module</a> <a id="1106" href="analysis.convergent-series-metric-abelian-groups.html#1106" class="Module">_</a>
+  <a id="1110" class="Symbol">{</a><a id="1111" href="analysis.convergent-series-metric-abelian-groups.html#1111" class="Bound">l1</a> <a id="1114" href="analysis.convergent-series-metric-abelian-groups.html#1114" class="Bound">l2</a> <a id="1117" class="Symbol">:</a> <a id="1119" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1124" class="Symbol">}</a> <a id="1126" class="Symbol">(</a><a id="1127" href="analysis.convergent-series-metric-abelian-groups.html#1127" class="Bound">G</a> <a id="1129" class="Symbol">:</a> <a id="1131" href="analysis.metric-abelian-groups.html#1174" class="Function">Metric-Ab</a> <a id="1141" href="analysis.convergent-series-metric-abelian-groups.html#1111" class="Bound">l1</a> <a id="1144" href="analysis.convergent-series-metric-abelian-groups.html#1114" class="Bound">l2</a><a id="1146" class="Symbol">)</a> <a id="1148" class="Symbol">(</a><a id="1149" href="analysis.convergent-series-metric-abelian-groups.html#1149" class="Bound">σ</a> <a id="1151" class="Symbol">:</a> <a id="1153" href="analysis.series-metric-abelian-groups.html#1320" class="Record">series-Metric-Ab</a> <a id="1170" href="analysis.convergent-series-metric-abelian-groups.html#1127" class="Bound">G</a><a id="1171" class="Symbol">)</a>
+  <a id="1175" class="Keyword">where</a>
+
+  <a id="1184" href="analysis.convergent-series-metric-abelian-groups.html#1184" class="Function">is-convergent-prop-series-Metric-Ab</a> <a id="1220" class="Symbol">:</a> <a id="1222" href="foundation-core.propositions.html#1153" class="Function">Prop</a> <a id="1227" class="Symbol">(</a><a id="1228" href="analysis.convergent-series-metric-abelian-groups.html#1111" class="Bound">l1</a> <a id="1231" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1233" href="analysis.convergent-series-metric-abelian-groups.html#1114" class="Bound">l2</a><a id="1235" class="Symbol">)</a>
+  <a id="1239" href="analysis.convergent-series-metric-abelian-groups.html#1184" class="Function">is-convergent-prop-series-Metric-Ab</a> <a id="1275" class="Symbol">=</a>
+    <a id="1281" href="metric-spaces.convergent-sequences-metric-spaces.html#1113" class="Function">subtype-convergent-sequence-Metric-Space</a>
+      <a id="1328" class="Symbol">(</a> <a id="1330" href="analysis.metric-abelian-groups.html#3395" class="Function">metric-space-Metric-Ab</a> <a id="1353" href="analysis.convergent-series-metric-abelian-groups.html#1127" class="Bound">G</a><a id="1354" class="Symbol">)</a>
+      <a id="1362" class="Symbol">(</a> <a id="1364" href="analysis.series-metric-abelian-groups.html#2339" class="Function">partial-sum-series-Metric-Ab</a> <a id="1393" href="analysis.convergent-series-metric-abelian-groups.html#1127" class="Bound">G</a> <a id="1395" href="analysis.convergent-series-metric-abelian-groups.html#1149" class="Bound">σ</a><a id="1396" class="Symbol">)</a>
+
+  <a id="1401" href="analysis.convergent-series-metric-abelian-groups.html#1401" class="Function">is-convergent-series-Metric-Ab</a> <a id="1432" class="Symbol">:</a> <a id="1434" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1437" class="Symbol">(</a><a id="1438" href="analysis.convergent-series-metric-abelian-groups.html#1111" class="Bound">l1</a> <a id="1441" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1443" href="analysis.convergent-series-metric-abelian-groups.html#1114" class="Bound">l2</a><a id="1445" class="Symbol">)</a>
+  <a id="1449" href="analysis.convergent-series-metric-abelian-groups.html#1401" class="Function">is-convergent-series-Metric-Ab</a> <a id="1480" class="Symbol">=</a>
+    <a id="1486" href="foundation-core.propositions.html#1249" class="Function">type-Prop</a> <a id="1496" href="analysis.convergent-series-metric-abelian-groups.html#1184" class="Function">is-convergent-prop-series-Metric-Ab</a>
+
+<a id="convergent-series-Metric-Ab"></a><a id="1533" href="analysis.convergent-series-metric-abelian-groups.html#1533" class="Function">convergent-series-Metric-Ab</a> <a id="1561" class="Symbol">:</a>
+  <a id="1565" class="Symbol">{</a><a id="1566" href="analysis.convergent-series-metric-abelian-groups.html#1566" class="Bound">l1</a> <a id="1569" href="analysis.convergent-series-metric-abelian-groups.html#1569" class="Bound">l2</a> <a id="1572" class="Symbol">:</a> <a id="1574" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1579" class="Symbol">}</a> <a id="1581" class="Symbol">(</a><a id="1582" href="analysis.convergent-series-metric-abelian-groups.html#1582" class="Bound">G</a> <a id="1584" class="Symbol">:</a> <a id="1586" href="analysis.metric-abelian-groups.html#1174" class="Function">Metric-Ab</a> <a id="1596" href="analysis.convergent-series-metric-abelian-groups.html#1566" class="Bound">l1</a> <a id="1599" href="analysis.convergent-series-metric-abelian-groups.html#1569" class="Bound">l2</a><a id="1601" class="Symbol">)</a> <a id="1603" class="Symbol">→</a> <a id="1605" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1608" class="Symbol">(</a><a id="1609" href="analysis.convergent-series-metric-abelian-groups.html#1566" class="Bound">l1</a> <a id="1612" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1614" href="analysis.convergent-series-metric-abelian-groups.html#1569" class="Bound">l2</a><a id="1616" class="Symbol">)</a>
+<a id="1618" href="analysis.convergent-series-metric-abelian-groups.html#1533" class="Function">convergent-series-Metric-Ab</a> <a id="1646" href="analysis.convergent-series-metric-abelian-groups.html#1646" class="Bound">G</a> <a id="1648" class="Symbol">=</a>
+  <a id="1652" href="foundation-core.subtypes.html#1776" class="Function">type-subtype</a> <a id="1665" class="Symbol">(</a><a id="1666" href="analysis.convergent-series-metric-abelian-groups.html#1184" class="Function">is-convergent-prop-series-Metric-Ab</a> <a id="1702" href="analysis.convergent-series-metric-abelian-groups.html#1646" class="Bound">G</a><a id="1703" class="Symbol">)</a>
+</pre>
+## Properties
+
+<pre class="Agda"><a id="1733" class="Keyword">module</a> <a id="1740" href="analysis.convergent-series-metric-abelian-groups.html#1740" class="Module">_</a>
+  <a id="1744" class="Symbol">{</a><a id="1745" href="analysis.convergent-series-metric-abelian-groups.html#1745" class="Bound">l1</a> <a id="1748" href="analysis.convergent-series-metric-abelian-groups.html#1748" class="Bound">l2</a> <a id="1751" class="Symbol">:</a> <a id="1753" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1758" class="Symbol">}</a> <a id="1760" class="Symbol">(</a><a id="1761" href="analysis.convergent-series-metric-abelian-groups.html#1761" class="Bound">G</a> <a id="1763" class="Symbol">:</a> <a id="1765" href="analysis.metric-abelian-groups.html#1174" class="Function">Metric-Ab</a> <a id="1775" href="analysis.convergent-series-metric-abelian-groups.html#1745" class="Bound">l1</a> <a id="1778" href="analysis.convergent-series-metric-abelian-groups.html#1748" class="Bound">l2</a><a id="1780" class="Symbol">)</a> <a id="1782" class="Symbol">(</a><a id="1783" href="analysis.convergent-series-metric-abelian-groups.html#1783" class="Bound">σ</a> <a id="1785" class="Symbol">:</a> <a id="1787" href="analysis.convergent-series-metric-abelian-groups.html#1533" class="Function">convergent-series-Metric-Ab</a> <a id="1815" href="analysis.convergent-series-metric-abelian-groups.html#1761" class="Bound">G</a><a id="1816" class="Symbol">)</a>
+  <a id="1820" class="Keyword">where</a>
+
+  <a id="1829" href="analysis.convergent-series-metric-abelian-groups.html#1829" class="Function">series-convergent-series-Metric-Ab</a> <a id="1864" class="Symbol">:</a> <a id="1866" href="analysis.series-metric-abelian-groups.html#1320" class="Record">series-Metric-Ab</a> <a id="1883" href="analysis.convergent-series-metric-abelian-groups.html#1761" class="Bound">G</a>
+  <a id="1887" href="analysis.convergent-series-metric-abelian-groups.html#1829" class="Function">series-convergent-series-Metric-Ab</a> <a id="1922" class="Symbol">=</a> <a id="1924" href="foundation.dependent-pair-types.html#681" class="Field">pr1</a> <a id="1928" href="analysis.convergent-series-metric-abelian-groups.html#1783" class="Bound">σ</a>
+
+  <a id="1933" href="analysis.convergent-series-metric-abelian-groups.html#1933" class="Function">partial-sum-convergent-series-Metric-Ab</a> <a id="1973" class="Symbol">:</a> <a id="1975" href="lists.sequences.html#682" class="Function">sequence</a> <a id="1984" class="Symbol">(</a><a id="1985" href="analysis.metric-abelian-groups.html#1705" class="Function">type-Metric-Ab</a> <a id="2000" href="analysis.convergent-series-metric-abelian-groups.html#1761" class="Bound">G</a><a id="2001" class="Symbol">)</a>
+  <a id="2005" href="analysis.convergent-series-metric-abelian-groups.html#1933" class="Function">partial-sum-convergent-series-Metric-Ab</a> <a id="2045" class="Symbol">=</a>
+    <a id="2051" href="analysis.series-metric-abelian-groups.html#2339" class="Function">partial-sum-series-Metric-Ab</a> <a id="2080" href="analysis.convergent-series-metric-abelian-groups.html#1761" class="Bound">G</a> <a id="2082" href="analysis.convergent-series-metric-abelian-groups.html#1829" class="Function">series-convergent-series-Metric-Ab</a>
+</pre>
+## The partial sums of a convergent series have a limit, the sum of the series
+
+<pre class="Agda"><a id="2210" class="Keyword">module</a> <a id="2217" href="analysis.convergent-series-metric-abelian-groups.html#2217" class="Module">_</a>
+  <a id="2221" class="Symbol">{</a><a id="2222" href="analysis.convergent-series-metric-abelian-groups.html#2222" class="Bound">l1</a> <a id="2225" href="analysis.convergent-series-metric-abelian-groups.html#2225" class="Bound">l2</a> <a id="2228" class="Symbol">:</a> <a id="2230" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2235" class="Symbol">}</a> <a id="2237" class="Symbol">(</a><a id="2238" href="analysis.convergent-series-metric-abelian-groups.html#2238" class="Bound">G</a> <a id="2240" class="Symbol">:</a> <a id="2242" href="analysis.metric-abelian-groups.html#1174" class="Function">Metric-Ab</a> <a id="2252" href="analysis.convergent-series-metric-abelian-groups.html#2222" class="Bound">l1</a> <a id="2255" href="analysis.convergent-series-metric-abelian-groups.html#2225" class="Bound">l2</a><a id="2257" class="Symbol">)</a> <a id="2259" class="Symbol">(</a><a id="2260" href="analysis.convergent-series-metric-abelian-groups.html#2260" class="Bound">σ</a> <a id="2262" class="Symbol">:</a> <a id="2264" href="analysis.convergent-series-metric-abelian-groups.html#1533" class="Function">convergent-series-Metric-Ab</a> <a id="2292" href="analysis.convergent-series-metric-abelian-groups.html#2238" class="Bound">G</a><a id="2293" class="Symbol">)</a>
+  <a id="2297" class="Keyword">where</a>
+
+  <a id="2306" href="analysis.convergent-series-metric-abelian-groups.html#2306" class="Function">has-limit-partial-sum-convergent-series-Metric-Ab</a> <a id="2356" class="Symbol">:</a>
+    <a id="2362" href="metric-spaces.limits-of-sequences-metric-spaces.html#6150" class="Function">has-limit-sequence-Metric-Space</a>
+      <a id="2400" class="Symbol">(</a> <a id="2402" href="analysis.metric-abelian-groups.html#3395" class="Function">metric-space-Metric-Ab</a> <a id="2425" href="analysis.convergent-series-metric-abelian-groups.html#2238" class="Bound">G</a><a id="2426" class="Symbol">)</a>
+      <a id="2434" class="Symbol">(</a> <a id="2436" href="analysis.convergent-series-metric-abelian-groups.html#1933" class="Function">partial-sum-convergent-series-Metric-Ab</a> <a id="2476" href="analysis.convergent-series-metric-abelian-groups.html#2238" class="Bound">G</a> <a id="2478" href="analysis.convergent-series-metric-abelian-groups.html#2260" class="Bound">σ</a><a id="2479" class="Symbol">)</a>
+  <a id="2483" href="analysis.convergent-series-metric-abelian-groups.html#2306" class="Function">has-limit-partial-sum-convergent-series-Metric-Ab</a> <a id="2533" class="Symbol">=</a>
+    <a id="2539" href="foundation.dependent-pair-types.html#693" class="Field">pr2</a> <a id="2543" href="analysis.convergent-series-metric-abelian-groups.html#2260" class="Bound">σ</a>
+
+  <a id="2548" href="analysis.convergent-series-metric-abelian-groups.html#2548" class="Function">sum-convergent-series-Metric-Ab</a> <a id="2580" class="Symbol">:</a> <a id="2582" href="analysis.metric-abelian-groups.html#1705" class="Function">type-Metric-Ab</a> <a id="2597" href="analysis.convergent-series-metric-abelian-groups.html#2238" class="Bound">G</a>
+  <a id="2601" href="analysis.convergent-series-metric-abelian-groups.html#2548" class="Function">sum-convergent-series-Metric-Ab</a> <a id="2633" class="Symbol">=</a>
+    <a id="2639" href="metric-spaces.limits-of-sequences-metric-spaces.html#6301" class="Function">limit-has-limit-sequence-Metric-Space</a>
+      <a id="2683" class="Symbol">(</a> <a id="2685" href="analysis.metric-abelian-groups.html#3395" class="Function">metric-space-Metric-Ab</a> <a id="2708" href="analysis.convergent-series-metric-abelian-groups.html#2238" class="Bound">G</a><a id="2709" class="Symbol">)</a>
+      <a id="2717" class="Symbol">(</a> <a id="2719" href="analysis.convergent-series-metric-abelian-groups.html#1933" class="Function">partial-sum-convergent-series-Metric-Ab</a> <a id="2759" href="analysis.convergent-series-metric-abelian-groups.html#2238" class="Bound">G</a> <a id="2761" href="analysis.convergent-series-metric-abelian-groups.html#2260" class="Bound">σ</a><a id="2762" class="Symbol">)</a>
+      <a id="2770" class="Symbol">(</a> <a id="2772" href="analysis.convergent-series-metric-abelian-groups.html#2306" class="Function">has-limit-partial-sum-convergent-series-Metric-Ab</a><a id="2821" class="Symbol">)</a>
+
+  <a id="2826" href="analysis.convergent-series-metric-abelian-groups.html#2826" class="Function">is-limit-partial-sum-convergent-series-Metric-Ab</a> <a id="2875" class="Symbol">:</a>
+    <a id="2881" href="metric-spaces.limits-of-sequences-metric-spaces.html#2959" class="Function">is-limit-sequence-Metric-Space</a>
+      <a id="2918" class="Symbol">(</a> <a id="2920" href="analysis.metric-abelian-groups.html#3395" class="Function">metric-space-Metric-Ab</a> <a id="2943" href="analysis.convergent-series-metric-abelian-groups.html#2238" class="Bound">G</a><a id="2944" class="Symbol">)</a>
+      <a id="2952" class="Symbol">(</a> <a id="2954" href="analysis.convergent-series-metric-abelian-groups.html#1933" class="Function">partial-sum-convergent-series-Metric-Ab</a> <a id="2994" href="analysis.convergent-series-metric-abelian-groups.html#2238" class="Bound">G</a> <a id="2996" href="analysis.convergent-series-metric-abelian-groups.html#2260" class="Bound">σ</a><a id="2997" class="Symbol">)</a>
+      <a id="3005" class="Symbol">(</a> <a id="3007" href="analysis.convergent-series-metric-abelian-groups.html#2548" class="Function">sum-convergent-series-Metric-Ab</a><a id="3038" class="Symbol">)</a>
+  <a id="3042" href="analysis.convergent-series-metric-abelian-groups.html#2826" class="Function">is-limit-partial-sum-convergent-series-Metric-Ab</a> <a id="3091" class="Symbol">=</a>
+    <a id="3097" href="metric-spaces.limits-of-sequences-metric-spaces.html#6452" class="Function">is-limit-limit-has-limit-sequence-Metric-Space</a>
+      <a id="3150" class="Symbol">(</a> <a id="3152" href="analysis.metric-abelian-groups.html#3395" class="Function">metric-space-Metric-Ab</a> <a id="3175" href="analysis.convergent-series-metric-abelian-groups.html#2238" class="Bound">G</a><a id="3176" class="Symbol">)</a>
+      <a id="3184" class="Symbol">(</a> <a id="3186" href="analysis.convergent-series-metric-abelian-groups.html#1933" class="Function">partial-sum-convergent-series-Metric-Ab</a> <a id="3226" href="analysis.convergent-series-metric-abelian-groups.html#2238" class="Bound">G</a> <a id="3228" href="analysis.convergent-series-metric-abelian-groups.html#2260" class="Bound">σ</a><a id="3229" class="Symbol">)</a>
+      <a id="3237" class="Symbol">(</a> <a id="3239" href="analysis.convergent-series-metric-abelian-groups.html#2306" class="Function">has-limit-partial-sum-convergent-series-Metric-Ab</a><a id="3288" class="Symbol">)</a>
+</pre>

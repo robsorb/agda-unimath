@@ -1,0 +1,47 @@
+# The binary action on identifications of binary dependent functions
+
+<pre class="Agda"><a id="79" class="Keyword">module</a> <a id="86" href="foundation.action-on-identifications-binary-dependent-functions.html" class="Module">foundation.action-on-identifications-binary-dependent-functions</a> <a id="150" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="206" class="Keyword">open</a> <a id="211" class="Keyword">import</a> <a id="218" href="foundation.action-on-identifications-dependent-functions.html" class="Module">foundation.action-on-identifications-dependent-functions</a>
+<a id="275" class="Keyword">open</a> <a id="280" class="Keyword">import</a> <a id="287" href="foundation.binary-dependent-identifications.html" class="Module">foundation.binary-dependent-identifications</a>
+<a id="331" class="Keyword">open</a> <a id="336" class="Keyword">import</a> <a id="343" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="371" class="Keyword">open</a> <a id="376" class="Keyword">import</a> <a id="383" href="foundation-core.identity-types.html" class="Module">foundation-core.identity-types</a>
+</pre>
+</details>
+
+## Idea
+
+Given a binary dependent function `f : (x : A) (y : B) → C x y` and
+[identifications](foundation-core.identity-types.md) `p : x ＝ x'` in `A` and
+`q : y ＝ y'` in `B`, we obtain a
+[binary dependent identification](foundation.binary-dependent-identifications.md)
+
+```text
+  apd-binary f p q : binary-dependent-identification p q (f x y) (f x' y')
+```
+
+we call this the
+{{#concept "binary action on identifications of dependent binary functions" Agda=apd-binary}}.
+
+## Definitions
+
+### The binary action on identifications of binary dependent functions
+
+<pre class="Agda"><a id="998" class="Keyword">module</a> <a id="1005" href="foundation.action-on-identifications-binary-dependent-functions.html#1005" class="Module">_</a>
+  <a id="1009" class="Symbol">{</a><a id="1010" href="foundation.action-on-identifications-binary-dependent-functions.html#1010" class="Bound">l1</a> <a id="1013" href="foundation.action-on-identifications-binary-dependent-functions.html#1013" class="Bound">l2</a> <a id="1016" href="foundation.action-on-identifications-binary-dependent-functions.html#1016" class="Bound">l3</a> <a id="1019" class="Symbol">:</a> <a id="1021" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1026" class="Symbol">}</a> <a id="1028" class="Symbol">{</a><a id="1029" href="foundation.action-on-identifications-binary-dependent-functions.html#1029" class="Bound">A</a> <a id="1031" class="Symbol">:</a> <a id="1033" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1036" href="foundation.action-on-identifications-binary-dependent-functions.html#1010" class="Bound">l1</a><a id="1038" class="Symbol">}</a> <a id="1040" class="Symbol">{</a><a id="1041" href="foundation.action-on-identifications-binary-dependent-functions.html#1041" class="Bound">B</a> <a id="1043" class="Symbol">:</a> <a id="1045" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1048" href="foundation.action-on-identifications-binary-dependent-functions.html#1013" class="Bound">l2</a><a id="1050" class="Symbol">}</a> <a id="1052" class="Symbol">{</a><a id="1053" href="foundation.action-on-identifications-binary-dependent-functions.html#1053" class="Bound">C</a> <a id="1055" class="Symbol">:</a> <a id="1057" href="foundation.action-on-identifications-binary-dependent-functions.html#1029" class="Bound">A</a> <a id="1059" class="Symbol">→</a> <a id="1061" href="foundation.action-on-identifications-binary-dependent-functions.html#1041" class="Bound">B</a> <a id="1063" class="Symbol">→</a> <a id="1065" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1068" href="foundation.action-on-identifications-binary-dependent-functions.html#1016" class="Bound">l3</a><a id="1070" class="Symbol">}</a>
+  <a id="1074" class="Symbol">(</a><a id="1075" href="foundation.action-on-identifications-binary-dependent-functions.html#1075" class="Bound">f</a> <a id="1077" class="Symbol">:</a> <a id="1079" class="Symbol">(</a><a id="1080" href="foundation.action-on-identifications-binary-dependent-functions.html#1080" class="Bound">x</a> <a id="1082" class="Symbol">:</a> <a id="1084" href="foundation.action-on-identifications-binary-dependent-functions.html#1029" class="Bound">A</a><a id="1085" class="Symbol">)</a> <a id="1087" class="Symbol">(</a><a id="1088" href="foundation.action-on-identifications-binary-dependent-functions.html#1088" class="Bound">y</a> <a id="1090" class="Symbol">:</a> <a id="1092" href="foundation.action-on-identifications-binary-dependent-functions.html#1041" class="Bound">B</a><a id="1093" class="Symbol">)</a> <a id="1095" class="Symbol">→</a> <a id="1097" href="foundation.action-on-identifications-binary-dependent-functions.html#1053" class="Bound">C</a> <a id="1099" href="foundation.action-on-identifications-binary-dependent-functions.html#1080" class="Bound">x</a> <a id="1101" href="foundation.action-on-identifications-binary-dependent-functions.html#1088" class="Bound">y</a><a id="1102" class="Symbol">)</a>
+  <a id="1106" class="Keyword">where</a>
+
+  <a id="1115" href="foundation.action-on-identifications-binary-dependent-functions.html#1115" class="Function">apd-binary</a> <a id="1126" class="Symbol">:</a>
+    <a id="1132" class="Symbol">{</a><a id="1133" href="foundation.action-on-identifications-binary-dependent-functions.html#1133" class="Bound">x</a> <a id="1135" href="foundation.action-on-identifications-binary-dependent-functions.html#1135" class="Bound">x&#39;</a> <a id="1138" class="Symbol">:</a> <a id="1140" href="foundation.action-on-identifications-binary-dependent-functions.html#1029" class="Bound">A</a><a id="1141" class="Symbol">}</a> <a id="1143" class="Symbol">(</a><a id="1144" href="foundation.action-on-identifications-binary-dependent-functions.html#1144" class="Bound">p</a> <a id="1146" class="Symbol">:</a> <a id="1148" href="foundation.action-on-identifications-binary-dependent-functions.html#1133" class="Bound">x</a> <a id="1150" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a> <a id="1152" href="foundation.action-on-identifications-binary-dependent-functions.html#1135" class="Bound">x&#39;</a><a id="1154" class="Symbol">)</a> <a id="1156" class="Symbol">{</a><a id="1157" href="foundation.action-on-identifications-binary-dependent-functions.html#1157" class="Bound">y</a> <a id="1159" href="foundation.action-on-identifications-binary-dependent-functions.html#1159" class="Bound">y&#39;</a> <a id="1162" class="Symbol">:</a> <a id="1164" href="foundation.action-on-identifications-binary-dependent-functions.html#1041" class="Bound">B</a><a id="1165" class="Symbol">}</a> <a id="1167" class="Symbol">(</a><a id="1168" href="foundation.action-on-identifications-binary-dependent-functions.html#1168" class="Bound">q</a> <a id="1170" class="Symbol">:</a> <a id="1172" href="foundation.action-on-identifications-binary-dependent-functions.html#1157" class="Bound">y</a> <a id="1174" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a> <a id="1176" href="foundation.action-on-identifications-binary-dependent-functions.html#1159" class="Bound">y&#39;</a><a id="1178" class="Symbol">)</a> <a id="1180" class="Symbol">→</a>
+    <a id="1186" href="foundation.binary-dependent-identifications.html#927" class="Function">binary-dependent-identification</a> <a id="1218" href="foundation.action-on-identifications-binary-dependent-functions.html#1053" class="Bound">C</a> <a id="1220" href="foundation.action-on-identifications-binary-dependent-functions.html#1144" class="Bound">p</a> <a id="1222" href="foundation.action-on-identifications-binary-dependent-functions.html#1168" class="Bound">q</a> <a id="1224" class="Symbol">(</a><a id="1225" href="foundation.action-on-identifications-binary-dependent-functions.html#1075" class="Bound">f</a> <a id="1227" href="foundation.action-on-identifications-binary-dependent-functions.html#1133" class="Bound">x</a> <a id="1229" href="foundation.action-on-identifications-binary-dependent-functions.html#1157" class="Bound">y</a><a id="1230" class="Symbol">)</a> <a id="1232" class="Symbol">(</a><a id="1233" href="foundation.action-on-identifications-binary-dependent-functions.html#1075" class="Bound">f</a> <a id="1235" href="foundation.action-on-identifications-binary-dependent-functions.html#1135" class="Bound">x&#39;</a> <a id="1238" href="foundation.action-on-identifications-binary-dependent-functions.html#1159" class="Bound">y&#39;</a><a id="1240" class="Symbol">)</a>
+  <a id="1244" href="foundation.action-on-identifications-binary-dependent-functions.html#1115" class="Function">apd-binary</a> <a id="1255" href="foundation-core.identity-types.html#2682" class="InductiveConstructor">refl</a> <a id="1260" href="foundation-core.identity-types.html#2682" class="InductiveConstructor">refl</a> <a id="1265" class="Symbol">=</a> <a id="1267" href="foundation-core.identity-types.html#2682" class="InductiveConstructor">refl</a>
+</pre>
+## See also
+
+- [Action of functions on identifications](foundation.action-on-identifications-functions.md)
+- [Action of functions on higher identifications](foundation.action-on-higher-identifications-functions.md).
+- [Action of dependent functions on identifications](foundation.action-on-identifications-dependent-functions.md).
