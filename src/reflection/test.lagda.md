@@ -88,14 +88,11 @@ macro
 
     unify new-goal-type goal-type
 
-    printT "goal: " goal-type
-    printT "new goal: " new-goal-type
-
 T = bool
 T' = unit
 
 
 x : T × T'
-x = unfold T' ?
+x = unfold T' {!   !}
 
 ```
