@@ -15,6 +15,10 @@ open import reflection.arguments
 open import reflection.abstractions
 open import reflection.metavariables
 
+open import foundation.booleans
+open import foundation.cartesian-product-types
+open import foundation.dependent-pair-types
+
 open import elementary-number-theory.natural-numbers
 
 ```
@@ -46,6 +50,10 @@ coe-non-dep-fun x = x
 
 coe-non-dep-fun' : (A : UU lzero) (B : UU lzero) → (A → B) → A → B
 coe-non-dep-fun' A B x = x
+
+
+T = bool
+T' = unit
 
 
 macro
@@ -92,16 +100,28 @@ macro
 
     unpack-fun-type (λ dom cod → try-block-meta cod) goal-type
 
-    unify dom (quoteTerm Term-Agda)
+    with-normalization true (with-reduce-definitions (true , cons (quote T) nil) (do
+      brbrb ← quote-Type-Checker (T × T')
+      unify dom brbrb))
 
     goal-type ← infer-type goal
 
     printT "dom " dom
     printT "cod " cod
     printT "done " goal-type
+    print "bing"
+
+    -- goal-type ← infer-type goal
+
+    -- printT "dom " dom
+    -- printT "cod " cod
+    -- printT "done " goal-type
+
+
 
 f : ℕ → ℕ
 f = {!   !}
+
 
 
 x : ℕ
