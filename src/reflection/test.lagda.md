@@ -1,5 +1,7 @@
 ```agda
 
+{-# OPTIONS --no-exact-split #-}
+
 module reflection.test where
 ```
 
@@ -71,6 +73,7 @@ init-tactic hole = do
     try-block-meta goal-type
     return-Type-Checker (goal-type , new-goal-type))
 
+q = λ (n : ℕ) → n
 
 macro
   exact : Term-Agda → type-Type-Checker unit
@@ -78,7 +81,7 @@ macro
     (goal-type , new-goal-type) ← init-tactic hole
 
     unify new-goal-type goal-type
-    unify hole (quoteTerm (λ x → x))
+    unify hole (lambda-Term-Agda visible-Visibility-Argument-Agda (cons-Abstraction-Agda "_" (variable-Term-Agda 0 nil)))
 
   unfold : Name-Agda → Term-Agda → type-Type-Checker unit
   unfold name hole = do
@@ -87,12 +90,13 @@ macro
         with-reduce-definitions (true , cons name nil) (init-tactic hole)))
 
     unify new-goal-type goal-type
+    unify hole (lambda-Term-Agda visible-Visibility-Argument-Agda (cons-Abstraction-Agda "_" (variable-Term-Agda 0 nil)))
 
 T = bool
 T' = unit
 
 
 x : T × T'
-x = unfold T' {!   !}
+x = unfold T (true , star)
 
 ```
