@@ -1,4 +1,5 @@
 ```agda
+{-# OPTIONS --rewriting #-}
 
 module simplicial-hott.discrete-types where
 
