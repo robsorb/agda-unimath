@@ -1,5 +1,7 @@
 ```agda
 
+{-# OPTIONS --rewriting #-}
+
 module simplicial-hott.interval where
 
 ```
@@ -45,6 +47,8 @@ open import order-theory.bottom-elements-posets
 open import synthetic-homotopy-theory.joins-of-types
 open import synthetic-homotopy-theory.cocones-under-spans
 open import synthetic-homotopy-theory.universal-property-pushouts
+
+open import reflection.rewriting
 ```
 
 ## Postulates
@@ -158,6 +162,62 @@ idempotent-meet-Δ¹ i = idempotent-meet-Meet-Semilattice Δ¹-Meet-Semilattice 
 
 idempotent-join-Δ¹ : (i : Δ¹) → i ∨Δ¹ i ＝ i
 idempotent-join-Δ¹ i = idempotent-join-Join-Semilattice Δ¹-Join-Semilattice i
+
+meet-bottom-left-Δ¹-rewrite :
+  (i : Δ¹) → pr1 (has-greatest-binary-lower-bound-Total-Order Δ¹-Total-Order 0-Δ¹ i) ＝ 0-Δ¹
+meet-bottom-left-Δ¹-rewrite = meet-bottom-left-Δ¹
+
+meet-bottom-right-Δ¹-rewrite :
+  (i : Δ¹) → pr1 (has-greatest-binary-lower-bound-Total-Order Δ¹-Total-Order i 0-Δ¹) ＝ 0-Δ¹
+meet-bottom-right-Δ¹-rewrite = meet-bottom-right-Δ¹
+
+meet-top-right-Δ¹-rewrite :
+  (i : Δ¹) → pr1 (has-greatest-binary-lower-bound-Total-Order Δ¹-Total-Order i 1-Δ¹) ＝ i
+meet-top-right-Δ¹-rewrite = meet-top-right-Δ¹
+
+meet-top-left-Δ¹-rewrite :
+  (i : Δ¹) → pr1 (has-greatest-binary-lower-bound-Total-Order Δ¹-Total-Order 1-Δ¹ i) ＝ i
+meet-top-left-Δ¹-rewrite = meet-top-left-Δ¹
+
+join-bottom-left-Δ¹-rewrite :
+  (i : Δ¹) → pr1 (has-least-binary-upper-bound-Total-Order Δ¹-Total-Order 0-Δ¹ i) ＝ i
+join-bottom-left-Δ¹-rewrite = join-bottom-left-Δ¹
+
+join-bottom-right-Δ¹-rewrite :
+  (i : Δ¹) → pr1 (has-least-binary-upper-bound-Total-Order Δ¹-Total-Order i 0-Δ¹) ＝ i
+join-bottom-right-Δ¹-rewrite = join-bottom-right-Δ¹
+
+join-top-left-Δ¹-rewrite :
+  (i : Δ¹) → pr1 (has-least-binary-upper-bound-Total-Order Δ¹-Total-Order 1-Δ¹ i) ＝ 1-Δ¹
+join-top-left-Δ¹-rewrite = join-top-left-Δ¹
+
+join-top-right-Δ¹-rewrite :
+  (i : Δ¹) → pr1 (has-least-binary-upper-bound-Total-Order Δ¹-Total-Order i 1-Δ¹) ＝ 1-Δ¹
+join-top-right-Δ¹-rewrite = join-top-right-Δ¹
+
+idempotent-meet-Δ¹-rewrite :
+  (i : Δ¹) → pr1 (has-greatest-binary-lower-bound-Total-Order Δ¹-Total-Order i i) ＝ i
+idempotent-meet-Δ¹-rewrite = idempotent-meet-Δ¹
+
+idempotent-join-Δ¹-rewrite :
+  (i : Δ¹) → pr1 (has-least-binary-upper-bound-Total-Order Δ¹-Total-Order i i) ＝ i
+idempotent-join-Δ¹-rewrite = idempotent-join-Δ¹
+
+
+{-# REWRITE
+  meet-bottom-left-Δ¹-rewrite
+  meet-bottom-right-Δ¹-rewrite
+  meet-top-right-Δ¹-rewrite
+  meet-top-left-Δ¹-rewrite
+  join-bottom-left-Δ¹-rewrite
+  join-bottom-right-Δ¹-rewrite
+  join-top-left-Δ¹-rewrite
+  join-top-right-Δ¹-rewrite
+  idempotent-meet-Δ¹-rewrite
+  idempotent-join-Δ¹-rewrite
+  #-}
+
+
 
 ```
 
