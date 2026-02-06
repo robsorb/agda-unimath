@@ -18,9 +18,13 @@ open import reflection.abstractions
 open import reflection.metavariables
 open import reflection.names
 
+open import foundation.function-types
+open import foundation.coproduct-types
 open import foundation.booleans
+open import foundation.maybe
 open import foundation.cartesian-product-types
 open import foundation.dependent-pair-types
+open import lists.functoriality-lists
 
 open import elementary-number-theory.natural-numbers
 
@@ -53,6 +57,44 @@ coe-non-dep-fun x = x
 
 coe-non-dep-fun' : (A : UU lzero) (B : UU lzero) → (A → B) → A → B
 coe-non-dep-fun' A B x = x
+
+
+maybe-replace-term : (Term-Agda → Maybe Term-Agda) → Term-Agda → Term-Agda
+maybe-replace-term h t = rec-coproduct id (λ _ → t) (h t)
+
+
+map-argument : {l1 l2 : Level} {A : UU l1} {B : UU l2} → (A → B) → Argument-Agda A → Argument-Agda B
+map-argument f (cons-Argument-Agda info a) = cons-Argument-Agda info (f a)
+
+map-abstraction : {l1 l2 : Level} {A : UU l1} {B : UU l2} → (A → B) → Abstraction-Agda A → Abstraction-Agda B
+map-abstraction f (cons-Abstraction-Agda str a) = cons-Abstraction-Agda str (f a)
+
+map-sort : (Term-Agda → Term-Agda) → Sort-Agda → Sort-Agda
+map-sort f (universe-Sort-Agda t) = universe-Sort-Agda (f t)
+map-sort f (fixed-universe-Sort-Agda n) = fixed-universe-Sort-Agda n
+map-sort f (prop-Sort-Agda t) = prop-Sort-Agda (f t)
+map-sort f (fixed-prop-Sort-Agda n) = fixed-prop-Sort-Agda n
+map-sort f (fixed-large-universe-Sort-Agda n) = fixed-large-universe-Sort-Agda n
+map-sort f unknown-Sort-Agda = unknown-Sort-Agda
+
+mutual
+  map-term : (Term-Agda → Maybe Term-Agda) → Term-Agda → Term-Agda
+  map-term h t = rec-coproduct id (λ _ → map-term' h t) (h t)
+
+  {-# TERMINATING #-}
+  map-term' : (Term-Agda → Maybe Term-Agda) → Term-Agda → Term-Agda
+  map-term' h (variable-Term-Agda n args) = variable-Term-Agda n (map-list (map-argument (map-term h)) args)
+  map-term' h (constructor-Term-Agda name args) = constructor-Term-Agda name (map-list (map-argument (map-term h)) args)
+  map-term' h (definition-Term-Agda name args) = definition-Term-Agda name (map-list (map-argument (map-term h)) args)
+  map-term' h (lambda-Term-Agda vis abs) = lambda-Term-Agda vis (map-abstraction (map-term h) abs)
+  map-term' h (pattern-lambda-Term-Agda clauses args) = {!   !}
+  map-term' h (dependent-product-Term-Agda arg abs) =
+    dependent-product-Term-Agda (map-argument (map-term h) arg) (map-abstraction (map-term h) abs)
+  map-term' h (sort-Term-Agda sort) = sort-Term-Agda (map-sort (map-term h) sort)
+  map-term' h (literal-Term-Agda lit) = literal-Term-Agda lit
+  map-term' h (metavariable-Term-Agda meta args) = metavariable-Term-Agda meta (map-list (map-argument (map-term h)) args)
+  map-term' h unknown-Term-Agda = unknown-Term-Agda
+
 
 
 init-tactic : Term-Agda → type-Type-Checker (Term-Agda × Term-Agda)
