@@ -1,4 +1,6 @@
 ```agda
+{-# OPTIONS --rewriting #-}
+
 module simplicial-hott.segal-types where
 
 open import foundation-core.function-types
@@ -62,7 +64,7 @@ module _
   fill-horn-Segal = map-inv-equiv horn-triangle-equiv-Segal
 
   compute-fill-horn :
-    {h : Λ²₁ → type-Segal C} → (i : Λ²₁) → fill-horn-Segal h (Λ²₁-to-Δ² i) ＝ h i
+    {h : Λ²₁ → type-Segal C} → (i : Λ²₁) → fill-horn-Segal h (inclusion-Δ²-Λ²₁ i) ＝ h i
   compute-fill-horn {h = h} =
     htpy-eq (is-section-map-inv-equiv horn-triangle-equiv-Segal h)
 

@@ -44,14 +44,17 @@ module _
   section-over-edge : (f : Δ¹ → B) → UU l2
   section-over-edge f = (i : Δ¹) → E (f i)
 
-  dom-section : (f : Δ¹ → B) → (s : section-over-edge f) → E (f 0-Δ¹)
-  dom-section f s = s 0-Δ¹
+  dom-section : {f : Δ¹ → B} → (s : section-over-edge f) → E (f 0-Δ¹)
+  dom-section s = s 0-Δ¹
+
+  cod-section : {f : Δ¹ → B} → (s : section-over-edge f) → E (f 1-Δ¹)
+  cod-section s = s 1-Δ¹
 
   lifts-over-edge : (f : Δ¹ → B) (e : E (f 0-Δ¹)) → UU l2
-  lifts-over-edge f = fiber (dom-section f)
+  lifts-over-edge f = fiber (dom-section {f = f})
 
   is-covariant : Prop (l1 ⊔ l2)
-  is-covariant = Π-Prop (Δ¹ → B) (λ f → is-equiv-Prop (dom-section f))
+  is-covariant = Π-Prop (Δ¹ → B) (λ f → is-equiv-Prop (dom-section {f = f}))
 ```
 
 ## Discrete families with action on fibers are covariant
@@ -73,7 +76,7 @@ module _
   lift-square-action : (g : section-over-edge E f) → (x y : Δ¹) → E (f x)
   lift-square-action g x y = clamp-action x y (g (x ∧Δ¹ y))
 
-  is-retraction-dom-action : dom-section E f ∘ lift-edge-action ~ id
+  is-retraction-dom-action : dom-section E ∘ lift-edge-action ~ id
   is-retraction-dom-action = action-id (f 0-Δ¹)
 
 module _
@@ -85,7 +88,7 @@ module _
 
   is-section-dom-discrete-action :
     (f : Δ¹ → B) → (g : section-over-edge E f) →
-      lift-edge-action E action action-id f (dom-section E f g) ＝ g
+      lift-edge-action E action action-id f (dom-section E g) ＝ g
   is-section-dom-discrete-action f g =
     eq-htpy (λ x →
       equational-reasoning

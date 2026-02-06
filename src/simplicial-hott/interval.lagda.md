@@ -351,14 +351,14 @@ subtype-Δ² (i , j ) = geq-Δ¹-Prop i j
 Δ² : UU lzero
 Δ² = type-subtype subtype-Δ²
 
-Λ²₁-to-Δ² : Λ²₁ → Δ²
-Λ²₁-to-Δ² = tot Λ²₁-Relation-implies-Δ²-Relation
+inclusion-Δ²-Λ²₁ : Λ²₁ → Δ²
+inclusion-Δ²-Λ²₁ = tot Λ²₁-Relation-implies-Δ²-Relation
 
 bottom-Δ² : Δ¹ → Δ²
-bottom-Δ² = Λ²₁-to-Δ² ∘ bottom-Λ²₁
+bottom-Δ² = inclusion-Δ²-Λ²₁ ∘ bottom-Λ²₁
 
 right-Δ² : Δ¹ → Δ²
-right-Δ² = Λ²₁-to-Δ² ∘ right-Λ²₁
+right-Δ² = inclusion-Δ²-Λ²₁ ∘ right-Λ²₁
 
 diagonal-Δ² : Δ¹ → Δ²
 diagonal-Δ² i = (i , i) , refl-leq-Poset Δ¹-Poset i
@@ -453,7 +453,7 @@ module _
   {l : Level} (C : UU l)
   where
   restriction-to-Λ²₁ : (Δ² → C) → (Λ²₁ → C)
-  restriction-to-Λ²₁ α = α ∘ Λ²₁-to-Δ²
+  restriction-to-Λ²₁ α = α ∘ inclusion-Δ²-Λ²₁
 
 module _
   {l : Level} {C : UU l}
