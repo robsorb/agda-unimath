@@ -441,36 +441,8 @@ module _
   diagonal-degen-right : diagonal-edge degen-Δ²-right ~ f
   diagonal-degen-right i = ap f (idempotent-join-Δ¹ i)
 
-  clamp-edge : (((u , l) , _ ) : Δ²) → hom (f l) (f u)
-  pr1 (clamp-edge t) i = f (clamp t i)
-  pr1 (pr2 (clamp-edge t)) = ap f (clamp-0 t)
-  pr2 (pr2 (clamp-edge t)) = ap f (clamp-1 t)
-
-  clamp-edge-diagonal : (i : Δ¹) → clamp-edge (diagonal-Δ² i) ＝ id-hom (f i)
-  clamp-edge-diagonal i =
-    hom-ext
-      (λ x → ap f (clamp-diagonal i x))
-      (ap (_∙ refl) (equational-reasoning
-        inv (ap f p0) ∙ ap f q0
-          ＝ ap f (inv p0) ∙ ap f q0
-            by ap (_∙ (ap f q0)) (inv (ap-inv f p0))
-          ＝ ap f ((inv p0) ∙ q0)
-            by inv (ap-concat f (inv p0) q0)
-          ＝ refl
-            by ap (ap f) (eq-type-Prop (Id-Prop Δ¹-Set i i))))
-      (ap (_∙ refl) (equational-reasoning
-        inv (ap f p1) ∙ ap f q1
-          ＝ ap f (inv p1) ∙ ap f q1
-            by ap (_∙ ap f q1) (inv (ap-inv f p1))
-          ＝ ap f (inv p1 ∙ q1)
-            by inv (ap-concat f (inv p1) q1)
-          ＝ refl
-            by ap (ap f) (eq-type-Prop (Id-Prop Δ¹-Set i i))))
-      where
-        p0 = clamp-0 (diagonal-Δ² i)
-        q0 = clamp-diagonal i 0-Δ¹
-        p1 = clamp-1 (diagonal-Δ² i)
-        q1 = clamp-diagonal i 1-Δ¹
+  clamp-edge : Δ¹ → Δ¹ → Δ¹ → C
+  clamp-edge x y i = f (x ∧Δ¹ (y ∨Δ¹ i))
 
 ```
 
